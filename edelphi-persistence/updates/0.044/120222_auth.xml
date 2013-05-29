@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="AuthSource" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+        <field name="strategy" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+    <table name="AuthSourceSetting" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="authSource_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="settingKey" type="java.lang.String" nullable="false" unique="false" />
+        <field name="value" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+    <table name="DelfoiAuth" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="delfoi_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="authSource_id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+    <table name="PanelAuth" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="authSource_id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="AuthSourceSetting">
+      <addForeignKeys>
+        <key columns="authSource_id" referencedColumns="id" referencedTable="AuthSource" />
+      </addForeignKeys>
+    </table>
+    <table name="DelfoiAuth">
+      <addForeignKeys>
+        <key columns="delfoi_id" referencedColumns="id" referencedTable="Delfoi" />
+        <key columns="authSource_id" referencedColumns="id" referencedTable="AuthSource" />
+      </addForeignKeys>
+    </table>
+    <table name="PanelAuth">
+      <addForeignKeys>
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+        <key columns="authSource_id" referencedColumns="id" referencedTable="AuthSource" />
+      </addForeignKeys>
+    </table>
+    <table name="UserIdentification">
+      <addFields>
+        <field name="authSource_id" type="java.lang.Long" nullable="true"/>
+      </addFields>    
+      <addForeignKeys>
+        <key columns="authSource_id" referencedColumns="id" referencedTable="AuthSource" />
+      </addForeignKeys>
+    </table>
+    <table name="UserPicture">
+      <addFields>
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="true"/>
+      </addFields>    
+    </table>
+  </alterTables>
+  
+  <sql>insert into AuthSource (id,name,strategy) values (1,'eDelfoi','eDelfoi')</sql>
+  <sql>insert into AuthSource (id,name,strategy) values (2,'Facebook','Facebook')</sql>
+  <sql>insert into AuthSource (id,name,strategy) values (3,'Google','Google')</sql>
+  <sql>insert into AuthSource (id,name,strategy) values (4,'Twitter','Twitter')</sql>
+  <sql>insert into DelfoiAuth (id,delfoi_id,authSource_id) values (1,1,1)</sql>
+  <sql>insert into DelfoiAuth (id,delfoi_id,authSource_id) values (2,1,2)</sql>
+  <sql>insert into DelfoiAuth (id,delfoi_id,authSource_id) values (3,1,3)</sql>
+  <sql>insert into DelfoiAuth (id,delfoi_id,authSource_id) values (4,1,4)</sql>
+  <sql>update UserIdentification set authSource_id=2 where authProvider='Facebook'</sql>
+  <sql>update UserIdentification set authSource_id=3 where authProvider='Google'</sql>
+  <sql>update UserIdentification set authSource_id=4 where authProvider='Twitter'</sql>
+  <sql>update hibernate_sequences set sequence_next_hi_value = (select max(id) + 1 from AuthSource) where sequence_name = 'AuthSource'</sql>
+  <sql>update hibernate_sequences set sequence_next_hi_value = (select max(id) + 1 from DelfoiAuth) where sequence_name = 'DelfoiAuth'</sql>
+  <sql>update UserPicture set lastModified=now()</sql>
+
+  <alterTables>
+    <table name="UserIdentification">
+      <dropFields>
+        <field name="authProvider" />
+      </dropFields>
+    </table>
+    <table name="PanelSettingsTemplate">
+      <dropFields>
+        <field name="allowedAuths" />
+      </dropFields>
+    </table>
+    <table name="Panel">
+      <dropFields>
+        <field name="allowedAuths" />
+      </dropFields>
+    </table>
+  </alterTables>
+
+</update>

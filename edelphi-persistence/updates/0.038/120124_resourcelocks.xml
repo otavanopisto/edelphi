@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table primaryKeys="id" name="ResourceLock">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="expires" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="resource_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key referencedColumns="id" columns="resource_id" referencedTable="Resource" />
+        <key referencedColumns="id" columns="creator_id" referencedTable="User" />
+      </foreignKeys>
+    </table>
+  </createTables>
+
+</update>

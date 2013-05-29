@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="Setting" primaryKeys="id">
+      <fields>
+	      <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="key_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="value" type="java.lang.String" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="SettingKey" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="Setting">
+      <addForeignKeys>
+        <key columns="key_id" referencedColumns="id" referencedTable="SettingKey" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+  <alterData>
+    <insert table="SettingKey">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="name" value="oauth.google.apiKey" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SettingKey">
+      <value column="id" value="2" type="java.lang.Long"/>
+      <value column="name" value="oauth.google.apiSecret" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SettingKey">
+      <value column="id" value="3" type="java.lang.Long"/>
+      <value column="name" value="oauth.twitter.apiKey" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SettingKey">
+      <value column="id" value="4" type="java.lang.Long"/>
+      <value column="name" value="oauth.twitter.apiSecret" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SettingKey">
+      <value column="id" value="5" type="java.lang.Long"/>
+      <value column="name" value="oauth.facebook.apiKey" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SettingKey">
+      <value column="id" value="6" type="java.lang.Long"/>
+      <value column="name" value="oauth.facebook.apiSecret" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SettingKey">
+      <value column="id" value="7" type="java.lang.Long"/>
+      <value column="name" value="gdata.user.username" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SettingKey">
+      <value column="id" value="8" type="java.lang.Long"/>
+      <value column="name" value="gdata.user.password" type="java.lang.String"/>
+    </insert>
+    
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="9" type="java.lang.Integer"/>
+      <value column="sequence_name" value="SettingKey" type="java.lang.String"/>
+    </insert>
+    
+  </alterData>
+  
+</update>

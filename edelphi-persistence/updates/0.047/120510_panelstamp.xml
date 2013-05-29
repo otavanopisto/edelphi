@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="Panel">
+      <addFields>
+        <field name="currentStamp_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+    </table>
+  </alterTables>
+  
+  <sql>update Panel set currentStamp_id=id</sql>
+  
+  <alterTables>
+    <table name="Panel">
+      <addForeignKeys>
+        <key columns="currentStamp_id" referencedColumns="id" referencedTable="PanelStamp" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+  <sql>update hibernate_sequences set sequence_next_hi_value = (select max(id) + 1 from PanelStamp) where sequence_name = 'PanelStamp'</sql>
+
+</update>

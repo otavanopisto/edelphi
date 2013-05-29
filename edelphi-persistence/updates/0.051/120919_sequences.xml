@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <sql>update hibernate_sequences set sequence_next_hi_value = sequence_next_hi_value + 100</sql>
+  <sql>update localizedvalue set text='Sorting' where text='Ordering'</sql>
+
+</update>

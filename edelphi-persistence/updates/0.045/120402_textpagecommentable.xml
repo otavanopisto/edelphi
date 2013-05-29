@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+  
+  <sql>insert into QueryPageSettingKey (id,name) (select IFNULL(max(id), 0) + 1, 'text.commentable' from QueryPageSettingKey)</sql>
+  <sql>insert into QueryPageSettingKey (id,name) (select IFNULL(max(id), 0) + 1, 'text.viewDiscussions' from QueryPageSettingKey)</sql>
+  <sql>update hibernate_sequences set sequence_next_hi_value = (select max(id) + 1 from QueryPageSettingKey) where sequence_name = 'QueryPageSettingKey'</sql>
+    
+</update>

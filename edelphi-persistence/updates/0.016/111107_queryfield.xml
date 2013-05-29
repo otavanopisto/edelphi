@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterData>
+    <delete table="QueryQuestionTextAnswer"/>
+    <delete table="QueryQuestionOptionAnswer"/>
+    <delete table="QueryQuestionNumericAnswer"/>
+    <delete table="QueryQuestionBinaryAnswer"/>
+    <delete table="QueryQuestionAnswer"/>
+    <delete table="QueryReply"/>
+    <delete table="QueryPage"/>
+    <delete table="QueryPageSetting"/>
+    <delete table="QueryTextField"/>
+    <delete table="QueryScaleField"/>
+    <delete table="QueryOptionFieldOption"/>
+    <delete table="QueryOptionField"/>
+    <delete table="QueryNumericField"/>
+    <delete table="QueryField"/>
+    <delete table="Query"/>
+  </alterData>
+  
+  <alterTables>
+    <table name="QueryField">
+      <dropForeignKeys>
+        <key name="FK_QUERYFIELD_QUERYID"/>
+      </dropForeignKeys>
+    </table>
+  </alterTables>
+
+  <alterTables>
+    <table name="QueryField">
+      <changeFields>
+        <field name="query_id" newName="queryPage_id" type="java.lang.Long" unique="false" nullable="false"/>
+      </changeFields>
+      <addForeignKeys>
+        <key columns="queryPage_id" referencedColumns="id" referencedTable="QueryPage"/>
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

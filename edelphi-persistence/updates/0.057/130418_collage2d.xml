@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+  
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, '2D Collage', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, '2D-kooste', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into QueryPageTemplate (id, iconName, archived, creator_id, created, lastModifier_id, lastModified, name_id, pageType) select max(id) + 1, 'collage2d', false, 1, NOW(), 1, NOW(), (select max(id) from LocalizedEntry), 'COLLAGE_2D' from QueryPageTemplate</sql>
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'collage2d.includedPages' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select max(id) from QueryPageTemplate) from QueryPageSettingKey where name = "collage2d.includedPages"</sql>
+  <sql>insert into QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), ''</sql>
+
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'collage2d.pageSettings' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select max(id) from QueryPageTemplate) from QueryPageSettingKey where name = "collage2d.pageSettings"</sql>
+  <sql>insert into QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), ''</sql>
+
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'collage2d.replySource' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select max(id) from QueryPageTemplate) from QueryPageSettingKey where name = "collage2d.replySource"</sql>
+  <sql>insert into QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), 'ALL'</sql>
+
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'collage2d.labelVisibility' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select max(id) from QueryPageTemplate) from QueryPageSettingKey where name = "collage2d.labelVisibility"</sql>
+  <sql>insert into QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), 'HOVER'</sql>
+
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'collage2d.replyCountsVisible' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select max(id) from QueryPageTemplate) from QueryPageSettingKey where name = "collage2d.replyCountsVisible"</sql>
+  <sql>insert into QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), 'TRUE'</sql>
+  
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'collage2d.dotOffset' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select max(id) from QueryPageTemplate) from QueryPageSettingKey where name = "collage2d.dotOffset"</sql>
+  <sql>insert into QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'collage2d.dotMultiplier' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select max(id) from QueryPageTemplate) from QueryPageSettingKey where name = "collage2d.dotMultiplier"</sql>
+  <sql>insert into QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+
+  <sql>update hibernate_sequences set sequence_next_hi_value = sequence_next_hi_value + 1 where sequence_name in ('LocalizedEntry', 'LocalizedValue', 'QueryPageTemplate', 'QueryPageSettingKey', 'QueryPageTemplateSetting')</sql>
+</update>

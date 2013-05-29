@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="UserRole">
+      <dropFields>
+        <field name="name"/>
+      </dropFields>
+      <addFields>
+        <field name="name_id" type="java.lang.Long" nullable="false" unique="false" />
+      </addFields>
+      <addForeignKeys>
+        <key columns="name_id" referencedColumns="id" referencedTable="LocalizedEntry" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+  
+  <alterData>
+    <insert table="LocalizedEntry">
+      <value column="id" value="28" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedEntry">
+      <value column="id" value="29" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedEntry">
+      <value column="id" value="30" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedEntry">
+      <value column="id" value="31" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedEntry">
+      <value column="id" value="32" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedEntry">
+      <value column="id" value="33" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedEntry">
+      <value column="id" value="34" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedEntry">
+      <value column="id" value="35" type="java.lang.Long"/>
+    </insert>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="28" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="1" type="java.lang.Long"/>
+      </where>
+    </update>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="29" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="2" type="java.lang.Long"/>
+      </where>
+    </update>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="30" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="3" type="java.lang.Long"/>
+      </where>
+    </update>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="31" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="4" type="java.lang.Long"/>
+      </where>
+    </update>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="32" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="5" type="java.lang.Long"/>
+      </where>
+    </update>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="33" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="6" type="java.lang.Long"/>
+      </where>
+    </update>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="34" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="7" type="java.lang.Long"/>
+      </where>
+    </update>
+    <update table="UserRole">
+      <set>
+        <value column="name_id" value="35" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="8" type="java.lang.Long"/>
+      </where>
+    </update>
+    <insert table="LocalizedValue">
+      <value column="id" value="55" type="java.lang.Long"/>
+      <value column="text" value="Everyone" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="28" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="56" type="java.lang.Long"/>
+      <value column="text" value="Kaikki" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="28" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="57" type="java.lang.Long"/>
+      <value column="text" value="Administrators" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="29" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="58" type="java.lang.Long"/>
+      <value column="text" value="Yll&#228;pit&#228;j&#228;t" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="29" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="59" type="java.lang.Long"/>
+      <value column="text" value="Managers" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="30" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="60" type="java.lang.Long"/>
+      <value column="text" value="Hallinnoijat" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="30" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="61" type="java.lang.Long"/>
+      <value column="text" value="Users" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="31" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="62" type="java.lang.Long"/>
+      <value column="text" value="K&#228;ytt&#228;j&#228;t" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="31" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="63" type="java.lang.Long"/>
+      <value column="text" value="Guests" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="32" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="64" type="java.lang.Long"/>
+      <value column="text" value="Vieraat" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="32" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="65" type="java.lang.Long"/>
+      <value column="text" value="Panel Managers" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="33" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="66" type="java.lang.Long"/>
+      <value column="text" value="Paneelin hallinnoijat" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="33" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="67" type="java.lang.Long"/>
+      <value column="text" value="Panelists" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="34" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="68" type="java.lang.Long"/>
+      <value column="text" value="Panelistit" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="34" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="69" type="java.lang.Long"/>
+      <value column="text" value="Panel Guests" type="java.lang.String"/>
+      <value column="locale" value="en" type="java.lang.String"/>
+      <value column="entry_id" value="35" type="java.lang.Long"/>
+    </insert>
+    <insert table="LocalizedValue">
+      <value column="id" value="70" type="java.lang.Long"/>
+      <value column="text" value="Paneelin vieraat" type="java.lang.String"/>
+      <value column="locale" value="fi" type="java.lang.String"/>
+      <value column="entry_id" value="35" type="java.lang.Long"/>
+    </insert>
+  </alterData>
+
+  <sql>update hibernate_sequences set sequence_next_hi_value=sequence_next_hi_value + 8 where sequence_name='LocalizedEntry'</sql>
+  <sql>update hibernate_sequences set sequence_next_hi_value=sequence_next_hi_value + 16 where sequence_name='LocalizedValue'</sql>
+  
+</update>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="Delfoi" primaryKeys="id">
+      <fields>
+	      <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="domain" type="java.lang.String" nullable="true" unique="false" />
+        <field name="rootFolder_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="DelfoiDefaults" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="delfoi_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="defaultPanelCreatorRole_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+    
+    <table name="DelfoiUser" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="delfoi_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="user_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserRole" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="Panel" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="delfoi_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+        <field name="description" type="java.lang.String" nullable="true" unique="false" length="1073741824" />
+        <field name="defaultPanelUserRole_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="rootFolder_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUser" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="user_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="role_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserGroup" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="__PanelUserGroupUsers" primaryKeys="panelUserGroup_id,user_id">
+      <fields>
+        <field name="panelUserGroup_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="user_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserIntressClass" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserExpertiseClass" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserExpertiseGroup" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="expertiseClass_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="intressClass_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="color" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelExpertiseGroupUser" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="panelUser_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="expertiseGroup_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="weight" type="java.lang.Double" nullable="true" unique="false"/>
+      </fields>
+    </table>
+    
+    <table name="PanelInvitation" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="email" type="java.lang.String" nullable="false" unique="false" />
+        <field name="hash" type="java.lang.String" nullable="false" unique="false" />
+        <field name="role_id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="state" type="java.lang.String" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+  </createTables>
+
+  <alterTables>
+    <table name="Delfoi">
+      <addForeignKeys>
+        <key columns="rootFolder_id" referencedColumns="id" referencedTable="Folder" />
+      </addForeignKeys>
+    </table>
+
+    <table name="DelfoiDefaults">
+      <addForeignKeys>
+        <key columns="delfoi_id" referencedColumns="id" referencedTable="Delfoi" />
+        <key columns="defaultPanelCreatorRole_id" referencedColumns="id" referencedTable="PanelUserRole" />
+      </addForeignKeys>
+    </table>
+    
+    <table name="DelfoiUser">
+      <addForeignKeys>
+        <key columns="delfoi_id" referencedColumns="id" referencedTable="Delfoi" />
+        <key columns="user_id" referencedColumns="id" referencedTable="User" />
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+
+    <table name="Panel">
+      <addForeignKeys>
+        <key columns="delfoi_id" referencedColumns="id" referencedTable="Delfoi" />
+        <key columns="defaultPanelUserRole_id" referencedColumns="id" referencedTable="PanelUserRole" />
+        <key columns="rootFolder_id" referencedColumns="id" referencedTable="Folder" />
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelUser">
+      <addForeignKeys>
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+        <key columns="user_id" referencedColumns="id" referencedTable="User" />
+        <key columns="role_id" referencedColumns="id" referencedTable="PanelUserRole" />
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelUserGroup">
+      <addForeignKeys>
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+
+    <table name="__PanelUserGroupUsers">
+      <addForeignKeys>
+        <key columns="panelUserGroup_id" referencedColumns="id" referencedTable="PanelUserGroup" />
+        <key columns="user_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelUserIntressClass">
+      <addForeignKeys>
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelUserExpertiseClass">
+      <addForeignKeys>
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelUserExpertiseGroup">
+      <addForeignKeys>
+        <key columns="expertiseClass_id" referencedColumns="id" referencedTable="PanelUserExpertiseClass" />
+        <key columns="intressClass_id" referencedColumns="id" referencedTable="PanelUserIntressClass" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelExpertiseGroupUser">
+      <addForeignKeys>
+        <key columns="panelUser_id" referencedColumns="id" referencedTable="PanelUser" />
+        <key columns="expertiseGroup_id" referencedColumns="id" referencedTable="PanelUserExpertiseGroup" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelInvitation">
+      <addForeignKeys>
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+        <key columns="role_id" referencedColumns="id" referencedTable="PanelUserRole" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

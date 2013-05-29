@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="PanelStamp" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </foreignKeys>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="QueryReply">
+      <addFields>
+        <field name="stamp_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+    </table>
+    <table name="PanelUser">
+      <addFields>
+        <field name="stamp_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+    </table>
+    <table name="PanelUserGroup">
+      <addFields>
+        <field name="stamp_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+    </table>
+    <table name="PanelUserExpertiseGroup">
+      <addFields>
+        <field name="stamp_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+    </table>
+  </alterTables>
+  
+  <sql>insert into PanelStamp (id, name, panel_id, creator_id, created, lastModifier_id, lastModified, archived) (select id, 'Oletus', id, creator_id, created, lastModifier_id, lastModified, false from Panel)</sql>
+  <sql>update QueryReply qr set qr.stamp_id=(select ps.id from PanelStamp ps, Panel p, Query q, Resource r where ps.panel_id=p.id and p.rootFolder_id=r.parentFolder_id and r.id=q.id and qr.query_id=q.id)</sql>
+  <sql>update PanelUser pu set pu.stamp_id=(select ps.id from PanelStamp ps, Panel p where ps.panel_id=p.id and p.id=pu.panel_id)</sql>
+  <sql>update PanelUserGroup pug set pug.stamp_id=(select ps.id from PanelStamp ps, Panel p where ps.panel_id=p.id and p.id=pug.panel_id)</sql>
+  <sql>update PanelUserExpertiseGroup pueg set pueg.stamp_id=(select ps.id from PanelStamp ps, Panel p where ps.panel_id=p.id and p.id=pueg.panel_id)</sql>
+  
+  <alterTables>
+    <table name="QueryReply">
+      <addForeignKeys>
+        <key columns="stamp_id" referencedColumns="id" referencedTable="PanelStamp" />
+      </addForeignKeys>
+    </table>
+    <table name="PanelUser">
+      <addForeignKeys>
+        <key columns="stamp_id" referencedColumns="id" referencedTable="PanelStamp" />
+      </addForeignKeys>
+    </table>
+    <table name="PanelUserGroup">
+      <addForeignKeys>
+        <key columns="stamp_id" referencedColumns="id" referencedTable="PanelStamp" />
+      </addForeignKeys>
+    </table>
+    <table name="PanelUserExpertiseGroup">
+      <addForeignKeys>
+        <key columns="stamp_id" referencedColumns="id" referencedTable="PanelStamp" />
+      </addForeignKeys>
+    </table>
+    <table name="PanelStamp">
+      <addForeignKeys>
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+  <sql>insert into hibernate_sequences (sequence_next_hi_value, sequence_name) select max(id) + 1, 'PanelStamp' from PanelStamp</sql>
+
+</update>

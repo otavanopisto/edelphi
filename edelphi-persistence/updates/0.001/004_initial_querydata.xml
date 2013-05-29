@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="QueryReply" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="query_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="user_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryQuestionAnswer" primaryKeys="id">
+      <fields>
+	      <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="queryReply_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="queryField_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryQuestionTextAnswer" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="data" type="java.lang.String" nullable="true" unique="false" length="1073741824" />
+      </fields>
+    </table>
+    
+    <table name="QueryQuestionNumericAnswer" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="data" type="java.lang.Double" nullable="true" unique="false"/>
+      </fields>
+    </table>
+    
+    <table name="QueryQuestionOptionAnswer" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="option_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryQuestionBinaryAnswer" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="data" type="java.sql.Blob" nullable="true" unique="false" length="1073741824"/>
+        <field name="contentType" type="java.lang.String" nullable="true" unique="false"/>
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="QueryReply">
+      <addForeignKeys>
+        <key columns="query_id" referencedColumns="id" referencedTable="Query" />
+        <key columns="user_id" referencedColumns="id" referencedTable="User" />
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+  
+    <table name="QueryQuestionAnswer">
+      <addForeignKeys>
+        <key columns="queryReply_id" referencedColumns="id" referencedTable="QueryReply" />
+        <key columns="queryField_id" referencedColumns="id" referencedTable="QueryField" />
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryQuestionTextAnswer">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryQuestionAnswer" />
+      </addForeignKeys>
+    </table>
+    
+    <table name="QueryQuestionNumericAnswer">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryQuestionAnswer" />
+      </addForeignKeys>
+    </table>
+    
+    <table name="QueryQuestionOptionAnswer">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryQuestionAnswer" />
+        <key columns="option_id" referencedColumns="id" referencedTable="QueryOptionFieldOption" />
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryQuestionBinaryAnswer">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryQuestionAnswer" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

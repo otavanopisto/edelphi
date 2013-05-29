@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="QueryOptionFieldOptionGroup" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="true" unique="false" />
+        <field name="optionField_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryQuestionOptionGroupOptionAnswer" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="group_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="QueryOptionFieldOptionGroup">
+      <addForeignKeys>
+        <key columns="optionField_id" referencedColumns="id" referencedTable="QueryOptionField" />
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryQuestionOptionGroupOptionAnswer">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryQuestionOptionAnswer" />
+        <key columns="group_id" referencedColumns="id" referencedTable="QueryOptionFieldOptionGroup" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

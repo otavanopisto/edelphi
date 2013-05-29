@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="QueryPageSetting" primaryKeys="id">
+      <fields>
+	      <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="key_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="queryPage_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="value" type="java.lang.String" nullable="true" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="queryPage_id" referencedColumns="id" referencedTable="QueryPage"/>
+      </foreignKeys>
+    </table>
+
+    <table name="QueryPageSettingKey" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="QueryPageSetting">
+      <addForeignKeys>
+        <key columns="key_id" referencedColumns="id" referencedTable="QueryPageSettingKey" />
+      </addForeignKeys>
+    </table>
+    
+    <table name="QueryPage">
+      <addFields>
+        <field name="pageType" type="java.lang.String" nullable="false" unique="false" />
+      </addFields>
+
+      <dropFields>
+        <field name="content" />
+      </dropFields>
+    </table>
+  </alterTables>
+  
+</update>

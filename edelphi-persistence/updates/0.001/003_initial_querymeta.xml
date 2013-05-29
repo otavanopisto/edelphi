@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="QueryPage" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="content" type="java.lang.String" nullable="true" unique="false" length="1073741824"/>
+        <field name="query_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="pageNumber" type="java.lang.Integer" nullable="false" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="query_id" referencedColumns="id" referencedTable="Query" name="FK_QUERYPAGE_QUERYID"/>
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </foreignKeys>
+    </table>
+    
+    <table name="QueryPageTemplate" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false"/>
+        <field name="content" type="java.lang.String" nullable="true" unique="false" length="1073741824"/>
+        <field name="iconName" type="java.lang.String" nullable="false" unique="false"/>
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </foreignKeys>
+    </table>
+    
+    <table name="QueryField" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="type" type="java.lang.String" nullable="false" unique="false" />
+        <field name="query_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+        <field name="caption" type="java.lang.String" nullable="true" unique="false" />
+        <field name="mandatory" type="java.lang.Boolean" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryTextField" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryNumericField" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="min" type="java.lang.Double" nullable="true" unique="false" />
+        <field name="max" type="java.lang.Double" nullable="true" unique="false" />
+        <field name="_precision" type="java.lang.Double" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryScaleField" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="step" type="java.lang.Double" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="QueryOptionField" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+    
+    <table name="QueryOptionFieldOption" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="optionField_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="text" type="java.lang.String" nullable="true" unique="false" />
+        <field name="value" type="java.lang.String" nullable="true" unique="false" />
+      </fields>
+    </table>
+    
+  </createTables>
+
+  <alterTables>
+    <table name="QueryField">
+      <addForeignKeys>
+        <key columns="query_id" referencedColumns="id" referencedTable="Query" name="FK_QUERYFIELD_QUERYID"/>
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryTextField">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryField" />
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryNumericField">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryField" />
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryScaleField">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryNumericField" />
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryOptionField">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryField" />
+      </addForeignKeys>
+    </table>
+
+    <table name="QueryOptionFieldOption">
+      <addForeignKeys>
+        <key columns="optionField_id" referencedColumns="id" referencedTable="QueryOptionField" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <dropTables>
+    <table name="DelfoiUserRoleAction" />
+    <table name="PanelUserRoleAction" />
+    <table name="PanelUserRole"/>
+    <table name="UserRole"/>
+  </dropTables>
+
+  <createTables>
+    <table name="UserRole" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserRole" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="DelfoiUserRole" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="SystemUserRole" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="type" type="java.lang.String" nullable="false" unique="false" />
+      </fields>
+    </table>
+    
+    <table name="UserRoleAction" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="delfoiAction_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="userRole_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="DelfoiUserRoleAction" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="delfoi_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserRoleAction" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+    
+  </createTables>
+
+  <alterTables>
+    <table name="PanelUserRole">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="UserRole" />
+      </addForeignKeys>
+    </table>
+
+    <table name="DelfoiUserRole">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="UserRole" />
+      </addForeignKeys>
+    </table>
+
+    <table name="SystemUserRole">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="UserRole" />
+      </addForeignKeys>
+    </table>
+
+    <table name="DelfoiUser">
+      <addFields>
+        <field name="role_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+
+      <addForeignKeys>
+        <key columns="role_id" referencedColumns="id" referencedTable="DelfoiUserRole" />
+      </addForeignKeys>
+    </table>
+
+    <table name="DelfoiDefaults">
+      <addFields>
+        <field name="defaultDelfoiUserRole_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+      <addForeignKeys>
+        <key columns="defaultDelfoiUserRole_id" referencedColumns="id" referencedTable="DelfoiUserRole" />
+      </addForeignKeys>
+    </table>
+    
+    <table name="UserRoleAction">
+      <addForeignKeys>
+        <key referencedColumns="id" columns="delfoiAction_id" referencedTable="DelfoiAction"/>
+        <key referencedColumns="id" columns="userRole_id" referencedTable="UserRole"/>
+      </addForeignKeys>
+    </table>
+
+    <table name="DelfoiUserRoleAction">
+      <addForeignKeys>
+        <key referencedColumns="id" columns="id" referencedTable="UserRoleAction"/>
+        <key referencedColumns="id" columns="delfoi_id" referencedTable="Delfoi"/>
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelUserRoleAction">
+      <addForeignKeys>
+        <key referencedColumns="id" columns="id" referencedTable="UserRoleAction"/>
+        <key referencedColumns="id" columns="panel_id" referencedTable="Panel"/>
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+  <alterData>
+    <insert table="UserRole">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="name" value="Everyone" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="2" type="java.lang.Long"/>
+      <value column="name" value="Administrator" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="3" type="java.lang.Long"/>
+      <value column="name" value="Manager" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="4" type="java.lang.Long"/>
+      <value column="name" value="User" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="5" type="java.lang.Long"/>
+      <value column="name" value="Guest" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="6" type="java.lang.Long"/>
+      <value column="name" value="Panel Manager" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="7" type="java.lang.Long"/>
+      <value column="name" value="Panelist" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="8" type="java.lang.Long"/>
+      <value column="name" value="Panel Guest" type="java.lang.String"/>
+    </insert>
+
+    <insert table="SystemUserRole">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="type" value="EVERYONE" type="java.lang.String"/>
+    </insert>
+    <insert table="DelfoiUserRole">
+      <value column="id" value="2" type="java.lang.Long"/>
+    </insert>
+    <insert table="DelfoiUserRole">
+      <value column="id" value="3" type="java.lang.Long"/>
+    </insert>
+    <insert table="DelfoiUserRole">
+      <value column="id" value="4" type="java.lang.Long"/>
+    </insert>
+    <insert table="DelfoiUserRole">
+      <value column="id" value="5" type="java.lang.Long"/>
+    </insert>
+    <insert table="PanelUserRole">
+      <value column="id" value="6" type="java.lang.Long"/>
+    </insert>
+    <insert table="PanelUserRole">
+      <value column="id" value="7" type="java.lang.Long"/>
+    </insert>
+    <insert table="PanelUserRole">
+      <value column="id" value="8" type="java.lang.Long"/>
+    </insert>
+    
+    <update table="DelfoiDefaults">
+      <set>
+        <value column="defaultDelfoiUserRole_id" value="5" type="java.lang.Long"/>
+        <value column="defaultPanelCreatorRole_id" value="6" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals type="java.lang.Long" column="id" value="1"/>
+      </where>
+    </update>
+
+    <update table="hibernate_sequences">
+      <set>
+        <value column="sequence_next_hi_value" value="9" type="java.lang.Integer"/>
+      </set>
+      <where>
+        <equals type="java.lang.String" column="sequence_name" value="UserRole"/>
+      </where>
+    </update>
+  
+  </alterData>
+
+</update>

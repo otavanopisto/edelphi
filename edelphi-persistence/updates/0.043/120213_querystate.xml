@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="Query">
+      <addFields>
+        <field name="state" type="java.lang.String" nullable="false"/>
+      </addFields>
+    </table>
+  </alterTables>
+  
+  <alterData>
+    <update table="Query">
+      <set>
+        <value type="java.lang.String" column="state" value="ACTIVE"/>
+      </set>
+    </update>
+    
+    <update table="Query">
+      <set>
+        <value type="java.lang.String" column="state" value="CLOSED"/>
+      </set>
+      <where>
+        <equals type="java.lang.Boolean" column="closed" value="true"/>
+      </where>
+    </update>
+  </alterData>
+
+  <alterTables>
+    <table name="Query">
+      <dropFields>
+        <field name="closed"/>
+      </dropFields>
+    </table>
+  </alterTables>
+
+</update>

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+  
+  <alterData>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="1"/>
+      <value type="java.lang.String" column="name" value="visible"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="2"/>
+      <value type="java.lang.String" column="name" value="expertise.showLiveReport"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="3"/>
+      <value type="java.lang.String" column="name" value="scale1d.type"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="4"/>
+      <value type="java.lang.String" column="name" value="scale2d.type"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="5"/>
+      <value type="java.lang.String" column="name" value="time_serie.maxY"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="6"/>
+      <value type="java.lang.String" column="name" value="time_serie.maxX"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="7"/>
+      <value type="java.lang.String" column="name" value="time_serie.minY"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="8"/>
+      <value type="java.lang.String" column="name" value="time_serie.minX"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="9"/>
+      <value type="java.lang.String" column="name" value="time_serie.stepX"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="10"/>
+      <value type="java.lang.String" column="name" value="time_serie.stepY"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="11"/>
+      <value type="java.lang.String" column="name" value="time_serie.userStepX"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="12"/>
+      <value type="java.lang.String" column="name" value="time_serie.yTickDecimals"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="13"/>
+      <value type="java.lang.String" column="name" value="thesis.commentable"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="14"/>
+      <value type="java.lang.String" column="name" value="thesis.showLiveReport"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="15"/>
+      <value type="java.lang.String" column="name" value="text.content"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="16"/>
+      <value type="java.lang.String" column="name" value="scale1d.label"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="17"/>
+      <value type="java.lang.String" column="name" value="scale1d.options"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="18"/>
+      <value type="java.lang.String" column="name" value="scale2d.label.x"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="19"/>
+      <value type="java.lang.String" column="name" value="scale2d.label.y"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="20"/>
+      <value type="java.lang.String" column="name" value="scale2d.options.x"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="21"/>
+      <value type="java.lang.String" column="name" value="scale2d.options.y"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="22"/>
+      <value type="java.lang.String" column="name" value="grouping.groups"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="23"/>
+      <value type="java.lang.String" column="name" value="grouping.items"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="24"/>
+      <value type="java.lang.String" column="name" value="time_serie.xAxisTitle"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="25"/>
+      <value type="java.lang.String" column="name" value="time_serie.yAxisTitle"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="26"/>
+      <value type="java.lang.String" column="name" value="time_serie.predefinedSetLabel"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="27"/>
+      <value type="java.lang.String" column="name" value="time_serie.userSetLabel"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="28"/>
+      <value type="java.lang.String" column="name" value="timeline.value1Label"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="29"/>
+      <value type="java.lang.String" column="name" value="timeline.value2Label"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="30"/>
+      <value type="java.lang.String" column="name" value="timeline.min"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="31"/>
+      <value type="java.lang.String" column="name" value="timeline.max"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="32"/>
+      <value type="java.lang.String" column="name" value="timeline.step"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="33"/>
+      <value type="java.lang.String" column="name" value="multiselect.options"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="34"/>
+      <value type="java.lang.String" column="name" value="orderingField.items"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="35"/>
+      <value type="java.lang.String" column="name" value="thesis.text"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="36"/>
+      <value type="java.lang.String" column="name" value="thesis.description"/>
+    </insert>
+    <insert table="QueryPageSettingKey">
+      <value type="java.lang.Long" column="id" value="37"/>
+      <value type="java.lang.String" column="name" value="time_serie.predefinedValues"/>
+    </insert>
+  </alterData>
+
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select IFNULL(max(id), 0) + 1 from QueryPageTemplateSetting), id, 2 from QueryPageSettingKey where name = "expertise.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 3 from QueryPageSettingKey where name = "scale1d.type"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "scale2d.type"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.maxY"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '100'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.maxX"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '2020'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.minY"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.minX "</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '2010'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.stepX"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.stepY"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '5'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.userStepX"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.yTickDecimals"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '2'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 6 from QueryPageSettingKey where name = "timeline.min"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 6 from QueryPageSettingKey where name = "timeline.max"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '100'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 6 from QueryPageSettingKey where name = "timeline.step"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 3 from QueryPageSettingKey where name = "thesis.commentable"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 3 from QueryPageSettingKey where name = "thesis.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "thesis.commentable"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "thesis.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "thesis.commentable"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "thesis.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 6 from QueryPageSettingKey where name = "thesis.commentable"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 6 from QueryPageSettingKey where name = "thesis.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 7 from QueryPageSettingKey where name = "thesis.commentable"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 7 from QueryPageSettingKey where name = "thesis.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 8 from QueryPageSettingKey where name = "thesis.commentable"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 8 from QueryPageSettingKey where name = "thesis.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 9 from QueryPageSettingKey where name = "thesis.commentable"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 9 from QueryPageSettingKey where name = "thesis.showLiveReport"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 1 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 2 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 3 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 6 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 7 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 8 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 9 from QueryPageSettingKey where name = "visible"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '1'</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 1 from QueryPageSettingKey where name = "text.content"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Text --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Teksti --' , 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 3 from QueryPageSettingKey where name = "scale1d.label"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Text --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Teksti --' , 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 3 from QueryPageSettingKey where name = "scale1d.options"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '---&amp;--&amp;-&amp;%2B/-&amp;%2B&amp;%2B%2B&amp;%2B%2B%2B' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '---&amp;--&amp;-&amp;%2B/-&amp;%2B&amp;%2B%2B&amp;%2B%2B%2B' , 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "scale2d.label.x"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Text --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Teksti --' , 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "scale2d.label.y"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Text --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Teksti --' , 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "scale2d.options.x"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '---&amp;--&amp;-&amp;%2B/-&amp;%2B&amp;%2B%2B&amp;%2B%2B%2B', 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '---&amp;--&amp;-&amp;%2B/-&amp;%2B&amp;%2B%2B&amp;%2B%2B%2B', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 4 from QueryPageSettingKey where name = "scale2d.options.y"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '---&amp;--&amp;-&amp;%2B/-&amp;%2B&amp;%2B%2B&amp;%2B%2B%2B', 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '---&amp;--&amp;-&amp;%2B/-&amp;%2B&amp;%2B%2B&amp;%2B%2B%2B', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.xAxisTitle"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Label --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Lis&#228;&#228; otsikko --' , 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.yAxisTitle"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Label --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Lis&#228;&#228; otsikko --', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.predefinedSetLabel"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Label --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Lis&#228;&#228; otsikko --', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 5 from QueryPageSettingKey where name = "time_serie.userSetLabel"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Insert Label --' , 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), '-- Lis&#228;&#228; otsikko --', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 7 from QueryPageSettingKey where name = "grouping.groups"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Group%201&amp;Group%202', 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Ryhm&#228;%201&amp;Ryhm&#228;%202', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 7 from QueryPageSettingKey where name = "grouping.items"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Item%201&amp;Item%202&amp;Item%203&amp;Item%204&amp;Item%205', 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Valinta%201&amp;Valinta%202&amp;Valinta%203&amp;Valinta%204&amp;Valinta%205', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 8 from QueryPageSettingKey where name = "multiselect.options"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Multiselect%20option%201&amp;Multiselect%20option%202&amp;Multiselect%20option%203&amp;Multiselect%20option%204&amp;Multiselect%20option%205', 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Valinta%201&amp;Valinta%202&amp;Valinta%203&amp;Valinta%204&amp;Valinta%205', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+  
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, 9 from QueryPageSettingKey where name = "orderingField.items"</sql>
+  <sql>insert into LocalizedEntry select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Item%201&amp;Item%202&amp;Item%203&amp;Item%204&amp;Item%205', 'en', max(id) from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select (select max(id) + 1 from LocalizedValue), 'Valinta%201&amp;Valinta%202&amp;Valinta%203&amp;Valinta%204&amp;Valinta%205', 'fi', max(id) from LocalizedEntry</sql>
+  <sql>insert into QueryPageTemplateLocalizedSetting (id, value_id) select (select max(id) from QueryPageTemplateSetting) as id, (select max(id) from LocalizedEntry) as value_id</sql>
+    
+  <sql>insert into hibernate_sequences (sequence_next_hi_value, sequence_name) select max(id) + 1, 'LocalizedValue' from LocalizedValue</sql>
+  <sql>insert into hibernate_sequences (sequence_next_hi_value, sequence_name) select max(id) + 1, 'LocalizedEntry' from LocalizedEntry</sql>
+  <sql>insert into hibernate_sequences (sequence_next_hi_value, sequence_name) select max(id) + 1, 'QueryPageTemplateSetting' from QueryPageTemplateSetting</sql>  
+    
+</update>

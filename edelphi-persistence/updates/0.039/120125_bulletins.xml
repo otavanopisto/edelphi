@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table primaryKeys="id" name="Bulletin">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="title" type="java.lang.String" nullable="false" unique="false" />
+        <field name="message" type="java.lang.String" length="1073741824" nullable="false" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </foreignKeys>
+    </table>
+    
+    <table primaryKeys="id" name="DelfoiBulletin">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="delfoi_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Bulletin" />
+        <key columns="delfoi_id" referencedColumns="id" referencedTable="Delfoi" />
+      </foreignKeys>    
+    </table>
+    
+    <table primaryKeys="id" name="PanelBulletin">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Bulletin" />
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+      </foreignKeys>    
+    </table>
+  </createTables>
+
+</update>

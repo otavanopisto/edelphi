@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+ 
+  <alterData>
+    <insert table="User">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="firstName" value="System" type="java.lang.String"/>
+      <value column="lastName" value="System" type="java.lang.String"/>
+      <value column="nickname" value="sys" type="java.lang.String"/>
+      <value column="archived" value="false" type="java.lang.Boolean"/>
+      <value column="creator_id" value="NULL" type="java.lang.Long"/>
+      <value column="created" value="NOW" type="java.util.Date"/>
+      <value column="lastModifier_id" value="NULL" type="java.lang.Long"/>
+      <value column="lastModified" value="NOW" type="java.util.Date"/>
+    </insert>
+
+    <insert table="UserEmail">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="user_id" value="1" type="java.lang.Long"/>
+      <value column="address" value="ratkaisutiimi@otavanopisto.fi" type="java.lang.String"/>
+    </insert>
+    
+    <insert table="UserPassword">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="user_id" value="1" type="java.lang.Long"/>
+      <!-- pw: admin -->
+      <value column="passwordHash" value="21232f297a57a5a743894a0e4a801fc3" type="java.lang.String"/>
+    </insert>
+    
+    <insert table="SuperUser">
+      <value column="id" value="1" type="java.lang.Long"/>
+    </insert>
+    
+    <insert table="Resource">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="name" value="root" type="java.lang.String"/>
+      <value column="urlName" value="root" type="java.lang.String"/>
+      <value column="parentFolder_id" value="NULL" type="java.lang.Long"/>
+      <value column="type" value="FOLDER" type="java.lang.String"/>
+      <value column="visible" value="true" type="java.lang.Boolean"/>
+      <value column="archived" value="false" type="java.lang.Boolean"/>
+      <value column="creator_id" value="1" type="java.lang.Long"/>
+      <value column="created" value="NOW" type="java.util.Date"/>
+      <value column="lastModifier_id" value="1" type="java.lang.Long"/>
+      <value column="lastModified" value="NOW" type="java.util.Date"/>
+    </insert>
+    
+    <insert table="Folder">
+      <value column="id" value="1" type="java.lang.Long"/>
+    </insert>
+    
+    <insert table="PanelUserRole">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="name" value="Manager" type="java.lang.String"/>
+    </insert>
+    <insert table="PanelUserRole">
+      <value column="id" value="2" type="java.lang.Long"/>
+      <value column="name" value="Panelist" type="java.lang.String"/>
+    </insert>
+    <insert table="PanelUserRole">
+      <value column="id" value="3" type="java.lang.Long"/>
+      <value column="name" value="Panel Guest" type="java.lang.String"/>
+    </insert>
+
+    <insert table="UserRole">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="name" value="Administrator" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="2" type="java.lang.Long"/>
+      <value column="name" value="Manager" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="3" type="java.lang.Long"/>
+      <value column="name" value="User" type="java.lang.String"/>
+    </insert>
+    <insert table="UserRole">
+      <value column="id" value="4" type="java.lang.Long"/>
+      <value column="name" value="Guest" type="java.lang.String"/>
+    </insert>
+
+    <insert table="Delfoi">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="domain" value="NULL" type="java.lang.String"/>
+      <value column="rootFolder_id" value="1" type="java.lang.Long"/>
+    </insert>
+
+    <insert table="DelfoiDefaults">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="delfoi_id" value="1" type="java.lang.Long"/>
+      <value column="defaultPanelCreatorRole_id" value="1" type="java.lang.Long"/>
+    </insert>
+    
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="2" type="java.lang.Integer"/>
+      <value column="sequence_name" value="Resource" type="java.lang.String"/>
+    </insert>
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="2" type="java.lang.Integer"/>
+      <value column="sequence_name" value="UserEmail" type="java.lang.String"/>
+    </insert>
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="2" type="java.lang.Integer"/>
+      <value column="sequence_name" value="User" type="java.lang.String"/>
+    </insert>
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="2" type="java.lang.Integer"/>
+      <value column="sequence_name" value="UserPassword" type="java.lang.String"/>
+    </insert>
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="2" type="java.lang.Integer"/>
+      <value column="sequence_name" value="Delfoi" type="java.lang.String"/>
+    </insert>
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="4" type="java.lang.Integer"/>
+      <value column="sequence_name" value="PanelUserRole" type="java.lang.String"/>
+    </insert>
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="5" type="java.lang.Integer"/>
+      <value column="sequence_name" value="UserRole" type="java.lang.String"/>
+    </insert>
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="2" type="java.lang.Integer"/>
+      <value column="sequence_name" value="DelfoiDefaults" type="java.lang.String"/>
+    </insert>
+
+    <update table="User">
+      <set>
+        <value column="defaultEmail_id" value="1" type="java.lang.Long"/>
+      </set>
+      <where>
+        <equals column="id" value="1" type="java.lang.Long"/>
+      </where>
+    </update>
+
+  </alterData>
+
+</update>

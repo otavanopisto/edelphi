@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="QueryPage">
+      <addFields>
+        <field name="visible" type="java.lang.Boolean"/>
+      </addFields>
+    </table>
+    <table name="QuerySection">
+      <addFields>
+        <field name="visible" type="java.lang.Boolean"/>
+      </addFields>
+    </table>
+  </alterTables>
+
+  <alterData>
+    <update table="QueryPage">
+      <set>
+        <value type="java.lang.Boolean" column="visible" value="1"/>
+      </set>
+    </update>
+    <update table="QuerySection">
+      <set>
+        <value type="java.lang.Boolean" column="visible" value="1"/>
+      </set>
+    </update>
+  </alterData>
+
+</update>

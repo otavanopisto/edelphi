@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="PanelStamp">
+      <addFields>
+        <field name="description" type="java.lang.String" nullable="true" unique="false" length="1073741824" />
+      </addFields>
+    </table>
+  </alterTables>
+
+</update>

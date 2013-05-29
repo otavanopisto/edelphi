@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <sql>insert into QueryPageSettingKey (id, name) select max(id) + 1, 'timeline.type' from QueryPageSettingKey</sql>
+  <sql>insert into QueryPageTemplateSetting (id, key_id, queryPageTemplate_id) select (select max(id) + 1 from QueryPageTemplateSetting), id, (select id from QueryPageTemplate where pageType = 'THESIS_TIMELINE') from QueryPageSettingKey where name = "timeline.type"</sql>
+  <sql>insert QueryPageTemplateSimpleSetting (id, value) select (select max(id) from QueryPageTemplateSetting), '0'</sql>
+  <sql>update hibernate_sequences set sequence_next_hi_value = (select max(id) + 1 from QueryPageSettingKey) where sequence_name = 'QueryPageSettingKey'</sql>
+  <sql>update hibernate_sequences set sequence_next_hi_value = (select max(id) + 1 from QueryPageTemplateSetting) where sequence_name = 'QueryPageTemplateSetting'</sql>
+  
+</update>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="QueryQuestionComment" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="queryReply_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="queryPage_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="parentComment_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="comment" type="java.lang.String" nullable="true" unique="false" length="1073741824" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="QueryQuestionComment">
+      <addForeignKeys>
+        <key columns="queryReply_id" referencedColumns="id" referencedTable="QueryReply" />
+        <key columns="queryPage_id" referencedColumns="id" referencedTable="QueryPage" />
+        <key columns="parentComment_id" referencedColumns="id" referencedTable="QueryQuestionComment" />
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

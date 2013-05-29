@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="DelfoiAction" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="actionName" type="java.lang.String" nullable="false" unique="true"/>
+        <field name="scope" type="java.lang.String" nullable="false" unique="false"/>
+      </fields>
+    </table>
+
+    <table name="DelfoiUserRoleAction" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="delfoiAction_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="delfoi_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="userRole_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+
+    <table name="PanelUserRoleAction" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="delfoiAction_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="panel_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="panelUserRole_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="DelfoiUserRoleAction">
+      <addForeignKeys>
+        <key columns="delfoiAction_id" referencedColumns="id" referencedTable="DelfoiAction" />
+        <key columns="delfoi_id" referencedColumns="id" referencedTable="Delfoi" />
+        <key columns="userRole_id" referencedColumns="id" referencedTable="UserRole" />
+      </addForeignKeys>
+    </table>
+
+    <table name="PanelUserRoleAction">
+      <addForeignKeys>
+        <key columns="delfoiAction_id" referencedColumns="id" referencedTable="DelfoiAction" />
+        <key columns="panel_id" referencedColumns="id" referencedTable="Panel" />
+        <key columns="panelUserRole_id" referencedColumns="id" referencedTable="PanelUserRole" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

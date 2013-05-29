@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+ 
+  <alterData>
+    <insert table="QueryPageTemplate">
+      <value column="id" value="1" type="java.lang.Long"/>
+      <value column="name" value="Text" type="java.lang.String"/>
+      <value column="content" value="{&quot;layout&quot;:&quot;table&quot;,&quot;layoutOptions&quot;:{&quot;rows&quot;:1,&quot;cols&quot;:1},&quot;components&quot;:[{&quot;type&quot;:&quot;static-text&quot;,&quot;content&quot;:&quot;-- Insert Text Here --&quot;}]}" type="java.lang.String"/>
+      <value column="iconName" value="text" type="java.lang.String"/>
+      <value column="archived" value="false" type="java.lang.Boolean"/>
+      <value column="creator_id" value="1" type="java.lang.Long"/>
+      <value column="created" value="NOW" type="java.util.Date"/>
+      <value column="lastModifier_id" value="1" type="java.lang.Long"/>
+      <value column="lastModified" value="NOW" type="java.util.Date"/>
+    </insert>
+    
+    <insert table="QueryPageTemplate">
+      <value column="id" value="2" type="java.lang.Long"/>
+      <value column="name" value="Horizontal Scale" type="java.lang.String"/>
+      <value column="content" value="{&quot;layout&quot;:&quot;table&quot;,&quot;layoutOptions&quot;:{&quot;rows&quot;:1,&quot;cols&quot;:1},&quot;components&quot;:[{&quot;type&quot;:&quot;scale-horitz&quot;,&quot;defaultValue&quot;:&quot;0&quot;, &quot;options&quot;: [{&quot;text&quot;: &quot;I strongly disagree&quot;, &quot;value&quot;: &quot;-2&quot;}, {&quot;text&quot;: &quot;I disagree&quot;, &quot;value&quot;: &quot;-1&quot;}, {&quot;text&quot;: &quot;I'm uncertain&quot;, &quot;value&quot;: &quot;0&quot;}, {&quot;text&quot;: &quot;I agree&quot;, &quot;value&quot;: &quot;1&quot;}, {&quot;text&quot;: &quot;I strongly agree&quot;, &quot;value&quot;: &quot;2&quot;}] }]}" type="java.lang.String"/>
+      <value column="iconName" value="horitz-scale" type="java.lang.String"/>
+      <value column="archived" value="false" type="java.lang.Boolean"/>
+      <value column="creator_id" value="1" type="java.lang.Long"/>
+      <value column="created" value="NOW" type="java.util.Date"/>
+      <value column="lastModifier_id" value="1" type="java.lang.Long"/>
+      <value column="lastModified" value="NOW" type="java.util.Date"/>
+    </insert>
+    
+    <insert table="QueryPageTemplate">
+      <value column="id" value="3" type="java.lang.Long"/>
+      <value column="name" value="Coordinates (2-axis)" type="java.lang.String"/>
+      <value column="content" value="{&quot;layout&quot;:&quot;table&quot;,&quot;layoutOptions&quot;:{&quot;rows&quot;:1,&quot;cols&quot;:1},&quot;components&quot;:[{&quot;type&quot;:&quot;coord-2-axis&quot;, &quot;caption&quot;: &quot;-- Question --&quot;, &quot;defaultValues&quot;: [0, 0],&quot;ranges&quot;: [-3, -3, 3, 3] }]}" type="java.lang.String"/>
+      <value column="iconName" value="coord-2-axis" type="java.lang.String"/>
+      <value column="archived" value="false" type="java.lang.Boolean"/>
+      <value column="creator_id" value="1" type="java.lang.Long"/>
+      <value column="created" value="NOW" type="java.util.Date"/>
+      <value column="lastModifier_id" value="1" type="java.lang.Long"/>
+      <value column="lastModified" value="NOW" type="java.util.Date"/>
+    </insert>
+
+    <insert table="hibernate_sequences">
+      <value column="sequence_next_hi_value" value="4" type="java.lang.Integer"/>
+      <value column="sequence_name" value="QueryPageTemplate" type="java.lang.String"/>
+    </insert>
+  </alterData>
+
+</update>

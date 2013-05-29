@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table primaryKeys="id" name="QueryQuestionMultiOptionAnswer">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryQuestionAnswer" />
+      </foreignKeys>
+    </table>
+    
+    <table primaryKeys="answer_id,option_id" name="__QueryQuestionMultiOptionAnswers">
+      <fields>
+        <field name="answer_id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="option_id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="answer_id" referencedColumns="id" referencedTable="QueryQuestionMultiOptionAnswer" />
+        <key columns="option_id" referencedColumns="id" referencedTable="QueryOptionFieldOption" />
+      </foreignKeys>
+    </table>
+  </createTables>
+
+</update>

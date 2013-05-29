@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="PanelInvitation">
+      <dropForeignKeys>
+        <key name="FKBD8A609DF7635B15"/>
+      </dropForeignKeys>
+    </table>
+  </alterTables>
+  
+  <alterTables>
+    <table name="PanelInvitation">
+      <addFields>
+        <field name="singleUse" type="java.lang.Boolean" nullable="true" unique="false" />
+      </addFields>
+      <dropFields>
+        <field name="user_id" />
+      </dropFields>
+    </table>
+  </alterTables>
+
+  <alterData>
+    <update table="PanelInvitation">
+      <set>
+        <value column="singleUse" value="1" type="java.lang.Boolean"/>
+      </set>
+    </update>
+  </alterData>
+
+  <alterTables>
+    <table name="PanelInvitation">
+      <changeFields>
+        <field name="singleUse" newName="singleUse" type="java.lang.Boolean" unique="false" nullable="false"/>
+      </changeFields>
+    </table>
+  </alterTables>
+
+</update>

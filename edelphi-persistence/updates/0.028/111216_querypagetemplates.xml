@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="QueryPageTemplateSetting" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="key_id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="queryPageTemplate_id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="key_id" referencedColumns="id" referencedTable="QueryPageSettingKey" />
+        <key columns="queryPageTemplate_id" referencedColumns="id" referencedTable="QueryPageTemplate" />
+      </foreignKeys>
+    </table>
+    
+    <table name="QueryPageTemplateSimpleSetting" primaryKeys="id">
+      <fields>        
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="value" type="java.lang.String" length="1073741824" unique="false" nullable="false"/>
+      </fields>
+      <foreignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryPageTemplateSetting" />
+      </foreignKeys>
+    </table>
+    
+    <table name="QueryPageTemplateLocalizedSetting" primaryKeys="id">
+      <fields>        
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="value_id" type="java.lang.Long" unique="false" nullable="false"/>
+      </fields>
+      <foreignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="QueryPageTemplateSetting" />
+        <key columns="value_id" referencedColumns="id" referencedTable="LocalizedEntry" />
+      </foreignKeys>
+    </table>
+    
+  </createTables>
+
+  <alterTables>
+    <table name="QueryPageTemplate">
+      <dropFields>
+        <field name="content"/>
+        <field name="name"/>
+      </dropFields>
+      <addFields>
+        <field name="name_id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="pageType" type="java.lang.String" nullable="false" unique="false" />
+      </addFields>
+      <addForeignKeys>
+        <key columns="name_id" referencedColumns="id" referencedTable="LocalizedEntry" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+  
+</update>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="QueryField">
+      <addFields>
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+      </addFields>
+    </table>
+    <table name="QueryOptionFieldOption">
+      <addFields>
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+      </addFields>
+    </table>
+    <table name="QueryOptionFieldOptionGroup">
+      <addFields>
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+      </addFields>
+    </table>
+  </alterTables>
+  
+  <alterData>
+    <update table="QueryField">
+      <set>
+        <value column="archived" value="false" type="java.lang.Boolean"/>
+      </set>
+    </update>
+    <update table="QueryOptionFieldOption">
+      <set>
+        <value column="archived" value="false" type="java.lang.Boolean"/>
+      </set>
+    </update>
+    <update table="QueryOptionFieldOptionGroup">
+      <set>
+        <value column="archived" value="false" type="java.lang.Boolean"/>
+      </set>
+    </update>
+  </alterData>
+
+</update>

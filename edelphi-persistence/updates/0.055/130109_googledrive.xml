@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="GoogleDocument">
+      <addFields>
+        <field name="lastSynchronized" type="java.util.Date" nullable="false" unique="false" />
+      </addFields>
+    </table>
+
+    <table name="GoogleImage">
+      <addFields>
+        <field name="lastSynchronized" type="java.util.Date" nullable="false" unique="false" />
+      </addFields>
+    </table>
+  </alterTables>
+
+  <alterData>
+    <update table="GoogleDocument">
+      <set>
+        <value type="java.util.Date" column="lastSynchronized" value="NOW"/>
+      </set>
+    </update>
+    
+    <update table="GoogleImage">
+      <set>
+        <value type="java.util.Date" column="lastSynchronized" value="NOW"/>
+      </set>
+    </update>
+  </alterData>
+ 
+  <sql>update GoogleDocument set resourceId = replace(replace(replace(replace(replace(resourceId, 'document:', ''), 'file:', ''), 'pdf:',''),'presentation:', ''), 'spreadsheet:', '');</sql>
+  <sql>update GoogleImage set resourceId = replace(replace(resourceId, 'drawing:', ''), 'file:', '');</sql>
+
+  <sql>update SettingKey set name = 'googleDrive.accountUser' where name = 'gdata.user.username'</sql>
+  <sql>update SettingKey set name = 'googleDrive.accountId' where name = 'gdata.user.password'</sql>
+  <sql>update Setting set value = 'changethis' where key_id in (select id from SettingKey where name in ('googleDrive.accountId', 'googleDrive.accountUser'))</sql>
+  
+</update>

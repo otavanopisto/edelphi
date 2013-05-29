@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="PanelSettingsTemplateRole" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="panelSettingsTemplate_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="delfoiAction_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="userRole_id" type="java.lang.Long" nullable="true" unique="false" />
+      </fields>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="PanelSettingsTemplateRole">
+      <addForeignKeys>
+        <key columns="panelSettingsTemplate_id" referencedColumns="id" referencedTable="PanelSettingsTemplate" />
+        <key columns="delfoiAction_id" referencedColumns="id" referencedTable="DelfoiAction" />
+        <key columns="userRole_id" referencedColumns="id" referencedTable="UserRole" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

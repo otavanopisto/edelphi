@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterData>
+    <delete table="QueryPageTemplate"></delete>
+  </alterData>
+
+  <alterData>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="1" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="2" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="3" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="4" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="5" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="6" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="7" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="8" />
+    </insert>
+    <insert table="LocalizedEntry">
+      <value type="java.lang.Long" column="id" value="9" />
+    </insert>
+
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="1" />
+      <value type="java.lang.Long" column="entry_id" value="1" />
+      <value type="java.lang.String" column="text" value="Text" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="2" />
+      <value type="java.lang.Long" column="entry_id" value="1" />
+      <value type="java.lang.String" column="text" value="Teksti" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="3" />
+      <value type="java.lang.Long" column="entry_id" value="2" />
+      <value type="java.lang.String" column="text" value="Expertise" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="4" />
+      <value type="java.lang.Long" column="entry_id" value="2" />
+      <value type="java.lang.String" column="text" value="Asiantuntijuus" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="5" />
+      <value type="java.lang.Long" column="entry_id" value="3" />
+      <value type="java.lang.String" column="text" value="Scale 1D" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="6" />
+      <value type="java.lang.Long" column="entry_id" value="3" />
+      <value type="java.lang.String" column="text" value="1D skaala" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="7" />
+      <value type="java.lang.Long" column="entry_id" value="4" />
+      <value type="java.lang.String" column="text" value="Scale 2D" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="8" />
+      <value type="java.lang.Long" column="entry_id" value="4" />
+      <value type="java.lang.String" column="text" value="2D skaala" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="9" />
+      <value type="java.lang.Long" column="entry_id" value="5" />
+      <value type="java.lang.String" column="text" value="Time Serie" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="10" />
+      <value type="java.lang.Long" column="entry_id" value="5" />
+      <value type="java.lang.String" column="text" value="Aikasarja" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="11" />
+      <value type="java.lang.Long" column="entry_id" value="6" />
+      <value type="java.lang.String" column="text" value="Time Line" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="12" />
+      <value type="java.lang.Long" column="entry_id" value="6" />
+      <value type="java.lang.String" column="text" value="Aikajana" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="13" />
+      <value type="java.lang.Long" column="entry_id" value="7" />
+      <value type="java.lang.String" column="text" value="Grouping" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="14" />
+      <value type="java.lang.Long" column="entry_id" value="7" />
+      <value type="java.lang.String" column="text" value="Ryhmittely" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="15" />
+      <value type="java.lang.Long" column="entry_id" value="8" />
+      <value type="java.lang.String" column="text" value="Multi-select" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="16" />
+      <value type="java.lang.Long" column="entry_id" value="8" />
+      <value type="java.lang.String" column="text" value="Monivalinta" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="17" />
+      <value type="java.lang.Long" column="entry_id" value="9" />
+      <value type="java.lang.String" column="text" value="Ordering" />
+      <value type="java.lang.String" column="locale" value="en" />
+    </insert>
+    <insert table="LocalizedValue">
+      <value type="java.lang.Long" column="id" value="18" />
+      <value type="java.lang.Long" column="entry_id" value="9" />
+      <value type="java.lang.String" column="text" value="J&#228;rjestely" />
+      <value type="java.lang.String" column="locale" value="fi" />
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="1" />
+      <value type="java.lang.Long" column="name_id" value="1" />
+      <value type="java.lang.String" column="iconName" value="text" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="TEXT"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="2" />
+      <value type="java.lang.Long" column="name_id" value="2" />
+      <value type="java.lang.String" column="iconName" value="expertise" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="EXPERTISE"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="3" />
+      <value type="java.lang.Long" column="name_id" value="3" />
+      <value type="java.lang.String" column="iconName" value="scale1d" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="THESIS_SCALE_1D"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="4" />
+      <value type="java.lang.Long" column="name_id" value="4" />
+      <value type="java.lang.String" column="iconName" value="scale2d" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="THESIS_SCALE_2D"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="5" />
+      <value type="java.lang.Long" column="name_id" value="5" />
+      <value type="java.lang.String" column="iconName" value="timeserie" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="THESIS_TIME_SERIE"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="6" />
+      <value type="java.lang.Long" column="name_id" value="6" />
+      <value type="java.lang.String" column="iconName" value="timeline" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="THESIS_TIMELINE"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="7" />
+      <value type="java.lang.Long" column="name_id" value="7" />
+      <value type="java.lang.String" column="iconName" value="grouping" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="THESIS_GROUPING"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="8" />
+      <value type="java.lang.Long" column="name_id" value="8" />
+      <value type="java.lang.String" column="iconName" value="multiselect" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="THESIS_MULTI_SELECT"/>
+    </insert>
+
+    <insert table="QueryPageTemplate">
+      <value type="java.lang.Long" column="id" value="9" />
+      <value type="java.lang.Long" column="name_id" value="9" />
+      <value type="java.lang.String" column="iconName" value="ordering" />
+      <value type="java.lang.Boolean" column="archived" value="0" />
+      <value type="java.lang.Long" column="creator_id" value="1" />
+      <value type="java.lang.Long" column="lastModifier_id" value="1" />
+      <value type="Types.TIMESTAMP" column="created" value="1325368800000" />
+      <value type="Types.TIMESTAMP" column="lastModified" value="1325368800000" />
+      <value type="java.lang.String" column="pageType" value="THESIS_ORDER"/>
+    </insert>
+  </alterData>
+</update>

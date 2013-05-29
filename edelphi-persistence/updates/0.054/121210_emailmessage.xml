@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="EmailMessage" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="true" />
+        <field name="fromAddress" type="java.lang.String" nullable="false" unique="false" />
+        <field name="toAddress" type="java.lang.String" nullable="false" unique="false" />
+        <field name="subject" type="java.lang.String" nullable="true" unique="false" />
+        <field name="content" type="java.lang.String" nullable="true" unique="false" length="1073741824" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+      </fields>
+      <foreignKeys>
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </foreignKeys>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="PanelInvitation">
+      <addFields>
+        <field name="emailMessage_id" type="java.lang.Long" nullable="true" unique="false" />
+      </addFields>
+      <addForeignKeys>
+        <key columns="emailMessage_id" referencedColumns="id" referencedTable="EmailMessage" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+  <sql>insert into hibernate_sequences (sequence_next_hi_value, sequence_name) values (101,'EmailMessage')</sql>
+  
+</update>

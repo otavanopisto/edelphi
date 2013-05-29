@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <createTables>
+    <table name="Resource" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="name" type="java.lang.String" nullable="false" unique="false" />
+        <field name="urlName" type="java.lang.String" nullable="false" unique="false" />
+        <field name="parentFolder_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="type" type="java.lang.String" nullable="false" unique="false" />
+        <field name="visible" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="archived" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="creator_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="created" type="Types.TIMESTAMP" nullable="false" unique="false" />
+        <field name="lastModifier_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="lastModified" type="Types.TIMESTAMP" nullable="false" unique="false" />
+      </fields>
+    </table>
+    
+    <table name="Document" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="Folder" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="Image" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="Video" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="LocalDocument" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="LocalDocumentPage" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="document_id" type="java.lang.Long" nullable="true" unique="false" />
+        <field name="content" type="java.lang.String" nullable="true" unique="false" length="1073741824" />
+        <field name="pageNumber" type="java.lang.Integer" nullable="false" unique="false" />
+      </fields>
+    </table>
+
+    <table name="LinkedImage" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="url" type="java.lang.String" nullable="true" unique="false" length="4096" />
+      </fields>
+    </table>
+
+    <table name="LocalImage" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="contentType" type="java.lang.String" nullable="true" unique="false" />
+        <field name="data" type="java.sql.Blob" nullable="true" unique="false" length="1073741824"/>
+      </fields>
+    </table>
+    
+    <table name="Query" primaryKeys="id">
+      <fields>
+        <field name="id" type="java.lang.Long" nullable="false" unique="false" />
+        <field name="allowEditReply" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="allowMultipleAnswers" type="java.lang.Boolean" nullable="false" unique="false" />
+        <field name="styleSheet" type="java.lang.String" nullable="true" unique="false" length="1073741824"/>
+      </fields>
+      <foreignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Resource" />
+      </foreignKeys>
+    </table>
+  </createTables>
+
+  <alterTables>
+    <table name="Resource">
+      <addForeignKeys>
+        <key columns="parentFolder_id" referencedColumns="id" referencedTable="Folder" />
+        <key columns="creator_id" referencedColumns="id" referencedTable="User" />
+        <key columns="lastModifier_id" referencedColumns="id" referencedTable="User" />
+      </addForeignKeys>
+    </table>
+
+    <table name="Document">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Resource" />
+      </addForeignKeys>
+    </table>
+
+    <table name="Folder">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Resource" />
+      </addForeignKeys>
+    </table>
+
+    <table name="Image">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Resource" />
+      </addForeignKeys>
+    </table>
+  
+    <table name="Video">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Resource" />
+      </addForeignKeys>
+    </table>
+
+    <table name="LocalDocument">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Document" />
+      </addForeignKeys>
+    </table>
+
+    <table name="LocalDocumentPage">
+      <addForeignKeys>
+        <key columns="document_id" referencedColumns="id" referencedTable="LocalDocument" />
+      </addForeignKeys>
+    </table>
+    
+    <table name="LinkedImage">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Image" />
+      </addForeignKeys>
+    </table>
+
+    <table name="LocalImage">
+      <addForeignKeys>
+        <key columns="id" referencedColumns="id" referencedTable="Image" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+
+</update>

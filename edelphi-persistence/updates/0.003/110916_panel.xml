@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="Panel">
+      <addFields>
+        <field name="accessLevel" type="java.lang.String" nullable="false" unique="false"/>
+        <field name="state" type="java.lang.String" nullable="false" unique="false"/>
+        <field name="allowedAuths" type="java.lang.String" nullable="true" unique="false"/>
+      </addFields>
+    </table>
+  </alterTables>
+
+</update>
