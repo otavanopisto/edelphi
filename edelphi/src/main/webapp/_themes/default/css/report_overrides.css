@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+body.queryReport {
+  width: 184.2mm; /* 210mm - 1 inch margin */
+}
+
+
+body.queryReport .block {
+  border: 0px;
+  box-shadow: none; 
+}
+
+body.queryReport .queryCommentList {
+  border: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+body.queryReport h2.querySubTitle {
+  border: 0px;
+}

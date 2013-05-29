@@ -1,0 +1,52 @@
+@CHARSET "UTF-8";
+
+.tupasLoginButton {
+  background-color:#fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+  border: none;
+  cursor: pointer;
+}
+  
+#op-tupasLoginButton {
+  background-image: url(../gfx/icons/custom/apps/tupas-logo-op.gif);
+  width: 80px;
+  height: 80px;
+}
+
+#nordea-tupasLoginButton {
+  background-image: url(../gfx/icons/custom/apps/tupas-logo-nordea.gif);
+  width: 60px;
+  height: 60px;
+}
+
+#sampo-tupasLoginButton {
+  background-image: url(../gfx/icons/custom/apps/tupas-logo-sampo.gif);
+  width: 80px;
+  height: 34px;
+}
+
+#handelsbanken-tupasLoginButton {
+  background-image: url(../gfx/icons/custom/apps/tupas-logo-handelsbanken.gif);
+  width: 242px;
+  height: 40px;
+}
+
+#saastopankit-tupasLoginButton {
+  background-image: url(../gfx/icons/custom/apps/tupas-logo-saastopankki.gif);
+  width: 200px;
+  height: 80px;
+}
+
+#spankki-tupasLoginButton {
+  background-image: url(../gfx/icons/custom/apps/tupas-logo-spankki.gif);
+  width: 90px;
+  height: 40px;
+}
+
+#tapiola-tupasLoginButton {
+  background-image: url(../gfx/icons/custom/apps/tupas-logo-tapiola.gif);
+  width: 135px;
+  height: 51px;
+}

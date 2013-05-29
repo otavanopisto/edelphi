@@ -1,0 +1,159 @@
+@CHARSET "UTF-8";
+
+.queryStackedBarChartLiveReportFlotrContainer, .queryLineChartLiveReportFlotrContainer {
+  width: 100%;
+  height: 400px;
+}
+
+/* Pie Chart */
+
+.queryPieChart {
+  min-width: 33%;
+  display: inline-block;
+}
+
+.queryPieChartLiveReportFlotrContainer {
+  width: 100%;
+  height: 400px;
+}
+
+/* Query Form Page Editor */
+
+.queryEditorFormListFieldOptionLinkDisabled {
+  display: none;
+}
+
+/* Action Management */
+
+.manageactionsTableHeaderRow {
+  font-weight: bold;
+}
+
+.manageactionsTableRow {
+}
+
+.manageActionsTableRoleCell {
+  text-align: center;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+/* Query Editor Page Settings */
+
+.queryEditorQuestionOptions input.valid, .queryEditorQuestionOptions input.invalid {
+  border-style: solid;
+  border-width: 1px;
+  padding: 2px;
+}
+
+/* Collage 2d edit */
+
+.queryEditorCollage2DPage {
+  padding: 8px;
+  min-height: 80px;
+  background: #fafafa;  
+  border: 1px solid #eee;
+  border-radius: 1px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.queryEditorCollage2DPageIncompatible {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.queryEditorCollage2DPageSelect {
+  float: left; 
+  margin-right: 10px;
+  margin-top: 2px;
+  margin-left: 0px;
+  width: 13px;
+}
+
+.queryEditorCollage2DPageColor {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  display: block;
+  background-color: #aaa;
+  position: absolute;
+  margin-top: 22px;
+  cursor: pointer;
+}
+
+.queryEditorCollage2DPageTitle {
+  font-weight: bold;
+  font-size:120%;
+}
+
+.queryEditorCollage2DPageThesis {
+  font-style: italic; 
+  color: #666;
+  margin-left: 23px;
+}
+
+.queryEditorCollage2DPageGraph {
+  width: 80px;
+  height: 80px; 
+  position: relative; 
+  float: right;
+}
+
+.queryEditorCollage2DPageGraphDotHorizontal, .queryEditorCollage2DPageGraphDotVertical {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding:1.5px;
+  border-radius: 3px;
+  background: #ffbd27;
+}
+
+.queryEditorCollage2DPageGraphDotHorizontal {
+  margin-top: 38px; 
+  margin-left: -2px;
+}
+
+.queryEditorCollage2DPageGraphDotVertical {
+  margin-left: 38px;  
+  margin-top: -2px;
+}
+
+.queryEditorCollage2DColorSelectDialog {
+  position: absolute;
+  width: 136px;
+  height: 136px;
+  z-index: 9999;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 3px; 
+  margin-top: 40px;
+}
+
+.queryEditorCollage2DColorSelectDialogItem {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin: 8px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.flotr-value-label {
+  z-index: 0;
+  background: #666;
+}
+
+.flotr-mouse-value {
+  opacity: 1 !important;
+  z-index: 9999;
+}
+
+/* Collage 2d edit */
+
+
+.queryCollage2DQuestionFlotrContainer {
+  width: 100%;
+  height: 600px;
+}

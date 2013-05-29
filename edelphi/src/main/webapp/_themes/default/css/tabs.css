@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+.ui-tabs {
+  zoom: 1;
+}
+
+.ui-tabs .ui-tabs-nav {
+  list-style: none;
+  position: relative; 
+  background-color:#cacaca;
+  padding:2px 4px 0px 4px;
+  margin-bottom:10px;
+}
+
+.ui-tabs .ui-tabs-nav li {
+  position: relative;
+  margin: -6px 10px 0px 0px;
+  padding: 5px 8px 1px 8px;
+  display:inline-block;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+  text-decoration: none;
+  padding: 0;
+  color:#fff;  
+  font-size: 1.20em;
+  text-transform:uppercase;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+  background-color:#ffffff;
+  border-radius:2px;
+  border-top:1px solid #cacaca;
+  border-left:1px solid #cacaca;
+  border-right:1px solid #cacaca;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a{
+  color:#0099ff;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-state-processing a {
+  cursor: text;
+}
+
+.ui-tabs .ui-tabs-nav li a,
+.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+  cursor: pointer;
+}
+
+.ui-tabs .ui-tabs-panel {
+  display: block;
+  border-width: 0;
+  background: none;
+}
+
+.ui-tabs .ui-tabs-hide {
+  display: none !important;
+}

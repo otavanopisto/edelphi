@@ -1,0 +1,30 @@
+.fniDynListContent {
+  overflow: auto;
+  overflow-y: scroll;
+}
+
+.fniDynListContent .fniDynListRow { 
+  padding: 4px;
+  margin-right: 8px;
+}
+
+.fniDynListRow .fniDynListCell {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fniDynListRow .fniDynListCell span {
+  cursor: pointer; 
+  margin-left: 4px;
+}
+
+.fniDynListHover .fniDynListRow:hover {
+  background: #aaa;
+}
+.fniDynListHover .fniDynListRow:hover .fniDynListCell span {
+  color: #fff;
+}
+
+.fniDynListHeaderRow {
+  display: none;
+}

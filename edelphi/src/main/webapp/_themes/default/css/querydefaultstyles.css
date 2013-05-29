@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.queryRendererPage {
+  color: #000000;
+  background-color: #ffffff;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.queryRendererStaticTextFieldViewer {
+  padding: 2px;
+}
+
+.queryRendererFieldHandlerContainer {
+}
+
+.queryRendererHorizontalScaleFieldOptionContainer {
+	background-color: #F2F5F5;
+	border-radius: 4px 4px 4px 4px;
+	border: 1px solid #E2E5E5;
+	margin: 2px;
+	padding: 4px 12px;
+}
+
+.queryRendererHorizontalScaleFieldOptionText {
+	font-weight: bold;
+	padding-right: 8px;
+}
+
+.queryRendererHorizontalScaleFieldOptionRadioButton {
+	vertical-align: top;
+}

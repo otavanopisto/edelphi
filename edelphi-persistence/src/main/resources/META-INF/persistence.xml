@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="eDelphiPersistence" transaction-type="JTA">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+    <!-- Data source -->
+
+    <jta-data-source>java:/jdbc/eDelphi</jta-data-source>
+    <properties>
+
+      <!-- Connection -->
+
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+      <property name="hibernate.connection.useUnicode" value="true" />
+      <property name="hibernate.connection.characterEncoding" value="UTF-8" />
+
+      <!-- Session Management -->
+
+      <property name="hibernate.current_session_context_class" value="jta" />
+
+      <!-- Session Factory -->
+      <property name="jboss.entity.manager.jndi.name" value="java:app/eDelphiManager" />
+      <property name="jboss.entity.manager.factory.jndi.name" value="java:app/eDelphiManagerFactory" />
+
+      <!-- Cache -->
+
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
+      <property name="hibernate.cache.use_second_level_cache" value="false" />
+      <property name="hibernate.cache.use_query_cache" value="false" />
+      
+      <!-- Search -->
+      
+      <property name="hibernate.search.default.optimizer.operation_limit.max" value="1000" />
+      <property name="hibernate.search.default.optimizer.transaction_limit.max" value="100" />
+      
+      <!-- Statistics and Debugging -->
+
+      <property name="hibernate.format_sql" value="false" />
+      <property name="hibernate.show_sql" value="false" />
+      <!-- 
+      <property name="hibernate.hbm2ddl.auto" value="validate" />
+       -->
+      <property name="hibernate.generate_statistics" value="false" />
+    </properties>
+  </persistence-unit>
+</persistence>

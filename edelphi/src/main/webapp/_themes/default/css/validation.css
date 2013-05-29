@@ -1,0 +1,28 @@
+input.required {
+  border-color: #ffa365;
+}
+
+input.valid {
+  border-color: #49A749;
+}
+
+input.invalid {
+  border-color: #BB6161;
+}
+
+textarea.required {
+  border-color: #ffa365 !important;
+}
+
+textarea.valid {
+  border-color: #49A749 !important;
+}
+
+textarea.invalid {
+  border-color: #BB6161 !important;
+}
+
+input.formvalid[disabled='disabled'] {
+  color: #eeeeee;
+  background-color: #c8c8c8;
+}

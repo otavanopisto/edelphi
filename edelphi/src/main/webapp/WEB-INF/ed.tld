@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+  <tlib-version>1.2</tlib-version>
+  <short-name>ed</short-name>
+  <uri>http://edelphi.fi/_tags/edelfoi</uri>
+
+  <tag>
+    <name>include</name>
+    <tag-class>fi.internetix.edelphi.taglib.IncludeTag</tag-class> 
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>page</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>param</name>
+    <tag-class>fi.internetix.edelphi.taglib.ParamTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <description>Tag library for chart definitions in eDelfoi. Based on BIRT sample chart viewer.</description>
+    <name>queryPageChart</name>
+    <tag-class>
+      fi.internetix.edelphi.taglib.QueryPageChartTag
+    </tag-class>
+    <body-content>JSP</body-content>
+
+<!--    <attribute> -->
+<!--      <name>model</name> -->
+<!--      <required>true</required> -->
+<!--      <rtexprvalue>true</rtexprvalue> -->
+<!--      <description> -->
+<!--        QueryPage Chart Model -->
+<!--      </description> -->
+<!--    </attribute> -->
+
+    <attribute>
+      <description>Query Page Id</description>
+      <name>queryPageId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <description>Panel Stamp Id</description>
+      <name>stampId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <description>Width in points</description>
+      <name>width</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+    <attribute>
+      <description>Height in points</description>
+      <name>height</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+<!--    <attribute> -->
+<!--      <description>Data to bind to chart model.</description> -->
+<!--      <name>data</name> -->
+<!--      <required>false</required> -->
+<!--      <rtexprvalue>true</rtexprvalue> -->
+<!--    </attribute> -->
+
+    <attribute>
+      <description>
+        The output type (SVG, PNG, BMP, JPG, PDF). Default value
+        is PNG
+      </description>
+      <name>output</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
+<!--    <attribute> -->
+<!--      <description> -->
+<!--        Context to be used in chart scripting. -->
+<!--      </description> -->
+<!--      <name>externalContext</name> -->
+<!--      <required>false</required> -->
+<!--      <rtexprvalue>true</rtexprvalue> -->
+<!--    </attribute> -->
+
+<!--    <attribute> -->
+<!--      <description> -->
+<!--        Used to enable styling of the chart -->
+<!--      </description> -->
+<!--      <name>styleProcessor</name> -->
+<!--      <required>false</required> -->
+<!--      <rtexprvalue>true</rtexprvalue> -->
+<!--    </attribute> -->
+
+<!--    <attribute> -->
+<!--      <description> -->
+<!--        Used to set various runtime attributes for the chart -->
+<!--        generation and rendering -->
+<!--      </description> -->
+<!--      <name>runtimeContext</name> -->
+<!--      <required>false</required> -->
+<!--      <rtexprvalue>true</rtexprvalue> -->
+<!--    </attribute> -->
+  </tag>
+
+</taglib>

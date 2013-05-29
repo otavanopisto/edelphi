@@ -1,0 +1,276 @@
+@CHARSET "UTF-8";
+
+.dataGrid {
+  width: 100%; 
+  display: table;
+}
+
+.dataGridHeaderRow {
+  height: 24px;
+}
+
+.dataGridRowContent {
+  position: relative;
+}
+
+.dataGridClickableRow {
+  cursor: pointer;
+}
+
+.dataGridHeaderCell, .dataGridCell {
+  position: absolute;
+}
+
+.dataGridHeaderCell {
+  font-weight: bold;
+}
+
+.dataGridHeaderCellText {
+  float:left;
+  margin-right: 4px;
+}
+
+.dataGridHeaderColumValueButton {
+  /** TODO
+  background-image:url(../gfx/overwrite-column-values.png);
+  **/
+  background-repeat:no-repeat;
+  cursor:pointer;
+  width:16px;
+  height:16px;
+  float:left;
+  margin-left:4px;
+}
+
+.dataGridRowContent {
+  height: 26px;
+}
+
+.dataGridCellEditorClickable {
+  cursor: pointer;
+}
+
+.dataGridCellEditorText {
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.dataGridCellEditorNumber {
+  width: 100%;
+  text-align: right; 
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.dataGridCellViewer {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dataGridCellViewerText {
+  width: 100%;
+  padding-top:3px;
+}
+
+.dataGridCellViewerSelect {
+  width: 100%;
+  padding-top:3px;
+}
+
+.dataGridCellViewerNumber {
+  width: 100%;
+  text-align: right; 
+  padding-top:3px;
+}
+
+.dataGridHeaderCellImage {
+  padding:3px 3px 3px 3px;
+}
+	
+.dataGridCellEditorButton, .dataGridHeaderCellImageButton {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
+  cursor:pointer;
+  width:16px;
+  height:16px;
+  padding:2px 2px 2px 2px;
+}
+
+.dataGridHeaderCellImageButtonDisabled {
+  opacity: 0.33;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+  cursor: default;
+}
+
+.dataGridRowButton {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #739de7;
+  float: right;
+  margin-left: 2px; 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
+  margin-top: 0px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  padding:2px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+div.dataGridRowButton:hover{
+
+}
+
+.dataGridRowHoverEffect .dataGridRow:hover {
+}
+
+.dataGridCellEditorSelect {
+  border:1px solid #739DE7;
+  -moz-border-radius:3px 3px 3px 3px;
+  -webkit-border-radius:3px 3px 3px 3px;
+  border-radius:3px 3px 3px 3px;
+  padding-top:2px;
+  padding-bottom:2px;
+  padding-left:1px;
+  padding-right:1px;
+  width:100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.dataGridCellViewerDisabled, .dataGridButtonDisabled {
+  opacity: 0.33;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+  cursor: default;
+}
+
+.dataGridViewerCheckboxChecked {
+  width: 16px;
+  height: 16px;
+  /** TODO
+  background-image: url(../gfx/input-checked.png);
+  **/
+}
+
+.dataGridCell:hover .dataGridCellContextMenuButton {
+  display:block;
+}
+
+.dataGridCellContextMenu {
+  position: absolute;
+  right: 2px;
+  top: 6px;
+  padding: 4px 4px 4px 4px;
+  z-index: 2;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+}
+
+.dataGridCellContextMenuItem {
+  padding: 2px 8px 2px 8px;
+  cursor:pointer;
+  white-space: nowrap;
+}
+
+.dataGridCellContextMenuItem:hover {
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+}
+
+.dataGridHeaderSortButton {
+  font-size: 75%;
+  padding: 0px 2px 0px 2px;
+  cursor:pointer;
+}
+
+.dataGridHeaderSortButtonAscending{
+  /** TODO
+  background:url('../gfx/icons/custom/actions/ixtable_sortbutton_ascending.png') no-repeat;
+  **/
+  margin-top:3px;
+  margin-right:3px;
+  width:11px;
+  height:11px;
+  display:inline-block;
+  padding:0;
+}
+
+.dataGridHeaderSortButtonDescending{
+	/** TODO
+  background:url('../gfx/icons/custom/actions/ixtable_sortbutton_descending.png') no-repeat;
+  **/
+  margin-top:3px;
+  margin-right:3px;
+  width:11px;
+  height:11px;
+  display:inline-block;
+  padding:0;
+}
+
+.dataGridHeaderSortButtonAscending:hover{
+	/** TODO
+  background:url('../gfx/icons/custom/actions/ixtable_sortbutton_ascending_hover.png') no-repeat;
+  **/
+}
+
+.dataGridHeaderSortButtonDescending:hover{
+	/** TODO
+  background:url('../gfx/icons/custom/actions/ixtable_sortbutton_descending_hover.png') no-repeat;
+  **/
+}
+
+.dataGridCellContextMenuButton{
+	/** TODO
+  background:url('../gfx/icons/custom/actions/ixtable_context_menu.png') no-repeat;
+  **/
+  padding:0;
+  display:none;
+  margin-top:5px;
+  margin-left: 4px;
+  width:12px;
+  height:12px;
+  font-size: 75%;
+  cursor:pointer;  
+}
+
+.dataGridContextMenuCell .dataGridCellEditorContainer {
+  position: absolute;
+  left: 0px; 
+  right: 0px;
+  height: 20px;
+}
+
+.dataGridContextMenuCell .dataGridCellContextMenuButtonContainer {
+  position: absolute;
+  width: 0px;
+  height: 20px;
+  right: 0px;
+}
+
+.dataGridContextMenuCell:hover .dataGridCellEditorContainer {
+  left: 0px; 
+  right: 15px;
+}
+.dataGridContextMenuCell:hover .dataGridCellContextMenuButtonContainer {
+  width: 15px;
+  right: 0px;
+}
+
+.dataGridCellContextMenuButton:hover{
+	/** TODO
+  background:url('../gfx/icons/custom/actions/ixtable_context_menu_hover.png') no-repeat;
+  **/
+}
+
+.dataGridColumnHeaderFiltered {
+  font-style:italic;
+}

@@ -1,0 +1,5772 @@
+@charset "UTF-8";
+
+/*
+ * Generic
+ * 
+ */
+
+html {
+  
+}
+
+.blockTitle h2 {
+  background-color:#1b628a;
+  color:#fff;
+  padding:8px;
+  font-size: 1.35em;
+  min-height: 1.35em; 
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+  text-transform: uppercase;
+  margin:0;
+}
+
+#indexLoginBlockContent .blockTitle h2 {
+  background-color:#039a03;
+}
+
+#GUI_newInteressExpertiseWrapper .blockTitle h2,
+#GUI_panelExpertsUsersWrapper .blockTitle h2,
+#GUI_panelExpertsMatrix .blockTitle h2,
+#GUI_manageUsergroupsViewColumn .blockTitle h2,
+#GUI_managePanelStampsStampViewColumn .blockTitle h2 {
+  margin-bottom:10px;
+}
+
+#indexLoginBlockContent .loginWithAnotherSiteContainer h3{
+  background:#eaeaea;
+  color:#1e1e1e;
+  padding: 4px 8px;
+  text-transform:uppercase;
+  font-size: 1.25em; 
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+  margin:15px 0px 10px 0px;
+}
+
+h2.newsEntryTitle {
+  margin: 0;
+  padding: 5px 0px 7px 0px;
+  color:#df4d1c;
+  font-size:1.45em;
+}
+
+#adminDashboardSettingsBlockContent h3,
+#panelAdminInviteUsersActionsBlockContent h3,
+#panelAdminManagePanelUserViewBlockContent h3 {
+  color: #1e1e1e;
+  background:#eaeaea;
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin: 10px 0px 5px 0px;
+  padding:4px 6px;
+  text-transform: uppercase; 
+  font-size: 1em;  
+}
+
+#panelAdminInviteUsersListBlockContent h3 {
+  color: #1e1e1e;
+  background:#eaeaea;
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin: 0px 0px 5px 0px;
+  padding:4px 6px;
+  text-transform: uppercase; 
+  font-size: 1em;  
+}
+
+#manageUsergroupsUsergroupViewColumnContent h3 {
+  color: #1e1e1e;
+  background:#eaeaea;  
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin: 10px 0px 5px 0px;
+  padding:4px 6px;
+  text-transform: uppercase; 
+  font-size: 1em;  
+}
+
+#GUI_panelQueriesContainer h3,
+#panelAdminManagePanelUserListingBlockContent h3 {
+  color: #1e1e1e;
+  background:#eaeaea;
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin:0;
+  padding:4px 6px;
+  text-transform: uppercase; 
+  font-size: 1em;  
+}
+
+.queryExpertiseFilter h3 {
+  color: #1e1e1e;
+  background:#eaeaea;
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin:0px 0px 10px 0px;
+  padding:4px 6px;
+  text-transform: uppercase; 
+  font-size: 1em;  
+}
+
+.pageTitle h1 {
+  color:#1e1e1e;
+  margin-top:0px;
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+  font-size:1.6em;
+  margin-left:10px;
+  text-transform:uppercase;
+}
+
+.pagePanel {
+  
+}
+
+.block {
+  border:1px solid #dde7ed;
+  padding:8px;    
+  position:relative;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+}
+
+.block .blockContent {
+  margin-top:0px;
+}
+
+.cke_editor_content {
+  max-width:800px;
+}
+
+/* 
+ * Removing Generic Block Rules 
+ * 
+ */
+
+#GUI_indexNewsPanel .block,
+#GUI_indexOpenPanelsPanel .block,
+#GUI_profileOpenPanelsPanel .block {
+  border:0;
+  padding:0;
+  box-shadow:none;
+}
+
+.clearBoth {
+  clear:both;
+}
+
+.genericMeta {
+  color: #777777;
+  font-size: 0.9em;
+}
+
+/*
+ * Error Pages
+ * 
+ */
+ 
+.errorPageContentWrapper {
+  margin:20px auto 20px auto;
+  max-width: 800px;
+  min-width: 800px;
+  min-height:100px;
+  padding:20px;
+}
+
+.pageNotFound {
+  color:#0099ff;
+}
+
+.notLoggedIn {
+  color:#009900;
+}
+
+.notAuthorized {
+  color:#d71b08;
+}
+
+.internalServerError {
+  color:#df4d1c;
+}
+
+.errorPageTitleContainer {
+  font-size:24px;
+  margin-bottom:20px;
+}
+
+.ghostInformantIcon{
+  background:url('../gfx/icons/128x128/genericghostinformant.png') center center no-repeat;
+}
+
+.pageNotFoundIcon{
+  background:url('../gfx/icons/128x128/pagenotfound.png') center center no-repeat;
+}
+
+.notLoggedInIcon {
+  background:url('../gfx/icons/128x128/notloggedin.png') center center no-repeat;
+}
+
+.notAuthorizedIcon {
+  background:url('../gfx/icons/128x128/accessdenied.png') center center no-repeat;
+}
+
+.internalServerErrorIcon {
+  background:url('../gfx/icons/128x128/internalservererror.png') center center no-repeat;
+}
+
+.errorPageIconContainer {
+  width:128px;
+  height:128px;
+  float:left;
+}
+
+.errorPageDescriptionContainer {
+  color:#838383;
+  font-size:18px;
+  margin-left:148px;
+  line-height:140%;
+}
+
+.errorPageLoginRegisterContainer {
+  margin:40px 0px 0px 0px;
+  position:relative;
+}
+
+.errorPageLoginRegisterContainer #indexLoginBlockContent {
+  width:320px;
+  float:left;
+}
+
+.errorPageLoginRegisterContainer #indexRegisterBlockContent {
+  width:320px;
+  margin-left:360px;
+}
+
+.errorPageGoToFrontPageLinkContainer a {
+  margin:40px 0px 0px 0px;
+  color: #0099ff;
+  display:inline-block;
+  cursor:pointer;
+  font-size:18px;
+}
+
+/*
+ * Site Layout min-1024 max-1280 (only effective for views used by panelists)
+ * 
+ */
+ 
+body.environment .GUI_header_outer_wrapper,
+body.panel .GUI_header_outer_wrapper {
+  background:url('../gfx/ui/header_background.png') #186089 no-repeat left top;
+  min-width: 980px;
+}
+
+body.environment .GUI_header_inner_wrapper,
+body.panel .GUI_header_inner_wrapper {
+  background:url('../gfx/ui/header_gradient.png') repeat-x center top;  
+  min-width: 980px;
+}
+
+body.environment .GUI_header,
+body.panel .GUI_header {
+  position: relative;
+  max-width: 1240px;
+  min-width: 980px;
+  margin:0px auto 0px auto;
+}
+
+body.environment .GUI_pageWrapper,
+body.panel .GUI_pageWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1220px;
+  min-width: 960px; /* 970px */
+  padding: 10px;
+}
+
+body.environment .GUI_breadcrumb,
+body.panel .GUI_breadcrumb {
+  background:#ffffff;
+  min-height:20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  min-width:940px;
+  position: relative;  
+  padding:0px 20px;
+}
+
+/*
+ * Site Layout min-1280 max-1280
+ * 
+ */
+ 
+.GUI_header_outer_wrapper {
+  background:url('../gfx/ui/header_background.png') #186089 no-repeat left top;
+  min-width: 1240px;
+}
+
+.GUI_header_inner_wrapper {
+  background:url('../gfx/ui/header_gradient.png') repeat-x center top;  
+  min-width: 1240px;
+}
+
+.GUI_header {
+  position: relative;
+  max-width: 1240px;
+  min-width: 1240px; /* 990px */
+  margin:0px auto 0px auto;
+}
+
+.GUI_pageWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1220px;
+  min-width: 1220px; /* 970px */
+  padding: 10px;
+  clear:both;
+}
+
+.GUI_navigation{
+  position: absolute;
+  bottom:0;
+}
+
+.GUI_breadcrumbWrapper {
+  background:#ffffff;
+}
+
+.GUI_breadcrumb {
+  background:#ffffff;
+  min-height:20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  min-width:1200px; /* 990px */
+  position: relative;  
+  padding:0px 20px;
+}
+
+.breadcrumbLink {
+  color:#959595;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.breadcrumbLink:hover {
+  text-decoration:underline;
+}
+
+.breadcrumbLink:last-child {
+  color:#000;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.breadCrumbSpacer {
+  font-size:0.875em;
+  display:inline-block;
+  padding:0px 2px 0px 2px;
+  font-family:Courier;
+}
+
+.GUI_pageContainer {
+  margin: 0px;
+  position: relative;
+  margin-bottom:20px;
+}
+
+.GUI_footer {
+  background-color: #55555b;
+  min-height: 240px;
+  position: relative;
+  clear:both;
+  margin-top:20px;
+}
+
+/*
+ * Front Page Header / Panel Header
+ * 
+ */
+ 
+.GUI_header_logo {
+  position:absolute;
+  right:50px;
+  top:0;
+  width:230px;
+  height:194px;
+  background:url('../gfx/ui/header_logo.png');
+}
+
+.GUI_header_text {
+  position:absolute;
+  left:10px;
+  top:5px;
+  width:273px;
+  height:94px;
+}
+
+.GUI_header_text.locale_fi {
+  background:url('../gfx/ui/header_text_fi.png');
+}
+
+.GUI_header_text.locale_en {
+  background:url('../gfx/ui/header_text_en.png');
+}
+
+
+.GUI_header_text a{
+  position:absolute;
+  left:10px;
+  top:5px;
+  width:273px;
+  height:94px;
+  display:inline-block;
+}
+
+.GUI_panel_header_text_wrapper {
+  position:absolute;
+  top:22px;
+  left:10px;
+}
+
+.GUI_panel_header_text_wrapper a {
+  color:#fff;
+  font-size: 2.4em; 
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+  text-decoration:none;
+}
+
+.GUI_panel_header_text_panelname {
+  color:#fff;
+  font-size: 2.2em; 
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+}
+ 
+.environment .GUI_header,
+.environment_admin .GUI_header {
+  height:200px;
+}
+
+.environment.error .GUI_header,
+.environment.login .GUI_header,
+.panel .GUI_header,
+.panel_admin .GUI_header {
+  height:123px;
+}
+
+.GUI_header_shadow_wrapper {
+  height:13px;
+  background:url(../gfx/ui/header_shadow_background.png) repeat-x;
+  border-top:1px solid #294a60;  
+}
+
+.GUI_header_shadow {
+  height:13px;  
+  background:url('../gfx/ui/header_shadow_background_middle.png') center center;
+}
+
+/*
+ * Front Page Logged In User
+ * 
+ */
+ 
+.GUI_header_user_container {
+  position:absolute;
+  right:10px;
+  top:10px;
+  height:74px;
+  padding:10px;  
+}
+
+.headerUserInfo {
+  float:left;
+}
+
+.headerWelcomeText {
+  font-size:1.1em;
+  color:#fff;
+  margin-bottom:10px;
+  white-space:nowrap;
+}
+
+.headerUserName {
+  margin-left:5px;
+}
+
+.headerUserLink {
+  text-align:right;
+}
+
+.headerUserLink a {
+  color:#87d0ff;
+  font-size:0.925em;
+}
+
+.headerUserImage {
+  margin:5px 0px 0px 15px;
+  width:65px;
+  height:65px;
+  float:right;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  box-shadow:0px 0px 8px rgba(0, 0, 0, 0.2);
+  background-color:#186089;
+}
+
+/*
+ * Header Locale Switch
+ * 
+ */
+
+.headerLocaleContainer {
+  width:300px;
+  margin:0px auto 0px auto;
+  text-align:center;
+}
+
+.headerLocaleLink {
+  display:inline-block;
+  margin:0px 5px 0px 5px;
+  padding:5px 10px;
+  color:#fff;  
+  text-decoration:none;
+}
+
+.localeSelected {
+  background-color:#30739e;
+  border-bottom-left-radius:3px;
+  border-bottom-right-radius:3px;
+  box-shadow:0px 0px 8px rgba(0, 0, 0, 0.2);  
+}
+
+/*
+ * Front Page Footer
+ * 
+ */
+ 
+.GUI_footer_shadow_wrapper {
+  height:13px;
+  background:url(../gfx/ui/footer_shadow_background.png) repeat-x;
+  border-top:1px solid #294a60;  
+}
+
+.GUI_footer_shadow {
+  height:13px;  
+  background:url('../gfx/ui/footer_shadow_background_middle.png') center center;
+} 
+
+/*
+ * Front Page Navigation
+ * 
+ */
+ 
+.GUI_navigation .menu {
+  margin:0px 0px -7px 0px;
+  padding:0px 10px 0px 10px;
+  list-style-type:none;
+  list-style-image:none;
+}
+
+.GUI_navigation .menu li{
+  margin:0px 2px 0px 0px;
+  padding:0;
+  display:inline-block;
+}
+
+.GUI_navigation .menu li a{
+  display:inline-block;
+  padding:20px 17px;
+  color:#ffffff;
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+  font-size:1.35em;
+  text-transform:uppercase;
+  text-decoration:none;  
+  border-top-left-radius:3px;
+  border-top-right-radius:3px;
+}
+
+.GUI_navigation .menu li.activeTrail a {
+  background:#ffffff;
+  color:#ff6600;
+  box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.GUI_navigation .menu li:hover a {
+  background:#ffffff;
+  color:#ff6600;
+}
+
+/*
+ * Front Page Column Layout 
+ * 
+ */
+
+#GUI_indexIdentificationPanel, 
+#GUI_profileIdentificationPanel {
+  /*position: absolute;*/
+  float:left;
+  width: 280px;
+}
+
+#GUI_indexNewsPanel, 
+#GUI_indexProfilePanel,
+#GUI_panelsProfilePanel {
+  margin-left: 310px;
+  margin-right: 330px;
+  min-height: 680px;
+}
+
+#GUI_indexOpenPanelsPanel, 
+#GUI_profileOpenPanelsPanel {
+  min-height:300px;
+  max-height: 680px;
+  overflow-y: auto;
+  position: absolute;
+  right: 0pt;
+  top: 0pt;
+  width: 284px;
+  background:#f2f2f4;
+  border-radius:3px;
+  padding:8px;  
+}
+
+/*
+ * Front Page Login
+ * 
+ */
+ 
+#indexLoginBlockContent {
+  margin-bottom:20px;
+  border:1px solid #d9f0d9;
+}
+
+.loginWithAnotherSiteContainer ul {
+  list-style-type:none;
+  list-style-image:none;
+  margin:0;
+  padding:0;
+}
+
+.loginWithAnotherSiteContainer ul li{
+  padding:0px 0px 0px 32px;
+  margin:0px 0px 5px 8px;
+  min-height:24px;
+}
+
+li.loginWithFacebook {
+  background:url('../gfx/icons/24x24/apps/facebook.png') no-repeat center left;
+}
+
+li.loginWithGoogle {
+  background:url('../gfx/icons/24x24/apps/google.png') no-repeat center left;   
+}
+
+li.loginWithTwitter {
+  background:url('../gfx/icons/24x24/apps/twitter.png') no-repeat center left;  
+}
+
+li.loginWithTupas {
+  padding:5px 0px 0px 0px !important;
+}
+
+#loginWithTupasContainer {
+  display:none;
+}
+
+#loginForm {
+  margin-top:10px;
+}
+
+/*
+ * Front Page Register
+ * 
+ */
+ 
+#indexRegisterBlockContent {
+
+}
+
+#registerForm {
+  margin-top:10px;
+}
+
+/*
+ * Front Page My Panels
+ * 
+ */
+ 
+ .myPanelsContainer {
+  margin: 0;
+  padding:6px 5px 6px 5px;
+  border-bottom:1px solid #eee; 
+}
+
+#myPanelsBlockContent {
+  overflow:auto;
+  max-height:500px;
+}
+
+.myPanelsInvitationsContainer {
+
+}
+
+.myPanelsInvitation {
+  font-style:italic;
+  color:#4c4c4c;
+  padding:6px;  
+  border-radius:3px;
+  margin:5px 0px 5px 0px;
+  border:1px solid #dfd895;
+  background:#FFF9BC;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+
+.invitationPanelTitle {
+  font-weight:bold;
+  color:#1e1e1e;
+}
+
+.myPanelsTitle {
+  font-size: 1.15em;
+  margin: 0px 0px 5px 0px;
+}
+
+.myPanelsLinks {
+
+}
+
+.myPanelsEmptyDescription {
+  text-align:center;
+  font-style:italic;
+  margin:5px 0px 5px 0px;
+}
+
+/*
+ * Front Page Create Panel
+ * 
+ */
+ 
+#indexCreatePanelBlockContent {
+  margin-bottom:20px;
+}
+
+.createPanelBlockCreatePanelLink {
+  color: #fff;
+  display:inline-block;
+  background-color: #00CCFF;
+  border:0;
+  margin-top:10px;
+  text-transform:uppercase;
+  font-size:0.9em;
+  text-decoration:none;
+  padding:3px 8px;
+  cursor:pointer;
+}
+
+/*
+ * Front Page My Panels
+ * 
+ */
+ 
+#indexMyPanelsBlockContent {
+
+}
+
+/*
+ * Front Page Create Panel Modal
+ * 
+ */
+ 
+.createPanelBlock_createPanelPageContainer {
+  box-shadow: 0px 0px 100px 12px #000;
+  border-radius:10px;
+  padding:8px;    
+  position:fixed;
+  top:100px;
+  left:50%;
+  width:870px;
+  margin-left:-435px;
+  background:#ffffff;
+  z-index:1001;
+}
+ 
+ .createPanelBlock_createPanelDialogOverlay {
+  background:#000;
+  opacity:0.4;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+}
+ 
+.createPanelBlock_createPanelCloseModalButton {
+  background: url("../gfx/icons/16x16/actions/modal_close.png") no-repeat scroll center center #FFFFFF;
+  border-radius: 14px 14px 14px 14px;
+  cursor: pointer;
+  height: 28px;
+  position: absolute;
+  right: -16px;
+  top: -16px;
+  width: 28px;
+}
+
+.createPanel_pageContent {
+  padding-bottom:40px;
+}
+
+.createPanel_pageContent .formMemoFieldContainer label{
+  display:block;
+}
+
+.createPanel_pageContent .formFieldContainer {
+    padding:0px 10px 0px 10px;
+}
+
+.createPanel_pageContent .formMemoFieldContainer textarea{
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:100px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5; 
+}
+
+.createPanel_pageContentTitle {
+  background-color:#1b628a;
+  color:#fff;
+  padding:8px;
+  font-size: 1.35em; 
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+  text-transform: uppercase;
+  margin-bottom:10px;
+}
+
+.createPanel_pageContentDescription {
+  font-style: italic;
+  padding:0px 0px 0px 10px;
+  margin:0px 0px 5px 0px;
+}
+
+.createPanel_panelType {
+  border: 3px solid #ffffff;  
+  float:left;
+  width: 200px;
+  padding:5px;
+  min-height:200px;
+}
+
+.createPanel_panelType:hover {
+  border: 3px solid #eeeeee;
+  cursor: pointer;
+}
+  
+.createPanel_panelTypeImage {
+  background:#eee;
+  height:60px;
+}
+
+.createPanel_panelTypeName {
+  font-size:1.2em;
+  margin:5px 0px 5px 0px;
+}
+
+.createPanel_panelTypeDescription {
+  font-size:0.9em;
+}
+
+.createPanel_footer {
+  height: 36px;
+  position: absolute;
+  bottom: 12px;
+  left:0;
+  right:0;
+}
+
+.createPanel_footerNaviLink {
+  color: #fff;
+  display:inline-block;
+  background-color: #00CCFF;
+  border:0;
+  margin-top:5px;
+  text-transform:uppercase;
+  font-size:0.9em;
+  text-decoration:none;
+  padding:3px 8px;
+  cursor:pointer;
+}
+
+.createPanel_nextPageLink {
+  position:absolute;
+  right:20px;
+}
+
+.createPanel_donePageLink {
+  position: absolute;
+  right: 20px;
+}
+
+.createPanel_prevPageLink {
+  position:absolute;
+  left:20px;
+}
+ 
+
+/*
+ * Front Page Open Panels 
+ * 
+ */
+ 
+ .openPanelContainer {
+  padding: 6px 5px 6px 5px;
+}
+
+.openPanelTitle {
+  font-size: 0.975em;
+  padding: 0px 0px 5px 0px;
+}
+
+.openPanelLinks {
+
+}
+
+.openPanelsEmptyDescription {
+  text-align:center;
+  font-style:italic;
+  margin: 10px 5px 5px 5px;
+}
+
+/*
+ * Front Page News
+ * 
+ */
+
+.newsEntryContainer {
+  margin: 0px 0px 10px;
+}
+
+.newsEntryContainer .genericMeta {
+  font-size:1em;
+  color:#4c4c4c;
+  margin:0px 0px 10px 0px;
+  font-style:italic;
+}
+
+.newsEntrySpacer {
+  height:5px;
+  background:url('../gfx/ui/news_spacer.png') no-repeat center center;
+  margin:20px 0px 20px 0px;
+}
+
+.newsEntryReadMore {
+margin:5px 0px 0px 0px;  
+}
+
+/*
+ * Panel Front Page Column Layout 
+ * 
+ */
+ 
+#GUI_panelMaterialsContainer {
+  width:29%;
+  margin-right:1%;
+  float:left;
+}
+
+#GUI_panelQueriesContainer {
+  width:40%;
+  float:left;
+}
+
+#GUI_panelUpdatesContainer {
+  width:29%;
+  margin-left:1%;
+  float:left;
+}
+
+/*
+ * Panel Generic
+ *
+ */
+ 
+.panelGenericTitle {
+  font-size:1.15em;
+  margin:0px 0px 5px 0px;  
+}
+
+.panelGenericDescription {
+  margin-bottom:5px;
+}
+
+.panelGenericMeta {
+  font-size: 0.9em;
+  color:#666;
+}
+
+
+/*
+ * Panel Materials Column
+ * 
+ */
+
+.materialRow,
+.panelDocumentRow,
+.panelImageRow,
+.panelReportRow {
+  border-bottom:1px solid #eee; 
+  position:relative;
+  padding:6px 5px 6px 5px;
+}
+
+.materialRow:last-child,
+.panelDocumentRow:last-child,
+.panelImageRow:last-child,
+.panelReportRow:last-child {
+  border:0;
+  position:relative;
+  padding:6px 5px 6px 5px;
+  margin-top:1px;
+}
+
+.materialRow .panelGenericTitle,
+.panelDocumentRow .panelGenericTitle, 
+.panelImageRow .panelGenericTitle,
+.panelReportRow .panelGenericTitle {
+  padding:0px 78px 0px 0px;    
+}
+
+.materialRow .panelGenericTitle a,
+.panelDocumentRow .panelGenericTitle a, 
+.panelImageRow .panelGenericTitle a,
+.panelReportRow .panelGenericTitle a {
+  color:#006600;
+}
+
+.materialsEmptyDescription {
+  text-align:center;
+  font-style:italic;
+  margin:10px 5px 5px 5px;
+}  
+
+/*
+ * Panel Queries Column
+ * 
+ */
+ 
+.panelQueryRow {
+  border-bottom:1px solid #eee;
+  position:relative;
+  padding:6px 10px 10px 5px;
+  min-height:55px;  
+}
+
+.panelQueryRow:last-child {
+  border:0;
+  position:relative;
+  padding:6px 10px 10px 5px;
+  min-height:55px;  
+}
+ 
+ .panelQueryRow .panelGenericTitle {
+  color:#0984c9;
+  padding-right:90px;
+}
+
+ .panelQueryRow .panelGenericDescription {
+  margin:5px 0px 15px 0px;
+}
+
+.panelQueryAnswerButton {
+  border: 0px;
+  bottom: 10px;
+  color: #FFFFFF;
+  display: inline-block;
+  padding: 3px 8px;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background:#00CCFF;
+
+}
+
+.panelQueryMetaQueryClosed {
+  text-transform:uppercase;  
+}
+
+.queriesEmptyDescription {
+  text-align:center;
+  font-style:italic;
+  margin:10px 5px 5px 5px;
+}
+
+/* Panel Queries */
+
+.panelQueryRowStateEdit {
+
+}
+
+.panelQueryRowStateEdit .panelGenericTitle > a {
+  color: #b71818;
+}
+
+
+ /*
+ * Panel Updates Column
+ * 
+ */
+
+.panelBulletinRow,
+.panelSystemUpdateRow {
+  border-bottom:1px solid #eee;
+  position:relative;
+  padding:6px 5px 6px 5px;
+}
+
+.panelBulletinRow:last-child,
+.panelSystemUpdateRow:last-child {
+  border:0;
+  position:relative;
+  padding:6px 5px 6px 5px;
+}
+
+.panelBulletinRow .panelGenericTitle {
+  padding:0px 78px 0px 0px;
+}
+
+.panelBulletinRow .panelGenericTitle a {
+  color:#FF6600;
+}
+
+.panelSystemUpdateRow .panelGenericTitle {
+  font-size:0.9em;
+  color:#838383;
+  margin:0;
+  padding:10px 56px 0px 5px;  
+}
+
+.panelSystemUpdateRow .panelGenericMeta {
+  color: #838383;  
+  font-style:normal;
+  font-size:0.8em;
+}
+
+.bulletinsEmptyDescription {
+  text-align:center;
+  font-style:italic;
+  margin:10px 5px 5px 5px;
+}  
+
+/*
+ * Panel Admin Dashboard Column Layout
+ *
+ */
+ 
+.GUI_adminDashboardNarrowColumn {
+  float:left;
+  width:33%;
+  margin-right:1%;
+}
+
+.GUI_adminDashboardWideColumn {
+  float:left;
+  width:66%;
+}
+ 
+#GUI_adminDashboardSettingsContainer {
+  margin-bottom:10px;
+}
+
+.adminDashboardMaterialsShowAllLink {
+  border-top:1px solid #dde7ed;
+  padding:4px 0px 0px 0px;
+  margin:4px 0px 0px 0px;
+  text-align:center;
+}
+
+#GUI_adminDashboardQueriesContainer {
+  float:left;
+  width:49%;
+  margin-top:10px;
+  margin-right:1%;
+}
+
+.adminDashboardQueriesShowAllLink {
+  border-top:1px solid #dde7ed;  
+  padding:4px 0px 0px 0px;
+  margin:4px 0px 0px 0px;
+  text-align:center;
+}
+
+#GUI_adminDashboardUsersContainer {
+  float:left;
+  width:50%;
+  margin-top:10px;
+}
+
+/*
+ * Panel Admin Generic
+ *
+ */
+
+.panelAdminGenericTitle {
+  font-size:1.15em;
+  margin:0px 0px 5px 0px;  
+}
+
+.panelAdminGenericDescription {
+  font-style:italic;
+}
+
+.panelAdminGenericMeta {
+  font-size: 0.9em;
+}
+
+/*
+ * Panel Admin Dashboard Settings Column
+ *
+ */
+ 
+#panelAdminSettingsForm {
+  margin-top:10px;
+}
+
+/*
+ * Panel Admin Dashboard Process Column
+ *
+ */
+ 
+#panelAdminDashboardProcessLeftBlock {
+  float:left;
+  width:50%;
+}
+
+#panelAdminDashboardProcessRightBlock {
+  float:left;
+  width:49%;
+  margin-left:1%;
+}
+
+/*
+ * Panel Admin Column Item Listings
+ *
+ */
+
+.panelAdminProcessRow,
+.panelAdminUserRow {
+  padding:6px 5px 6px 5px;
+}
+
+.panelAdminProcessRow .panelAdminGenericTitle {
+  color: #0099FF;
+}
+ 
+.panelAdminReportRow,
+.panelAdminQueryRow,
+.panelAdminBulletinRow {
+  border-bottom:1px solid #dde7ed;
+  padding:6px 5px 6px 5px;
+  position:relative;  
+  border-radius:2px;
+}
+
+.panelAdminReportRow:last-child,
+.panelAdminQueryRow:last-child,
+.panelAdminBulletinRow:last-child {
+  border:0;
+  padding:6px 5px 6px 5px;
+  position:relative;  
+  margin-top:1px;
+  border-radius:2px;
+}
+
+.panelAdminReportRow .panelAdminGenericTitle,
+.panelAdminQueryRow .panelAdminGenericTitle {
+  padding:0px 96px 0px 0px;    
+}
+
+.panelAdminBulletinRow .panelAdminGenericTitle {
+  padding:0px 78px 0px 0px;    
+}
+
+.panelAdminReportRow .panelAdminGenericTitle a {
+  color:#006600;
+}
+
+.panelAdminQueryRow .panelAdminGenericTitle a {
+  color: #0099FF;
+}
+
+.panelAdminBulletinRow .panelAdminGenericTitle a {
+  color: #FF6600;
+}
+
+.panelAdminUserRow .panelAdminGenericTitle {
+  color: #0099FF;
+}
+
+.materialRowSelected,
+.panelAdminMaterialRowSelected,
+.panelAdminMaterialRowSelected:hover {
+  background-color: #6CADD3;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  border:0;
+  border-radius:2px;
+}
+
+.materialRowSelected .panelGenericTitle a,
+.materialRowSelected .panelGenericMeta {
+  color:#fff;
+}
+
+.panelAdminQueryRowStateEdit .panelAdminGenericTitle > a {
+  color: #b71818;
+}
+
+/* 
+ * Panel Admin Manage Expertise 
+ *
+ */
+
+#GUI_newInteressExpertiseWrapper {
+  margin-bottom:10px;
+}
+
+.newIntressExpertisePanel {
+  width:400px;
+  margin-right:20px;
+  float:left;
+}
+
+.newIntressExpertisePanel .formSubmitContainer,
+.newIntressExpertisePanel .formTextFieldContainer {
+  float:left;
+  margin-right:2px;
+}
+
+.newIntressExpertisePanel .formTextFieldContainer {
+  width:320px;
+}
+
+.newIntressExpertisePanel .formSubmitContainer {
+  margin-top:1.1em;
+}
+
+#GUI_panelExpertsUserMatrixWrapper {
+  position:relative;
+  margin-top:10px;
+}
+
+#GUI_panelExpertsUsersWrapper {
+  float:left;
+  width:210px;
+}
+
+#GUI_panelExpertsUserList {
+/*   max-height:550px; */
+/*   overflow-y:auto;   */
+}
+
+#panelExpertsUsersContainer {
+
+}
+
+#GUI_panelExpertsMatrix {
+  margin-left:240px;
+}
+
+#panelExpertsMatrixContainer {
+
+}
+
+.panelExpertsUser {
+  color: #ffffff;
+  background-color: #0099FF;
+  border-radius:2px;
+  cursor: move;
+  margin-bottom:2px;
+  font-size:0.9em;
+}
+
+.panelExpertsUser .panelExpertsUserName {
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+#GUI_panelExpertsUserList .panelExpertsUser {
+  color: #1e1e1e;
+  background-color: #fff;
+  padding:1px 3px 1px 3px;
+  border-radius:2px;
+  cursor: move;
+  margin-bottom:2px;
+  font-size:0.9em;
+}
+
+#GUI_panelExpertsUserList .panelExpertsUser:hover {
+  color: #ffffff;
+  background-color: #0099FF;
+  padding:1px 7px 1px 3px;
+  border-radius:2px;
+  cursor: move;
+  margin-bottom:2px;
+  font-size:0.9em;
+}
+
+.panelExpertsUser .blockContextInfoTooltip {
+  display: none;
+}
+
+.panelExpertsUser:hover .blockContextInfoTooltip {
+  display: block;
+  position: absolute;
+  top: -35px;
+  right: -10px;
+  z-index: 99;
+  width: auto;
+}
+
+.panelExpertsUser .blockContextInfoTooltipText {
+  padding: 3px 12px;
+  color: #ffffff;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  display: block;
+  background: #000000;
+  box-shadow: 0px 0px 4px #666666;
+}
+
+.panelExpertsUser .blockContextInfoTooltipArrow {
+  display: block;
+  background: url('../gfx/ui/tooltip_bottom_arrow.png') no-repeat center right;
+  height: 6px;
+  width: 11px;
+  position: absolute;
+  right: 20px;
+}
+
+.panelExpertsMatrixCell > .panelExpertsUser {
+  margin:2px 2px 3px 2px;
+  padding:1px 20px 1px 3px;
+}
+
+.panelExpertsMatrixCell > .panelExpertsUser .panelExpertsUserName {
+  max-width:110px;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+.panelExpertsMatrixCell > .panelExpertsUser > .panelExpertsUserRemoveButton {
+  display: block;
+}
+
+.panelExpertsUserRemoveButton {
+  background: url("../gfx/icons/12x12/actions/delete_white.png") no-repeat center center #0099FF;
+  cursor: pointer;
+  display: none;
+  height: 22px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+}
+
+.panelExpertsMatrixHeaderRow, 
+.panelExpertsMatrixRow {
+  display: table-row;
+}
+
+.panelExpertsMatrixCell {
+  min-width: 130px;
+  height: 130px;
+  padding:2px;
+  display: table-cell;
+  border:1px solid #ffffff;
+  border-radius:2px;
+}
+  
+.panelExpertsMatrixHeaderCell {
+  text-align:right;
+  padding:2px 6px 2px 6px;
+  vertical-align:middle;
+  width:auto;
+  max-width:14px;
+  min-width:110px;
+  background-color:#f7f7f7;
+  word-wrap:break-word;  
+  text-transform:uppercase;
+  font-size:0.85em;
+  line-height:1.2em;
+}
+
+.panelExpertsContextualLinkWrapper {
+/*   position:relative; */
+  display:inline-block;
+}
+
+.panelExpertsMatrixHeaderRow .panelExpertsMatrixHeaderCell,
+.panelExpertsMatrixHeaderRow .panelExpertsMatrixCell {
+  vertical-align:bottom;
+  text-align:center;
+  padding:2px;
+  height:auto;
+  width:auto;
+}
+
+.panelExpertsMatrixGroupCell {
+  background-color: #eee;
+  vertical-align:top;
+}
+
+#newIntressButton,
+#newExpertiseButton {
+  padding:8px;
+}
+
+.panelExpertsEditExpertisePopupInputContainer {
+  margin:5px 0px 5px 0px;
+}
+
+/*
+ * Panel Admin Invite Users
+ *
+ */
+ 
+#GUI_inviteUsersActionColumn {
+  float: left;
+  width: 40%;
+  min-height: 500px;
+}
+
+#GUI_inviteUsersListColumn {
+  margin-left: 42%;
+  min-height: 500px;
+}
+
+#panelAdminInviteUsersActionsBlockContent.blockContent {
+  margin-top:10px;
+}
+
+#inviteUsersCSVFileField {
+  float: left;
+  width: 220px;
+}
+
+#inviteUsersCSVUploadButton {
+  margin-left: 230px;
+  text-align:right;
+}
+
+.inviteUsersCSVExsampleFile {
+  clear:both;
+}
+
+#inviteUsersSelectedInvitationUsers {
+  min-height: 50px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #aaaaaa;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  padding: 4px;
+}
+
+.inviteUsersListAddedByManagerContainer, 
+.inviteUsersListInvitationAcceptedContainer, 
+.inviteUsersListInvitationPendingContainer, 
+.inviteUsersListInvitationDeniedContainer,
+.inviteUsersListInvitationQueuedContainer,
+.inviteUsersListInvitationFailedContainer
+ {
+  margin-bottom:20px;
+}
+
+.inviteUsersListAddedByManagerContainer .inviteUsersListRow {
+  background:url('../gfx/icons/16x16/apps/user_added_by_manager.png') no-repeat 0px 5px;
+}
+
+.inviteUsersListInvitationAcceptedContainer .inviteUsersListRow {
+  background:url('../gfx/icons/16x16/apps/user_invitation_accepted.png') no-repeat 0px 5px;
+}
+
+.inviteUsersListInvitationPendingContainer .inviteUsersListRow {
+  background:url('../gfx/icons/16x16/apps/user_invitation_pending.png') no-repeat 0px 5px;
+}
+
+.inviteUsersListInvitationDeniedContainer .inviteUsersListRow {
+  background:url('../gfx/icons/16x16/apps/user_invitation_denied.png') no-repeat 0px 5px;
+}
+
+.inviteUsersListResendInvitationLinkContainer {
+  float: right;
+  font-size: 0.87em;
+}
+
+.inviteUsersListRow {
+  padding: 2px 0px 2px 0px;
+  min-height:42px;
+}
+
+.inviteUsersListUserInfo {
+  float: left;
+  width: 230px;
+  padding-left: 20px;
+}
+
+.inviteUsersListUserEmail {
+  font-size:0.9em;
+  color:#0099FF;
+  font-style:italic;
+  display:block;
+}
+
+.inviteUsersListMeta {
+  margin-left: 250px;
+}
+
+.inviteUsersListInvitationPendingContainer .inviteUsersListMeta,
+.inviteUsersListInvitationAcceptedContainer .inviteUsersListMeta,
+.inviteUsersListAddedByManagerContainer  .inviteUsersListMeta {
+  float: left;
+  margin-left: 0px;
+}
+
+.inviteUsersListInvitationPendingContainer .inviteUsersListResendLink,
+.inviteUsersListInvitationAcceptedContainer .inviteUsersListResendLink,
+.inviteUsersListAddedByManagerContainer .inviteUsersListResendLink {
+  text-align: right;
+  padding-right:6px;  
+}
+
+.invitationAutoCompleteList {
+  position:absolute;
+  z-index: 1000;
+  margin-top: -6px;
+  right:9px;
+  left:9px;
+  background-color:#ffffff;
+  padding:2px;
+  border-top:1px solid #eee;
+  border-left:1px solid #aaa;
+  border-right:1px solid #aaa;
+  border-bottom:1px solid #aaa;
+  box-shadow:0px 4px 4px #ccc;
+}
+
+.invitationAutoCompleteEntry {
+  color: #000000;
+  padding:1px 3px;
+  border-radius:2px;
+  cursor: pointer;
+}
+
+.autoCompleteEntryNameContainer,
+.autoCompleteEntryEmailContainer {
+  display:inline;
+  font-size:0.9em;  
+  margin-right:4px;
+}
+
+.autoCompleteEntryEmailContainer {
+  font-style:italic;
+  color:#666;
+}
+
+.invitationAutoCompleteEntry:hover .autoCompleteEntryEmailContainer {
+  color: #f2f2f2;
+}
+
+.invitationAutoCompleteEntry:hover {
+  color: #ffffff;
+  background-color: #0099FF;
+  border-radius:2px;
+}
+
+.invitationEntry {
+  color: #ffffff;
+  background-color: #0099FF;
+  padding:1px 20px 1px 5px;
+  border-radius:2px;
+  display:inline-block;
+  margin:1px 3px 2px 0px;
+  position:relative;
+}
+
+.invitationEntryNameContainer,
+.invitationEntryEmailContainer {
+  display: inline-block;
+  font-size:0.9em;
+  margin-right:4px;
+}
+
+.invitationEntryEmailContainer {
+  font-style:italic;
+}
+
+.invitationEntryRemoveContainer {
+  background:url("../gfx/icons/12x12/actions/delete_white.png") no-repeat scroll center center transparent;
+  cursor: pointer;
+  height: 12px;
+  text-align: center;
+  width: 12px;
+  position:absolute;
+  font-weight:bold;
+  top:4px;
+  right:4px;
+}
+
+form#panelAdminInvitationForm .formSelectContainer {
+  margin:5px 0px 15px 0px;  
+}
+
+form#panelAdminInvitationForm .formCheckBoxContainer {
+  margin:5px 0px 10px 0px;   
+  
+}
+
+/*
+ * Panel Admin Send Email
+ *
+ */
+ 
+#GUI_emailContentColumn {
+  width:60%;
+  float:left;
+}
+
+#GUI_emailRecipientsColumn {
+  width:39%;
+  margin-left:1%;
+  float:right;
+}
+
+#GUI_emailContentColumn h3 {
+  color: #1e1e1e;
+  background:#eeeeee;
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin:0px 0px 1px 0px;
+  padding:4px 6px;
+  text-transform: uppercase; 
+  font-size: 1em;    
+}
+
+#panelAdminSendEmailContentBlockContent.blockContent,
+#panelAdminSendEmailRecipientBlockContent.blockContent {
+  margin-top:10px;
+}
+
+#panelAdminSendEmailContentBlockContent .formMemoFieldContainer {
+  margin-top:10px;
+}
+
+#panelAdminSendEmailContentBlockContent .formMemoFieldContainer {
+  margin-top:10px;
+}
+
+#panelAdminSendEmailRecipientBlockContent .sendMainRecipientEmail {
+  font-size:0.9em;
+  color:#0099FF;
+  font-style:italic;
+  display:inline-block;
+  margin-left:5px;
+}
+
+/*
+ * Message Center
+ *
+ */
+ 
+#GUI_messageCenterContentColumn {
+  width:45%;
+  float:left;
+}
+
+#GUI_messageCenterMessagesColumn {
+  width:54%;
+  margin-left:1%;
+  float:right;
+}
+
+#GUI_messageCenterRecipientsColumn .block {
+  margin-bottom:10px;
+}
+
+#GUI_messageCenterContentColumn h3 {
+  color: #1e1e1e;
+  background:#eeeeee;
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin:0px 0px 1px 0px;
+  padding:4px 6px;
+  text-transform: uppercase; 
+  font-size: 1em;    
+}
+
+#messageCenterMessagesBlockContent {
+  position:relative;
+}
+
+.messageCenterRecipientsWrapper {
+  margin-top:10px;
+}
+
+#messageCenterContentBlockContent .formMemoFieldContainer {
+  margin-top:10px;
+}
+
+#messageCenterContentBlockContent .messageCenterAddRecipientLink {
+  padding:4px 5px 6px 5px;
+}
+
+#messageCenterContentBlockContent .messageCenterAddRecipientLink a {
+  
+}
+
+#messageCenterContentBlockContent .messageCenterSelectedRecipients {
+  padding:6px 5px;
+  min-height:1em;
+  max-height:100px;
+  overflow:auto;
+  margin-bottom:10px;
+  border:1px solid #eee;
+  border-radius:3px;
+}
+
+.messageCenterTabLinks {
+  padding:10px 0px 10px 0px;
+}
+
+.messageCenterTabLinks ul {
+  margin:0;
+  padding:0;
+  list-style:none;
+  list-type:none;
+}
+
+.messageCenterTabLinks ul li {
+  display:inline-block;
+}
+
+.messageCenterTabLinks a.messageCenterTabLink {
+  padding:4px 8px;
+  display:inline-block;
+}
+
+.messageCenterTabLinks a.messageCenterTabLinkSelected {
+  background:#74c0f2;
+  color:#fff;
+  border-radius:3px;
+  text-decoration:none;
+}
+
+.messageCenterFilterMessages {
+  width:300px;
+  top:5px;
+  right:0px;
+  position:absolute;
+}
+
+.messageCenterFilterMessages input[type='text'] {
+  padding:3px 6px 3px 26px;
+  margin:0;
+  border:2px solid #E5E5E5;
+  color:#aaa;
+  background:url('../gfx/icons/16x16/actions/filter_messages.png') no-repeat 5px 4px;
+}
+
+.messageCenterFilterMessages input[type='text']:focus,
+.messageCenterFilterMessages input[type='text']:hover {
+  border:2px solid #74C0F2;
+  border-radius:3px;
+  color:#1e1e1e;
+  font-style:normal;
+  background:url('../gfx/icons/16x16/actions/filter_messages_focused.png') no-repeat 5px 4px;
+}
+
+.messageCenterReceivedMessagesContainer,
+.messageCenterSentMessagesContainer {
+
+}
+
+.messageCenterMessage {
+  padding:8px;  
+  border-radius:3px;  
+  font-size:0.925em;
+  line-height:1.3em;
+  margin-top:10px;
+}
+
+.messageCenterMessage:nth-child(1) {
+  margin:0;
+}
+
+.messageCenterMessageHeader {
+  margin-bottom:5px;
+  padding-bottom:5px;
+  border-bottom:0px;
+}
+
+.messageSenderAndTime,
+.messageRecipientAndTime {
+  font-style: italic;
+  margin-bottom: 5px;
+  padding: 0 0 0 24px;
+}
+
+.messageTime {
+  position:absolute;
+  right:15px;
+  top:8px;
+}
+
+.messageRecipients,
+.messageSender {
+  margin-right:120px;
+}
+
+.messageSubject {
+  font-size:1.2em;
+  margin-bottom:5px;
+}
+
+.messageCenterMessagesContent {
+  text-align:left;
+}
+
+.messageCenterReplyMessageLink,
+.messageCenterResendMessageLink {
+  margin:10px 0px 0px 0px;
+}
+
+/* Received Messages styles - NOT YET IMPLEMENTED */
+
+.messageCenterMessage.receivedMessage {
+  background:#f5f4fd;
+  cursor:pointer;  
+  position:relative;
+}
+
+.messageCenterMessage.receivedMessage.messageUnRead {
+  background:#e8e7f7;
+}
+
+.messageCenterMessage.receivedMessage.messageExpanded {
+  cursor:default;
+}
+
+.receivedMessage.messageExpanded .messageCenterMessageHeader {
+  margin-bottom:10px;
+  padding-bottom:5px;
+  border-bottom:1px solid #fff;
+  cursor:pointer;
+}
+
+.receivedMessage.messageRead .messageSenderAndTime {
+  background: url("../gfx/icons/16x16/apps/message_read.png") no-repeat transparent;
+  font-style: italic;
+  margin-bottom: 5px;
+  padding: 0 0 0 24px;
+}
+
+.receivedMessage.messageUnRead .messageSenderAndTime {
+  background: url("../gfx/icons/16x16/apps/message_unread.png") no-repeat transparent;
+  font-style: italic;
+  margin-bottom: 5px;
+  padding: 0 0 0 24px;
+}
+
+.receivedMessage.messageCenterMessagesContent {
+  color: #cfcedf;
+  font-size: 2.6em;
+  line-height: 0.1em;
+  margin-top: -10px;
+  min-height: 24px;
+  text-align: center;
+}
+
+.receivedMessage.messageExpanded .messageCenterMessagesContent {
+  color: #1e1e1e;
+  font-size: 1em;
+  line-height: 1.4em;
+  margin:0px;
+  text-align:left;
+}
+
+/* Sent Messages Styles */  
+
+.messageCenterMessage.sentMessage {
+  background:#e3ecff;
+  cursor:pointer;
+  position:relative;
+}
+
+.messageCenterMessage.sentMessage.messageExpanded {
+  background:#f1f5ff;
+  cursor:default;
+  position:relative;
+}
+
+.sentMessage .messageRecipientAndTime {
+  background: url("../gfx/icons/16x16/apps/message_sent.png") no-repeat transparent;
+  font-style: italic;
+  margin-bottom: 5px;
+  padding: 0 0 0 24px;
+}
+
+.sentMessage .messageCenterMessagesContent {
+  color: #cfcedf;
+  font-size: 2.6em;
+  line-height: 0.1em;
+  margin-top: -10px;
+  min-height: 24px;
+  text-align: center;
+}
+
+.sentMessage.messageExpanded .messageCenterMessagesContent {
+  color: #1e1e1e;
+  font-size: 1em;
+  line-height: 1.4em;
+  margin:0px;
+  text-align:left;
+}
+
+.sentMessage.messageExpanded .messageCenterMessageHeader {
+  margin-bottom:10px;
+  padding-bottom:5px;
+  border-bottom:1px solid #fff;
+  cursor:pointer;
+}
+
+/*
+ * Panel Admin Documents & Reports Management
+ *
+ */
+ 
+.GUI_adminManageMaterialsNarrowColumn {
+  float:left;
+  width:30%;  
+  min-height:500px;
+}
+
+.GUI_adminManageMaterialsWideColumn {
+  margin-left:32%;
+  min-height:500px;
+}
+
+.panelAdminDocumentEditorBodyWrapper {
+  
+}
+
+#panelAdminDocumentEditorForm {
+  margin-top:10px;
+}
+
+#panelAdminDocumentEditorForm .formMemoFieldContainer {
+  margin-top:10px;
+}
+
+.panelAdminDocumentEditorActionContainer {
+  margin-bottom:6px;
+  margin-top:6px;
+  background:#eeeeee;
+  padding:6px;
+}
+
+.panelAdminDocumentEditorPagesContainer {
+  margin-bottom:10px;
+}
+
+.panelAdminDocumentEditorContainer {
+ 
+}
+
+.panelAdminDocumentEditorPages {
+  display: block;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  white-space:nowrap;
+  padding:2px;
+}
+
+.panelAdminDocumentEditorPage {
+  height: 70px;
+  width:100px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center 6px;
+  cursor: move;
+  margin-right:2px;
+  margin-left:2px;
+  background-image: url('../gfx/icons/32x32/apps/query_page.png');
+  position:relative;   
+  border:1px solid #ffffff;    
+}
+
+.panelAdminDocumentEditorPageTitle {
+  background-color:#eeeeee;
+  color:#333;
+  min-height:20px;
+  font-size:0.8em;
+  position:absolute;
+  bottom:2px;
+  left:0px;
+  right:0px;
+  padding:0px 3px;
+  white-space:nowrap;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.panelAdminDocumentEditorPageSelected > .panelAdminDocumentEditorPageTitle {
+  color:#fff;
+  background-color:#6cadd3; 
+}
+
+.panelAdminDocumentEditorPage:hover .panelAdminDocumentEditorPageTitle {
+  color:#fff;
+  background-color:#6cadd3;  
+}
+
+.panelAdminDocumentEditorSubmitContainer {
+  margin-top:10px;
+}
+
+/* 
+ * Generic GDocs import
+ * 
+ */
+
+.panelAdminMaterialImportGDocsEntry {
+  position: relative;
+  height: 20px;
+}
+
+.panelAdminMaterialImportGDocsEntryCheckContainer {
+  position: absolute;
+  left: 0px;
+}
+
+.panelAdminMaterialImportGDocsEntryCheck {
+  margin-top: 5px;
+}
+
+.panelAdminMaterialImportGDocsEntryIconContainer {
+  position: absolute;
+  left: 22px;
+}
+
+.panelAdminMaterialImportGDocsEntryIcon {
+  margin-top: 4px;
+}
+
+.panelAdminMaterialImportGDocsEntryTitleContainer {
+  position: absolute;
+  left: 46px;
+  margin-top: 3px;
+}
+
+/* 
+ * Panel Admin Bulletins Management  
+ * 
+ */
+
+.GUI_adminManageBulletinsNarrowColumn {
+  float:left;
+  width:30%;  
+  min-height:500px;
+}
+
+.GUI_adminManageBulletinsWideColumn {
+  margin-left:32%;
+  min-height:500px;
+}
+
+.GUI_adminManageBulletinsWideColumn label {
+  margin:5px 0px 2px 0px;
+}
+
+#panelAdminBulletinEditorForm {
+  margin-top:10px;
+}
+
+#panelAdminBulletinEditorForm .formMemoFieldContainer {
+  margin-top:10px;
+} 
+
+/*
+ * Panel Stamps Management
+ *
+ */
+
+#GUI_managePanelStampsListColumn{
+  float:left;
+  width:45%;
+  min-height:500px;
+}
+ 
+#GUI_managePanelStampsStampViewColumn{
+  margin-left:46%;
+  min-height:500px;
+}
+
+.managePanelStamps_panelStamp {
+  padding:6px 4px;
+  margin:0;  
+  cursor:pointer;
+  position:relative;
+  border-bottom:1px solid #DDE7ED;
+  border-radius:2px;    
+}
+
+.managePanelStamps_panelStamp:last-child {
+  border-bottom:0px;
+  margin:0px;
+}
+
+.managePanelStamps_panelStamp_selected,
+.managePanelStamps_panelStamp_selected:hover {
+  color:#fff;
+  background-color:#6cadd3;
+}
+
+.managePanelStamps_panelStamp_name {
+  margin-right:95px;
+  font-size:1.1em;   
+}
+
+.managePanelStamps_panelStamp_created {
+  font-size:0.9em;
+  color:#666;
+  position:absolute;
+  top:5px;
+  right:5px;
+}
+
+.managePanelStamps_panelStamp_desc {
+  font-size:0.9em;
+
+  margin:3px 0px 3px 0px;
+  font-style:italic;
+}
+
+.managePanelStamps_panelStamp_link a {
+  color: #0099FF;
+  font-size:0.9em; 
+}
+
+.managePanelStamps_panelStamp_selected .managePanelStamps_panelStamp_name,
+.managePanelStamps_panelStamp_selected .managePanelStamps_panelStamp_created,
+.managePanelStamps_panelStamp_selected .managePanelStamps_panelStamp_desc,
+.managePanelStamps_panelStamp_selected .managePanelStamps_panelStamp_link a {
+  color:#fff;
+}
+
+/*
+ * Panel Admin User Management
+ *
+ */
+
+#GUI_manageUsersListColumn{
+  float:left;
+  width:45%;
+  min-height:500px;
+}
+ 
+#GUI_manageUsersUserViewColumn{
+  margin-left:46%;
+  min-height:500px;
+}
+
+.manageUsersList {
+  margin-bottom:20px;  
+}
+
+.managePanelUsers_panelUser {
+  padding:4px 4px 4px 22px;
+  margin:0;  
+  cursor:pointer;
+  position:relative;
+  border-bottom:1px solid #DDE7ED;
+  border-radius:2px;   
+}
+
+#manageUsersList_6 .managePanelUsers_panelUser {
+  background-image:url("../gfx/icons/16x16/apps/panelmanager.png");
+  background-repeat:no-repeat;
+  background-position:2px 5px;
+}
+
+#manageUsersList_7 .managePanelUsers_panelUser {
+  background-image:url("../gfx/icons/16x16/apps/paneluser.png");
+  background-repeat:no-repeat;
+  background-position:2px 5px;
+}
+
+#manageUsersList_8 .managePanelUsers_panelUser {
+  background-image:url("../gfx/icons/16x16/apps/panelvisitor.png");
+  background-repeat:no-repeat;
+  background-position:2px 5px;
+}
+
+.managePanelUsers_panelUser:last-child {
+  border-bottom:0px;
+}
+
+.managePanelUsers_panelUser_email {
+  font-style:italic;
+  color: #0099FF;
+  font-size:0.9em;  
+}
+
+.managePanelUsers_panelUser_name,
+.managePanelUsers_panelUser_emailAsName {
+  display: inline-block;
+  margin-right:10px;
+  font-size:1em;    
+  min-width:230px;
+}
+
+.managePanelUsers_panelUser_created {
+  font-size:0.9em;
+  color:#1e1e1e;
+  display: inline-block;
+}
+
+.managePanelUsers_panelUser_expertise_title {
+  font-size:0.9em;
+  color:#666;
+  display:inline-block;
+  margin-right:5px;
+}
+
+.managePanelUsers_panelUser_expertise {
+  font-size:0.9em;
+  color:#666;
+  display:inline;
+}
+
+.managePanelUsers_panelUser_removeFromPanel {
+  position:absolute;
+  right:10px;
+  top:10px;
+  height:16px;
+  width:16px;
+  background:url('../gfx/icons/16x16/actions/remove_user.png') no-repeat left top transparent;
+  opacity:0.2;
+}
+
+.managePanelUsers_panelUser:hover .managePanelUsers_panelUser_removeFromPanel {
+  opacity:1;
+}
+
+.managePanelUsers_panelUser_selected,
+.managePanelUsers_panelUser_selected:hover {
+  color:#fff;
+  background-color:#6cadd3; 
+}
+
+.managePanelUsers_panelUser_selected .managePanelUsers_panelUser_removeFromPanel,
+.managePanelUsers_panelUser_selected .managePanelUsers_panelUser_changeRole,
+.managePanelUsers_panelUser_selected .managePanelUsers_panelUser_expertise_title,
+.managePanelUsers_panelUser_selected .managePanelUsers_panelUser_created,
+.managePanelUsers_panelUser_selected .managePanelUsers_panelUser_name,
+.managePanelUsers_panelUser_selected .managePanelUsers_panelUser_email,
+.managePanelUsers_panelUser_selected .managePanelUsers_panelUser_expertise  {
+  color:#fff;
+
+}
+
+#manageUsersUserViewColumn_userImage {
+  height: 200px;
+  width: 180px;
+  border: 3px solid #eee;
+  float: left;
+  border-radius:2px;
+}
+
+.manageUsersUserViewColumn_userInformation {
+  margin-left:195px;
+  min-height:210px;
+}
+
+.manageUsersUserViewColumn_userInformation_firstNameWrapper {
+  width:200px;
+  float:left;
+}
+
+.manageUsersUserViewColumn_userInformation_lastNameWrapper {
+  margin-left:210px;
+}
+
+.manageUsersUserViewColumn_userInformation_lastNameWrapper,
+.manageUsersUserViewColumn_userInformation_emailWrapper,
+.manageUsersUserViewColumn_userInformation_roleWrapper,
+.manageUsersUserViewColumn_userInformation_authWrapper {
+  margin-bottom:10px;
+}
+
+.manageUsersUserViewColumn_userInformation_roleTitle {
+  float:left;
+  margin-right:5px;
+}
+
+.manageUsersUserViewColumn_userInformation_emailTitle,
+.manageUsersUserViewColumn_userInformation_roleTitle,
+.manageUsersUserViewColumn_userInformation_authTitle {
+  font-weight:bold;
+}
+
+.managePanelUsers_panelExpertsMatrixTable {
+}
+
+.managePanelUsers_panelExpertsMatrixTable td{
+  text-transform:uppercase;
+  font-size:0.85em;
+  border:2px solid #fff;
+  border-radius:5px;
+  overflow:hidden;
+}
+
+.managePanelUsers_panelExpertsMatrixHeaderRow {
+}
+
+.managePanelUsers_panelExpertsMatrixHeaderRow > .managePanelUsers_panelExpertsMatrixHeaderCell {
+  text-align:center;
+  background:#F7F7F7;
+}
+
+.managePanelUsers_panelExpertsMatrixHeaderCell {
+  text-align:right;
+  background:#F7F7F7;
+  line-height:1.2em;
+}
+
+.managePanelUsers_panelExpertsMatrixCell {
+  height: 32px;
+  padding:2px 6px;
+}
+
+.managePanelUsers_panelExpertsMatrixGroupCell {
+  background:#eee;  
+  cursor: pointer;
+}
+
+.managePanelUsers_panelExpertsMatrixGroupCell:hover {
+  background:url('../gfx/icons/16x16/actions/checkmark.png') center center no-repeat #eee;
+}
+
+.managePanelUsers_panelExpertsSelectedExpertiseCell {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  background:url('../gfx/icons/16x16/actions/checkmark.png') center center no-repeat #eee;
+}
+
+/*
+ * Panel Admin Usergroup Management
+ *
+ */
+ 
+#GUI_manageUsergroupsListColumn {
+  float:left;
+  width:40%;
+  min-height:500px;
+}
+
+#GUI_manageUsergroupsViewColumn {
+  margin-left:41%;
+  min-height:500px;
+}
+
+#panelAdminManagePanelUsergroupListingBlockContent {
+  
+}
+
+#panelAdminManagePanelUsergroupViewBlockContent {
+  
+}
+
+#manageUsergroupsUsergroupViewColumnContent {
+  
+}
+
+.managePanelUsergroups_panelUsergroup {
+  padding:4px;
+  margin:0;  
+  cursor:pointer;
+  position:relative;
+  border-bottom:1px solid #f2f2f2;
+}
+
+.managePanelUsergroups_panelUsergroup:last-child {
+  border-bottom:0px;
+}
+
+.managePanelUsergroups_panelUsergroup_removeFromPanel {
+  position:absolute;
+  right:10px;
+  top:10px;
+  height:16px;
+  width:16px;
+  background:url('../gfx/icons/16x16/actions/remove_usergroup.png') no-repeat left top transparent;
+  opacity:0.2;
+}
+
+.managePanelUsergroups_panelUsergroup:hover .managePanelUsergroups_panelUsergroup_removeFromPanel {
+  opacity:1;
+}
+
+.managePanelUsergroups_panelUsergroup_name {
+  margin-right:10px;
+  font-size:1.1em;    
+}
+
+.managePanelUsergroups_panelUsergroup_created {
+  font-size:0.9em;
+  color:#666;
+  display:inline-block;
+}
+
+.managePanelUsergroups_panelUsergroup_created:after {
+  content:",";
+}
+
+.managePanelUsergroups_panelUsergroup_modified {
+  font-size:0.9em;
+  color:#666;
+  display:inline-block;
+}
+
+.managePanelUsergroups_panelUsergroup_selected,
+.managePanelUsergroups_panelUsergroup_selected:hover {
+  color:#fff;
+  background-color:#6cadd3; 
+}
+
+.managePanelUsergroups_panelUsergroup_selected .managePanelUsergroups_panelUsergroup_modified,
+.managePanelUsergroups_panelUsergroup_selected:hover .managePanelUsergroups_panelUsergroup_modified,
+.managePanelUsergroups_panelUsergroup_selected .managePanelUsergroups_panelUsergroup_created,
+.managePanelUsergroups_panelUsergroup_selected:hover .managePanelUsergroups_panelUsergroup_created {
+  color:#fff;
+  background-color:#6cadd3; 
+}
+
+.usergroupView_availableUsersListWrapper {
+  float:left;
+  width:46%;
+}
+
+.usergroupView_usergroupUsersListWrapper {
+  margin-left:49%;
+  padding-left:3%;
+}
+
+.usergroupView_availableUsersListContainer {
+  height:400px;
+  overflow-y:scroll;
+  border:1px solid #eee;
+}
+
+.usergroupView_usergroupUsersListContainer {
+  height:400px;
+  overflow-y:scroll;
+  border:1px solid #eee;
+}
+
+.usergroupViewArrowControllers {
+  position:absolute;
+  left:46%;
+  top:50%;
+  height:74px;
+  width:6%;
+}
+
+.usergroupViewArrowControllerRight {
+  background:url('../gfx/icons/32x32/actions/usergroups_arrowright.png') no-repeat;
+  width:32px;
+  height:32px;
+  opacity:0.2;
+  margin:0px auto 10px auto;
+}
+
+.usergroupViewArrowControllerLeft {
+  background:url('../gfx/icons/32x32/actions/usergroups_arrowleft.png') no-repeat;
+  width:32px;
+  height:32px;
+  opacity:0.2;
+  margin:10px auto 0px auto;
+}
+
+.usergroupViewArrowControllerRight.actionEnabled:hover,
+.usergroupViewArrowControllerLeft.actionEnabled:hover {
+  opacity:1;
+  cursor:pointer;
+}
+
+.usergroupView_userContainer {
+  margin:1px;
+  padding:4px 6px 6px 6px;
+  border-bottom:1px solid #f2f2f2;
+  cursor:pointer;
+}
+
+.usergroupView_userSelected,
+.usergroupView_userSelected:hover {
+  background:#74c0f2;
+}
+
+.usergroupView_userSelected .usergroupView_username,
+.usergroupView_userSelected:hover .usergroupView_username,
+.usergroupView_userSelected .usergroupView_useremail,
+.usergroupView_userSelected:hover .usergroupView_useremail {
+  color:#fff;
+}
+
+.usergroupView_userSelected .usergroupView_username,
+.usergroupView_userSelected:hover .usergroupView_username {
+  color:#fff;
+  font-weight:bold;
+}
+
+.usergroupView_userContainer:last-child {
+  border:0px;
+}
+
+.usergroupView_username {
+  font-size:0.9em;
+}
+
+.usergroupView_useremail {
+  color:#0099ff;
+  font-size:0.9em;
+  font-style:italic;
+}
+
+.usergroupView_availableUsersListWrapper input.searchUsers,
+.usergroupView_usergroupUsersListWrapper input.searchUsers {
+  color:#838383;
+  font-size:0.9em;
+  border:3px solid #e8e8e8;
+  background:url('../gfx/icons/16x16/actions/search_grey.png') no-repeat 5px center;
+  padding-left:26px;
+}
+
+.usergroupView_availableUsersListWrapper input.searchUsers:hover,
+.usergroupView_usergroupUsersListWrapper input.searchUsers:hover, 
+.usergroupView_availableUsersListWrapper input.searchUsers:focus,
+.usergroupView_usergroupUsersListWrapper input.searchUsers:focus {
+  color:#1e1e1e;
+  border:3px solid #0099ff;
+  background:url('../gfx/icons/16x16/actions/search_blue.png') no-repeat 5px center;  
+}
+
+.usergroupViewSaveButtonWrapper {
+  margin-top:10px;
+}
+
+/*
+ * Contextual Links
+ * 
+ */
+
+.contextualLinks {
+  position:absolute;
+  right:0px;
+  top:6px;
+  opacity:0.2;
+}
+
+.managePanelUsers_panelUser_removeFromPanel .contextualLinks,
+.managePanelUsergroups_panelUsergroup_removeFromPanel .contextualLinks {
+  position:absolute;
+  right:0px;
+  top:0px;
+}
+
+.contextualLinksPanelExperts  {
+  opacity:0.2;
+}
+
+.panelSystemUpdateRow:hover .contextualLinks,
+.panelBulletinRow:hover .contextualLinks,
+.panelDocumentRow:hover .contextualLinks,
+.panelReportRow:hover .contextualLinks,
+.panelQueryRow:hover .contextualLinks,
+.panelAdminReportRow:hover .contextualLinks,
+.materialRow:hover .contextualLinks,
+.panelAdminQueryRow:hover .contextualLinks,
+.panelAdminQueryResultsRow:hover>.contextualLinks,
+.panelExpertsMatrixHeaderCell:hover .contextualLinksPanelExperts,
+.managePanelUsers_panelUser:hover .contextualLinks,
+.managePanelUsergroups_panelUsergroup:hover .contextualLinks,
+.panelAdminBulletinRow:hover .contextualLinks {
+  opacity:1;
+}
+
+
+.blockContextualLink {
+  width:24px;
+  height:24px;
+  float:left;
+}
+
+.blockContextualLinkHidden {
+  display: none;
+}
+
+.blockContextualLink a {
+  position:relative;
+  display:block;
+}
+
+.contextualLinks .edit a,
+.contextualLinksPanelExperts .edit a {
+  height:20px;
+  width:20px;
+  background:url('../gfx/icons/16x16/actions/edit.png') no-repeat center center;
+  cursor:pointer;
+}
+
+.contextualLinks .copy a {
+  height:20px;
+  width:20px;
+  background:url('../gfx/icons/16x16/actions/copy.png') no-repeat center center;
+  cursor:pointer;
+}
+
+.contextualLinks .blockContextualLink.copy {
+/*   display:none; */
+}
+
+.contextualLinks .delete a,
+.contextualLinksPanelExperts .delete a {
+  height:20px;
+  width:20px;
+  background:url('../gfx/icons/16x16/actions/delete.png') no-repeat center center;
+  cursor:pointer;
+}
+
+.contextualLinksPanelExperts .delete a.panelExpertsDeleteExpertiseClassButtonDisabled {
+  height:20px;
+  width:20px;
+  background:url('../gfx/icons/16x16/actions/no_delete.png') no-repeat center center;
+  cursor:pointer;
+}
+
+
+.contextualLinks .hide a {
+  height:20px;
+  width:20px;
+  background:url('../gfx/icons/16x16/actions/visible.png') no-repeat center center;
+  cursor:pointer;
+}
+
+.contextualLinks .show a {
+  height:20px;
+  width:20px;
+  background:url('../gfx/icons/16x16/actions/hidden.png') no-repeat center center;
+  cursor:pointer;
+}
+
+.contextualLinks .dashboard a {
+  height:20px;
+  width:20px;
+  background:url('../gfx/icons/16x16/actions/edit.png') no-repeat center center;
+  cursor:pointer;
+}
+
+.contextualLinks .viewReport a {
+  background: url("../gfx/icons/16x16/actions/look.png") no-repeat center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.contextualLinks .exportCSV a {
+  background: url("../gfx/icons/16x16/actions/export_csv.png") no-repeat center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.contextualLinks .downloadOrExportReport a {
+  background: url("../gfx/icons/16x16/actions/download_export_report.png") no-repeat center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.contextualLinks .downloadOrExportPageReport a {
+  background: url("../gfx/icons/16x16/actions/download_export_report.png") no-repeat center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.contextualLinks .reportPDF a {
+  background: url("../gfx/icons/16x16/actions/export_pdf.png") no-repeat scroll center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.contextualLinks .deleteAllAnswers a,
+.contextualLinks .deletePageAnswers a {
+  background: url("../gfx/icons/16x16/actions/delete_query_data.png") no-repeat scroll center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.contextualLinks .deleteSelectedAnswers a {
+  background: url("../gfx/icons/16x16/actions/delete_query_data_row.png") no-repeat scroll center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+.blockContextualLink a > span.blockContextualLinkTooltip,
+.blockContextualLink > span.blockContextualLinkTooltip {
+  display:none;
+}
+
+.blockContextualLink a:hover > span.blockContextualLinkTooltip,
+.blockContextualLink:hover > span.blockContextualLinkTooltip {
+  display:block;
+  position:absolute;
+  top:-35px;
+  right:-10px;
+  width:auto;
+  display:block;
+  z-index:999;
+}
+
+.blockContextualLink span.blockContextualLinkTooltip span.blockContextualLinkTooltipText {
+  padding:3px 12px;
+  color:#ffffff;
+  white-space:nowrap;
+  text-transform:uppercase;
+  font-size:0.8em;
+  display:block;
+  background:#000000;
+  box-shadow:0px 0px 4px #aaa;
+  border-radius:2px;
+}
+
+.blockContextualLink span.blockContextualLinkTooltip span.blockContextualLinkTooltipArrow {
+  display:block;
+  background:url('../gfx/ui/tooltip_bottom_arrow.png') no-repeat center right;
+  height:6px;
+  width:11px;
+  position:absolute;
+  right:14px;
+}
+
+/*
+ * Panel Admin Query Management
+ *
+ */
+ 
+.GUI_adminManageQueriesNarrowColumn {
+  float:left;
+  width:35%;  
+  min-height:500px;
+}
+
+.GUI_adminManageQueriesWideColumn {
+  margin-left:37%;
+  min-height:500px;
+}
+
+#panelAdminQueryEditorBlock .blockContent {
+  margin-top:0px;
+}
+
+.panelAdminQueryEditorEditorContainer {
+
+}
+
+#panelAdminQueryEditorSettingsTab, 
+#panelAdminQueryEditorPagesTab {
+
+}
+
+.panelAdminQueryEditorSection {
+
+}
+
+#panelAdminQueryEditorSettingsTab .formCheckBoxContainer,
+#panelAdminQueryEditorSettingsTab .formSelectContainer {
+  margin:5px 0px 5px 0px;
+}
+
+/*
+ *  Panel Admin Query Page Layout
+ *
+ */
+
+.panelAdminQueryEditorPagesContainer {
+  margin-bottom:20px;
+}
+
+.panelAdminQueryEditorPageActionsContainer {
+  margin-bottom:6px;
+  background:#eeeeee;
+  padding:6px;
+}
+
+#panelAdminQueryEditorCreatePageLink {
+  margin-right:10px;
+}
+
+.panelAdminQueryEditorPageListContainer {
+  margin-top:-10px;
+}
+
+.panelAdminQueryEditorPages {
+  display: block;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  white-space:nowrap;
+  padding:2px;
+}
+
+.panelAdminQueryEditorPage {
+  height: 70px;
+  width:100px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center 6px;
+  cursor: move;
+  margin-right:2px;
+  margin-left:2px;
+  background-image: url('../gfx/icons/32x32/apps/query_page.png');
+  position:relative;   
+  border:1px solid #ffffff;
+}
+
+.panelAdminQueryEditorPage:hover .panelAdminQueryEditorPageTitle {
+  color:#fff;
+  background-color:#6cadd3;  
+}
+
+.panelAdminQueryEditorPageSelected .panelAdminQueryEditorPageTitle {
+  color:#fff;
+  background-color:#6cadd3;  
+}
+
+.panelAdminQueryEditorSectionSelected .panelAdminQueryEditorSectionTitle{
+  color:#fff;
+  background-color:#6cadd3;  
+}
+
+.panelAdminQueryEditorSectionSelected {
+ position:relative; 
+}
+
+.panelAdminQueryEditorSectionPages {
+  min-height: 70px;
+  min-width: 100px;
+}
+
+.panelAdminQueryEditorSection {
+  display:inline-block;
+  min-height:96px;
+  margin-bottom:5px;
+  margin-right:8px;
+  box-shadow:0px 0px 2px rgba(0,0,0,0.3);
+  border:1px solid #ffffff;
+  vertical-align:top;
+}
+
+.panelAdminQueryEditorSectionPageSelected {
+  border:1px solid #6cadd3;  
+}
+
+.panelAdminQueryEditorSectionTitle {
+  cursor: pointer;
+  color:#1e1e1e;
+  padding:2px 24px 2px 4px;
+  font-style:italic;
+  position:relative;
+  min-height:20px;
+}
+
+.panelAdminQueryEditorSectionTitle:hover {
+  color:#fff;
+  background-color:#6cadd3;  
+}
+
+.panelAdminQueryEditorPageTitle {
+  background-color:#eeeeee;
+  color:#333;
+  min-height:20px;
+  font-size:0.8em;
+  position:absolute;
+  bottom:2px;
+  left:0px;
+  right:0px;
+  padding:0px 3px;
+  white-space:nowrap;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.panelAdminQueryEditorPageDeleted,
+.panelAdminDocumentEditorPageDeleted {
+  opacity: .3;
+}
+
+.panelAdminQueryEditorSectionDeleted {
+  opacity: .3;
+}
+
+.panelAdminQueryEditorPageDeleted .panelAdminQueryEditorPageTitle,
+.panelAdminQueryEditorSectionDeleted .panelAdminQueryEditorSectionTitle,
+.panelAdminDocumentEditorPageDeleted .panelAdminDocumentEditorPageTitle {
+  text-decoration:line-through;
+}
+
+.panelAdminQueryEditorPageDelete, 
+.panelAdminDocumentEditorPageDelete {
+  background: url("../gfx/icons/16x16/actions/delete_query_page.png") no-repeat scroll center center transparent;
+  border-radius: 3px 3px 3px 3px;
+  cursor: pointer;
+  height: 16px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 16px;
+  display:none;
+  opacity:0.3;
+}
+
+.panelAdminQueryEditorPageClone, 
+.panelAdminDocumentEditorPageClone {
+  background: url("../gfx/icons/16x16/actions/clone_query_page.png") no-repeat scroll center center transparent;
+  border-radius: 3px 3px 3px 3px;
+  cursor: pointer;
+  height: 16px;
+  position: absolute;
+  right: 2px;
+  top: 24px;
+  width: 16px;
+  display:none;
+  opacity:0.3;
+}
+
+.panelAdminQueryEditorPageSelected:hover > .panelAdminQueryEditorPageDelete, 
+.panelAdminDocumentEditorPageSelected:hover > .panelAdminDocumentEditorPageDelete,
+.panelAdminQueryEditorPageSelected:hover > .panelAdminQueryEditorPageClone, 
+.panelAdminDocumentEditorPageSelected:hover > .panelAdminDocumentEditorPageClone {
+  opacity:1;
+}
+
+.panelAdminQueryEditorPageSelected > .panelAdminQueryEditorPageDelete, 
+.panelAdminDocumentEditorPageSelected > .panelAdminDocumentEditorPageDelete,
+.panelAdminQueryEditorPageSelected > .panelAdminQueryEditorPageClone, 
+.panelAdminDocumentEditorPageSelected > .panelAdminDocumentEditorPageClone {
+  display: block;
+}
+
+.panelAdminQueryEditorDeleteSection {
+  background: url("../gfx/icons/12x12/actions/delete_white.png") no-repeat scroll center center transparent;
+  border-radius: 3px 3px 3px 3px;
+  cursor: pointer;
+  height: 14px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 14px;
+  display:none;
+}
+
+.panelAdminQueryEditorSectionSelected > .panelAdminQueryEditorDeleteSection {
+  display: block;
+}
+
+/*
+ * Panel Admin Query Listing
+ *
+ */
+
+.queryAdminQueryRowSelected,
+.queryAdminQueryRowSelected:hover {
+  background-color: #6CADD3;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  border:0;
+}
+
+.queryAdminQueryRowSelected .panelAdminGenericTitle a{
+  color: #fff;
+}
+
+.queryAdminQueryRowSelected .panelAdminGenericTitle,
+.queryAdminQueryRowSelected .panelAdminGenericMeta {
+  color:#fff;
+}
+
+/* 
+ * Panel Query Views - Generic
+ *
+ */
+
+.queryBlock .blockTitle h2 {
+  background:transparent;
+  color: #4c4c4c;
+  font-family: 'PT Sans',Verdana,sans-serif;
+  font-size: 1.7em;
+  padding: 0px;
+  text-transform: none;
+  margin-bottom:20px;
+}
+
+.queryThesisContainer {
+  font-weight:bold;
+  font-size:1.2em;
+  margin-bottom:20px;
+  color:#4c4c4c;
+}
+
+.queryThesisDescription {
+  margin-bottom:20px;  
+}
+
+.queryQuestionContainer {
+
+}
+
+.queryCommentEditor,
+.queryCommentList,
+.queryLiveReportContainer {
+  border:1px solid #dde7ed;
+  padding:10px;    
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  margin-bottom:20px;
+}
+
+h2.querySubTitle {
+  border-bottom: 1px solid #DDE7ED;
+  color: #0099FF;
+  font-size: 1.35em;
+  padding: 0 0 10px;
+  text-transform: uppercase;
+  margin:0;
+}
+
+h2.queryPageTitle {
+  margin: 0px 0px 15px 0px;
+  padding: 0px 0px 0px 0px;
+  color:#0099ff;
+  font-size:2em;
+}
+
+h2.documentPageTitle {
+  margin: 0px 0px 15px 0px;
+  padding: 0px 0px 0px 0px;
+  color:#4c4c4c;
+  font-size:1.6em;
+}
+
+.queryScaleRadioListItemLabel, 
+.queryScaleSliderItemLabel, 
+.queryTimelineHandleLabel {
+  text-transform:none !important;
+}
+
+/*
+ * Panel Query Type Containers
+ *
+ */
+
+.queryScaleRadioListQuestionContainer {
+  margin-bottom:20px;
+  white-space:nowrap;
+  padding:12px 0px 12px 0px;
+  display:table;
+}
+
+.queryScaleSliderQuestionContainer {
+  margin:0px 20px 40px 20px;
+  white-space:nowrap;
+  padding:12px 0px 12px 0px;
+  position:relative;
+}
+
+.queryTimelineQuestionContainer {
+  margin:40px 20px 60px 20px;  
+  padding:12px 0px 12px 0px; 
+  position:relative;
+}
+
+.queryScaleGraphQuestionContainer {
+  margin-bottom:20px;
+  padding:12px;      
+}
+
+.queryExpertiseQuestionContainer {
+  margin-bottom:20px;
+  padding:12px 0px 12px 0px;
+}
+
+.queryGroupingQuestionContainer {
+  margin-bottom:20px;
+  padding:12px 0px 12px 0px; 
+}
+
+.queryMultiselectQuestionContainer {
+  margin-bottom:20px;
+  padding:12px 0px 12px 0px; 
+}
+
+.queryOrderingQuestionContainer {
+  margin-bottom:20px;
+  padding:12px 0px 12px 0px;
+}
+
+/*
+ * Panel Query Live Report
+ *
+ */
+
+.queryBarChartLiveReportContainer {
+  
+}
+
+.queryTimeSerieQuestionFlotrContainer, 
+.queryScaleGraphQuestionFlotrContainer, 
+.queryBarChartLiveReportFlotrContainer, 
+.queryBubbleChartLiveReportFlotrContainer {
+  width: 100%;
+  height: 400px;
+}
+
+.flotr-axis-title {
+  text-transform:uppercase;
+  font-weight:normal;
+  margin-top:5px;
+}
+
+.flotr-axis-title > div:nth-child(2) {
+  -webkit-transform: rotate(-90deg); 
+  -moz-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  transform: rotate(-90deg);
+}
+
+/*
+ * Panel Query Comment List
+ *
+ */
+
+div.queryComment {
+  border-radius:5px;
+  padding:10px;
+  margin-bottom:4px;
+}
+
+div.queryCommentChildren div.queryComment {
+  margin-left:5px;
+  margin-top:4px;  
+  padding-bottom:0px;
+}
+
+.queryCommentList > div.queryComment:nth-child(2n) {
+  background-color:#f5f5f5;
+}
+
+.queryComment:hover {
+
+}
+
+.queryCommentHeader {
+  padding:1px 0px 6px 22px;
+  clear:both;
+  background:url("../gfx/icons/16x16/actions/comment.png") no-repeat scroll 0 3px transparent;   
+}
+
+.queryCommentText {
+  padding:0px 0px 6px 22px;
+}
+
+.queryCommentDate {
+  font-style:italic;
+  margin:0px;
+  float:left;
+  color:#df4d1c;
+  font-size:1.2em;
+  margin-right:10px;
+}
+
+.queryCommentNewComment {
+
+}
+
+/* Query comments */
+
+.queryCommentModified {
+  font-style: italic;
+  font-weight: bold;
+  margin-left: 22px;
+  margin-bottom: 4px;
+  font-size:0.9em;
+}
+
+.queryCommentNewComment, 
+.queryCommentHideComment,
+.queryCommentShowComment, 
+.queryCommentEditComment {
+  float: left;
+  margin-right: 8px;
+}
+
+.queryCommentHidden .queryCommentDate,
+.queryCommentHidden .queryCommentModified,
+.queryCommentHidden .queryCommentText {
+  opacity: 0.3;
+}
+
+.queryCommentHeader {
+  min-height: 20px;
+}
+
+.queryComment .queryCommentShowComment {
+  display: none;
+}
+
+.queryCommentHidden .queryCommentShowComment {
+  display: block;
+}
+
+.queryCommentHidden .queryCommentHideComment {
+  display: none;
+}
+
+.queryCommentHidden .queryCommentNewComment {
+  display: none;
+}
+
+.queryCommentHidden .queryComment .queryCommentHeader .queryCommentNewCommentLink,
+.queryCommentHidden .queryComment .queryCommentHeader .queryCommentHideComment,
+.queryCommentHidden .queryComment .queryCommentHeader .queryCommentShowComment {
+  display: none;
+}
+
+.queryCommentHidden .queryCommentHeader {
+  background-image: url("../gfx/icons/16x16/actions/hidden.png");
+}
+
+/*
+ * Panel Query Expertise Matrix
+ *
+ */
+ 
+.queryExpertiseMatrixHeaderRow, 
+.queryExpertiseMatrixRow {
+  display: table-row;
+}
+
+.queryExpertiseMatrixCell {
+  width: 90px;
+  height: 50px;
+  padding:2px;
+  display: table-cell;
+  border:1px solid #ffffff;
+  border-radius:2px;
+}
+  
+.queryExpertiseMatrixHeaderRow .queryExpertiseMatrixHeaderCell,
+.queryExpertiseMatrixHeaderRow .queryExpertiseMatrixCell {
+  vertical-align:bottom;
+  text-align:center;
+  padding:2px;
+  height:auto;
+  width:auto;
+  line-height:1.2em;
+}
+
+.queryExpertiseMatrixAnswerCell {
+  background-color: #eee;
+  vertical-align:top;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-radius:5px;  
+}
+
+.queryExpertiseMatrixAnswerCell:hover {
+  background:url("../gfx/icons/24x24/actions/checkmark.png") no-repeat center center #eee;
+  opacity:0.4;
+}
+
+.queryExpertiseMatrixCellSelected,
+.queryExpertiseMatrixCellSelected:hover {
+  background:url("../gfx/icons/24x24/actions/checkmark.png") no-repeat center center #e5e5e5;
+  border-radius:5px;
+  opacity:1;
+}
+
+.queryExpertiseMatrixHeaderRow .queryExpertiseMatrixCell {
+
+}
+
+.queryExpertiseMatrixRow .queryExpertiseMatrixHeaderCell,
+.queryExpertiseMatrixHeaderRow .queryExpertiseMatrixHeaderCell {
+  cursor: default;
+  text-align:right;
+  padding:2px 6px 2px 6px;
+  vertical-align:middle;
+  width:auto;
+  max-width:140px;
+  background-color:#f7f7f7;
+  word-wrap:break-word;  
+  text-transform:uppercase;
+  font-size:0.85em; 
+  line-height:1.2em;   
+}
+
+.queryExpertiseMatrixHeaderRow .queryExpertiseMatrixHeaderCell {
+  text-align: center;
+}
+
+/*
+ * Panel Query Scale Radiolist
+ *
+ */
+ 
+.queryScaleRadioListQuestionContainer label {
+  color: #1E1E1E;
+  display: block;
+  font-size: 1em;
+  text-transform: uppercase;
+  text-align:center;
+}
+
+.queryScaleRadioListItemContainer {
+  display: inline-block;
+  padding:0px 10px 5px 10px;
+  margin:0px 10px 0px 0px;
+  text-align:center;
+}
+
+.queryScaleRadioListItemContainer label.queryScaleRadioListItemLabel {
+  display:block;
+}
+
+.queryScaleRadioListItemContainer:hover {
+  border-radius:2px;
+  background:#eee;
+}
+
+.queryScaleRadioListItemInputContainer {
+  display: inline-block;
+}
+
+/*
+ * Panel Query Timeline Slider
+ *
+ */
+
+.queryTimelineQuestionContainer > div {
+  clear:both;
+}
+
+.queryTimelineQuestionContainer label.queryTimelineMin {
+  float:left;
+}
+
+.queryTimelineQuestionContainer label.queryTimelineMax {
+  float:right;
+}
+
+.queryTimelineQuestionContainer .queryTimelineFirstHandle,
+.queryTimelineQuestionContainer .queryTimelineSecondHandle {
+  cursor:e-resize;
+}
+
+.queryTimelineQuestionContainer .queryTimelineValue1Label,
+.queryTimelineQuestionContainer .queryTimelineValue2Label {
+  display:none;
+}
+
+.queryTimelineHandleLabelContainer {
+  display: block;
+  position: absolute;
+  background-repeat: no-repeat;
+  text-decoration: none;  
+  height: 24px;
+}
+
+.queryTimelineFirstHandle, .queryTimelineSecondHandle {
+  text-decoration: none;
+}
+
+.queryTimelineFirstHandle .queryTimelineHandleLabelContainer {
+  background-image: url("../gfx/ui/arrow-down.png");
+  background-position: 12px bottom;
+  margin-top: -28px;
+  margin-left: -8px;
+}
+
+.queryTimelineSecondHandle .queryTimelineHandleLabelContainer {
+  background-image: url("../gfx/ui/arrow-up.png");
+  background-position: 10px 1px;
+  margin-top: 18px;
+  margin-left: -7px;
+}
+
+.queryTimelineHandleLabel {
+  display: block;
+  white-space: nowrap;
+  background-color: #000;
+  color: #fff; 
+  border-radius: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+}
+
+.queryTimelineSecondHandle .queryTimelineHandleLabel {
+  margin-top: 6px;
+}
+
+.queryTimelineFirstHandle .queryTimelineHandleLabel {
+  margin-top: -10px;
+}
+
+/*
+ * Panel Query Scale Slider
+ *
+ */
+
+.queryQuestionContainer > label.queryScaleSliderLabel {
+  color: #1E1E1E;
+  display: block;
+  font-size: 1em;
+  text-transform: uppercase;
+  padding-bottom:35px;
+  text-align:center;  
+}
+
+label.queryScaleSliderItemLabel {
+  background: url("../gfx/ui/slider_tick.png") no-repeat scroll center top transparent;
+  display: inline-block;
+  height: 35px;
+  margin-top: -20px;
+  position: absolute;
+  z-index: 0;
+}
+
+.queryScaleSliderTrack {
+}
+
+.queryScaleSliderTrack .queryScaleHandle {
+  cursor:e-resize;
+}
+
+.queryScaleHandleLabelContainer {
+  background-image: url("../gfx/ui/arrow-down.png");
+  background-position: 15px bottom;
+  background-repeat: no-repeat;
+  display: block;
+  height: 25px;
+  margin-left: -12px;
+  margin-top: -21px;
+  min-width: 40px;
+  position: absolute;
+  text-decoration: none;
+}
+
+.queryScaleHandle {
+  text-decoration: none;
+}
+
+.queryScaleHandleLabel {
+  display: block;
+  white-space: nowrap;
+  background-color: #000;
+  color: #fff; 
+  border-radius: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+  margin-top: -8px;
+  text-align:center;
+}
+
+/*
+ * Panel Query Grouping
+ *
+ */
+ 
+.queryGroupingQuestionContainer .queryGroupingItemContainer .queryGroupingItem,
+.queryGroupingQuestionContainer .queryGroupingItemContainer .queryGroupingItem label,
+.queryGroupingQuestionContainer .queryGroupingGroupContainer .queryGroupingItem,
+.queryGroupingQuestionContainer .queryGroupingGroupContainer .queryGroupingItem label {
+  cursor:move;
+  opacity:1;
+}
+
+.queryGroupingQuestionContainer .queryGroupingGroupContainer .queryGroupingGroup {
+  opacity:1;
+}
+
+/*
+ * Panel Query Ordering
+ *
+ */
+ 
+.queryOrderingFieldItemContainer {
+  min-height:48px; 
+  margin-bottom:6px;
+  padding-left:30px;
+  position:relative;
+}
+
+.queryOrderingFieldItemIndexNumber {
+  float:left;
+  margin-right:5px;
+  background:#aaa;
+  padding:14px 8px;
+  border-radius:2px;
+  color:#fff;
+  display:inline-block;
+  vertical-align:middle;
+  height:20px;
+  width:24px;
+  text-align:center;
+}
+
+.queryOrderingFieldItemContainer:hover .queryOrderingFieldItemIndexNumber {
+  background:#666;
+}
+
+.queryOrderingFieldItemText {
+  padding:14px 0px;
+  height:20px;
+  margin-left:5px;
+  text-transform:uppercase;
+  font-size:0.9em;
+  display:inline-block;
+  vertical-align:middle;
+}
+
+.queryOrderingFieldItemMoveUpButton {
+  cursor: pointer;
+  position:absolute;
+  width:24px;
+  height:24px;
+  top:0;
+  left:0;
+  background:url('../gfx/icons/24x24/actions/arrow_up.png') no-repeat center center transparent;
+  opacity:0.6;
+}
+
+.queryOrderingFieldItemMoveDownButton {
+  cursor: pointer;
+  position:absolute;
+  width:24px;
+  height:24px;
+  top:24px;
+  left:0;
+  background:url('../gfx/icons/24x24/actions/arrow_down.png') no-repeat center center transparent;
+  opacity:0.6;
+}
+
+.queryOrderingFieldItemMoveUpButton:hover,
+.queryOrderingFieldItemMoveDownButton:hover {
+  opacity:1;
+}
+
+.queryEditorQuestionPreviewContainer .queryOrderingFieldItemMoveDownButton,
+.queryEditorQuestionPreviewContainer .queryOrderingFieldItemMoveUpButton {
+  display:none;
+}
+
+.queryEditorQuestionPreviewContainer .queryOrderingFieldItemContainer:hover .queryOrderingFieldItemIndexNumber {
+  background:#aaa;
+}
+
+/*
+ * Panel Query Submit Container and Related Stuff  
+ * 
+ */
+
+.queryQuestionSubmitContainer {
+  border-top:1px solid #b0b0b0;
+  text-align:center;
+  padding:20px 0px;
+  margin:20px auto 0px auto;
+  position:relative;
+}
+
+.queryQuestionSubmitContainer > div {
+  display:inline-block;
+  margin:0px 5px 0px 5px;
+  font-size:1.2em;
+}
+
+.queryQuestionSubmitContainer div.formSubmitContainer {
+  display:inline-block;
+  margin:0px 5px 0px 5px;
+  font-size:1em;
+}
+
+.queryQuestionSubmitContainer div.formSubmitContainer input{
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 6px;
+  min-width: 100px;
+}
+
+.queryQuestionSubmitContainer div.formSubmitContainer input[disabled="disabled"]{
+  cursor:default;
+  font-size: 1.1em;
+  padding: 6px;  
+}
+
+.queryQuestionSubmitContainer > div.querySkipQuestionContainer {
+  display: block;    
+  font-size: 0.9em; 
+}
+
+.queryQuestionSubmitContainer > div.querySkipQuestionContainer input {
+  background: #0055bb;
+}
+
+.queryCurrentPageIndicator {
+  background:#fff;
+  border-radius:28px;
+  cursor:default;
+  padding:18px 8px;
+  background:url('../gfx/ui/quick_nav_arrow_up.png') no-repeat center 5px;  
+  min-width:45px;
+  position:relative;
+}
+
+.queryCurrentPageIndicator:hover {
+  background:#95D1F9;
+  border-radius:28px;
+  cursor:default;
+  padding:18px 8px;
+}
+
+.queryPageChangeQuickNavigationWrapper {
+  display:none;
+}
+
+.queryPageChangeQuickNavigation {
+  border:3px solid #95d1f9;
+  border-radius:5px;
+  text-align:left;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.3);  
+  padding:10px;
+  background:#fff;
+  overflow-y:scroll;  
+  overflow-x:hidden;
+  min-height:94px;
+  max-height:484px; 
+  width:444px;
+  margin:0px auto 0px auto;
+}
+
+.queryPageChangeQuickNavigationTitle {
+  text-transform:uppercase;
+  font-size:0.75em;
+
+  padding:0 0 4px 0;
+}
+
+.queryCurrentPageIndicator:hover .queryPageChangeQuickNavigationWrapper {
+  padding-bottom:20px;  
+  bottom:45px;
+  margin-left:-244px; 
+  min-height:120px;
+  max-height:510px;
+  overflow:hidden;
+  width:490px;
+  left:50%;  
+  position:absolute;
+  display:block;
+}
+
+.queryPageChangeQuickNavigationArrow {
+  background:url('../gfx/ui/quick_nav_arrow_down.png') no-repeat bottom center;
+  height:20px;
+  width:100%;
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0; 
+}
+
+.queryQuickNavigationPageLink a {
+  white-space:nowrap;
+  padding:2px;
+  display:block;
+}
+
+.queryQuickNavigationPageLink a:hover {
+  background:#74c0f2;
+  border-radius:3px;
+  color:#fff;  
+}
+
+.queryQuickNavigationPageLink a {
+  color:#4c4c4c;  
+  font-size:0.85em;
+}
+
+.queryQuickNavigationPageNumber {
+  display:inline-block;
+}
+
+.queryQuickNavigationPageTitle {
+  display:inline-block;
+  margin-left:5px;
+}
+
+/*
+ * Panel Admin Query Editor
+ *
+ */
+ 
+#panelAdminQueryEditorSettingsTab label:nth-child(1){
+  display:block;
+} 
+ 
+.queryEditorQuestionPreviewContainer {
+  position:relative;
+  margin-bottom:5px;
+}
+
+.queryEditorQuestionContainer {
+  margin-top:20px;
+  margin-bottom:20px;
+  position:relative;
+}
+
+.queryEditorSettingContainer {
+  margin-bottom:8px;
+  padding-bottom:8px;
+  border-bottom:1px solid #DDE7ED;
+}
+
+.panelAdminQueryEditorEditorContainer .buttonInputComponent input[name='title'] {
+  background:transparent;
+  color: #1e1e1e;
+  font-family: 'PT Sans',Verdana,sans-serif;
+  font-size: 2em;
+  text-transform: none;
+  padding:4px 6px;
+}
+
+.panelAdminQueryEditorEditorContainer .buttonInputComponent textarea[name='thesis.text'] {
+  font-weight:bold;
+  font-size:1.2em;
+  color:#4c4c4c;
+}
+
+.panelAdminQueryEditorEditorContainer span.cke_skin_kama {
+  border: 3px dashed #ddd;
+  border-radius: 3px 3px 3px 3px;
+  margin: 0 1px 0 0;
+  padding: 5px; 
+  margin-bottom:10px;
+}
+
+.panelAdminQueryEditorEditorContainer span.cke_skin_kama .cke_wrapper {
+  background: #fff;
+/*   background-image: url("images/sprites.png"); */
+/*   background-position: 0 -1950px; */
+/*  background-repeat: repeat-x; */
+/*  border-radius: 5px 5px 5px 5px; */
+  display: block;
+  padding: 5px;
+}
+
+.panelAdminQueryEditorEditorContainer span.cke_skin_kama td.cke_top {
+
+}
+
+.panelAdminQueryEditorEditorContainer span.cke_skin_kama .cke_contents iframe {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.panelAdminQueryEditorEditorContainer .buttonInputComponent textarea[name='thesis.description'] {
+
+}
+
+.queryEditorQuestionPreviewContainer > label {
+  color: #1E1E1E;
+  display: block;
+  font-size: 1em;
+  text-transform: uppercase;
+  margin-top:20px;
+}
+
+.queryEditorPreviewShowOptionsLink {
+  background:#0099ff;
+  color:#fff;
+  text-decoration:none;
+  display:inline-block;
+  padding:2px 6px;
+  text-transform:uppercase;
+  font-size:0.8em;
+}
+ 
+.queryEditorQuestionOptions {
+  background:#fff;
+  border: 3px solid #74C0F2;
+  min-width: 400px;
+  padding: 8px;
+  z-index: 1;
+  position:relative;
+  margin-top:6px;
+}
+
+.queryEditorQuestionOptionsArrowUp {
+  background:url('../gfx/ui/show_options_arrow_up.png') no-repeat;
+  height:5px;
+  width:11px;
+  position:absolute;
+  top:-8px;
+  left:10px;
+}
+
+.queryPreviewTimelineValue2Label, 
+.queryPreviewTimelineValue1Label,
+.queryEditorQuestionScaleRadioPreviewLabelContainer,
+.queryEditorQuestionScaleSliderPreviewLabel {
+  text-transform:none !important;
+}
+
+.panelAdminQueryEditorPageValidationError,
+.panelAdminQueryEditorSectionValidationError {
+  width: 16px;
+  height: 16px;
+  background:url('../gfx/icons/16x16/actions/validation_error.png') center center no-repeat transparent;
+}
+
+.panelAdminQueryEditorSectionValidationError{
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.panelAdminQueryEditorSectionSelected .panelAdminQueryEditorSectionValidationError {
+  background:url('../gfx/icons/16x16/actions/validation_error_white.png') center center no-repeat transparent;
+}
+
+.panelAdminQueryEditorPageLocked {
+  width: 16px;
+  height: 16px;
+  background:url('../gfx/icons/16x16/actions/page_locked.png') center center no-repeat transparent;
+}
+
+#panelAdminQueryEditorSettingsTabValidationError {
+  width: 16px;
+  height: 16px;
+  float:right;
+  margin:5px 0px 0px 5px;
+  background:url('../gfx/icons/16x16/actions/validation_error_white.png') center center no-repeat transparent;  
+}
+
+#panelAdminQueryEditorPagesTabValidationError {
+  width: 16px;
+  height: 16px;
+  float:right;
+  margin:5px 0px 0px 5px;
+  background:url('../gfx/icons/16x16/actions/validation_error_white.png') center center no-repeat transparent;  
+}
+
+.ui-dialog-content {
+  margin:0px 0px 15px 0px;
+}
+
+.ui-dialog-titlebar-close {
+  display:none;
+}
+ 
+/*
+ * Panel Admin Query Editor Timeline Slider
+ *
+ */ 
+
+.queryEditorQuestionPreviewContainer label.queryPreviewTimelineMin {
+  float:left;
+  margin:0;
+}
+
+.queryEditorQuestionPreviewContainer label.queryPreviewTimelineMax {
+  float:right;
+  margin:0;
+}
+
+.queryEditorQuestionPreviewContainer .queryPreviewTimelineValue1Label {
+  clear:both;
+  margin:0px 0px 6px 0px;
+  text-align:center;
+  background-color:#000;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 25px;
+  margin-left:auto;
+  margin-top:0px;
+  margin-right:auto;
+  text-decoration: none;
+  padding:2px 8px;
+  color:#fff;
+  border-radius:2px;
+  position:relative;
+  left:50px;
+  box-shadow:0px 0px 4px rgba(0, 0, 0, 0.4);
+  min-width:35px;
+  opacity:0.7;
+}
+
+.queryEditorQuestionPreviewContainer .queryPreviewTimelineValue1Label:before {
+  background-image: url("../gfx/ui/arrow-down.png");
+  content:'.';
+  position:absolute;
+  bottom:-5px;
+  left:20px;
+  width:10px;
+  height:5px;
+  font-size:0px;
+}
+
+.queryEditorQuestionPreviewContainer .queryPreviewTimelineValue2Label {
+  clear:both;
+  margin:0px 0px 6px 0px;
+  text-align:center;
+  background-color:#000;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 25px;
+  margin-left:auto;
+  margin-top:5px;
+  margin-bottom:20px;
+  margin-right:auto;
+  text-decoration: none;
+  padding:2px 8px;
+  color:#fff;
+  border-radius:2px;
+  position:relative;
+  left:58px;
+  box-shadow:0px 0px 4px rgba(0, 0, 0, 0.4);
+  min-width:35px;
+  opacity:0.7;  
+}
+
+.queryEditorQuestionPreviewContainer .queryPreviewTimelineValue2Label:before {
+  background-image: url("../gfx/ui/arrow-up.png");
+  content:'.';
+  position:absolute;
+  top:-5px;
+  left:20px;
+  width:10px;
+  height:5px;
+  font-size:0px;
+}
+
+.queryEditorQuestionScale1DPreviewItemContainer {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.queryEditorQuestionScale1DPreviewInputContainer {
+  display: inline-block;
+}
+
+.queryEditorQuestionScale1DPreviewLabelContainer {
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+
+.queryScale1DRadioListQuestionOptionContainer {
+  display: inline-block;
+}
+
+.queryEditorQuestionScale2DGraphContainer {
+  width: 400px; 
+  height: 400px;
+}
+
+.queryEditorQuestionTimeSerieContainer {
+  /* width: 400px; */ 
+  min-height: 400px;
+}
+
+.queryEditorQuestionScaleRadioPreviewItemContainer {
+  display: inline-block;
+  padding:0px 10px 5px 10px;
+  margin:0px 10px 0px 0px;
+  text-align:center;  
+}
+
+.queryEditorQuestionScaleRadioPreviewInputContainer {
+  display: inline-block;
+}
+
+.queryEditorQuestionScaleRadioPreviewLabelContainer {
+  display:block;
+}
+
+.queryEditorQuestionScaleRadioPreviewLabelContainer label.queryEditorQuestionScaleRadioPreviewLabelContainer {
+  display:block;
+}
+
+/*
+ * Panel Admin Query Editor Scale Slider
+ *
+ */
+
+.queryEditorQuestionPreviewContainer > label.queryEditorQuestionScaleSliderLabel {
+  padding-bottom:25px; 
+  text-align:center;
+}
+
+.queryEditorQuestionPreviewContainer > label.queryEditorQuestionScaleSliderPreviewLabel {
+  position:absolute;
+  display:inline-block;
+  height:35px;
+  margin-top:-40px;
+}
+
+/*
+ * Panel Admin Query Editor Grouping
+ *
+ */ 
+ 
+.queryGroupingItemContainer {
+  width:200px;
+  float:left;
+  vertical-align:top;
+  padding:0px 1%px 0px 0px;
+}
+
+.queryGroupingGroupContainer {
+  vertical-align:top;
+  margin-left:210px;
+}
+ 
+.queryGroupingItem {
+  background:#0099FF;
+  color:#fff;
+  padding:2px 6px;
+  border-radius:3px;
+  margin:2px 2px 4px 2px;
+  max-width:194px;
+  word-wrap:break-word;
+  text-align:center;
+  opacity:0.7;
+}
+
+.queryGroupingItem .queryMultiselectListItemLabel {
+
+}
+
+.queryGroupingGroup {
+  border:1px solid #6ec5ff;
+  color:#000;
+  padding:10;
+  margin:0px 10px 10px 0px;
+  vertical-align:middle;
+  text-align:middle;
+  min-width:188px;
+  min-height:200px;
+  text-align:center;
+  position:relative;
+  display:inline-block;
+}
+
+.queryGroupingGroupItemContainer {
+  min-height:180px;
+  padding:2px;
+}
+
+.queryGroupingGroupItemContainer .queryGroupingItem {
+  background:#6ec5ff;
+  color:#ffffff;
+  padding:2px 6px;
+  border-radius:3px;
+  margin:2px 2px 4px 2px;
+  max-width:194px;
+  word-wrap:break-word;
+  text-align:center;
+  opacity:0.7;
+}
+
+.queryGroupingGroupItemContainer .queryGroupingItem:hover {
+  background:#0099FF;
+  color:#ffffff;
+}
+
+.queryGroupingGroup .queryGroupingGroupLabel {
+  display:inline-block;
+  vertical-align:middle;
+  text-transform:uppercase;
+  font-size:0.9em;
+  padding-top:4px;
+  white-space:nowrap;
+}
+
+.queryMultiselectListItemRemove {
+  background-color: #FFFFFF;
+  color: #FF0000;
+  cursor: pointer;
+  font-size: 1px;
+  font-weight: bold;
+  height: 12px;
+  position: absolute;
+  right: 4px;
+  text-align: center;
+  top: 6px;
+  width: 12px;
+  background:url('../gfx/icons/12x12/actions/delete_white.png') no-repeat center center;
+}
+
+/*
+ * Panel Admin Query Editor Multiple Select
+ *
+ */ 
+
+.queryMultiselectListItemContainer {
+
+}
+
+.queryMultiselectListItemInputContainer {
+  display:inline-block;
+  padding:4px 4px 0px 0px;
+  vertical-align:top;
+}
+
+.queryMultiselectListItemLabel {
+  display:inline-block;
+  vertical-align:top;
+}
+
+/*
+ * Panel Admin Query Editor Basic Form
+ *
+ */ 
+ 
+ 
+.queryEditorFormFieldEditors {
+  margin-top:20px;
+}
+
+.queryEditorFormFieldEditor,
+.queryEditorFormListFieldSetting,
+.queryFormFieldContainer {
+  padding:4px;
+  margin-bottom:5px;
+  position:relative;
+}
+
+.queryEditorFormFieldEditorActions {
+  opacity:0.2;
+}
+
+.queryEditorFormFieldEditor:hover {
+  background:#f2f2f2;
+  border-radius:3px;
+}
+
+.queryEditorFormFieldEditorDeleted {
+  opacity: 0.5;
+}
+
+.queryEditorFormFieldEditorActions {
+  float: right;
+}
+
+.queryEditorFormFieldEditor:hover .queryEditorFormFieldEditorActions {
+  opacity:1;
+}
+
+.queryEditorFormFieldEditorDeleteAction {
+  background: url("../gfx/icons/16x16/actions/delete.png") no-repeat center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 30px;
+  display: inline-block;
+}
+
+.queryEditorFormFieldEditorSettingsAction {
+  background: url("../gfx/icons/16x16/actions/edit.png") no-repeat center center transparent;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+}
+
+.queryEditorFormFieldEditor > .queryEditorFormFieldPreview > label,
+.queryEditorFormListFieldSetting label,
+.queryFormFieldContainer > label{
+  text-transform:uppercase;
+  font-size:1em;
+  padding:0px 10px 0px 0px;
+  display:block;
+}
+
+.queryEditorFormListFieldSlider {
+  margin-top: 22px;
+}
+
+.queryEditorFormListFieldPreview > label.queryEditorFormListFieldSliderLabel {
+  position:absolute;
+  display:inline-block;
+  height:35px;
+  margin-top:-40px;
+}
+
+.queryFormSliderTrack {
+  margin-top: 22px;
+}
+
+.queryFormFieldContainer > label.queryFormSliderItemLabel {
+  position:absolute;
+  display:inline-block;
+  height:35px;
+  margin-top:-40px;
+}
+
+.queryEditorFormFieldEditor input,
+.queryEditorFormFieldEditor input[disabled="disabled"],
+.queryFormFieldContainer input {
+  border: 3px solid #e5e5e5;
+  padding: 4px 6px;
+  border-radius:3px;
+  width:300px;
+}
+
+.queryEditorFormFieldEditor input.queryEditorFormListFieldOptionLabel {
+  width:240px;
+}
+
+.queryEditorFormFieldEditor .queryEditorFormListFieldRadioItem input[type='radio'],
+.queryFormFieldContainer  input[type='radio'] {
+  border: 3px solid #e5e5e5;
+  border-radius:3px;
+  width:auto;
+  margin-right:4px;
+}
+
+.queryEditorFormFieldEditor textarea,
+.queryFormFieldContainer textarea {
+  border: 3px solid #e5e5e5;
+  padding: 4px 6px;
+  border-radius:3px;
+  width:300px; 
+  height:100px; 
+  resize:none
+}
+
+.queryEditorFormAddField {
+  display:inline-block;
+  margin:10px 0px 20px 0px;
+}
+
+.queryEditorFormFieldSettings, 
+.queryEditorFormFieldCreate {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 4px solid #DDE7ED;
+  border-radius: 2px 2px 2px 2px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  min-width: 320px;
+  padding: 8px;
+  z-index: 2000;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left:-200px;
+}
+
+.queryEditorFormFieldCreate span {
+  color: #1E1E1E;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  text-align: left;
+  display: block;
+}
+
+.queryEditorFormFieldSettings button,
+.queryEditorFormFieldCreateCancelButton {
+  background-color: #0099FF;
+  border: 0 none;
+  color: #FFFFFF;
+  font-weight: normal;
+  margin-left: 10px;
+  margin-top: 5px;
+  padding: 4px;
+  text-transform: uppercase;
+  float: right;
+}
+
+.queryEditorFormFieldCreateButton {
+  background:#fff;
+  border: 1px solid #EEEEEE;
+  border-radius: 2px 2px 2px 2px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.825em;
+  height: 42px;
+  margin: 4px 3px 4px 4px;
+  padding: 0px 0px 0px 32px;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: top;
+  width: 160px;  
+  
+}
+
+.queryEditorFormFieldCreateButton:hover {
+  border: 1px solid #4BB7FF;
+}
+
+.queryEditorFormListFieldOptionContainer {
+  margin-bottom:4px;
+}
+
+.queryEditorFormListFieldOptionDelete {
+  font-size:0px;
+  background:url('../gfx/icons/16x16/actions/remove.png') no-repeat center center;
+  display:inline-block;
+  vertical-align:middle;
+  width:20px;
+  height:20px;
+}
+
+.queryEditorFormListFieldOptionUp {
+  font-size:0px;
+  background:url('../gfx/icons/16x16/actions/move_up_arrow.png') no-repeat center center;
+  display:inline-block;
+  vertical-align:middle;
+  width:20px;
+  height:20px;
+}
+
+.queryEditorFormListFieldOptionDown {
+  font-size:0px;
+  background:url('../gfx/icons/16x16/actions/move_down_arrow.png') no-repeat center center;
+  display:inline-block;
+  vertical-align:middle;
+  width:20px;
+  height:20px;
+}
+
+/*
+ * Panel Admin Query Editor Background Form
+ *
+ */ 
+
+/*
+ * Context Menu
+ *
+ */
+
+.blockContextMenuItem a {
+  display: block;
+  float: left;
+  margin-left: 4px;
+  position: relative;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.blockContextMenu .CREATE a {
+  background-image: url("../gfx/icons/16x16/actions/create.png");
+}
+
+.blockContextMenu .CREATEUSERGROUP a {
+  background-image: url("../gfx/icons/16x16/actions/create_usergroup.png");
+}
+
+.blockContextMenu .CREATEFOLDER a {
+  background-image: url("../gfx/icons/16x16/actions/create_folder.png");
+}
+
+.blockContextMenu .GDOCSIMPORT a {
+  background-image: url("../gfx/icons/16x16/actions/import_google_docs.png");
+}
+
+.blockContextMenuItem a>span.blockContextMenuTooltip {
+  display: none;
+}
+
+.blockContextMenuItem a:hover>span.blockContextMenuTooltip {
+  display: block;
+  position: absolute;
+  top: -35px;
+  right: -15px;
+  z-index: 99;
+  width: auto;
+}
+
+.blockContextMenuItem span.blockContextMenuTooltip span.blockContextMenuTooltipText {
+  padding: 3px 12px;
+  color: #ffffff;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  display: block;
+  background: #000000;
+  box-shadow: 0px 0px 4px #666666;
+}
+
+.blockContextMenuItem span.blockContextMenuTooltip span.blockContextMenuTooltipArrow {
+  display: block;
+  background: url('../gfx/ui/tooltip_bottom_arrow.png') no-repeat center right;
+  height: 6px;
+  width: 11px;
+  position: absolute;
+  right: 20px;
+}
+
+.blockContextMenu {
+  position:absolute;
+  right:12px;
+  top:18px;
+}
+
+.blockContextMenuItem {
+  float: right;
+}
+
+/*
+ * Profile
+ *
+ */
+
+.profilePictureWrapper {
+  position:absolute;
+  right:12px;  
+}
+
+.profilePictureTitle {
+
+}
+
+.profilePicture {
+  box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  width: 215px;
+  height: 215px;
+  background-color:#fff;
+  position:relative;
+}
+
+#profileSettingsForm {
+  margin-bottom:20px;
+  margin-right:240px;
+}
+
+#profilePasswordForm {
+  margin-bottom:20px;
+}
+
+#profileBlockContent {
+  margin-bottom:20px;
+}
+
+.changeProfilePictureButton {
+  background: url("../gfx/icons/16x16/actions/edit_alt.png") no-repeat scroll 5px center #00CCFF;
+  border-top:1px solid #00c2f2;
+  border-radius: 0 0 3px 3px;
+  bottom: -28px;
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 3px 10px 3px 28px;
+  position: absolute;
+  right: 0;
+  text-transform: uppercase;
+  color:#fff;
+}
+
+.changeProfilePictureButton:hover {
+  opacity:1;
+}
+
+.changeProfilePictureModalOverlay {
+  background:#000;
+  opacity:0.4;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+}
+
+.changeProfilePictureModalContainer {
+  box-shadow: 0px 0px 100px 12px #000;
+  border-radius:10px;
+  padding:8px;    
+  position:fixed;
+  top:100px;
+  left:50%;
+  width:650px;
+  background:#ffffff;
+  z-index:1001;
+  margin-left:-325px;
+}
+
+.changeProfilePictureCloseModalButton {
+  background: url("../gfx/icons/16x16/actions/modal_close.png") no-repeat scroll center center #FFFFFF;
+  border-radius: 14px 14px 14px 14px;
+  cursor: pointer;
+  height: 28px;
+  position: absolute;
+  right: -16px;
+  top: -16px;
+  width: 28px;
+}
+
+.changeProfilePictureModalContent form label.formFieldLabel {
+  margin:10px 0px 2px 0px;
+  display:block;
+}
+
+.profileExternalAuthLoginTypeIcon {
+  padding:2px 2px 2px 32px;
+  margin:2px 4px 8px 2px;
+}
+
+#profileExternalAuthBlockContent.blockContent {
+  margin-top:10px;
+}
+
+.profileExternalAuthLoginTypeIcon a {
+  display:inline-block;
+  margin-left:4px;
+}
+
+.loginTypeFacebook {
+  background:url('../gfx/icons/24x24/apps/facebook.png') no-repeat center left;
+}
+
+.loginTypeGoogle {
+  background:url('../gfx/icons/24x24/apps/google.png') no-repeat center left;   
+}
+
+.loginTypeTwitter {
+  background:url('../gfx/icons/24x24/apps/twitter.png') no-repeat center left;  
+}
+
+.loginTypeInUseTextContainer {
+  border-radius:2px;
+  padding:2px 6px;
+  color:#fff;
+  background:#6CADD3;
+  display:inline-block;
+  margin-left:4px;
+}
+
+/*
+ * Event Queue
+ *
+ */
+
+.eventQueueItemRemoveLink {
+  background: url("../gfx/icons/16x16/actions/close_white.png") no-repeat scroll 0 0 transparent;
+  top: 12px;
+  cursor: pointer;
+  height: 24px;
+  position: absolute;
+  right: 8px;
+  width: 24px;
+}
+
+.eventQueue {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.eventQueueItemsContainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background: #666;
+}
+
+.eventQueueItem {
+  text-align: center;
+  color: #fff;
+  padding: 12px 16px 16px 16px;
+  font-size: 16px;
+  margin-bottom: 1px;
+  z-index: 2;
+  position: relative;
+  padding-right: 36px;
+  padding-left: 36px;
+  word-wrap: break-word;
+}
+
+.eventQueueItemLast {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  margin-bottom: 0px;
+}
+
+.eventQueueInfoItem {
+  background: #549fca;
+}
+.eventQueueSuccessItem {
+  background: #49af4e;
+}
+
+.eventQueueWarningItem {
+  background: #ffce65;
+  color:#6a4902;
+}
+
+.eventQueueErrorItem {
+  background: #ff6600;
+}
+
+.eventQueueCriticalItem {
+  background: #bf3000;
+}
+
+.eventQueueLoadingItem {
+  background-color: #eee;
+  color:#1e1e1e;
+  background-image: url('../gfx/ui/eventqueueloader.png');
+  background-position: 8px center;
+  background-repeat: no-repeat;
+  z-index:9999;  
+}
+
+/* 
+ * Global Blocking Overlay 
+ *
+ */
+
+.globalBlockingOverlay {
+  cursor: wait;
+}
+
+/*
+ * Report Issue
+ *
+ */
+  
+ #reportIssueBlockContent > span {
+   display:block;
+   padding:10px 0px 10px 0px;
+ }
+ 
+  #reportIssueBlockContent .formMemoFieldContainer {
+  margin-top:10px;
+ }
+ 
+/*
+ * Scripty Dialog Modifications - Create Query Page
+ *
+ */
+
+.panelAdminQueryEditorCreatePageDialog {
+  width:530px;
+}
+
+.panelAdminQueryEditorCreatePageDialog .ui-dialog-buttonpane {
+  margin-right:3px;
+}
+
+.panelAdminQueryEditorCreatePageDialog a.ui-dialog-titlebar-close {
+  display:none;
+}
+
+.panelAdminQueryEditorCreatePage {
+  margin-bottom:10px;
+}
+
+.panelAdminQueryEditorCreatePage .panelAdminQueryEditorCreatePagePageTemplateIcon {
+  width:32px;
+  height:42px;
+  display:inline-block;
+  vertical-align:middle;
+  background:#ffffff;
+  border-radius:2px;
+}
+
+.panelAdminQueryEditorCreatePagePageTemplateName {
+  display:inline-block;
+  vertical-align:middle;
+  width:124px;
+  line-height:1.2em;
+}
+
+.panelAdminQueryEditorCreatePage .text {
+  background: url('../gfx/icons/32x32/apps/query_page_text.png') no-repeat center center #ffffff;
+
+}
+
+.panelAdminQueryEditorCreatePage .expertise {
+  background: url('../gfx/icons/32x32/apps/query_page_expertise.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .scale1d {
+  background: url('../gfx/icons/32x32/apps/query_page_1dscale.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .scale2d {
+  background: url('../gfx/icons/32x32/apps/query_page_2dscale.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .timeserie {
+  background: url('../gfx/icons/32x32/apps/query_page_timeserie.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .timeline {
+  background: url('../gfx/icons/32x32/apps/query_page_timeline.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .grouping {
+  background: url('../gfx/icons/32x32/apps/query_page_grouping.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .multiselect {
+  background: url('../gfx/icons/32x32/apps/query_page_multipleselect.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .ordering {
+  background: url('../gfx/icons/32x32/apps/query_page_ordering.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .form {
+  background: url('../gfx/icons/32x32/apps/query_page_form.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .backgroundinformationform {
+  background: url('../gfx/icons/32x32/apps/query_page_backgroundinformationform.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePage .collage2d {
+  background: url('../gfx/icons/32x32/apps/query_page_2dcollage.png') no-repeat center center #ffffff;
+}
+
+.panelAdminQueryEditorCreatePagePageTemplate {
+  cursor: pointer;
+  border:1px solid #eee;
+  display: inline-block;
+  font-size: 0.825em;
+  height: 42px;
+  margin: 4px 3px 4px 4px;
+  padding: 1px;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: top;
+  width: 160px;
+  border-radius:2px;
+}
+
+.panelAdminQueryEditorCreatePagePageTemplate:hover {
+  border:1px solid #4bb7ff;
+  background:#fff;
+}
+ 
+/*
+ * Generic Modal Popup Dialog
+ *
+ */
+
+.modalPopupGlassPane {
+  background:#000000;
+  opacity:0.2;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+}
+
+.modalPopupContentFrame {
+  background: #FFFFFF;
+  border: 5px solid #dde7ed;
+  border-radius: 3px;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px 12px;
+  position: absolute;
+  z-index:1001;
+}
+
+.modalPopupTextContent {
+  color:#1e1e1e;
+  text-align:left;
+}
+
+.modalPopupTitleContent {
+  color:#1e1e1e;
+  text-align:left;
+  font-size:1.2em;
+}
+
+.modalPopupDescriptionContent {
+  color:#1e1e1e;
+  text-align:left;
+  font-style:italic;
+  margin:10px 0px 16px 0px;
+}
+
+.modalPopupRadioButtonContainer {
+  margin:0px 0px 12px 0px;
+}
+
+.modalPopupLinksContainer {
+  margin:12px 0px 12px 0px;
+}
+
+.modalPopupLinkContainer.exportCSV,
+.modalPopupLinkContainer.exportPDF,
+.modalPopupLinkContainer.exportGoogle {
+  display:block;
+  padding:2px 0px;
+}
+
+.modalPopupTextFieldContainer {
+  margin:0px 0px 12px 0px;
+}
+
+.modalPopupTextFieldContainer label {
+  display:block;
+  text-transform:uppercase;
+}
+
+.modalPopupSelectContainer {
+  margin:0px 0px 12px 0px;
+}
+
+.modalPopupSelectContainer label {
+  display:block;
+  text-transform:uppercase;
+}
+
+.modalPopupButtonsContainer {
+  bottom: 10px;
+  position: absolute;
+  right: 12px;
+  text-align: right;
+}
+
+.modalPopupButton {
+  background-color: #0099FF;
+  border: 0 none;
+  color: #FFFFFF;
+  font-size: 0.9em;
+  margin-top: 5px;
+  padding: 4px;
+  text-transform: uppercase;
+  font-weight: normal;  
+  margin-left:10px;
+  cursor:pointer;
+}
+
+.modalPopupButtonRed {
+  background: none repeat scroll 0 0 #F40000;
+}
+
+.modalPopupButtonGreen {
+  background: none repeat scroll 0 0 #03b603;
+}
+
+.unfinishedFeature {
+  opacity:0.3;
+}
+
+/*
+ * Query Results and Reports 
+ * 
+ */
+
+#GUI_panelReportContainer .block {
+  border: 0px;
+  box-shadow: none;
+  padding: 0px;
+  position: relative;
+}
+
+#GUI_panelReportContainer .reportPage {
+  border:1px solid #dde7ed;
+  padding:8px 12px;    
+  position:relative;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  margin-top:20px;  
+}
+
+#GUI_panelReportContainer .reportPage div img {
+  margin-bottom:4px;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table {
+  width:100%;
+  line-height:1em;
+  margin:0px 0px 20px 0px;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table td{
+  text-align:right;
+  text-transform:uppercase;
+  font-size:0.85em;
+  padding:2px 6px;
+  border:2px solid #fff;
+  border-radius:5px;
+  background:#eee;
+  height:30px;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table tr:nth-child(1) td {
+  vertical-align:bottom;
+  background:#F7F7F7;
+  text-align:center;  
+  width:90px;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table tr:nth-child(1) td:nth-child(1) {
+  vertical-align:bottom;
+  background:#fff;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table tr td:nth-child(1) {
+  vertical-align:middle;
+  background:#F7F7F7;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table td.queryExpertiseFilterGroup:hover {
+  background:#e5e5e5;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table .queryExpertiseFilterGroup {
+  cursor: pointer;  
+  text-align:center;
+}
+
+#GUI_panelReportControlsContainer .queryExpertiseFilter table td.queryExpertiseFilterGroupSelected,
+#GUI_panelReportControlsContainer .queryExpertiseFilter table td.queryExpertiseFilterGroupSelected:hover {
+  cursor: pointer;  
+  text-align:center;
+  background:#3fb2ff;
+  color:#fff;
+}
+
+.queryFormFieldFilterOptionList {
+  margin-bottom:5px;
+  width:48%;
+  margin-left:1%;
+  display:inline-block;
+  vertical-align:top;
+}
+
+.queryFormFieldFilterOptionListCaption {
+  text-transform:uppercase;
+  font-size:0.9em;
+}
+
+#GUI_panelReportContainer .reportPage .block,
+#GUI_panelReportContainer .reportPage .queryCommentList {
+  border: 0px;
+  box-shadow: none;
+  padding: 0px;
+  position: relative;
+}
+ 
+#GUI_panelReportContainer .reportPage h2 { 
+  margin: 0px 0px 15px 0px;
+  padding: 0px 0px 0px 0px;
+  color:#0099ff;
+  font-size:2em;
+  text-transform:none;
+}
+
+#GUI_panelReportContainer .reportPage .queryReportThesis { 
+  font-weight:bold;
+  font-size:1.2em;
+  margin-bottom:20px;
+  color:#4c4c4c;
+}
+
+#GUI_panelReportContainer .reportPage .queryReportDescription { 
+  margin-bottom:20px;
+}
+ 
+#GUI_panelReportContainer .reportPage h2.querySubTitle {
+  border-bottom: 1px solid #DDE7ED;
+  color: #0099FF;
+  font-size: 1.35em;
+  padding: 20px 0 10px;
+  text-transform: uppercase;
+}
+ 
+#GUI_panelReportContainer .reportPage .queryCommentDate {
+  color: #DF4D1C;
+  font-size: 1.2em;
+  font-style: italic;
+  margin: 0 10px 0 0;
+  float:none;
+}
+ 
+.panelAdminQueryResultsQueryPagesContainer {
+  padding-left: 5px;
+  border-left:5px solid #eee;
+  font-size: 0.9em;
+}
+
+.panelAdminQueryResultsRow {
+  border-bottom: 1px solid #DDE7ED;
+  padding: 6px 124px 6px 5px;
+  position: relative;
+}
+
+.panelAdminQueryResultsRow:last-child {
+  border-bottom: 0px;
+  padding: 6px 124px 0px 5px;
+  position: relative;
+}
+
+.panelAdminQueryResultPageRow {
+  position: relative;
+  width: 270px;
+  padding-right:124px;
+}
+
+.panelAdminQueryResultPageRow>.contextualLinks {
+  top: 0px;
+  }
+
+.panelAdminQueryResultPageRow:hover>.contextualLinks {
+  opacity: 1;
+}
+
+/*
+ * Generic View Document
+ *
+ */
+
+.documentNavigationContainer {
+  text-align: center;
+  margin: 20px auto 20px auto;
+  width:300px;
+}
+
+.documentNavigationContainer .blockContextualLinkContainer {
+  display: inline-block;
+}
+
+.blockContextualLink.documentFirstPage,
+.blockContextualLink.documentPreviousPage, 
+.blockContextualLink.documentNextPage, 
+.blockContextualLink.documentLastPage {
+  display:inline-block;
+  height:32px;
+  width:32px;  
+  margin:0px 2px 0px 2px;
+}
+
+.blockContextualLink.documentFirstPage a,
+.blockContextualLink.documentPreviousPage a, 
+.blockContextualLink.documentNextPage a, 
+.blockContextualLink.documentLastPage a {
+  text-align: center;
+  cursor:pointer;
+  display:inline-block;
+  height:32px;
+  width:32px;  
+  border:1px solid #fff;
+}
+
+.blockContextualLink.documentFirstPage a:hover,
+.blockContextualLink.documentPreviousPage a:hover, 
+.blockContextualLink.documentNextPage a:hover, 
+.blockContextualLink.documentLastPage a:hover {
+  text-align: center;
+  cursor:pointer;
+  display:inline-block;
+  height:32px;
+  width:32px;  
+  border:1px solid #0099ff;
+  border-radius:3px;
+}
+
+.blockContextualLink.documentFirstPage a {
+  background:url('../gfx/icons/24x24/actions/gotolastpage_left.png') center center no-repeat;
+}
+
+.blockContextualLink.documentPreviousPage a {
+  background:url('../gfx/icons/24x24/actions/goto_left.png') center center no-repeat;
+}
+
+.blockContextualLink.documentNextPage a {
+  background:url('../gfx/icons/24x24/actions/goto_right.png') center center no-repeat;  
+}
+
+.blockContextualLink.documentLastPage a {
+  background:url('../gfx/icons/24x24/actions/gotolastpage_right.png') center center no-repeat;    
+}
+
+.documentNavigationContainer .blockContextualLinkDisabled a,
+.documentNavigationContainer .blockContextualLinkDisabled:hover a {
+  opacity:0.5;
+  cursor:default;
+  border:1px solid #fff;  
+}
+
+.documentNavigationContainer .blockContextualLinkDisabled:hover a span.blockContextualLinkTooltip {
+  display:none;
+}
+
+/*
+ * Index Generic
+ *
+ */
+ 
+.indexGenericTitle {
+  font-size:1.15em;
+  margin:0px 0px 5px 0px;  
+}
+
+.indexGenericDescription {
+  margin-bottom:5px;
+}
+
+.indexGenericMeta {
+  font-size: 0.9em;
+  color:#666;
+}
+
+/*
+ * Index Admin Dashboard Column Layout
+ *
+ */
+ 
+.GUI_indexAdminDashboardNarrowColumn {
+  float:left;
+  width:32%;
+  margin-right:1%;
+}
+
+.GUI_indexAdminDashboardWideColumn {
+  float:left;
+  width:66%;
+}
+ 
+.indexAdminDashboardMaterialsShowAllLink {
+  border-top:1px solid #dde7ed;    
+  padding:4px 0px 0px 0px;
+  margin:4px 0px 0px 0px;
+  text-align:center;
+}
+
+#GUI_indexAdminDashboardGuidesContainer {
+  
+}
+
+#GUI_indexAdminDashboardMaterialsContainer {
+  
+}
+
+#GUI_indexAdminDashboardUsersContainer {
+  display:none;
+}
+
+#GUI_indexAdminDashboardBulletinsContainer {
+  
+}
+
+/*
+ * Index Material Columns
+ *
+ */
+
+#GUI_indexHelpListingPanel,
+#GUI_indexMaterialsListingPanel {
+  float:left;
+  margin-right:1%;
+  width:29%;
+}
+
+#GUI_indexHelpContentPanel,
+#GUI_indexMaterialsContentPanel {
+  width:69%;
+  margin-left:31%;
+}
+ 
+ 
+#GUI_indexHelpListingPanel .panelGenericTitle,
+#GUI_indexMaterialsListingPanel .panelGenericTitle {
+  
+}
+ 
+.dashboardLocaleSelectorContainer {
+  position:absolute;
+  right:40px;
+  top:5px;
+}
+
+.dashboardLocaleSelectorContainer a {
+  margin-left:5px;
+  display:inline-block;
+  padding:2px 4px;
+  min-width:20px;
+  text-align:center;
+}
+
+.dashboardLocaleSelectorContainer a:hover {
+  background:#6ec5ff;
+  color:#fff;
+  text-decoration:none;
+  border-radius:3px;
+}
+
+.dashboardLocaleSelectorContainer a.dashboardLanguageLinkSelected {
+  background:#0099ff;
+  color:#fff;
+  text-decoration:none;
+  border-radius:3px;
+}
+
+
+/*
+ * Generic Material Management - Drag and Drop etc. 
+ *
+ */
+
+.materialFolderRow {
+  margin-bottom:10px;
+}
+
+.materialFolderRow:last-child {
+  margin-bottom:0px;
+}
+
+.materialsBlockList .materialFolderRow > .panelGenericTitle  {
+  background:#eaeaea;
+  color:#1e1e1e;
+  padding: 4px 8px;
+  text-transform:uppercase;
+  font-size: 1em; 
+  font-family: 'PT Sans', Verdana, sans-serif;
+  margin:0px 0px 0px 0px;  
+}
+
+.materialFolderSortableHover {
+  border: 6px solid #ff6600;
+  padding:0px;
+}
+
+.materialFolderChildResources {
+  min-height: 20px;
+}
+
+.manageMaterialsNewFolderPopupInputContainer {
+  margin:5px 0px 5px 0px;
+}
+
+/*
+ * Global Stamp Selector Rules 
+ *
+ */
+ 
+.stampTimeLineSpacer {
+  height:140px;
+  clear:both;
+}
+ 
+.stampSelectorOverlay {
+  height:90px;
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;  
+  border-top:1px solid #dde7ed;  
+  box-shadow: 0 -2px 4px rgba(77, 77, 77, 0.1);   
+}
+
+.stampSelectorOverlayBackground {
+  background:#eaf1f4;
+  position:absolute;
+  height:90px;  
+  left:0;
+  right:0;
+  bottom:0;  
+  opacity:0.85;
+}
+ 
+.stampSelectorOverlayContainer {
+  height:90px;
+  margin:0 auto 0 auto;
+  max-width: 1240px;
+  min-width: 980px;   
+  position:relative;
+}
+
+.stampSelectorOverlayHeader {
+  background:#eaf1f4;  
+  border-top:1px solid #dde7ed;
+  border-left:1px solid #dde7ed;  
+  border-right:1px solid #dde7ed;    
+  position:absolute;
+  left:10px;
+  top:-31px;
+  padding:5px 30px 5px 7px;
+  box-shadow: 0 -2px 4px rgba(77, 77, 77, 0.1);  
+  opacity:0.9; 
+  color:#186089;
+}
+
+.stampSelectorOverlayHeader h2 {
+  margin:0;
+  padding:0;
+
+  text-transform:uppercase;
+  font-size:1.05em;
+}
+
+.stampSelectorOverLayDown {
+  width:16px;
+  height:16px;
+  position:absolute;
+  right:7px;
+  top:6px;
+  background:url('../gfx/icons/16x16/actions/down.png') center center no-repeat;
+  opacity:0.2;
+}
+
+.stampSelectorOverLayUp {
+  width:16px;
+  height:16px;
+  position:absolute;
+  right:7px;
+  top:6px;
+  background:url('../gfx/icons/16x16/actions/up.png') center center no-repeat;
+  opacity:0.2;
+}
+
+.stampSelectorOverLayDown:hover {
+  width:16px;
+  height:16px;
+  position:absolute;
+  right:7px;
+  top:5px;
+  background:url('../gfx/icons/16x16/actions/down.png') center center no-repeat;
+  opacity:1;
+  cursor:pointer;
+}
+
+.stampSelectorOverLayUp:hover {
+  width:16px;
+  height:16px;
+  position:absolute;
+  right:7px;
+  top:6px;
+  background:url('../gfx/icons/16x16/actions/up.png') center center no-repeat;
+  opacity:1;
+  cursor:pointer;  
+}
+ 
+.stampTimelineSpacerContainer {
+  min-width:160px;
+  min-height:70px;
+  float:left;
+  margin:10px 0px 10px 0px;
+} 
+
+.stampTimelineContainer {
+  min-width:70px;
+  min-height:70px;
+  text-align:center;
+  float:left;
+  position:relative;
+  margin:10px 0px 10px 0px;
+}
+
+.stampTimelineContainer a {
+  text-decoration:none;
+  color:#000;
+}
+
+.stampTimelineIcon {
+  height:30px;
+  padding:5px 5px 0px 5px;  
+  display:block;  
+}
+
+.current-stamp {
+  background:url('../gfx/icons/24x24/actions/stamp-current-marker.png') center center no-repeat;
+}
+
+.activatable-stamp {
+  background:url('../gfx/icons/24x24/actions/stamp-activatable-marker.png') center center no-repeat;
+}
+
+.present-stamp {
+  background:url('../gfx/icons/24x24/actions/stamp-present-marker.png') center center no-repeat;
+}
+ 
+.stampTimelineCreationDateWrapper {
+  padding:0px 5px 5px 5px;
+  display:block;  
+  line-height:1.1em;
+}
+
+.stampTimelineCreationPresent {
+  font-size:0.8em;
+  display:block;
+  height:31px;
+}
+
+.stampTimelineCreationDate {
+  font-size:0.8em;
+}
+
+.stampTimelineCreationYear {
+  font-size:1.1em;
+}
+
+.stampTimeLineName {
+  display:block;
+}
+
+.stampTimeLineDesc {
+  display:block;
+  margin-top:4px;
+  text-transform:none;  
+}
+ 
+.stampTimelineContainer a > span.stampTimeLineTooltip,
+.stampTimelineContainer > span.stampTimeLineTooltip {
+  display:none;
+}
+ 
+.stampTimelineContainer a:hover > span.stampTimeLineTooltip,
+.stampTimelineContainer:hover > span.stampTimeLineTooltip {
+  display:block;
+  position:absolute;
+  bottom:75px;
+  left:50%;
+  margin-left:-130px;
+  width:260px;
+  z-index:98;
+  display:block;
+}
+
+.stampTimelineContainer span.stampTimeLineTooltip span.stampTimeLineTooltipText {
+  padding:10px;
+  line-height:1.3em;
+  color:#ffffff;
+  text-transform:uppercase;
+  font-size:0.8em;
+  display:block;
+  background:#000000;
+  box-shadow:0px 0px 4px #aaa;
+  border-radius:2px;
+  text-align:left;
+}
+
+.stampTimelineContainer span.stampTimeLineTooltip span.stampTimeLineTooltipArrow {
+  display:block;
+  background:url('../gfx/ui/tooltip_bottom_arrow.png') no-repeat center center;
+  height:6px;
+  width:100%;
+  position:absolute;
+  right:0;
+  left:0;
+}
+
+.stampSelectorOverLayDown > span.stampOverlayButtonTooltip,
+.stampSelectorOverLayUp > span.stampOverlayButtonTooltip {
+  display:none;
+}
+ 
+.stampSelectorOverLayDown:hover > span.stampOverlayButtonTooltip,
+.stampSelectorOverLayUp:hover > span.stampOverlayButtonTooltip {
+  display:block;
+  position:absolute;
+  top:-35px;
+  right:-10px;
+  z-index:98;
+  width:auto;
+  display:block;
+}
+
+.stampSelectorOverLayDown span.stampOverlayButtonTooltip span.stampOverlayButtonTooltipText,
+.stampSelectorOverLayUp span.stampOverlayButtonTooltip span.stampOverlayButtonTooltipText {
+  padding:3px 12px;
+  color:#ffffff;
+  white-space:nowrap;
+  text-transform:uppercase;
+  font-size:0.8em;
+  display:block;
+  background:#000000;
+  box-shadow:0px 0px 4px #aaa;
+  border-radius:2px;
+}
+
+.stampSelectorOverLayDown span.stampOverlayButtonTooltip span.stampOverlayButtonTooltipArrow,
+.stampSelectorOverLayUp span.stampOverlayButtonTooltip span.stampOverlayButtonTooltipArrow {
+  display:block;
+  background:url('../gfx/ui/tooltip_bottom_arrow.png') no-repeat center right;
+  height:6px;
+  width:11px;
+  position:absolute;
+  right:14px;
+} 
+ 
+/*
+ * Panel Admin Panelistactivity
+ *
+ */
+ 
+#GUI_panelistActivityNarrowColumn {
+  float: left;
+  min-height: 500px;
+  width: 35%;
+  margin-bottom:20px;
+}
+
+#GUI_panelistActivityWideColumn {
+  margin-left:37%;
+  min-height: 500px;
+  margin-bottom:20px;
+}
+
+#GUI_panelistActivityWideColumn .panelistActivityOnEmptyDescription {
+
+}
+
+.genericOnEmptyInfo {
+  background:url('../gfx/icons/24x24/actions/info.png') no-repeat;
+  padding:3px 0 3px 32px;
+  color: #666666;
+  font-size: 1.2em;
+  font-style: italic;
+  margin: 20px 10px 15px;
+}
+
+
+#GUI_panelistActivityNarrowColumn .panelAdminQueryRow {
+  cursor:pointer;
+}
+
+#GUI_panelistActivityNarrowColumn .selectedQueryRow {
+  background-color: #6CADD3;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  border:0;
+  color:#fff;
+}
+
+
+#GUI_panelistActivityNarrowColumn .panelAdminQueryRow .panelAdminGenericTitle {
+  color:#0099ff;
+  text-decoration:underline;
+}
+
+#GUI_panelistActivityNarrowColumn .selectedQueryRow .panelAdminGenericTitle {
+  color:#ffffff;
+  text-decoration:underline;
+}
+
+#panelistActivityAnsweredReplicants, 
+#panelistActivityUnAnsweredReplicants {
+  margin-bottom:20px;
+}
+
+.answeredReplicantsTitleWrapper,
+.unansweredReplicantsTitleWrapper {
+  background: #EAEAEA;
+  margin: 0 0 5px 0;
+}
+
+#panelistActivityAnsweredReplicants h3,
+#panelistActivityUnAnsweredReplicants h3 {
+  color: #1E1E1E;
+  font-family: 'PT Sans',Verdana,sans-serif;
+  font-size: 1em;
+  margin: 0;
+  padding: 4px 6px;
+  text-transform: uppercase;
+  display:inline-block;
+  width:250px;
+}
+
+.panelistActivityLastLoginTitle,
+.panelistActivityLastReplyTitle {
+  display:inline-block;
+  width:180px;
+}
+
+#repliedPanelistName,
+#unrepliedPanelistName,
+#repliedPanelistLogin, 
+#repliedPanelistReply,
+#unrepliedPanelistLogin {
+  cursor:pointer;
+  background:url('../gfx/icons/12x12/actions/sort.png') no-repeat center right;
+  padding:0 12px 0 0;
+}
+
+.repliedPanelist,
+.unrepliedPanelist {
+  padding:2px 0px 0px 20px;
+  min-height:42px;
+}
+
+.repliedPanelist {
+  background:url("../gfx/icons/16x16/apps/answeredpanelist.png") no-repeat 0px 5px;
+}
+
+.unrepliedPanelist {
+  background:url("../gfx/icons/16x16/apps/unansweredpanelist.png") no-repeat 0px 5px;
+}
+
+.panelActivityMeta {
+  display:inline-block;
+  width:400px;
+}
+
+.panelistActivityName {
+  min-width:242px;
+  display:inline-block;
+}
+
+.panelistActivityEmail {
+  color: #0099FF;
+  display: block;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.panelistActivityLastLogin {
+  display:inline-block;
+  width:180px;
+}
+
+.panelistActivityLastReply {
+  display:inline-block;
+  width:176px;
+}
+
+
+ 

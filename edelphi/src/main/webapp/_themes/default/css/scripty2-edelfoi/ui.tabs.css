@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+.ui-tabs {
+  zoom: 1;
+}
+
+.ui-tabs .ui-tabs-nav {
+  list-style: none;
+  position: relative; 
+  background-color:#1b628a;
+  padding:0px;
+  margin-bottom:10px;
+
+}
+
+.ui-tabs .ui-tabs-nav li {
+  position: relative;
+  display:inline-block;
+  padding:8px 10px;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+  color:#fff;
+  font-size: 1.35em; 
+  font-family: 'Open Sans Condensed', Verdana, sans-serif;
+  text-transform: uppercase;
+  text-decoration:none;
+  padding:0;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+  background-color:#6CADD3;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a{
+  color:#ffffff;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-state-processing a {
+  cursor: text;
+}
+
+.ui-tabs .ui-tabs-nav li a,
+.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a {
+  cursor: pointer;
+}
+
+.ui-tabs .ui-tabs-panel {
+  display: block;
+  border-width: 0;
+  background: none;
+}
+
+.ui-tabs .ui-tabs-hide {
+  display: none !important;
+}

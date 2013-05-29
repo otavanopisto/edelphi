@@ -1,0 +1,379 @@
+@CHARSET "UTF-8";
+
+/* Generic */
+
+#loginBlockContent label,
+#registerBlockContent label,
+#profileBlockContent label {
+  display: block;
+}
+
+button {
+  font-family: 'PT Sans', Arial, sans-serif;
+}
+
+.formField {
+  padding: 6px;
+  margin: 0px 0px 5px 0px;
+}
+
+.formTextField,
+.formPasswordField {
+  border: 3px solid #e5e5e5;
+  width:100%;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;  
+}
+
+.formTextField:focus,
+.formPasswordField:focus,
+.formMemoField:focus {
+  border:3px solid #0099ff; 
+}
+
+.formFieldLabel {
+  text-transform:uppercase;
+  font-size:0.9em;
+}
+
+.formSubmit,
+.formButton {
+  color: #fff;
+  background-color: #0099FF;
+  border:0;
+  margin-top: 5px;
+  text-transform:uppercase;
+  font-size:0.9em;
+  padding:4px;
+  cursor:pointer;
+}
+
+.disabledButton {
+  color: #fff;
+  background-color: #cccccc;
+  border:0;
+  margin-top: 5px;
+  text-transform:uppercase;
+  font-size:0.9em;
+  padding:4px;
+  cursor:default;
+}
+
+.formSelectContainer input,
+.formCheckBoxContainer input {
+  margin-right:5px;
+  margin-left:3px;
+}
+
+
+.formSelectContainer label {
+  margin-right:7px;
+}
+
+/* Panel Admin Dasboard Settings */
+
+#adminDashboardSettingsBlockContent .formCheckBoxContainer {
+  white-space:nowrap;
+  float:left;
+  margin-right:15px;
+  min-width:90px;
+}
+
+#adminDashboardSettingsBlockContent .formSubmitContainer {
+  clear:both;
+  padding-top: 5px;
+}
+
+/* Panel Admin User Invite */
+
+#inviteUsersAddUsersWithoutInvitationContainer .formSelectContainer {
+  display:inline-block;
+}
+
+#inviteUsersCSVUploadButton .formButton {
+  color: #fff;
+  background-color: #0099FF;
+  border:0;
+  margin:0;
+}
+
+#inviteUsersCSVUploadButton .formSubmit{
+  margin-top:0;
+  padding:2px 4px 3px 4px;
+}
+
+/* Front Page Login */
+
+#indexLoginBlockContent input.required{
+  border: 3px solid #e5e5e5;
+}
+
+#indexLoginBlockContent input.required:focus,
+#indexLoginBlockContent input.valid{
+  border: 3px solid #83df83;
+}
+
+#indexLoginBlockContent input.formvalid[disabled='disabled'] {
+  color: #eeeeee;
+  background-color: #c8c8c8;
+}
+
+#indexLoginBlockContent .formSubmit,
+#indexLoginBlockContent .formButton{
+  background:#03b603;
+  color:#fff;
+}
+
+/* Front Page Register */
+
+#indexRegisterBlockContent input.required{
+  border: 3px solid #e5e5e5;
+}
+
+#indexRegisterBlockContent input.required:focus,
+#indexRegisterBlockContent input.valid{
+  border: 3px solid #74c0f2;
+}
+
+/* Textareas */
+
+textarea.panelDescription {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:100px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;  
+}
+
+textarea.editDocument {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  height:600px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;  
+}
+
+textarea.invitationMessage{
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  height:150px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5; 
+}
+
+textarea.resetPassword{
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  height:150px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5; 
+}
+
+textarea.queryDescription {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:100px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5; 
+}
+
+textarea.reportIssue {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:310px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;  
+}
+
+textarea.queryComment {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:110px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;  
+}
+
+textarea.queryComment:focus {
+  border:3px solid #0099ff; 
+}
+
+.newCommentEditor textarea,
+.editCommentEditor textarea {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:110px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;  
+  margin-top:10px; 
+}
+
+#panelAdminSendEmailContentBlockContent textarea {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:300px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;  
+}
+
+#messageCenterContentBlockContent textarea {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:100px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;   
+}
+
+textarea.panelStampDescription {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:150px;
+  border-radius: 2px;
+  padding: 4px 6px;
+  border: 3px solid #e5e5e5;  
+} 
+
+/*  Button Input Component */
+
+.buttonInputComponent {
+  position:relative;
+  margin-bottom:10px;
+}
+
+.formFieldContainer textarea.buttonInputComponentInput {
+  border-style:dashed;
+  border-width:3px;
+  border-color:#dddddd;
+  z-index: 0;
+  position: relative;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  min-height:100px;
+  border-radius: 2px;
+  padding: 4px 6px; 
+  margin:0; 
+}
+
+input.buttonInputComponentInput {
+  border-style:dashed;
+  border-width:3px;
+  z-index: 0;
+  position: relative;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  border-radius: 2px;
+  padding: 4px 6px;
+  margin:0;
+}
+
+.formFieldContainer textarea.buttonInputComponentInputFocus,
+.formFieldContainer input.buttonInputComponentInputFocus {
+  border:3px solid #0099ff;
+}
+
+.formFieldContainer .buttonInputComponentLabel {
+  bottom: 0;
+  color: #bbbbbb;
+  cursor: pointer;
+  font-size: 1.5em;
+  left: 0;
+  margin-top: -17px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 50%;
+  z-index: 1;
+}
+
+.formFieldContainer.formTextFieldContainer .buttonInputComponentLabel {
+  padding: 6px 8px 6px 8px;
+}
+
+.formFieldContainer.formMemoFieldContainer .buttonInputComponentLabel {
+  padding: 30px 0px 0px 0px;
+}
+
+/* Query Editor Specifics */
+
+.formTextFieldContainer #queryEditorThesisTitle {
+  font-size:1.5em;
+}
+
+.formMemoFieldContainer #queryEditorThesisText {
+  font-size:1.25em;
+  color:#333;
+}
+
+.formMemoFieldContainer #queryEditorThesisDescription {
+  font-size:1em;
+  color:#333;
+  font-style:italic;
+}
+
+/* */
+
+#GUI_emailContentColumn .sendEmailSubject {
+
+}
