@@ -1,0 +1,522 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>fi.internetix.edelphi</groupId>
+  <artifactId>edelphi</artifactId>
+  <packaging>war</packaging>
+  <name>eDelfoi is a research program based on Delphi expert method.</name>
+  <version>1.0.9-SNAPSHOT</version>
+  <licenses>
+    <license>
+      <name>GNU LGPL v3</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <distributionManagement>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>otavanopisto-snapshots</id>
+      <name>Otavan Opisto Snapshots</name>
+      <url>http://maven.otavanopisto.fi:7070/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>otavanopisto-releases</id>
+      <name>Otavan Opisto Releases</name>
+      <url>http://maven.otavanopisto.fi:7070/nexus/content/repositories/releases</url>
+    </repository>
+  </distributionManagement>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>google-api-services</id>
+      <url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
+    </repository>
+    
+  	<repository>
+  		<snapshots>
+  			<enabled>false</enabled>
+  		</snapshots>
+  		<id>otavanopisto-thirdparty</id>
+  		<name>Otavan Opisto 3rd Party</name>
+  		<url>http://maven.otavanopisto.fi:7070/nexus/content/repositories/thirdparty/</url>
+  	</repository>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>otavanopisto-snapshots</id>
+      <name>Otavan Opisto Snapshots</name>
+      <url>http://maven.otavanopisto.fi:7070/nexus/content/repositories/snapshots</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>otavanopisto-releases</id>
+      <name>Otavan Opisto Releases</name>
+      <url>http://maven.otavanopisto.fi:7070/nexus/content/repositories/releases</url>
+    </repository>
+    <repository>
+      <id>repository.jboss.org-public</id>
+      <name>JBoss repository</name>
+      <url>https://repository.jboss.org/nexus/content/groups/public</url>
+    </repository>
+    <repository>
+      <id>svg2emf.googlecode.com</id>
+      <url>http://svg2emf.googlecode.com/svn/m2/releases</url>
+   </repository>
+  </repositories>
+  
+  <dependencyManagement>
+    <dependencies>
+       <!--
+         Define the version of JBoss' Java EE 6 APIs we want to import. Any dependencies from org.jboss.spec will have their version defined by this BOM
+       -->
+       <!--
+         JBoss distributes a complete set of Java EE 6 APIs including  a Bill of Materials (BOM).
+         A BOM specifies the versions of a "stack" (or a collection) of artifacts.
+         We use this here so that we always get the correct versions of artifacts.
+       -->
+       <dependency>
+          <groupId>org.jboss.spec</groupId>
+          <artifactId>jboss-javaee-web-6.0</artifactId>
+          <version>2.0.0.Final</version>
+          <type>pom</type>
+          <scope>import</scope>
+       </dependency>
+    </dependencies>
+ </dependencyManagement>
+
+  <dependencies>
+    <!-- JavaEE 6.0 API -->
+    
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>6.0</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- JBoss provided -->
+ 
+    <!-- Import the CDI API, we use provided scope as the API is included  in JBoss AS 7 -->
+    <dependency>
+       <groupId>javax.enterprise</groupId>
+       <artifactId>cdi-api</artifactId>
+       <scope>provided</scope>
+    </dependency>
+
+    <!-- Import the Common Annotations API (JSR-250), we use provided scope as the API is included in JBoss AS 7 -->
+    <dependency>
+       <groupId>org.jboss.spec.javax.annotation</groupId>
+       <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+       <scope>provided</scope>
+    </dependency>
+
+    <!-- Import the JPA API, we use provided scope as the API is included in JBoss AS 7 -->
+    <dependency>
+       <groupId>org.hibernate.javax.persistence</groupId>
+       <artifactId>hibernate-jpa-2.0-api</artifactId>
+       <scope>provided</scope>
+    </dependency>
+
+    <!-- Hibernate -->
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-core</artifactId>
+       <version>4.0.1.Final</version>
+       <scope>provided</scope>
+    </dependency>    
+   
+    <dependency>
+      <groupId>org.hibernate.common</groupId>
+      <artifactId>hibernate-commons-annotations</artifactId>
+      <version>4.0.1.Final</version>
+      <scope>provided</scope>
+    </dependency>
+   
+    <!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
+    <dependency>
+       <groupId>org.jboss.spec.javax.ejb</groupId>
+       <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+       <scope>provided</scope>
+    </dependency>
+
+    <!-- Hibernate Validator is shipped in JBoss AS 7 -->
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-validator</artifactId>
+       <version>4.2.0.Final</version>
+       <scope>provided</scope>
+       <exclusions>
+          <exclusion>
+             <groupId>org.slf4j</groupId>
+             <artifactId>slf4j-api</artifactId>
+          </exclusion>
+       </exclusions>
+    </dependency>
+
+    <!-- Annotation processor to generate the JPA 2.0 metamodel classes  for typesafe criteria queries -->
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-jpamodelgen</artifactId>
+       <version>1.1.1.Final</version>
+       <scope>provided</scope>
+    </dependency>  
+   
+    <!-- JSTL -->
+    <dependency>
+      <groupId>org.jboss.spec.javax.servlet.jstl</groupId>
+      <artifactId>jboss-jstl-api_1.2_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- eDelphi -->
+
+  	<dependency>
+  		<groupId>fi.internetix.edelphi</groupId>
+  		<artifactId>persistence</artifactId>
+  		<version>1.0.9-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  		<exclusions>
+  			<exclusion>
+  				<artifactId>guava</artifactId>
+  				<groupId>com.google.guava</groupId>
+  			</exclusion>
+  		</exclusions>
+  	</dependency>
+  	
+  	<!-- SMVCJ -->
+  	
+  	<dependency>
+  		<groupId>fi.internetix.smvcj</groupId>
+  		<artifactId>smvcj</artifactId>
+  		<version>0.0.3-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	
+  	<!-- CSS Parser -->
+  	
+  	<dependency>
+  		<groupId>net.sourceforge.cssparser</groupId>
+  		<artifactId>cssparser</artifactId>
+  		<version>0.9.5</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	
+ 	<!-- OpenID -->
+  	
+    <dependency>
+      <groupId>org.openid4java</groupId>
+      <artifactId>openid4java-consumer</artifactId>
+      <version>0.9.6</version>
+      <type>pom</type>
+      <scope>compile</scope>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>xercesImpl</artifactId>
+      		<groupId>xerces</groupId>
+      	</exclusion>
+      </exclusions>
+    </dependency>
+    
+    <!-- OAuth -->  
+     
+    <dependency>
+    	<groupId>org.scribe</groupId>
+    	<artifactId>scribe</artifactId>
+    	<version>1.2.3</version>
+    </dependency>
+    
+    <!-- Apache Commons -->
+    
+    <dependency>
+    	<groupId>commons-codec</groupId>
+    	<artifactId>commons-codec</artifactId>
+    	<version>1.5</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+     
+    <!-- Google Drive API -->
+
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-drive</artifactId>
+      <version>v2-rev30-1.12.0-beta</version>
+    </dependency>
+
+    <!-- CSV -->
+
+    <dependency>
+        <groupId>net.sourceforge.javacsv</groupId>
+        <artifactId>javacsv</artifactId>
+        <version>2.0</version>
+        <type>jar</type>
+        <scope>compile</scope>
+    </dependency>
+    
+    <!-- BIRT -->
+    
+    <dependency>
+    	<groupId>org.apache.xmlgraphics</groupId>
+    	<artifactId>batik-bridge</artifactId>
+    	<version>1.7</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    	<exclusions>
+    		<exclusion>
+    			<artifactId>xml-apis</artifactId>
+    			<groupId>xml-apis</groupId>
+    		</exclusion>
+    		<!-- 
+    		<exclusion>
+    			<artifactId>xml-apis-ext</artifactId>
+    			<groupId>xml-apis</groupId>
+    		</exclusion>
+    		 -->
+    	</exclusions>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.birt.chart</groupId>
+    	<artifactId>engine</artifactId>
+    	<version>3.7.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.birt.chart</groupId>
+    	<artifactId>engine-extension</artifactId>
+    	<version>3.7.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.birt</groupId>
+    	<artifactId>core</artifactId>
+    	<version>3.7.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.birt.chart</groupId>
+    	<artifactId>device-extension</artifactId>
+    	<version>3.7.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.birt.chart</groupId>
+    	<artifactId>examples-core</artifactId>
+    	<version>3.7.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.emf</groupId>
+    	<artifactId>ecore</artifactId>
+    	<version>2.7.0</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.emf</groupId>
+    	<artifactId>ecore-xmi</artifactId>
+    	<version>2.7.0</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.emf</groupId>
+    	<artifactId>common</artifactId>
+    	<version>2.7.0</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>com.ibm.icu</groupId>
+    	<artifactId>icu4j</artifactId>
+    	<version>4.8.1.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.core</groupId>
+    	<artifactId>runtime</artifactId>
+    	<version>3.3.100-v20070530</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jtidy</groupId>
+      <artifactId>jtidy</artifactId>
+      <version>r938</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.birt.chart</groupId>
+      <artifactId>device-svg</artifactId>
+      <version>3.7.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.birt.chart</groupId>
+      <artifactId>device-pdf</artifactId>
+      <version>3.7.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.xhtmlrenderer</groupId>
+      <artifactId>core-renderer</artifactId>
+      <version>R8</version>
+    </dependency>
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+      <scope>provided</scope>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>xml-apis</artifactId>
+      		<groupId>xml-apis</groupId>
+      	</exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+    	<groupId>com.google.http-client</groupId>
+    	<artifactId>google-http-client-jackson</artifactId>
+    	<version>1.12.0-beta</version>
+    </dependency>
+    <dependency>
+  	  <groupId>org.codehaus.groovy.modules.http-builder</groupId>
+	  <artifactId>http-builder</artifactId>
+	  <version>0.5.2</version>
+    </dependency>
+    <dependency>
+    	<groupId>hanjava.net</groupId>
+    	<artifactId>svg2emf</artifactId>
+    	<version>0.0.2</version>
+        <exclusions>
+	      <exclusion>
+	        <artifactId>xercesImpl</artifactId>
+	      	<groupId>xerces</groupId>
+	      </exclusion>
+	    </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.1.2</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>            
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.2</version>
+        <!-- 
+        <configuration>
+          <webXml>WebContent/WEB-INF/web.xml</webXml>        
+        </configuration>
+         -->
+      </plugin>
+    </plugins>
+    <extensions>
+      <extension>
+        <groupId>com.google.code.maven-svn-wagon</groupId>
+        <artifactId>maven-svn-wagon</artifactId>
+        <version>1.4</version>
+      </extension>
+    </extensions>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <issueManagement>
+    <url>https://code.google.com/p/edelphi/issues/</url>
+    <system>Google Code</system>
+  </issueManagement>
+  <scm>
+    <url>http://edelphi.googlecode.com/svn</url>
+  </scm>
+  <organization>
+    <name>Internetix / Otava Folk High School</name>
+    <url>http://www.otavanopisto.fi</url>
+  </organization>
+  <url>http://edelphi.googlecode.com/</url>
+  <description>eDelfoi is a research program based on Delphi expert method. It is developed in co-operation with Future Research Center of Turku School of Economics.
+
+Delphi technique is used for bringing values, new viewpoints and ideas as a foundation for planning and decision making, i.e. making qualitative research. The program can also be used for making a simple, Survey-type of query. The newest version of the program is called eDelfoi.  </description>
+</project>
