@@ -15,36 +15,8 @@ import fi.internetix.edelphi.domainmodel.users.User;
 
 public class UserGroupsReplyFilter extends QueryReplyFilter {
 
-  public UserGroupsReplyFilter() {
-  }
-  
   @Override
-  public List<QueryReply> filterList(List<QueryReply> list) {
-  	/**
-    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
-    
-    List<QueryReply> result = new ArrayList<QueryReply>();
-    List<Long> excludeIds = new ArrayList<Long>();
-
-    String panelUserGroupIdStr = getValue();
-    Long paneUserGroupId = NumberUtils.createLong(panelUserGroupIdStr);
-    if (paneUserGroupId != null) {
-      PanelUserGroup panelUserGroup = panelUserGroupDAO.findById(paneUserGroupId);
-      List<User> users = panelUserGroup.getUsers();
-      for (User user : users) {
-      	List<QueryReply> userReplies = queryReplyDAO.listByUser(user);
-      	for (QueryReply userReply : userReplies) {
-      		excludeIds.add(userReply.getId());
-      	}
-      }
-    }
-    
-    for (QueryReply queryReply : list) {
-    	if (!excludeIds.contains(queryReply.getId())) {
-    		result.add(queryReply);
-    	}
-    }
-    **/
+  public List<QueryReply> filterList(List<QueryReply> list) { 
     return getReplies(list);
   }
   
