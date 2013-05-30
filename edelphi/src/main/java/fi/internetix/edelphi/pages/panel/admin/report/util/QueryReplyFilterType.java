@@ -2,5 +2,6 @@ package fi.internetix.edelphi.pages.panel.admin.report.util;
 
 public enum QueryReplyFilterType {
   EXPERTISE,
-  FORMFIELD
+  FORMFIELD,
+  USER_GROUPS
 }

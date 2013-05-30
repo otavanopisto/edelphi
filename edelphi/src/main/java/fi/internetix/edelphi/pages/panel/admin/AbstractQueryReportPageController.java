@@ -4,19 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 import fi.internetix.edelphi.dao.panels.PanelExpertiseGroupUserDAO;
 import fi.internetix.edelphi.dao.panels.PanelStampDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserExpertiseClassDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserExpertiseGroupDAO;
+import fi.internetix.edelphi.dao.panels.PanelUserGroupDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserIntressClassDAO;
 import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
@@ -27,6 +31,7 @@ import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.panels.PanelUserExpertiseClass;
 import fi.internetix.edelphi.domainmodel.panels.PanelUserExpertiseGroup;
+import fi.internetix.edelphi.domainmodel.panels.PanelUserGroup;
 import fi.internetix.edelphi.domainmodel.panels.PanelUserIntressClass;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
@@ -58,6 +63,12 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
   
   @Override
   public void processPageRequest(PageRequestContext pageRequestContext) {
+    PanelStampDAO panelStampDAO = new PanelStampDAO();
+    PanelUserExpertiseClassDAO panelUserExpertiseClassDAO = new PanelUserExpertiseClassDAO();
+    PanelUserIntressClassDAO panelUserIntressClassDAO = new PanelUserIntressClassDAO();
+    PanelUserExpertiseGroupDAO panelUserExpertiseGroupDAO = new PanelUserExpertiseGroupDAO();
+    PanelExpertiseGroupUserDAO panelExpertiseGroupUserDAO = new PanelExpertiseGroupUserDAO();
+    PanelUserGroupDAO panelUserGroupDAO = new PanelUserGroupDAO();
     
     Long queryId = pageRequestContext.getLong("queryId");
     Panel panel = RequestUtils.getPanel(pageRequestContext);
@@ -89,13 +100,9 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
       queryPages.put(query.getId(), queryPageList);
       queryReplyCounts.put(query.getId(), queryReplyDAO.countByQueryAndStamp(query, activeStamp));     
     }
-    
-    PanelStampDAO panelStampDAO = new PanelStampDAO();
-    PanelUserExpertiseClassDAO panelUserExpertiseClassDAO = new PanelUserExpertiseClassDAO();
-    PanelUserIntressClassDAO panelUserIntressClassDAO = new PanelUserIntressClassDAO();
-    PanelUserExpertiseGroupDAO panelUserExpertiseGroupDAO = new PanelUserExpertiseGroupDAO();
-    PanelExpertiseGroupUserDAO panelExpertiseGroupUserDAO = new PanelExpertiseGroupUserDAO();
 
+    List<PanelUserGroup> panelUserGroups = panelUserGroupDAO.listByPanelAndStamp(panel, RequestUtils.getActiveStamp(pageRequestContext));
+    
     Query query = queryDAO.findById(queryId); 
 
     QueryReportChartContext chartContext = new QueryReportChartContext(pageRequestContext.getRequest().getLocale(), activeStamp);
@@ -103,6 +110,31 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
 
     if (!StringUtils.isEmpty(queryExpertiseFilter))
       chartContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.EXPERTISE, queryExpertiseFilter));
+
+    Set<Long> checkedUserGroups = null;
+    List<UserGroupFilterBean> userGroups = new ArrayList<UserGroupFilterBean>();
+    if ("1".equals(pageRequestContext.getString("userGroupsFilterEnabled"))) {
+    	String[] userGroupsFilter = pageRequestContext.getStrings("userGroups");
+  		chartContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.USER_GROUPS, userGroupsFilter != null ? StringUtils.join(userGroupsFilter, ",") : null));
+		  checkedUserGroups = new HashSet<Long>(); 
+
+  		if (userGroupsFilter != null) {
+  		  for (String userGroup : userGroupsFilter) {
+  			  checkedUserGroups.add(NumberUtils.createLong(userGroup));
+  	  	}
+  		}
+    }
+
+		for (PanelUserGroup panelUserGroup : panelUserGroups) {
+    	userGroups.add(new UserGroupFilterBean(panelUserGroup.getId(), panelUserGroup.getName(), checkedUserGroups != null ? checkedUserGroups.contains(panelUserGroup.getId()) : true));
+    }
+    
+    Collections.sort(userGroups, new Comparator<UserGroupFilterBean>() {
+      @Override
+      public int compare(UserGroupFilterBean o1, UserGroupFilterBean o2) {
+        return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+      }
+    });
 
     handleFormFilter(pageRequestContext, query, chartContext);
     
@@ -168,6 +200,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     pageRequestContext.getRequest().setAttribute("stamps", stamps);
     pageRequestContext.getRequest().setAttribute("latestStamp", latestStamp);
     pageRequestContext.getRequest().setAttribute("activeStamp", activeStamp);
+    pageRequestContext.getRequest().setAttribute("userGroups", userGroups);
 
     pageRequestContext.setIncludeJSP(jspFile);
   }
@@ -243,6 +276,31 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     }
 
     pageRequestContext.getRequest().setAttribute("queryFormFilterFields", beans);
+  }
+  
+  public class UserGroupFilterBean {
+  	
+  	public UserGroupFilterBean(Long id, String name, Boolean checked) {
+			this.id = id;
+			this.name = name;
+			this.checked = checked;
+		}
+  	
+  	public Long getId() {
+			return id;
+		}
+  	
+  	public String getName() {
+			return name;
+		}
+  	
+  	public Boolean getChecked() {
+			return checked;
+		}
+
+  	private Long id;
+  	private String name;
+  	private Boolean checked;
   }
   
   public abstract class FormFieldFilterDescriptor {

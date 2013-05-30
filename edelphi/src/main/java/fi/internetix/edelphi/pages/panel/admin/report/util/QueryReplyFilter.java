@@ -49,5 +49,6 @@ public abstract class QueryReplyFilter {
     
     filters.put(QueryReplyFilterType.EXPERTISE, QueryExpertiseReplyFilter.class);
     filters.put(QueryReplyFilterType.FORMFIELD, QueryFormFieldReplyFilter.class);
+    filters.put(QueryReplyFilterType.USER_GROUPS, UserGroupsReplyFilter.class);
   }
 }
