@@ -50,16 +50,27 @@ public class ExpertiseQueryPageHandler extends AbstractQueryPageHandler {
 
   public ExpertiseQueryPageHandler() {
     super();
-    // TODO: Localize defaults
+    options.add(new QueryOption(QueryOptionType.QUESTION, "expertise.description", "panelAdmin.block.query.expertiseDescriptionOptionLabel", QueryOptionEditor.MEMO, true));
     options.add(new QueryOption(QueryOptionType.QUESTION, "expertise.showLiveReport", "panelAdmin.block.query.expertiseShowLiveReportOptionLabel", QueryOptionEditor.BOOLEAN, true));
   }
 
   @Override
   public void renderPage(PageRequestContext requestContext, QueryPage queryPage, QueryReply queryReply) {
+    
+    // Data access objects
+    
     PanelUserExpertiseClassDAO panelUserExpertiseClassDAO = new PanelUserExpertiseClassDAO();
     PanelUserIntressClassDAO panelUserIntressClassDAO = new PanelUserIntressClassDAO();
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryQuestionMultiOptionAnswerDAO queryQuestionMultiOptionAnswerDAO = new QueryQuestionMultiOptionAnswerDAO();
+    
+    // Expertise description
+
+    RequiredQueryFragment descriptionFragment = new RequiredQueryFragment("description");
+    descriptionFragment.addAttribute("text", getStringOptionValue(queryPage, getDefinedOption("expertise.description")));
+    addRequiredFragment(requestContext, descriptionFragment);
+    
+    // Expertise matrix
 
     Query query = queryPage.getQuerySection().getQuery();
     Panel panel = ResourceUtils.getResourcePanel(query);
@@ -103,7 +114,7 @@ public class ExpertiseQueryPageHandler extends AbstractQueryPageHandler {
           throw new IllegalStateException("Could not find query field");
         }
       }
-
+      
       i = 0;
       requiredFragment.addAttribute("intrestClasses.count", String.valueOf(intrestClasses.size()));
       for (PanelUserIntressClass intrestClass : intrestClasses) {
@@ -112,7 +123,7 @@ public class ExpertiseQueryPageHandler extends AbstractQueryPageHandler {
         i++;
       }
 
-      addRequiredFragment(requestContext, requiredFragment);      
+      addRequiredFragment(requestContext, requiredFragment);
       
       if (getBooleanOptionValue(queryPage, getDefinedOption("expertise.showLiveReport")))
         renderReport(requestContext, queryPage, expertiseClasses, intrestClasses);
@@ -182,7 +193,8 @@ public class ExpertiseQueryPageHandler extends AbstractQueryPageHandler {
   @Override
   public void updatePageOptions(Map<String, String> settings, QueryPage queryPage, User modifier, boolean hasAnswers) {
     super.updatePageOptions(settings, queryPage, modifier, hasAnswers);
-    
+
+    QueryPageUtils.setSetting(queryPage, "expertise.description", settings.get("expertise.description"), modifier);
     QueryPageUtils.setSetting(queryPage, "expertise.showLiveReport", settings.get("expertise.showLiveReport"), modifier);
 
     if (!hasAnswers) {

@@ -44,6 +44,10 @@ CKEDITOR.config.toolbar_thesisDescriptionToolbar = [
   ['Bold','Italic','Underline'],['Link','Unlink'],['Image','MediaEmbed'],['Table'],['NumberedList','BulletedList']
 ];
 
+CKEDITOR.config.toolbar_expertiseDescriptionToolbar = [
+  ['Bold','Italic','Underline'],['Link','Unlink'],['Image','MediaEmbed'],['Table'],['NumberedList','BulletedList']
+];
+
 CKEDITOR.config.toolbar_simpleToolbar = [
   ['Bold','Italic','Underline']
 ];

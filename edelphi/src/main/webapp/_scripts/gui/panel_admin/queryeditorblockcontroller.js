@@ -4370,6 +4370,10 @@ QueryEditorExpertisePageEditor = Class.create(QueryEditorPageEditor, {
     
     $super();
 
+    $(this._expertiseDescriptionEditor.element).remove();
+    this._expertiseDescriptionEditor.destroy();
+    this._expertiseDescriptionEditor = undefined;
+
     this._preview.deinitialize();
     this._previewContainer.remove();  
   },
@@ -4380,6 +4384,22 @@ QueryEditorExpertisePageEditor = Class.create(QueryEditorPageEditor, {
     this._showLiveReportContainer = this._createCheckBoxField('showLiveReport', showLiveReportOption.caption, "1" == showLiveReportOption.value);
     this.addSettingField(this._showLiveReportContainer);
     this._showLiveReportInput = this._showLiveReportContainer.down('input');
+
+    // Expertise description
+    
+    var expertiseDescriptionContainer = new Element("textarea", {
+      name: 'expertise.description'
+    }).update(this.getBlockController().getPageOptionValue('expertise.description'));
+    this.getBlockController().appendFormField(expertiseDescriptionContainer);
+    var panelId = JSDATA['securityContextId'];
+    this._expertiseDescriptionEditor = CKEDITOR.replace(expertiseDescriptionContainer, {
+      toolbar: "expertiseDescriptionToolbar",
+      autoGrow_minHeight: 100,
+      fniGenericBrowser:{
+        enabledInDialogs: ['image', 'link'],
+        connectorUrl: CONTEXTPATH + '/system/ckbrowserconnector.json?panelId=' + panelId
+      }
+    });
 
     this._previewContainer = new Element("div", {
       className: "queryEditorQuestionPreviewContainer"
@@ -4395,13 +4415,22 @@ QueryEditorExpertisePageEditor = Class.create(QueryEditorPageEditor, {
   getOptionValue: function ($super, option) {
     switch (option.type) {
       case 'QUESTION':
-        if (option.name == 'expertise.showLiveReport') {
-          return this._showLiveReportInput.checked ? 1 : 0; 
-        }
+        switch (option.name) {
+          case 'expertise.showLiveReport':
+            return this._showLiveReportInput.checked ? 1 : 0;
+          break;
+          case 'expertise.description':
+            return this._expertiseDescriptionEditor.getData();
+          break;
+          default:
+            throw new Error("Unrecognized QUESTION option: " + option.name);
+          break;
+        } 
+      break;
+      default:
+        return $super(option);
       break;
     }
-    
-    return $super(option);
   }
 });
 
