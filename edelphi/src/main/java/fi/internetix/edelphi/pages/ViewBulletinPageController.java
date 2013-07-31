@@ -27,7 +27,7 @@ public class ViewBulletinPageController extends DelfoiPageController {
     DelfoiBulletinDAO bulletinDAO = new DelfoiBulletinDAO();
 
     Long bulletinId = pageRequestContext.getLong("bulletinId");
-    Bulletin bulletin = bulletinDAO.findById(bulletinId);
+    Bulletin bulletin = bulletinId == null ? null : bulletinDAO.findById(bulletinId);
     if (bulletin == null) {
       throw new PageNotFoundException(pageRequestContext.getRequest().getLocale());
     }
@@ -58,12 +58,6 @@ public class ViewBulletinPageController extends DelfoiPageController {
       }
     }
     
-//    // TODO: Ugly hack...
-//    TupasAuthenticationStrategy tupasAuthenticationProvider = (TupasAuthenticationStrategy) AuthenticationProviderFactory.getInstance().getAuthenticationProvider("Tupas");
-//    if (tupasAuthenticationProvider != null) {
-//      tupasAuthenticationProvider.appendBankSettings(pageRequestContext);
-//    }
-
     // Action access information
     ActionUtils.includeRoleAccessList(pageRequestContext);
     
