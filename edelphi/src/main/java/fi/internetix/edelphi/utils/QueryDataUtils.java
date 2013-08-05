@@ -87,7 +87,7 @@ public class QueryDataUtils {
     return queryReplyDAO.findByUserAndQueryAndStamp(loggedUser, query, RequestUtils.getActiveStamp(requestContext));
   }
 
-  public static byte[] exportQueryDataAsCSV(Locale locale, ReplierExportStrategy replierExportStrategy, Query query, PanelStamp panelStamp) throws IOException {
+  public static byte[] exportQueryDataAsCSV(Locale locale, ReplierExportStrategy replierExportStrategy, List<QueryReply> replies, Query query, PanelStamp panelStamp) throws IOException {
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     List<QueryPage> queryPages = queryPageDAO.listByQuery(query);
     
@@ -96,6 +96,7 @@ public class QueryDataUtils {
     
     for (QueryPage queryPage : queryPages) {
       QueryExportContextImpl exportContext = new QueryExportContextImpl(locale, queryPage, panelStamp, columns, rows);
+      exportContext.setQueryReplies(replies);
       QueryPageHandler queryPageHandler = QueryPageHandlerFactory.getInstance().buildPageHandler(queryPage.getPageType());
       queryPageHandler.exportData(exportContext);
     }
@@ -103,11 +104,12 @@ public class QueryDataUtils {
     return exportDataToCsv(locale, replierExportStrategy, columns, rows);
   }
 
-  public static byte[] exportQueryPageDataAsCsv(Locale locale, ReplierExportStrategy replierExportStrategy, QueryPage queryPage, PanelStamp panelStamp) throws IOException {
+  public static byte[] exportQueryPageDataAsCsv(Locale locale, ReplierExportStrategy replierExportStrategy, List<QueryReply> replies, QueryPage queryPage, PanelStamp panelStamp) throws IOException {
     Map<QueryReply, Map<Integer, Object>> rows = new HashMap<QueryReply, Map<Integer, Object>>();
     List<String> columns = new ArrayList<String>();
        
     QueryExportContextImpl exportContext = new QueryExportContextImpl(locale, queryPage, panelStamp, columns, rows);
+    exportContext.setQueryReplies(replies);
     QueryPageHandler queryPageHandler = QueryPageHandlerFactory.getInstance().buildPageHandler(queryPage.getPageType());
     queryPageHandler.exportData(exportContext);
     

@@ -175,7 +175,6 @@ public class MultiSelectThesisQueryPageHandler extends AbstractScaleThesisQueryP
 
   @Override
   public void exportData(QueryExportContext exportContext) {
-    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryQuestionMultiOptionAnswerDAO queryQuestionMultiOptionAnswerDAO = new QueryQuestionMultiOptionAnswerDAO();
 
@@ -185,7 +184,7 @@ public class MultiSelectThesisQueryPageHandler extends AbstractScaleThesisQueryP
     List<String> options = getListOptionValue(queryPage, optionsOption);
 
     QueryOptionField queryField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName());
-    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(exportContext.getQueryPage().getQuerySection().getQuery(), exportContext.getStamp());
+    List<QueryReply> queryReplies = exportContext.getQueryReplies();
 
     int value = 0;
     for (String option : options) {

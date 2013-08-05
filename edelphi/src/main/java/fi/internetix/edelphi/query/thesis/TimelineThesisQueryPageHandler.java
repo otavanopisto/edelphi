@@ -198,7 +198,6 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
   public void exportData(QueryExportContext exportContext) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryQuestionNumericAnswerDAO queryQuestionNumericAnswerDAO = new QueryQuestionNumericAnswerDAO();
-    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     
     QueryPage queryPage = exportContext.getQueryPage();
     
@@ -211,7 +210,7 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
     if (queryField2 != null)
       columnIndex2 = exportContext.addColumn(queryPage.getTitle() + "/" + queryField2.getCaption());
     
-    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(exportContext.getQueryPage().getQuerySection().getQuery(), exportContext.getStamp());
+    List<QueryReply> queryReplies = exportContext.getQueryReplies();
     for (QueryReply queryReply : queryReplies) {
       QueryQuestionNumericAnswer answer1 = queryQuestionNumericAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryField1);
       if ((answer1 != null) && (answer1.getData() != null)) {

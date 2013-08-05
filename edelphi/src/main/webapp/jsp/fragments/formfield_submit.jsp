@@ -26,7 +26,7 @@
       <c:set var="title"><fmt:message key="${param.titleLocale}"/></c:set>
     </c:when>
     <c:otherwise>
-      <c:set var="title"><fmt:message key="${param.title}"/></c:set>
+      <c:set var="title">${param.title}</c:set>
     </c:otherwise>
   </c:choose>
   

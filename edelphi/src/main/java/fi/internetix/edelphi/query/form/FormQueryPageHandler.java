@@ -324,11 +324,10 @@ public class FormQueryPageHandler extends AbstractQueryPageHandler {
   
   @Override
   public void exportData(QueryExportContext exportContext) {
-    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
 
-    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(exportContext.getQueryPage().getQuerySection().getQuery(), exportContext.getStamp());
+    List<QueryReply> queryReplies = exportContext.getQueryReplies();
 
     QueryPage queryPage = exportContext.getQueryPage();
 

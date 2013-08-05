@@ -300,7 +300,6 @@ public class ExpertiseQueryPageHandler extends AbstractQueryPageHandler {
 
   @Override
   public void exportData(QueryExportContext exportContext) {
-    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     PanelUserExpertiseClassDAO panelUserExpertiseClassDAO = new PanelUserExpertiseClassDAO();
     PanelUserIntressClassDAO panelUserIntressClassDAO = new PanelUserIntressClassDAO();
@@ -327,7 +326,7 @@ public class ExpertiseQueryPageHandler extends AbstractQueryPageHandler {
         }
       });
 
-      List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(exportContext.getQueryPage().getQuerySection().getQuery(), exportContext.getStamp());
+      List<QueryReply> queryReplies = exportContext.getQueryReplies();
 
       for (PanelUserExpertiseClass expertiseClass : expertiseClasses) {
         String fieldName = getFieldName(expertiseClass);

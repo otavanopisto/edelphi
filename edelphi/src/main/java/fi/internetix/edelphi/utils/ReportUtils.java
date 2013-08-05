@@ -9,7 +9,6 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -37,11 +36,12 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
 import fi.internetix.edelphi.i18n.Messages;
+import fi.internetix.smvc.controllers.RequestContext;
 import fi.internetix.smvc.logging.Logging;
 
 public class ReportUtils {
 
-  public static void zipCharts(OutputStream outputStream, String imageFormat, URL url) throws IOException, ParserConfigurationException, SAXException,
+  public static void zipCharts(RequestContext requestContext, OutputStream outputStream, String imageFormat, URL url) throws IOException, ParserConfigurationException, SAXException,
       TransformerException {
 
     ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
@@ -52,6 +52,7 @@ public class ReportUtils {
 
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
+    connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
     connection.setRequestMethod("GET");
     connection.setReadTimeout(15 * 1000);
     connection.connect();
@@ -110,7 +111,7 @@ public class ReportUtils {
     zipOutputStream.finish();
   }
 
-  public static File uploadReportToGoogleDrive(Locale locale, Drive drive, URL url, String queryName, int retryCount, boolean imagesOnly) throws IOException,
+  public static File uploadReportToGoogleDrive(RequestContext requestContext, Drive drive, URL url, String queryName, int retryCount, boolean imagesOnly) throws IOException,
       TransformerException, ParserConfigurationException, SAXException {
     Logging.logInfo("Exporting report into Google Drive from " + url);
 
@@ -124,6 +125,7 @@ public class ReportUtils {
       // First we need to fetch report as html
 
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
       connection.setReadTimeout(15 * 1000);
@@ -195,7 +197,7 @@ public class ReportUtils {
 
           // Google Drive does not accept EMF but it accepts WMF, so we need to
           // tell it to handle this file as WMF instead of EMF
-          String chartTitle = Messages.getInstance().getText(locale, "panel.admin.report.googleReport.chartTitle", new Object[] { queryName, i + 1 });
+          String chartTitle = Messages.getInstance().getText(requestContext.getRequest().getLocale(), "panel.admin.report.googleReport.chartTitle", new Object[] { queryName, i + 1 });
 
           File chartFile = GoogleDriveUtils.insertFile(drive, chartTitle, "", exportTempFolder.getId(), "application/x-msmetafile", emfData, true, retryCount);
           if (chartFile != null) {

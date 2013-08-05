@@ -44,6 +44,7 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilter;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilterType;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
 import fi.internetix.edelphi.query.form.FormFieldType;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.QueryPageUtils;
@@ -113,22 +114,17 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
 
     Set<Long> checkedUserGroups = null;
     List<UserGroupFilterBean> userGroups = new ArrayList<UserGroupFilterBean>();
-    if ("1".equals(pageRequestContext.getString("userGroupsFilterEnabled"))) {
-    	String[] userGroupsFilter = pageRequestContext.getStrings("userGroups");
+  	String[] userGroupsFilter = pageRequestContext.getStrings("userGroups");
+  	if (userGroupsFilter != null && userGroupsFilter.length < panelUserGroups.size()) {
   		chartContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.USER_GROUPS, userGroupsFilter != null ? StringUtils.join(userGroupsFilter, ",") : null));
 		  checkedUserGroups = new HashSet<Long>(); 
-
-  		if (userGroupsFilter != null) {
-  		  for (String userGroup : userGroupsFilter) {
-  			  checkedUserGroups.add(NumberUtils.createLong(userGroup));
-  	  	}
+      for (String userGroup : userGroupsFilter) {
+  		 checkedUserGroups.add(NumberUtils.createLong(userGroup));
   		}
-    }
-
+  	}
 		for (PanelUserGroup panelUserGroup : panelUserGroups) {
     	userGroups.add(new UserGroupFilterBean(panelUserGroup.getId(), panelUserGroup.getName(), checkedUserGroups != null ? checkedUserGroups.contains(panelUserGroup.getId()) : true));
     }
-    
     Collections.sort(userGroups, new Comparator<UserGroupFilterBean>() {
       @Override
       public int compare(UserGroupFilterBean o1, UserGroupFilterBean o2) {
@@ -179,9 +175,16 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
       }
     });
     PanelStamp latestStamp = panel.getCurrentStamp();
-    
+
     ActionUtils.includeRoleAccessList(pageRequestContext);
     
+    // Store current query filters in session for possible export
+
+    ReportUtils.clearQueryFilters(pageRequestContext);
+    if (queryId != null) {
+      ReportUtils.storeQueryFilters(pageRequestContext, queryId, chartContext.getReplyFilters());
+    }
+
     pageRequestContext.getRequest().setAttribute("queries", queries);
     pageRequestContext.getRequest().setAttribute("queryPages", queryPages);
     pageRequestContext.getRequest().setAttribute("queryReplyCounts", queryReplyCounts);

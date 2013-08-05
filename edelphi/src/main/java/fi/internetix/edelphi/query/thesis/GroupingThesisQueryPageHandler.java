@@ -216,12 +216,11 @@ public class GroupingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
 
   @Override
   public void exportData(QueryExportContext exportContext) {
-    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryOptionFieldOptionGroupDAO queryOptionFieldOptionGroupDAO = new QueryOptionFieldOptionGroupDAO();
     QueryQuestionOptionGroupOptionAnswerDAO queryQuestionOptionGroupOptionAnswerDAO = new QueryQuestionOptionGroupOptionAnswerDAO();
 
-    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(exportContext.getQueryPage().getQuerySection().getQuery(), exportContext.getStamp());
+    List<QueryReply> queryReplies = exportContext.getQueryReplies();
     QueryPage queryPage = exportContext.getQueryPage();
     QueryOptionField queryField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName());
     List<QueryOptionFieldOptionGroup> fieldGroups = queryOptionFieldOptionGroupDAO.listByQueryField(queryField);

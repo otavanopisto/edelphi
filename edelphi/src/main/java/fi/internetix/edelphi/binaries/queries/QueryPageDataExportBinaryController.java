@@ -1,6 +1,7 @@
 package fi.internetix.edelphi.binaries.queries;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,10 +12,14 @@ import com.google.api.services.drive.model.File;
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.binaries.BinaryController;
 import fi.internetix.edelphi.dao.panels.PanelStampDAO;
+import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
+import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.i18n.Messages;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilter;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
 import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.QueryDataUtils;
 import fi.internetix.edelphi.utils.ResourceUtils;
@@ -32,25 +37,36 @@ public class QueryPageDataExportBinaryController extends BinaryController {
     String replierExportStrategyParam = requestContext.getString("replierExportStrategy");
 
     QueryPageDAO queryPageDAO = new QueryPageDAO();
+    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     PanelStampDAO panelStampDAO = new PanelStampDAO();
     QueryPage queryPage = queryPageDAO.findById(queryPageId);
     PanelStamp panelStamp = panelStampDAO.findById(stampId);
     ExportFormat format = ExportFormat.valueOf(requestContext.getString("format")); 
     ReplierExportStrategy replierExportStrategy = StringUtils.isNotBlank(replierExportStrategyParam) ? ReplierExportStrategy.valueOf(replierExportStrategyParam) : ReplierExportStrategy.NONE;
+
+    // Query replies, possibly filtered
+    
+    List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryPage.getQuerySection().getQuery().getId());
+    List<QueryReply> replies = queryReplyDAO.listByQueryAndStampAndArchived(queryPage.getQuerySection().getQuery(), panelStamp, Boolean.FALSE);
+    if (filters != null) {
+      for (QueryReplyFilter filter : filters) {
+        replies = filter.filterList(replies);
+      }
+    }
     
     switch (format) {
       case CSV:
-        exportCsv(requestContext, replierExportStrategy, queryPage, panelStamp);
+        exportCsv(requestContext, replierExportStrategy, replies, queryPage, panelStamp);
       break;
       case GOOGLE_SPREADSHEET:
-        exportGoogleSpreadsheet(requestContext, replierExportStrategy, queryPage, panelStamp);
+        exportGoogleSpreadsheet(requestContext, replierExportStrategy, replies, queryPage, panelStamp);
       break;
     }
   }
   
-  private void exportCsv(BinaryRequestContext requestContext, ReplierExportStrategy replierExportStrategy, QueryPage queryPage, PanelStamp panelStamp) {
+  private void exportCsv(BinaryRequestContext requestContext, ReplierExportStrategy replierExportStrategy, List<QueryReply> replies, QueryPage queryPage, PanelStamp panelStamp) {
     try {
-      byte[] csvData = QueryDataUtils.exportQueryPageDataAsCsv(requestContext.getRequest().getLocale(), replierExportStrategy, queryPage, panelStamp);
+      byte[] csvData = QueryDataUtils.exportQueryPageDataAsCsv(requestContext.getRequest().getLocale(), replierExportStrategy, replies, queryPage, panelStamp);
       requestContext.setResponseContent(csvData, "text/csv");
       requestContext.setFileName(ResourceUtils.getUrlName(queryPage.getTitle()) + ".csv");
     } catch (IOException e) {
@@ -61,12 +77,12 @@ public class QueryPageDataExportBinaryController extends BinaryController {
      
   }
   
-  private void exportGoogleSpreadsheet(RequestContext requestContext, ReplierExportStrategy replierExportStrategy, QueryPage queryPage, PanelStamp panelStamp) {
+  private void exportGoogleSpreadsheet(RequestContext requestContext, ReplierExportStrategy replierExportStrategy, List<QueryReply> replies, QueryPage queryPage, PanelStamp panelStamp) {
 		Drive drive = GoogleDriveUtils.getAuthenticatedService(requestContext);
 		if (drive != null) {
   		try {
   		  String title = queryPage.getQuerySection().getQuery().getName() + " - " + queryPage.getTitle();
-  			byte[] csvData = QueryDataUtils.exportQueryPageDataAsCsv(requestContext.getRequest().getLocale(), replierExportStrategy, queryPage, panelStamp);
+  			byte[] csvData = QueryDataUtils.exportQueryPageDataAsCsv(requestContext.getRequest().getLocale(), replierExportStrategy, replies, queryPage, panelStamp);
   			File file = GoogleDriveUtils.insertFile(drive, title, "", null, "text/csv", csvData, true, 3);
   			requestContext.setRedirectURL(file.getAlternateLink());
   		} catch (Exception e) {

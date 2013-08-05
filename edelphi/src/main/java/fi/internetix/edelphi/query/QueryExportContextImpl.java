@@ -55,10 +55,19 @@ public class QueryExportContextImpl implements QueryExportContext {
     return rows;
   }
   
+  public List<QueryReply> getQueryReplies() {
+    return queryReplies;
+  }
+
+  public void setQueryReplies(List<QueryReply> queryReplies) {
+    this.queryReplies = queryReplies;
+  }
+
   private Map<QueryReply, Map<Integer, Object>> rows;
   private List<String> columns;
 
   private QueryPage queryPage;
+  private List<QueryReply> queryReplies;
   private PanelStamp panelStamp;
   private Locale locale;
 }

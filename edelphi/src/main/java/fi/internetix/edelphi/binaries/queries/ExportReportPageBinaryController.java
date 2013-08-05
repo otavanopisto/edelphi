@@ -76,7 +76,7 @@ public class ExportReportPageBinaryController extends BinaryController {
         String baseUrl = RequestUtils.getBaseUrl(requestContext.getRequest());
         URL url = new URL(baseUrl + "/panel/admin/report/page.page?chartFormat=SVG&pageId=" + queryPage.getId() + "&panelId=" + panelStamp.getPanel().getId());
         String title = queryPage.getQuerySection().getQuery().getName() + " - " + queryPage.getTitle();
-        File file = ReportUtils.uploadReportToGoogleDrive(requestContext.getRequest().getLocale(), drive, url, title, 3, imagesOnly);
+        File file = ReportUtils.uploadReportToGoogleDrive(requestContext, drive, url, title, 3, imagesOnly);
         requestContext.setRedirectURL(file.getAlternateLink());
       }
       catch (IOException e) {
@@ -100,6 +100,7 @@ public class ExportReportPageBinaryController extends BinaryController {
 
       URL url = new URL(baseURL + "/panel/admin/report/page.page?chartFormat=PNG&pageId=" + queryPage.getId() + "&panelId=" + panelStamp.getPanel().getId());
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
       connection.setReadTimeout(15 * 1000);
@@ -153,7 +154,7 @@ public class ExportReportPageBinaryController extends BinaryController {
           + "&panelId=" + panelStamp.getPanel().getId());
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       try {
-        ReportUtils.zipCharts(outputStream, imageFormat, url);
+        ReportUtils.zipCharts(requestContext, outputStream, imageFormat, url);
       }
       finally {
         outputStream.close();
