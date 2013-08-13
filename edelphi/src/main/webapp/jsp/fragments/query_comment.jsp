@@ -33,7 +33,7 @@
   <c:set var="commentDate"><fmt:formatDate value="${created}" type="both"/></c:set>
     
   <div class="${commentClasses}">
-    <a id="${param.commentId}"/>
+    <a id="comment.${param.commentId}"/>
 	<div class="queryCommentHeader">
       <div class="queryCommentDate"><fmt:message key="query.comment.commentDate"/> ${commentDate}</div>
       <c:if test="${(param.reportMode ne true)}">
