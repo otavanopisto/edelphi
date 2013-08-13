@@ -3909,21 +3909,7 @@ QueryEditorFormPageEditor = Class.create(QueryEditorPageEditor, {
 
       _this._fieldEditors.push(editor);
       editor.replaceToDom(holder);
-      editor.addListener("settingsCancel", function (event) {
-        for (var i = _this._fieldEditors.length - 1; i >= 0; i--) {
-          var fieldEditor = _this._fieldEditors[i];
-          if (fieldEditor === editor) {
-            fieldEditor.deinitialize();
-            _this._fieldEditors.splice(i, 1);
-            break;
-          }
-        }
-        
-        _this._openAddFieldDialog();
-      });
-      
       editor.openFieldSettings();
-      
       overlay.destroy();
     };
     

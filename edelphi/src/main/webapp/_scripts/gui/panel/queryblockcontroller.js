@@ -14,6 +14,12 @@ QueryBlockController = Class.create(BlockController, {
   },
   setup: function ($super) {
     $super($('panelQueryBlock'));
+    
+    // Comment hash support
+    var comment = parseInt(this.getQueryParam('comment'));
+    if (!isNaN(comment)) {
+      location.hash = "#" + comment;
+    }
 
     var page = parseInt(this.getQueryParam('page'));
     if (!isNaN(page)) {
