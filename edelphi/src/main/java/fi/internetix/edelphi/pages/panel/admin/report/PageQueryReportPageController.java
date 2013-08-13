@@ -33,9 +33,6 @@ public class PageQueryReportPageController extends PanelPageController {
 
   @Override
   public void processPageRequest(PageRequestContext pageRequestContext) {
-
-    // TODO Most of this is unnecessary copy-paste code 
-    
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     Locale locale = pageRequestContext.getRequest().getLocale();
     
