@@ -22,7 +22,7 @@
 </c:if>
 
 <div class="queryCommentList" id="queryCommentList" style="${commentListStyle}">
-  <h2 class="querySubTitle"><fmt:message key="panel.block.query.commentListTitle"></fmt:message></h2>
+  <h2 class="querySubTitle"><fmt:message key="panel.block.query.commentListTitle"></fmt:message> (${queryPageCommentCount})</h2>
   
   <c:forEach var="comment" items="${queryPageComments[queryPageId]}">
     <c:set var="commentFiltered" value="true" />

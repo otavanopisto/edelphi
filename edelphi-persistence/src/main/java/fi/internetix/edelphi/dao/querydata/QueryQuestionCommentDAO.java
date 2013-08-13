@@ -257,5 +257,41 @@ public class QueryQuestionCommentDAO extends GenericDAO<QueryQuestionComment> {
     
     return comment;
   }
-  
+
+  public Map<Long, List<QueryQuestionComment>> listTreesByQueryPageAndStamp(QueryPage queryPage, PanelStamp panelStamp) {
+    Map<Long, List<QueryQuestionComment>> result = new HashMap<Long, List<QueryQuestionComment>>();
+
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<QueryQuestionComment> criteria = criteriaBuilder.createQuery(QueryQuestionComment.class);
+    Root<QueryQuestionComment> root = criteria.from(QueryQuestionComment.class);
+    Join<QueryQuestionComment, QueryReply> qqJoin = root.join(QueryQuestionComment_.queryReply);
+    criteria.select(root);
+    criteria.where(
+        criteriaBuilder.and(
+            criteriaBuilder.equal(qqJoin.get(QueryReply_.stamp), panelStamp),
+            criteriaBuilder.equal(root.get(QueryQuestionComment_.queryPage), queryPage),
+            criteriaBuilder.equal(root.get(QueryQuestionComment_.archived), Boolean.FALSE),
+            criteriaBuilder.isNotNull(root.get(QueryQuestionComment_.parentComment))
+        )
+    );
+
+    List<QueryQuestionComment> allChildren = entityManager.createQuery(criteria).getResultList();
+
+    for (QueryQuestionComment comment : allChildren) {
+      Long parentCommentId = comment.getParentComment().getId();
+      List<QueryQuestionComment> children = result.get(parentCommentId);
+
+      if (children == null) {
+        children = new ArrayList<QueryQuestionComment>();
+        result.put(parentCommentId, children);
+      }
+
+      children.add(comment);
+    }
+
+    return result;
+  }
+
 }

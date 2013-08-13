@@ -133,11 +133,22 @@ public class QueryUtils {
    */
   public static void appendQueryPageComments(RequestContext requestContext, QueryPage queryPage) {
     QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
-    List<QueryQuestionComment> rootComments = queryQuestionCommentDAO.listRootCommentsByQueryPageAndStamp(queryPage, RequestUtils.getActiveStamp(requestContext));
-    Map<Long, List<QueryQuestionComment>> childComments = queryQuestionCommentDAO.listTreesByQueryPage(queryPage);
+    PanelStamp activeStamp = RequestUtils.getActiveStamp(requestContext);
+    List<QueryQuestionComment> rootComments = queryQuestionCommentDAO.listRootCommentsByQueryPageAndStamp(queryPage, activeStamp);
+    Map<Long, List<QueryQuestionComment>> childComments = queryQuestionCommentDAO.listTreesByQueryPageAndStamp(queryPage, activeStamp);
 
     QueryUtils.appendQueryPageRootComments(requestContext, queryPage.getId(), rootComments);
     QueryUtils.appendQueryPageChildComments(requestContext, childComments);
+    
+    int commentCount = rootComments.size();
+    
+    for (Object key : childComments.keySet()) {
+      List<QueryQuestionComment> childCommentList = childComments.get(key);
+      if (childCommentList != null)
+        commentCount += childCommentList.size();
+    }
+    
+    requestContext.getRequest().setAttribute("queryPageCommentCount", commentCount);
   }
   
   public static Query copyQuery(RequestContext requestContext, Query query, String newName, Panel targetPanel, boolean copyAnswers, boolean copyComments) {
