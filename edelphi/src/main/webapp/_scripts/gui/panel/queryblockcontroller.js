@@ -7,6 +7,7 @@ QueryBlockController = Class.create(BlockController, {
     this._previousButtonClickListener = this._onPreviousButtonClick.bindAsEventListener(this);
     this._skipButtonClickListener = this._onSkipButtonClick.bindAsEventListener(this);
     this._skipLastButtonClickListener = this._onSkipLastButtonClick.bindAsEventListener(this);
+    this._toggleCommentsClickListener = this._onToggleCommentsClickListener.bindAsEventListener(this);
     
     this._currentPage = 0;
     this._nextPageNumber = null;
@@ -18,7 +19,11 @@ QueryBlockController = Class.create(BlockController, {
     // Comment hash support
     var comment = parseInt(this.getQueryParam('comment'));
     if (!isNaN(comment)) {
-      location.hash = "#" + comment;
+      location.hash = "#comment." + comment;
+      
+      var commentsContainer = this.getBlockElement().down(".queryCommentsContainer");
+      if (commentsContainer)
+        commentsContainer.show();
     }
 
     var page = parseInt(this.getQueryParam('page'));
@@ -46,6 +51,10 @@ QueryBlockController = Class.create(BlockController, {
       Event.observe(this._skipButton, "click", this._skipButtonClickListener);
     if (this._skipLastButton)
       Event.observe(this._skipLastButton, "click", this._skipLastButtonClickListener);
+    
+    this._commentsHeader = this.getBlockElement().down(".queryCommentListSubTitle");
+    if (this._commentsHeader)
+      Event.observe(this._commentsHeader, "click", this._toggleCommentsClickListener);
     
     switch (this._pageType) {
       case 'TEXT':
@@ -179,6 +188,17 @@ QueryBlockController = Class.create(BlockController, {
         JSONUtils.showMessages(jsonResponse);
       }
     });
+  },
+  _onToggleCommentsClickListener: function (event) {
+    var element = Event.element(event);
+    Event.stop(event);
+    
+    var commentsContainer = element.up(".queryCommentList").down(".queryCommentsContainer");
+    
+    if (commentsContainer.visible())
+      commentsContainer.fade();
+    else
+      commentsContainer.appear();
   }
 });
 
