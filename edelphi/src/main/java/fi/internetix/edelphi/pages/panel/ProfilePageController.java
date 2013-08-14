@@ -6,6 +6,7 @@ import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.dao.panels.PanelDAO;
 import fi.internetix.edelphi.dao.users.UserIdentificationDAO;
 import fi.internetix.edelphi.dao.users.UserPasswordDAO;
+import fi.internetix.edelphi.dao.users.UserSettingDAO;
 import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.base.Delfoi;
 import fi.internetix.edelphi.domainmodel.panels.PanelAccessLevel;
@@ -13,6 +14,8 @@ import fi.internetix.edelphi.domainmodel.panels.PanelState;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.domainmodel.users.UserIdentification;
 import fi.internetix.edelphi.domainmodel.users.UserPassword;
+import fi.internetix.edelphi.domainmodel.users.UserSetting;
+import fi.internetix.edelphi.domainmodel.users.UserSettingKey;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -57,6 +60,12 @@ public class ProfilePageController extends PanelPageController {
     
     pageRequestContext.getRequest().setAttribute("openPanels", 
         panelDAO.listByDelfoiAndAccessLevelAndState(delfoi, PanelAccessLevel.OPEN, PanelState.IN_PROGRESS));
+
+    // User settings (essentially just comment reply mails for now)
+    
+    UserSettingDAO userSettingDAO = new UserSettingDAO();
+    UserSetting userSetting = userSettingDAO.findByUserAndKey(loggedUser, UserSettingKey.MAIL_COMMENT_REPLY);
+    pageRequestContext.getRequest().setAttribute("userCommentMail", userSetting != null && "1".equals(userSetting.getValue()));
 
     pageRequestContext.setIncludeJSP("/jsp/pages/panel/profile.jsp");
   }

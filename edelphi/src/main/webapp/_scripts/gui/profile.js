@@ -45,8 +45,9 @@ ProfileSettingsBasicInfoEditor = Class.create({
       lastName: this._editorContainer.down('input[name="lastName"]').value,
       nickname: this._editorContainer.down('input[name="nickname"]').value,
       emailId: this._editorContainer.down('input[name="emailId"]').value,
-      email: this._editorContainer.down('input[name="email"]').value
-    };
+      email: this._editorContainer.down('input[name="email"]').value,
+      commentMail: this._editorContainer.down('input[name="commentMail"]').checked ? '1' : '0'
+   };
 //    var _this = this;
     
     startLoadingOperation("profile.block.savingProfile");
