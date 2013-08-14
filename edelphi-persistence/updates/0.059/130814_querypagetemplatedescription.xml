@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofw.fi/xml/2011/java-xmldb-updater/UpdaterSchema.xsd">
+
+  <alterTables>
+    <table name="QueryPageTemplate">
+      <addFields>
+        <field name="description_id" type="java.lang.Long" nullable="false" unique="false" />
+      </addFields>
+      <addForeignKeys>
+        <key columns="description_id" referencedColumns="id" referencedTable="LocalizedEntry" />
+      </addForeignKeys>
+    </table>
+  </alterTables>
+  
+  
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'text', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'text', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 1</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'expertise', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'expertise', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 2</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'scale1d', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'scale1d', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 3</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'scale2d', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'scale2d', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 4</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'timeserie', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'timeserie', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 5</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'timeline', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'timeline', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 6</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'grouping', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'grouping', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 7</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'multiselect', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'multiselect', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 8</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'ordering', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'ordering', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 9</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'form', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'form', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 10</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'backgroundinformationform', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'backgroundinformationform', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 11</sql>
+
+  <sql>insert into LocalizedEntry (id) select max(id) + 1 from LocalizedEntry</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'collage2d', 'en', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>insert into LocalizedValue (id, text, locale, entry_id) select max(id) + 1, 'collage2d', 'fi', (select max(id) from LocalizedEntry) from LocalizedValue</sql>
+  <sql>update QueryPageTemplate set description_id = (select max(id) from LocalizedEntry) where id = 12</sql>
+  
+  <sql>update hibernate_sequences set sequence_next_hi_value = sequence_next_hi_value + 1 where sequence_name in ('LocalizedEntry', 'LocalizedValue')</sql>
+  
+</update>

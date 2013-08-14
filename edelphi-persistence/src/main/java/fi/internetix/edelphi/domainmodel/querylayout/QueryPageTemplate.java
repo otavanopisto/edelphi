@@ -89,6 +89,14 @@ public class QueryPageTemplate implements ArchivableEntity, ModificationTrackedE
     return archived;
   }
 
+  public LocalizedEntry getDescription() {
+    return description;
+  }
+
+  public void setDescription(LocalizedEntry description) {
+    this.description = description;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE, generator = "QueryPageTemplate")
   @TableGenerator(name = "QueryPageTemplate", allocationSize = 1, table = "hibernate_sequences", pkColumnName = "sequence_name", valueColumnName = "sequence_next_hi_value")
@@ -96,6 +104,9 @@ public class QueryPageTemplate implements ArchivableEntity, ModificationTrackedE
 
   @ManyToOne 
   private LocalizedEntry name;
+  
+  @ManyToOne 
+  private LocalizedEntry description;
   
   @NotNull
   @Column(nullable = false)

@@ -13,6 +13,11 @@
       <div class="panelAdminQueryEditorCreatePagePageTemplateIcon ${queryPageTemplate.iconName}"></div>
       <div class="panelAdminQueryEditorCreatePagePageTemplateName">${queryPageTemplate.name}</div>
       <input type="hidden" value="${queryPageTemplate.id}" name="templateId"/>
+      
+      <span class="panelAdminQueryEditorCreatePagePageTemplateTooltip">
+        <span class="panelAdminQueryEditorCreatePagePageTemplateTooltipText">${queryPageTemplate.description}</span>
+        <span class="panelAdminQueryEditorCreatePagePageTemplateTooltipArrow"></span>
+      </span>
     </div>
 
   </c:forEach>  

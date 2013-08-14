@@ -22,7 +22,8 @@ public class CreateQueryPagePageController extends PanelPageController {
     List<QueryPageTemplate> queryPageTemplates = queryPageTemplateDAO.listAll();
     for (QueryPageTemplate queryPageTemplate : queryPageTemplates) {
       String name = LocalizationUtils.getLocalizedText(queryPageTemplate.getName(), pageRequestContext.getRequest().getLocale());
-      queryPageTemplateBeans.add(new QueryPageTemplateBean(queryPageTemplate.getId(), name, queryPageTemplate.getIconName()));
+      String description = LocalizationUtils.getLocalizedText(queryPageTemplate.getDescription(), pageRequestContext.getRequest().getLocale());
+      queryPageTemplateBeans.add(new QueryPageTemplateBean(queryPageTemplate.getId(), name, queryPageTemplate.getIconName(), description));
     }
     
     pageRequestContext.getRequest().setAttribute("queryPageTemplates", queryPageTemplateBeans);
@@ -31,10 +32,11 @@ public class CreateQueryPagePageController extends PanelPageController {
   
   public class QueryPageTemplateBean {
     
-    public QueryPageTemplateBean(Long id, String name, String iconName) {
+    public QueryPageTemplateBean(Long id, String name, String iconName, String description) {
       this.id = id;
       this.name = name;
       this.iconName = iconName;
+      this.description = description;
     }
     
     public Long getId() {
@@ -49,8 +51,13 @@ public class CreateQueryPagePageController extends PanelPageController {
       return iconName;
     }
 
+    public String getDescription() {
+      return description;
+    }
+
     private Long id;
     private String name;
     private String iconName;
+    private String description;
   }
 }
