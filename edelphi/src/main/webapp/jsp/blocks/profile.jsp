@@ -79,6 +79,13 @@
         
         <input type="hidden" name="emailId" value="${user.defaultEmail.id}"/>
         <input id="profileUserIdElement" type="hidden" name="userId" value="${user.id}"/>
+
+        <jsp:include page="/jsp/fragments/formfield_checkbox.jsp">
+          <jsp:param name="name" value="commentMail"/>
+          <jsp:param name="labelLocale" value="profile.block.profileCommentMailLabel"/>
+          <jsp:param name="checked" value="${userCommentMail}"/>
+          <jsp:param name="value=" value="1"/>
+        </jsp:include>  
   
         <jsp:include page="/jsp/fragments/formfield_submit.jsp">
           <jsp:param name="name" value="updateProfileButton"/>

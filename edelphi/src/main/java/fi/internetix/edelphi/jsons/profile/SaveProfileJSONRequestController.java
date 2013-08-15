@@ -6,9 +6,12 @@ import java.util.Locale;
 import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.dao.users.UserDAO;
 import fi.internetix.edelphi.dao.users.UserEmailDAO;
+import fi.internetix.edelphi.dao.users.UserSettingDAO;
 import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.domainmodel.users.UserEmail;
+import fi.internetix.edelphi.domainmodel.users.UserSetting;
+import fi.internetix.edelphi.domainmodel.users.UserSettingKey;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.jsons.JSONController;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -66,6 +69,18 @@ public class SaveProfileJSONRequestController extends JSONController {
     else if (email != null && userEmail == null) {
       userEmail = userEmailDAO.create(user, email);
       userDAO.updateDefaultEmail(user, userEmail, loggedUser);
+    }
+    
+    // Comment mail support
+    
+    Integer commentMail = jsonRequestContext.getInteger("commentMail");
+    UserSettingDAO userSettingDAO = new UserSettingDAO();
+    UserSetting userSetting = userSettingDAO.findByUserAndKey(loggedUser,  UserSettingKey.MAIL_COMMENT_REPLY);
+    if (userSetting == null) {
+      userSettingDAO.create(loggedUser, UserSettingKey.MAIL_COMMENT_REPLY, commentMail.toString());
+    }
+    else {
+      userSettingDAO.updateValue(userSetting, commentMail.toString());
     }
 
     jsonRequestContext.addMessage(Severity.OK, messages.getText(locale, "profile.block.savedMessage"));
