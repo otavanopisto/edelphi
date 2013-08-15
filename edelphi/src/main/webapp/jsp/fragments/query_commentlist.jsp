@@ -21,10 +21,20 @@
   <c:set var="printCommentAnswers" value="true"/>
 </c:if>
 
+<c:set var="commentContainerStyle" value=""/>
+<c:if test="${!param.reportMode eq true}">
+  <c:set var="commentContainerStyle" value="display: none;"/>
+</c:if>
+
 <div class="queryCommentList" id="queryCommentList" style="${commentListStyle}">
-  <h2 class="querySubTitle queryCommentListSubTitle"><fmt:message key="panel.block.query.commentListTitle"></fmt:message> (${queryPageCommentCount})</h2>
+  <h2 class="querySubTitle queryCommentListSubTitle">
+    <fmt:message key="panel.block.query.commentListTitle"></fmt:message>
+    <c:if test="${!param.reportMode eq true}">
+      (${queryPageCommentCount})
+    </c:if>
+  </h2>
   
-  <div class="queryCommentsContainer" style="display: none;">
+  <div class="queryCommentsContainer" style="${commentContainerStyle}">
     <c:forEach var="comment" items="${queryPageComments[queryPageId]}">
       <c:set var="commentFiltered" value="true" />
       <c:choose>
