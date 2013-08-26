@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fi.internetix.edelphi.DelfoiActionName;
+import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.users.UserDAO;
 import fi.internetix.edelphi.dao.users.UserEmailDAO;
 import fi.internetix.edelphi.dao.users.UserSettingDAO;
@@ -17,6 +18,7 @@ import fi.internetix.edelphi.jsons.JSONController;
 import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.smvc.AccessDeniedException;
 import fi.internetix.smvc.Severity;
+import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.JSONRequestContext;
 
 public class SaveProfileJSONRequestController extends JSONController {
@@ -56,6 +58,9 @@ public class SaveProfileJSONRequestController extends JSONController {
     Long userEmailId = jsonRequestContext.getLong("emailId");
     UserEmail userEmail = userEmailId == null ? null : userEmailDAO.findById(userEmailId); 
     if (email == null && userEmail != null) {
+      // No e-mail given, user has existing e-mail -> remove e-mail and if user has additional e-mails,
+      // select the first of them as the new default e-mail. Essentially this never happens as e-mail
+      // in the profile view is mandatory 
       userDAO.updateDefaultEmail(user, null, loggedUser);
       userEmailDAO.delete(userEmail);
       List<UserEmail> userEmails = userEmailDAO.listByUser(user);
@@ -64,9 +69,34 @@ public class SaveProfileJSONRequestController extends JSONController {
       }
     }
     else if (email != null && userEmail != null && !email.equals(userEmail.getAddress())) {
-      userEmailDAO.updateAddress(userEmail, email);
+      // E-mail entered but differs from user's current e-mail address. Possible scenarios:
+      // A) entered e-mail belongs to someone else -> display an error message
+      // B) entered e-mail is available -> update current e-mail address
+      // C) entered e-mail belongs to user -> switch current e-mail address 
+      UserEmail enteredEmail = userEmailDAO.findByAddress(email);
+      if (enteredEmail == null) {
+        // Scenario B
+        userEmailDAO.updateAddress(userEmail, email);
+      }
+      else if (!user.getId().equals(enteredEmail.getUser().getId())) {
+        // Scenario A
+        throw new SmvcRuntimeException(EdelfoiStatusCode.DUPLICATE_EMAIL, messages.getText(locale, "exception.1036.duplicateEmail"));
+      }
+      else {
+        // Scenario C
+        userDAO.updateDefaultEmail(user, enteredEmail, loggedUser);
+      }
     }
     else if (email != null && userEmail == null) {
+      // E-mail entered, user has no current e-mail. Possible scenarios:
+      // A) entered e-mail belongs to someone else -> display an error message
+      // B) entered e-mail is available -> created and set as current e-mail address
+      UserEmail enteredEmail = userEmailDAO.findByAddress(email);
+      if (enteredEmail != null) {
+        // Scenario A
+        throw new SmvcRuntimeException(EdelfoiStatusCode.DUPLICATE_EMAIL, messages.getText(locale, "exception.1036.duplicateEmail"));
+      }
+      // Scenario B
       userEmail = userEmailDAO.create(user, email);
       userDAO.updateDefaultEmail(user, userEmail, loggedUser);
     }
