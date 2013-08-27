@@ -132,6 +132,10 @@ public class SaveQueryJSONRequestController extends JSONController {
       Integer pageCount = jsonRequestContext.getInteger(sectionPrefix + "pageCount");
 
       sectionNumber++;
+      
+      if (!deleteSection && (sectionTitle == null || "".equals(sectionTitle))) {
+        throw new SmvcRuntimeException(EdelfoiStatusCode.UNNAMED_QUERY_SECTION, messages.getText(locale, "exception.1037.unnamedQuerySection", new Integer[] { sectionNumber }));
+      }
 
       if (createNewSection) {
         // Skip a section that's marked as new and deleted
@@ -140,7 +144,6 @@ public class SaveQueryJSONRequestController extends JSONController {
           removedSectionCount++;
           continue;
         }
-
         querySection = querySectionDAO.create(loggedUser, query, sectionTitle, sectionNumber, sectionVisible, sectionCommentable, sectionViewDiscussions);
         jsonRequestContext.addResponseParameter("newSection." + newSectionCount + ".id", querySection.getId());
         jsonRequestContext.addResponseParameter("newSection." + newSectionCount + ".tempId", sectionIdParam);
@@ -176,6 +179,10 @@ public class SaveQueryJSONRequestController extends JSONController {
         QueryPage queryPage;
         QueryPageHandler handler = QueryPageHandlerFactory.getInstance().buildPageHandler(queryPageType);
 
+        if (editablePage && !deletePage && (title == null || "".equals(title))) {
+          throw new SmvcRuntimeException(EdelfoiStatusCode.UNNAMED_QUERY_PAGE, messages.getText(locale, "exception.1038.unnamedQueryPage", new Integer[] { pageIndex + 1 }));
+        }
+
         Map<String, String> settings = new HashMap<String, String>();
         Integer optionCount = jsonRequestContext.getInteger(pagePrefix + "optionCount");
         for (int optionIndex = 0; optionIndex < optionCount; optionIndex++) {
@@ -184,7 +191,7 @@ public class SaveQueryJSONRequestController extends JSONController {
           String optionValue = jsonRequestContext.getString(optionPrefix + "value");
           settings.put(optionName, optionValue);
         }
-
+        
         if (editablePage) {
           if (createNewPage) {
             // Skip page that's new and deleted
