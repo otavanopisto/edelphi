@@ -36,6 +36,10 @@ public class QueryPageDataExportBinaryController extends BinaryController {
     Long stampId = requestContext.getLong("stampId");
     String replierExportStrategyParam = requestContext.getString("replierExportStrategy");
 
+    // By default the whole query data is beign output
+    Boolean isFiltered = requestContext.getBoolean("useFilters");
+    isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
+
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     PanelStampDAO panelStampDAO = new PanelStampDAO();
@@ -46,11 +50,14 @@ public class QueryPageDataExportBinaryController extends BinaryController {
 
     // Query replies, possibly filtered
     
-    List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryPage.getQuerySection().getQuery().getId());
     List<QueryReply> replies = queryReplyDAO.listByQueryAndStampAndArchived(queryPage.getQuerySection().getQuery(), panelStamp, Boolean.FALSE);
-    if (filters != null) {
-      for (QueryReplyFilter filter : filters) {
-        replies = filter.filterList(replies);
+
+    if (isFiltered) {
+      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryPage.getQuerySection().getQuery().getId());
+      if (filters != null) {
+        for (QueryReplyFilter filter : filters) {
+          replies = filter.filterList(replies);
+        }
       }
     }
     
