@@ -34,20 +34,9 @@
     
   <div class="${commentClasses}">
     <a id="comment.${param.commentId}"></a>
-	<div class="queryCommentHeader">
+	  <div class="queryCommentHeader">
       <div class="queryCommentDate"><fmt:message key="query.comment.commentDate"/> ${commentDate}</div>
-      <c:if test="${(param.reportMode ne true)}">
-        <div class="queryCommentNewComment"><a href="#" class="queryCommentNewCommentLink"><fmt:message key="query.comment.commentAnswerLink"/></a></div>
-        
-        <c:choose>
-		  <c:when test="${panelActions['MANAGE_QUERY_COMMENTS']}">
-	        <div class="queryCommentShowComment"><a href="#" class="queryCommentShowCommentLink"><fmt:message key="query.comment.commentShowLink"/></a></div>
-	        <div class="queryCommentHideComment"><a href="#" class="queryCommentHideCommentLink"><fmt:message key="query.comment.commentHideLink"/></a></div>
-	        <div class="queryCommentEditComment"><a href="#" class="queryCommentEditCommentLink"><fmt:message key="query.comment.commentEditLink"/></a></div>
-	        <div class="queryCommentDeleteComment"><a href="#" class="queryCommentDeleteCommentLink"><fmt:message key="query.comment.commentDeleteLink"/></a></div>
-	      </c:when>
-	    </c:choose>
-      </c:if>
+      
     </div>
     
     <c:if test="${(param.reportMode ne true)}">
@@ -62,16 +51,16 @@
 	  </c:if>
 	</c:if>
 	
-    <input type="hidden" name="commentId" value="${param.commentId}"/>  
-    <input type="hidden" name="queryPageId" value="${param.queryPageId}"/>
-	
-    <c:if test="${(param.printCommentAnswers eq true)}">
-      <c:if test="${!empty(commentAnswers[param.commentId + 0])}">
-        <c:forEach var="entry" items="${commentAnswers[param.commentId + 0]}">
-          <div class="queryCommentText"><b>${fn:escapeXml(entry.key)}:</b> ${fn:escapeXml(entry.value)}</div>
-        </c:forEach>
-      </c:if>
+  <input type="hidden" name="commentId" value="${param.commentId}"/>  
+  <input type="hidden" name="queryPageId" value="${param.queryPageId}"/>
+
+  <c:if test="${(param.printCommentAnswers eq true)}">
+    <c:if test="${!empty(commentAnswers[param.commentId + 0])}">
+      <c:forEach var="entry" items="${commentAnswers[param.commentId + 0]}">
+        <div class="queryCommentText"><b>${fn:escapeXml(entry.key)}:</b> ${fn:escapeXml(entry.value)}</div>
+      </c:forEach>
     </c:if>
+  </c:if>
   
   <c:choose>
     <c:when test="${param.commentFiltered}">
@@ -81,6 +70,21 @@
       <div class="queryCommentText">${fn:replace(fn:escapeXml(param.commentText), newLineChar, "<br/>")}</div>
     </c:otherwise>
   </c:choose>
+  
+  <c:if test="${(param.reportMode ne true)}">
+    <div class="queryCommentMeta">
+      <div class="queryCommentNewComment"><a href="#" class="queryCommentNewCommentLink"><fmt:message key="query.comment.commentAnswerLink"/></a></div>
+      
+      <c:choose>
+        <c:when test="${panelActions['MANAGE_QUERY_COMMENTS']}">
+          <div class="queryCommentShowComment"><a href="#" class="queryCommentShowCommentLink"><fmt:message key="query.comment.commentShowLink"/></a></div>
+          <div class="queryCommentHideComment"><a href="#" class="queryCommentHideCommentLink"><fmt:message key="query.comment.commentHideLink"/></a></div>
+          <div class="queryCommentEditComment"><a href="#" class="queryCommentEditCommentLink"><fmt:message key="query.comment.commentEditLink"/></a></div>
+          <div class="queryCommentDeleteComment"><a href="#" class="queryCommentDeleteCommentLink"><fmt:message key="query.comment.commentDeleteLink"/></a></div>
+        </c:when>
+      </c:choose>
+    </div>
+  </c:if>
 	
 	<div class="queryCommentChildren" id="queryCommentChildren.${param.commentId}">
 	  <c:forEach var="childComment" items="${queryPageCommentChildren[param.commentId + 0]}">

@@ -3288,7 +3288,8 @@ div.queryCommentChildren div.queryComment {
   background:url("../gfx/icons/16x16/actions/comment.png") no-repeat scroll 0 3px transparent;   
 }
 
-.queryCommentText {
+.queryCommentText,
+.queryCommentMeta {
   padding:0px 0px 6px 22px;
 }
 
@@ -4788,7 +4789,7 @@ label.queryScaleSliderItemLabel {
  */
 
 .panelAdminQueryEditorCreatePageDialog {
-  width:530px;
+  width:750px; /* 530 */
 }
 
 .panelAdminQueryEditorCreatePageDialog .ui-dialog-buttonpane {
@@ -4801,6 +4802,27 @@ label.queryScaleSliderItemLabel {
 
 .panelAdminQueryEditorCreatePage {
   margin-bottom:10px;
+  width:360px;
+  float:left;
+}
+
+.panelAdminQueryEditorCreatePageGuide {
+  float:left;
+  min-height:216px;
+  width:380px;
+  margin-bottom:10px;
+}
+
+.panelAdminQueryEditorCreatePageGuideContainer {
+  margin-bottom:10px;
+}
+
+.panelAdminQueryEditorCreatePageTemplateGuideContainer {
+  color:#4a4a4a;
+}
+
+.panelAdminQueryEditorCreatePageTemplateGuideContainer p:first-child {
+  font-weight:bold;
 }
 
 .panelAdminQueryEditorCreatePage .panelAdminQueryEditorCreatePagePageTemplateIcon {
