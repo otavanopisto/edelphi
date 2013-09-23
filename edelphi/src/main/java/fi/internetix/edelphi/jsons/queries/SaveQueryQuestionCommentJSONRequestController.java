@@ -22,6 +22,7 @@ import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.jsons.JSONController;
 import fi.internetix.edelphi.utils.QueryDataUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
+import fi.internetix.edelphi.utils.SystemUtils;
 import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.JSONRequestContext;
 
@@ -57,37 +58,39 @@ public class SaveQueryQuestionCommentJSONRequestController extends JSONControlle
     
     // Comment reply e-mail support
     
-    if (parentComment != null && !parentComment.getCreator().getId().equals(loggedUser.getId())) {
-      User user = parentComment.getCreator();
-      UserSettingDAO userSettingDAO = new UserSettingDAO();
-      UserSetting userSetting = userSettingDAO.findByUserAndKey(user, UserSettingKey.MAIL_COMMENT_REPLY);
-      if (userSetting != null && "1".equals(userSetting.getValue())) {
-        
-        // URL to the newly added comment
-        
-        Panel panel = RequestUtils.getPanel(jsonRequestContext);
-        StringBuilder commentUrl = new StringBuilder();
-        commentUrl.append(RequestUtils.getBaseUrl(jsonRequestContext.getRequest()));
-        commentUrl.append('/');
-        commentUrl.append(panel.getUrlName());
-        commentUrl.append('/');
-        commentUrl.append(query.getUrlName());
-        commentUrl.append("?page=");
-        commentUrl.append(queryPage.getPageNumber());
-        commentUrl.append("&comment=");
-        commentUrl.append(questionComment.getId());
-        
-        // Comment mail
-        
-        Messages messages = Messages.getInstance();
-        Locale locale = jsonRequestContext.getRequest().getLocale();
-        String subject = messages.getText(locale, "mail.newReply.template.subject");
-        String content = messages.getText(locale, "mail.newReply.template.content", new Object[] {panel.getName(), query.getName(), commentUrl.toString()});
-        EmailMessageDAO emailMessageDAO = new EmailMessageDAO();
-        // TODO system e-mail address could probably be fetched from somewhere?
-        EmailMessage emailMessage = emailMessageDAO.create("edelfoi-system@otavanopisto.fi", user.getDefaultEmailAsString(), subject, content, loggedUser);
-        MailQueueItemDAO mailQueueItemDAO = new MailQueueItemDAO();
-        mailQueueItemDAO.create(MailQueueItemState.IN_QUEUE, emailMessage, loggedUser);
+    if (SystemUtils.isProductionEnvironment()) {
+      if (parentComment != null && !parentComment.getCreator().getId().equals(loggedUser.getId())) {
+        User user = parentComment.getCreator();
+        UserSettingDAO userSettingDAO = new UserSettingDAO();
+        UserSetting userSetting = userSettingDAO.findByUserAndKey(user, UserSettingKey.MAIL_COMMENT_REPLY);
+        if (userSetting != null && "1".equals(userSetting.getValue())) {
+          
+          // URL to the newly added comment
+          
+          Panel panel = RequestUtils.getPanel(jsonRequestContext);
+          StringBuilder commentUrl = new StringBuilder();
+          commentUrl.append(RequestUtils.getBaseUrl(jsonRequestContext.getRequest()));
+          commentUrl.append('/');
+          commentUrl.append(panel.getUrlName());
+          commentUrl.append('/');
+          commentUrl.append(query.getUrlName());
+          commentUrl.append("?page=");
+          commentUrl.append(queryPage.getPageNumber());
+          commentUrl.append("&comment=");
+          commentUrl.append(questionComment.getId());
+          
+          // Comment mail
+          
+          Messages messages = Messages.getInstance();
+          Locale locale = jsonRequestContext.getRequest().getLocale();
+          String subject = messages.getText(locale, "mail.newReply.template.subject");
+          String content = messages.getText(locale, "mail.newReply.template.content", new Object[] {panel.getName(), query.getName(), commentUrl.toString()});
+          EmailMessageDAO emailMessageDAO = new EmailMessageDAO();
+          // TODO system e-mail address could probably be fetched from somewhere?
+          EmailMessage emailMessage = emailMessageDAO.create("edelfoi-system@otavanopisto.fi", user.getDefaultEmailAsString(), subject, content, loggedUser);
+          MailQueueItemDAO mailQueueItemDAO = new MailQueueItemDAO();
+          mailQueueItemDAO.create(MailQueueItemState.IN_QUEUE, emailMessage, loggedUser);
+        }
       }
     }
     

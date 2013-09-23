@@ -21,12 +21,14 @@
 <c:set var="reportPageNumber" value="0"/>
 <c:forEach var="reportPageData" items="${reportPageDatas}">
 
-  <ed:include page="${reportPageData.jspFile}">
-    <ed:param name="reportPageNumber" value="${reportPageNumber}"/>
-    <ed:param name="reportChartWidth" value="${reportChartWidth}"/>
-    <ed:param name="reportChartHeight" value="${reportChartHeight}"/>
-    <ed:param name="reportChartFormat" value="${param.reportChartFormat}"/>
-  </ed:include>
+  <div class="reportPage">
+    <ed:include page="${reportPageData.jspFile}">
+      <ed:param name="reportPageNumber" value="${reportPageNumber}"/>
+      <ed:param name="reportChartWidth" value="${reportChartWidth}"/>
+      <ed:param name="reportChartHeight" value="${reportChartHeight}"/>
+      <ed:param name="reportChartFormat" value="${param.reportChartFormat}"/>
+    </ed:include>
+  </div>
     
   <c:set var="reportPageNumber" value="${reportPageNumber + 1}"/>
 </c:forEach>

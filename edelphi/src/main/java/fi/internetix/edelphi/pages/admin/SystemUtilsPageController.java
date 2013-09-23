@@ -29,6 +29,7 @@ import fi.internetix.edelphi.dao.resources.GoogleDocumentDAO;
 import fi.internetix.edelphi.dao.resources.GoogleImageDAO;
 import fi.internetix.edelphi.dao.resources.QueryDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
+import fi.internetix.edelphi.dao.users.UserSettingDAO;
 import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionOptionAnswer;
@@ -46,6 +47,8 @@ import fi.internetix.edelphi.domainmodel.resources.GoogleDocument;
 import fi.internetix.edelphi.domainmodel.resources.GoogleImage;
 import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.domainmodel.users.User;
+import fi.internetix.edelphi.domainmodel.users.UserSetting;
+import fi.internetix.edelphi.domainmodel.users.UserSettingKey;
 import fi.internetix.edelphi.pages.PageController;
 import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
@@ -250,7 +253,8 @@ public class SystemUtilsPageController extends PageController {
       catch (Exception e) {
         e.printStackTrace();
       }
-    } else if ("listGoogleDocuments".equals(action)) {
+    }
+    else if ("listGoogleDocuments".equals(action)) {
     	String baseUrl = RequestUtils.getBaseUrl(pageRequestContext.getRequest());
     	
     	pageRequestContext.getResponse().setContentType("text/html");
@@ -292,8 +296,20 @@ public class SystemUtilsPageController extends PageController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-      
-    	
+    }
+    else if ("turnOnNotifications".equals(action)) {
+      UserDAO userDAO = new UserDAO();
+      UserSettingDAO userSettingDAO = new UserSettingDAO();
+      List<User> users = userDAO.listAll();
+      for (User user : users) {
+        UserSetting userSetting = userSettingDAO.findByUserAndKey(user, UserSettingKey.MAIL_COMMENT_REPLY);
+        if (userSetting == null) {
+          userSettingDAO.create(user, UserSettingKey.MAIL_COMMENT_REPLY, "1");
+        }
+        else {
+          userSettingDAO.updateValue(userSetting, "1");
+        }
+      }
     }
     else {
       throw new IllegalArgumentException("Invalid system action: " + action);

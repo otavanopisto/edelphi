@@ -15,10 +15,14 @@
     <jsp:include page="/jsp/supports/datagrid_support.jsp"></jsp:include>
     <jsp:include page="/jsp/supports/flotr_support.jsp"></jsp:include>
     <jsp:include page="/jsp/supports/modalpopup_support.jsp"></jsp:include>
+    <jsp:include page="/jsp/supports/scripty2_support.jsp"></jsp:include>
     <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/buttoninputcomponent.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/mathutils.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/panel_admin/queryresultslistingblockcontroller.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/panel_admin/queryreportoptions.js"></script>
+    <c:if test="${fn:length(stamps) gt 1}">
+      <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/panel_admin/stampoverlaycontroller.js"></script>
+    </c:if>
   </head>
   <body class="panel_admin">
 
@@ -62,7 +66,7 @@
     </div>
 
     <c:if test="${fn:length(stamps) gt 1}">
-      <div class="stampTimeLineSpacer">
+      <div class="stampTimeLineSpacer" id="stampTimeLineSpacer">
         <jsp:include page="/jsp/fragments/stamp_selector.jsp" />
       </div>
     </c:if>
