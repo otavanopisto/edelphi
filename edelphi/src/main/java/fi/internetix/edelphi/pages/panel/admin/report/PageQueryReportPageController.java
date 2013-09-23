@@ -48,6 +48,10 @@ public class PageQueryReportPageController extends PanelPageController {
     Long pageId = pageRequestContext.getLong("pageId");
     ReportChartFormat chartFormat = ReportChartFormat.valueOf(pageRequestContext.getString("chartFormat"));
     
+    // By default the whole query data is beign output
+    Boolean isFiltered = pageRequestContext.getBoolean("useFilters");
+    isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
+    
     QueryPage queryPage = queryPageDAO.findById(pageId);
     Panel panel = RequestUtils.getPanel(pageRequestContext);
 
@@ -58,10 +62,12 @@ public class PageQueryReportPageController extends PanelPageController {
 
     // Apply report filters from the session, if any
     
-    List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(pageRequestContext, queryPage.getQuerySection().getQuery().getId());
-    if (filters != null) {
-      for (QueryReplyFilter filter : filters) {
-        chartContext.addFilter(filter);
+    if (isFiltered) {
+      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(pageRequestContext, queryPage.getQuerySection().getQuery().getId());
+      if (filters != null) {
+        for (QueryReplyFilter filter : filters) {
+          chartContext.addFilter(filter);
+        }
       }
     }
 
