@@ -5094,6 +5094,26 @@ label.queryScaleSliderItemLabel {
   color:#fff;
 }
 
+#GUI_panelReportControlsContainer .queryExportPanel {
+  margin:20px 0px 0px 0px;
+}
+
+#GUI_panelReportControlsContainer .queryExportPanel .modalPopupLinksContainer {
+/*   height:100px; */
+  padding:5px;
+  display:table;
+}
+
+#GUI_panelReportControlsContainer .queryExportPanel .modalPopupLinksContainerBlock {
+  min-width:200px;
+  float:left;
+  height:100px;
+}
+
+#GUI_panelReportControlsContainer .queryExportPanel .modalPopupLinksContainerBlock h4 {
+  margin:0px 0px 10px 0px;
+}
+
 .queryFormFieldFilterOptionList {
   margin-bottom:5px;
   width:48%;
