@@ -980,6 +980,14 @@ QueryEditorBlockController = Class.create(BlockController, {
               _this._createNewPage(templateIdInput.value);
               _dialog.close(true);
             });
+            // TODO page description
+            Event.observe(element, "mouseenter", function (event) {
+              var element = Event.element(event);
+              var templateTitle = element.down('.panelAdminQueryEditorCreatePagePageTemplateName').innerHTML;
+              var templateDescription = element.down('input[name="templateDescription"]').value;
+              $('templateGuideContainerTitle').innerHTML = templateTitle;
+              $('templateGuideContainerDescription').innerHTML = templateDescription;
+            });
           }); 
         });
 
