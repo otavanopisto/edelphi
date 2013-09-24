@@ -26,7 +26,7 @@
   </div>
   <div class="panelAdminQueryEditorCreatePageGuideContainer"><fmt:message key="panelAdmin.dialog.createQueryPage.pageIntro"/></div>
   <div class="panelAdminQueryEditorCreatePageTemplateGuideContainer">
-    <p id="templateGuideContainerTitle"></p>
-    <p id="templateGuideContainerDescription"></p>
+    <p class="templateGuideContainerTitle"></p>
+    <p class="templateGuideContainerDescription"></p>
   </div>
 </div>
