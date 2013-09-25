@@ -47,7 +47,7 @@
           </c:forEach>
         </table>
       
-        <form action="${pageContext.request.contextPath}${pageContext.request.pathInfo}" method="post">  
+        <form action="${pageContext.request.contextPath}${pageContext.request.pathInfo}?${pageContext.request.queryString}" method="post">  
 
           <input type="hidden" name="panelId" value="${panelId}" />
           <input type="hidden" name="queryId" value="${queryId}" />
