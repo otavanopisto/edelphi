@@ -116,6 +116,8 @@ public class ExportReportBinaryController extends BinaryController {
       tidy.setNumEntities(false);
       tidy.setXmlOut(true);
       tidy.setXHTML(true);
+      tidy.setWraplen(0);
+      tidy.setQuoteNbsp(false);
       tidy.parse(new StringReader(reportHtml), tidyXHtml);
 
       DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();

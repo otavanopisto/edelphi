@@ -68,6 +68,8 @@ public class ReportUtils {
     tidy.setNumEntities(false);
     tidy.setXmlOut(true);
     tidy.setXHTML(true);
+    tidy.setWraplen(0);
+    tidy.setQuoteNbsp(false);
     tidy.parse(new StringReader(html), tidyXHtml);
 
     // ...parse it into a DOM...
@@ -133,7 +135,7 @@ public class ReportUtils {
 
       String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
 
-      // .. tidy it abit
+      // .. tidy it a bit
 
       ByteArrayOutputStream tidyXHtml = new ByteArrayOutputStream();
       Tidy tidy = new Tidy();
@@ -143,6 +145,8 @@ public class ReportUtils {
       tidy.setNumEntities(false);
       tidy.setXmlOut(true);
       tidy.setXHTML(true);
+      tidy.setWraplen(0);
+      tidy.setQuoteNbsp(false);
       tidy.parse(new StringReader(reportHtml), tidyXHtml);
 
       DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();

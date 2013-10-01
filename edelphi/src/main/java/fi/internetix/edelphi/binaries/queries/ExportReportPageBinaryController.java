@@ -119,8 +119,10 @@ public class ExportReportPageBinaryController extends BinaryController {
       tidy.setNumEntities(false);
       tidy.setXmlOut(true);
       tidy.setXHTML(true);
+      tidy.setWraplen(0);
+      tidy.setQuoteNbsp(false);
       tidy.parse(new StringReader(reportHtml), tidyXHtml);
-
+      
       DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
       builderFactory.setNamespaceAware(false);
       builderFactory.setValidating(false);
@@ -129,7 +131,7 @@ public class ExportReportPageBinaryController extends BinaryController {
       builderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
       builderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
       DocumentBuilder builder = builderFactory.newDocumentBuilder();
-
+      
       ByteArrayInputStream inputStream = new ByteArrayInputStream(tidyXHtml.toByteArray());
       Document doc = builder.parse(inputStream);
       ITextRenderer renderer = new ITextRenderer();
