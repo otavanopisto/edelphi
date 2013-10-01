@@ -107,7 +107,6 @@ public class ExportReportPageBinaryController extends BinaryController {
       connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
-      connection.setReadTimeout(15 * 1000);
       connection.connect();
 
       String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");

@@ -13,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionTextAnswerDAO;
-import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldOptionDAO;
