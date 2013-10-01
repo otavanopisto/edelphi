@@ -32,7 +32,6 @@ import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.edelphi.utils.SystemUtils;
 import fi.internetix.smvc.AccessDeniedException;
 import fi.internetix.smvc.controllers.PageRequestContext;
-import fi.internetix.smvc.logging.Logging;
 
 public class FullQueryReportPageController extends PanelPageController {
 
@@ -101,21 +100,17 @@ public class FullQueryReportPageController extends PanelPageController {
         });
         // TODO: Will Sections need something in reports??
         for (QueryPage queryPage : queryPages) {
-          Logging.logInfo("Processing page " + queryPage.getPageNumber());
           if (queryPage.getVisible()) {
             QueryPageType queryPageType = queryPage.getPageType();
             QueryReportPageController queryReportPageController = QueryReportPageProvider.getController(queryPageType);
             if (queryReportPageController != null) {
-              Logging.logInfo("Loading data of page " + queryPage.getPageNumber());
               QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, chartContext, queryPage);
               pageDatas.add(pageData);
-              Logging.logInfo("Loaded data of page " + queryPage.getPageNumber() + ", getting replies next");
 
               // Query reply ids are needed for proper filtering of comments
               
               List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
               QueryUtils.appendQueryPageReplys(pageRequestContext, queryPage.getId(), queryReplies);
-              Logging.logInfo("Replies appended of page " + queryPage.getPageNumber());
             }
           }
         }

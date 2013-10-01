@@ -54,6 +54,7 @@ public class ReportUtils {
     connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
     connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
     connection.setRequestMethod("GET");
+    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
     connection.connect();
     String html = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
 
@@ -127,6 +128,7 @@ public class ReportUtils {
       connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
 
       String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
@@ -276,6 +278,7 @@ public class ReportUtils {
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
       inputStream = connection.getInputStream();
       return StreamUtils.readStreamToString(inputStream, "UTF-8");
@@ -292,6 +295,7 @@ public class ReportUtils {
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
       inputStream = connection.getInputStream();
       return StreamUtils.readStreamToByteArray(inputStream);
