@@ -46,8 +46,9 @@ public class UserDAO extends GenericDAO<User> {
     searchText = searchText + "*";
 
     StringBuilder queryBuilder = new StringBuilder();
-    queryBuilder.append("fullNameSearch:");
+    queryBuilder.append("+fullNameSearch:");
     queryBuilder.append(searchText);
+    queryBuilder.append(" +archived:false +emails.id:[* TO 9999999]");
   
     try {
       String queryString = queryBuilder.toString();
@@ -84,12 +85,13 @@ public class UserDAO extends GenericDAO<User> {
     searchText = searchText + "*";
 
     StringBuilder queryBuilder = new StringBuilder();
-    queryBuilder.append("firstName:");
+    queryBuilder.append("+(firstName:");
     queryBuilder.append(searchText);
     queryBuilder.append(" lastName:");
     queryBuilder.append(searchText);
     queryBuilder.append(" emails.address:");
-    queryBuilder.append(searchText);
+    queryBuilder.append(searchText + ")");
+    queryBuilder.append(" +archived:false +emails.id:[* TO 9999999]");
   
     try {
       String queryString = queryBuilder.toString();
