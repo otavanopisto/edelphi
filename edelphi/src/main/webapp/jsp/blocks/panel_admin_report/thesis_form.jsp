@@ -5,13 +5,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<% pageContext.setAttribute("newLineChar", "\n"); %>
+
 <div class="block">
 
-<%--   <jsp:include page="/jsp/fragments/block_title.jsp"> --%>
-<%--     <jsp:param name="titleLocale" value="index.block.myPanelsBlockTitle"/> --%>
-<%--     <jsp:param name="helpText" value="<p><b>Omat paneelit</b> -ohjeistus</p>"/> --%>
-<%--   </jsp:include> --%>
-  
   <c:set var="reportPageData" value="${reportPageDatas[param.reportPageNumber]}" />
   
   <div class="blockContent">
@@ -24,6 +21,12 @@
             <p>
               <div><b>${field.caption}</b></div>
               <div>${field.value}</div>
+            </p>
+          </c:when>
+          <c:when test="${field.fieldType eq 'MEMO'}">
+            <p>
+              <div><b>${field.caption}</b></div>
+              <div>${fn:replace(fn:escapeXml(field.value), newLineChar, "<br/>")}</div>
             </p>
           </c:when>
           <c:when test="${field.fieldType eq 'LIST'}">
