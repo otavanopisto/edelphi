@@ -4819,10 +4819,18 @@ label.queryScaleSliderItemLabel {
 
 .panelAdminQueryEditorCreatePageTemplateGuideContainer {
   color:#4a4a4a;
+  background:#fafafa;
+  border-radius:3px;
+  padding:10px;
+}
+
+.panelAdminQueryEditorCreatePageTemplateGuideContainer p {
+  margin:0;
 }
 
 .panelAdminQueryEditorCreatePageTemplateGuideContainer p:first-child {
   font-weight:bold;
+  margin-bottom:10px;
 }
 
 .panelAdminQueryEditorCreatePage .panelAdminQueryEditorCreatePagePageTemplateIcon {

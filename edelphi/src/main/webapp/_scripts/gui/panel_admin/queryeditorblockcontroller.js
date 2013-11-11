@@ -982,6 +982,7 @@ QueryEditorBlockController = Class.create(BlockController, {
             });
             // TODO page description
             Event.observe(element, "mouseenter", function (event) {
+              var master = $('panelAdminQueryEditorCreatePageTemplateGuideContainer');
               var element = Event.element(event);
               var templateTitle = element.down('.panelAdminQueryEditorCreatePagePageTemplateName').innerHTML;
               var templateDescription = element.down('input[name="templateDescription"]').value;
