@@ -104,7 +104,7 @@ public class ExportReportBinaryController extends BinaryController {
       connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
-      connection.setReadTimeout(15 * 1000);
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed  
       connection.connect();
 
       String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
@@ -116,6 +116,8 @@ public class ExportReportBinaryController extends BinaryController {
       tidy.setNumEntities(false);
       tidy.setXmlOut(true);
       tidy.setXHTML(true);
+      tidy.setWraplen(0);
+      tidy.setQuoteNbsp(false);
       tidy.parse(new StringReader(reportHtml), tidyXHtml);
 
       DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();

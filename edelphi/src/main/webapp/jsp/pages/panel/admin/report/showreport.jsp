@@ -21,8 +21,8 @@
   <body class="queryReport">
     <ed:include page="/jsp/blocks/panel_admin_report/query_pages.jsp">
       <ed:param name="reportPageDatas" value="${reportPageDatas}"/>
-      <ed:param name="reportChartWidth" value="696"/>
-      <ed:param name="reportChartHeight" value="423"/>
+      <ed:param name="reportChartWidth" value="690"/>
+      <ed:param name="reportChartHeight" value="419"/>
       <ed:param name="reportChartFormat" value="${chartFormat}"/>
     </ed:include>
   </body>

@@ -970,8 +970,8 @@ QueryEditorBlockController = Class.create(BlockController, {
         dialog.element.observe("ui:dialog:after:open", function (event) {
           var _dialog = event.memo.dialog;
           
-          event.memo.dialog.content.select('.panelAdminQueryEditorCreatePagePageTemplate').each(function (element) {
-            Event.observe(element, "click", function (event) {
+          event.memo.dialog.content.select('.panelAdminQueryEditorCreatePagePageTemplate').each(function (templateElement) {
+            Event.observe(templateElement, "click", function (event) {
               var element = Event.element(event);
               if (!element.hasClassName("panelAdminQueryEditorCreatePagePageTemplate"))
                 element = element.up('.panelAdminQueryEditorCreatePagePageTemplate');
@@ -986,8 +986,8 @@ QueryEditorBlockController = Class.create(BlockController, {
               var element = Event.element(event);
               var templateTitle = element.down('.panelAdminQueryEditorCreatePagePageTemplateName').innerHTML;
               var templateDescription = element.down('input[name="templateDescription"]').value;
-              $('templateGuideContainerTitle').innerHTML = templateTitle;
-              $('templateGuideContainerDescription').innerHTML = templateDescription;
+              _dialog.content.down('.templateGuideContainerTitle').innerHTML = templateTitle;
+              _dialog.content.down('.templateGuideContainerDescription').innerHTML = templateDescription;
             });
           }); 
         });
@@ -995,8 +995,9 @@ QueryEditorBlockController = Class.create(BlockController, {
         dialog.element.observe("ui:dialog:before:close", function (event) {
           event.memo.dialog.content.select('.panelAdminQueryEditorCreatePagePageTemplate').invoke("purge");
           event.memo.dialog.element.purge();
+          event.memo.dialog.element.remove();
         });
-
+ 
         dialog.open();
       },
       onFailure: function () {

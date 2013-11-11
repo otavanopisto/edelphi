@@ -13,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionTextAnswerDAO;
-import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldOptionDAO;
@@ -23,6 +22,7 @@ import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionTextAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
+import fi.internetix.edelphi.domainmodel.querymeta.QueryFieldType;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryTextField;
@@ -325,6 +325,7 @@ public class FormQueryPageHandler extends AbstractQueryPageHandler {
   @Override
   public void exportData(QueryExportContext exportContext) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
+    QueryQuestionTextAnswerDAO queryQuestionTextAnswerDAO = new QueryQuestionTextAnswerDAO();
     QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
 
     List<QueryReply> queryReplies = exportContext.getQueryReplies();
@@ -336,8 +337,14 @@ public class FormQueryPageHandler extends AbstractQueryPageHandler {
       int columnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + queryField.getCaption());
       
       for (QueryReply queryReply : queryReplies) {
-        QueryQuestionOptionAnswer answer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryField);
-        exportContext.addCellValue(queryReply, columnIndex, answer != null ? answer.getOption().getText() : null);
+        if (queryField.getType() == QueryFieldType.OPTIONFIELD) {
+          QueryQuestionOptionAnswer answer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryField);
+          exportContext.addCellValue(queryReply, columnIndex, answer != null ? answer.getOption().getText() : null);
+        }
+        else {
+          QueryQuestionTextAnswer answer = queryQuestionTextAnswerDAO.findByQueryReplyAndQueryField(queryReply,  queryField);
+          exportContext.addCellValue(queryReply, columnIndex, answer != null ? answer.getData() : null);
+        }
       }
     }
   }

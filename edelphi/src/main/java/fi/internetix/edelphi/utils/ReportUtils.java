@@ -54,7 +54,7 @@ public class ReportUtils {
     connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
     connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
     connection.setRequestMethod("GET");
-    connection.setReadTimeout(15 * 1000);
+    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
     connection.connect();
     String html = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
 
@@ -68,6 +68,8 @@ public class ReportUtils {
     tidy.setNumEntities(false);
     tidy.setXmlOut(true);
     tidy.setXHTML(true);
+    tidy.setWraplen(0);
+    tidy.setQuoteNbsp(false);
     tidy.parse(new StringReader(html), tidyXHtml);
 
     // ...parse it into a DOM...
@@ -128,12 +130,12 @@ public class ReportUtils {
       connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
-      connection.setReadTimeout(15 * 1000);
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
 
       String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
 
-      // .. tidy it abit
+      // .. tidy it a bit
 
       ByteArrayOutputStream tidyXHtml = new ByteArrayOutputStream();
       Tidy tidy = new Tidy();
@@ -143,6 +145,8 @@ public class ReportUtils {
       tidy.setNumEntities(false);
       tidy.setXmlOut(true);
       tidy.setXHTML(true);
+      tidy.setWraplen(0);
+      tidy.setQuoteNbsp(false);
       tidy.parse(new StringReader(reportHtml), tidyXHtml);
 
       DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -278,7 +282,7 @@ public class ReportUtils {
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
-      connection.setReadTimeout(15 * 1000);
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
       inputStream = connection.getInputStream();
       return StreamUtils.readStreamToString(inputStream, "UTF-8");
@@ -295,7 +299,7 @@ public class ReportUtils {
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
       connection.setRequestMethod("GET");
-      connection.setReadTimeout(15 * 1000);
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
       inputStream = connection.getInputStream();
       return StreamUtils.readStreamToByteArray(inputStream);

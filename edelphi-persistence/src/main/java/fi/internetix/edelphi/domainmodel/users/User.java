@@ -154,7 +154,7 @@ public class User implements ArchivableEntity, ModificationTrackedEntity {
   @Transient
   @Field(index = Index.YES, store = Store.NO, analyze = Analyze.NO)
   public String getFullNameSearch() {
-    return StringUtils.lowerCase(getFullName());
+    return StringUtils.lowerCase(getFullName(false));
   }
   
   public void addEmail(UserEmail userEmail) {
@@ -211,6 +211,7 @@ public class User implements ArchivableEntity, ModificationTrackedEntity {
 
   @NotNull
   @Column(nullable = false)
+  @Field(index = Index.YES, store = Store.NO)
   private Boolean archived = Boolean.FALSE;
 
   @ManyToOne 

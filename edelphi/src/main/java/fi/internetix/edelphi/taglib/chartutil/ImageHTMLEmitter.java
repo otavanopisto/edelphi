@@ -94,7 +94,7 @@ public class ImageHTMLEmitter {
       .append(" id=\"").append(id).append('"')
       .append(" width=\"").append(width).append('"')
       .append(" height=\"").append(height).append('"')
-      .append(" stlye=\"display: block\"")
+      .append(" style=\"display: block\"")
       .append("></object>");
   }
 

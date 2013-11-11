@@ -47,7 +47,7 @@
           </c:forEach>
         </table>
       
-        <form action="${pageContext.request.contextPath}${pageContext.request.pathInfo}" method="post">  
+        <form action="${pageContext.request.contextPath}${pageContext.request.pathInfo}?${pageContext.request.queryString}" method="post">  
 
           <input type="hidden" name="panelId" value="${panelId}" />
           <input type="hidden" name="queryId" value="${queryId}" />
@@ -117,27 +117,27 @@
               <div class="modalPopupLinksContainer">
                 <div class="modalPopupLinksContainerBlock">
                 <h4><fmt:message key="panel.admin.report.options.downloadOrExportExportContentsTitle" /></h4>
-                <a href="/eDelphi/queries/exportreportpage.binary?format=PDF&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
+                <a href="${pageContext.request.contextPath}/queries/exportreportpage.binary?format=PDF&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportPDF"><fmt:message key="panel.admin.report.options.downloadOrExportExportContentsPDF" /></a>
-                <a href="/eDelphi/queries/exportreportpage.binary?format=GOOGLE_DOCUMENT&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
+                <a href="${pageContext.request.contextPath}/queries/exportreportpage.binary?format=GOOGLE_DOCUMENT&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportGoogleDrive"
                   target="_blank"><fmt:message key="panel.admin.report.options.downloadOrExportExportContentsGoogleDocument" /></a>
                 </div>
                 <div class="modalPopupLinksContainerBlock">                
                 <h4><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsTitle" /></h4>
-                <a href="/eDelphi/queries/exportreportpage.binary?format=PNG_ZIP&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
+                <a href="${pageContext.request.contextPath}/queries/exportreportpage.binary?format=PNG_ZIP&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportPDF"><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsPNG" /></a>
-                <a href="/eDelphi/queries/exportreportpage.binary?format=SVG_ZIP&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
+                <a href="${pageContext.request.contextPath}/queries/exportreportpage.binary?format=SVG_ZIP&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportPDF"><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsSVG" /></a>
-                <a href="/eDelphi/queries/exportreportpage.binary?format=GOOGLE_IMAGES&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
+                <a href="${pageContext.request.contextPath}/queries/exportreportpage.binary?format=GOOGLE_IMAGES&amp;useFilters=true&amp;queryPageId=${pageId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportGoogleDrive"
                   target="_blank"><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsGoogle" /></a>
                 </div>
                 <div class="modalPopupLinksContainerBlock"> 
                 <h4><fmt:message key="panel.admin.report.options.downloadOrExportExportDataTitle" /></h4>
-                <a href="/eDelphi/queries/exportpagedata.binary?queryPageId=${pageId}&amp;useFilters=true&amp;stampId=${activeStamp.id}&amp;format=CSV"
+                <a href="${pageContext.request.contextPath}/queries/exportpagedata.binary?queryPageId=${pageId}&amp;useFilters=true&amp;stampId=${activeStamp.id}&amp;format=CSV"
                   class="modalPopupLinkContainer exportCSV"><fmt:message key="panel.admin.report.options.downloadOrExportExportDataCSV" /></a>
-                <a href="/eDelphi/queries/exportpagedata.binary?queryPageId=${pageId}&amp;useFilters=true&amp;stampId=${activeStamp.id}&amp;format=GOOGLE_SPREADSHEET"
+                <a href="${pageContext.request.contextPath}/queries/exportpagedata.binary?queryPageId=${pageId}&amp;useFilters=true&amp;stampId=${activeStamp.id}&amp;format=GOOGLE_SPREADSHEET"
                   class="modalPopupLinkContainer exportGoogle"
                   target="_blank"><fmt:message key="panel.admin.report.options.downloadOrExportExportDataGoogleSpreadsheet" /></a>
                 </div>
@@ -149,33 +149,33 @@
                 <div class="modalPopupLinksContainerBlock">
                 <h4><fmt:message key="panel.admin.report.options.downloadOrExportExportContentsTitle" /></h4>
                 <a
-                  href="/eDelphi/queries/exportreport.binary?format=PDF&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
+                  href="${pageContext.request.contextPath}/queries/exportreport.binary?format=PDF&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportPDF"><fmt:message key="panel.admin.report.options.downloadOrExportExportContentsPDF" /></a>
                 <a
-                  href="/eDelphi/queries/exportreport.binary?format=GOOGLE_DOCUMENT&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
+                  href="${pageContext.request.contextPath}/queries/exportreport.binary?format=GOOGLE_DOCUMENT&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportGoogleDrive"
                   target="_blank"><fmt:message key="panel.admin.report.options.downloadOrExportExportContentsGoogleDocument" /></a>
                 </div>
                 <div class="modalPopupLinksContainerBlock">
                 <h4><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsTitle" /></h4>
                 <a
-                  href="/eDelphi/queries/exportreport.binary?format=PNG_ZIP&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
+                  href="${pageContext.request.contextPath}/queries/exportreport.binary?format=PNG_ZIP&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportPDF"><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsPNG" /></a>
                 <a
-                  href="/eDelphi/queries/exportreport.binary?format=SVG_ZIP&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
+                  href="${pageContext.request.contextPath}/queries/exportreport.binary?format=SVG_ZIP&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportPDF"><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsSVG" /></a>
                 <a
-                  href="/eDelphi/queries/exportreport.binary?format=GOOGLE_IMAGES&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
+                  href="${pageContext.request.contextPath}/queries/exportreport.binary?format=GOOGLE_IMAGES&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}"
                   class="modalPopupLinkContainer exportGoogleDrive"
                   target="_blank"><fmt:message key="panel.admin.report.options.downloadOrExportExportChartsGoogle" /></a>
                 </div>
                 <div class="modalPopupLinksContainerBlock">
                 <h4><fmt:message key="panel.admin.report.options.downloadOrExportExportDataTitle" /></h4>
                 <a
-                  href="/eDelphi/queries/exportdata.binary?panelId=508&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=CSV"
+                  href="${pageContext.request.contextPath}/queries/exportdata.binary?panelId=508&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=CSV"
                   class="modalPopupLinkContainer exportCSV"><fmt:message key="panel.admin.report.options.downloadOrExportExportDataCSV" /></a>
                 <a
-                  href="/eDelphi/queries/exportdata.binary?panelId=508&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=GOOGLE_SPREADSHEET"
+                  href="${pageContext.request.contextPath}/queries/exportdata.binary?panelId=508&amp;useFilters=true&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=GOOGLE_SPREADSHEET"
                   class="modalPopupLinkContainer exportGoogle"
                   target="_blank"><fmt:message key="panel.admin.report.options.downloadOrExportExportDataGoogleSpreadsheet" /></a>
                 </div>
