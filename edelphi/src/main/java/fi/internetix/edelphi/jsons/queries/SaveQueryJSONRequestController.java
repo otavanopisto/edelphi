@@ -173,7 +173,7 @@ public class SaveQueryJSONRequestController extends JSONController {
         boolean deletePage = jsonRequestContext.getBoolean(pagePrefix + "isDeleted");
         boolean editablePage = jsonRequestContext.getBoolean(pagePrefix + "isEditable");
         Long queryPageId = createNewPage ? null : NumberUtils.createLong(queryPageIdParam);
-
+        
         QueryPageType queryPageType = QueryPageType.valueOf(jsonRequestContext.getString(pagePrefix + "type"));
         String title = jsonRequestContext.getString(pagePrefix + "title");
         QueryPage queryPage;
@@ -210,7 +210,9 @@ public class SaveQueryJSONRequestController extends JSONController {
 
             // Special handling for collage pages, Part II :/
 
-            pageIds.put(queryPageIdParam, queryPage.getId());
+            if (queryPageIdParam != null && queryPage.getId() != null) {
+              pageIds.put(queryPageIdParam, queryPage.getId());
+            }
             if (queryPage.getPageType() == QueryPageType.COLLAGE_2D) {
               collagePages.add(queryPage);
             }
@@ -223,9 +225,11 @@ public class SaveQueryJSONRequestController extends JSONController {
 
             // Special handling for collage pages, Part III :/
 
-            pageIds.put(queryPageId.toString(), queryPageId);
-            if (queryPage.getPageType() == QueryPageType.COLLAGE_2D) {
-              collagePages.add(queryPage);
+            if (!deletePage) {
+              pageIds.put(queryPageId.toString(), queryPageId);
+              if (queryPage.getPageType() == QueryPageType.COLLAGE_2D) {
+                collagePages.add(queryPage);
+              }
             }
           }
 
@@ -262,29 +266,37 @@ public class SaveQueryJSONRequestController extends JSONController {
       QueryPageSettingKeyDAO queryPageSettingKeyDAO = new QueryPageSettingKeyDAO();
       for (QueryPage collagePage : collagePages) {
 
-        // Included pages
+        // Included pages; remove deleted pages and replace temporary ids of new pages
 
         QueryPageSettingKey key = queryPageSettingKeyDAO.findByName("collage2d.includedPages");
         QueryPageSetting includedPageSetting = queryPageSettingDAO.findByKeyAndQueryPage(key, collagePage);
         if (includedPageSetting != null) {
+          List<String> includedPageIds = new ArrayList<String>();
           String[] includedPages = includedPageSetting.getValue().split("&");
           for (int i = 0; i < includedPages.length; i++) {
-            includedPages[i] = pageIds.get(includedPages[i]).toString();
+            if (pageIds.containsKey(includedPages[i])) {
+              includedPageIds.add(pageIds.get(includedPages[i]).toString());
+            }
           }
-          queryPageSettingDAO.updateValue(includedPageSetting, StringUtils.join(includedPages, '&'));
+          queryPageSettingDAO.updateValue(includedPageSetting, StringUtils.join(includedPageIds, '&'));
         }
 
-        // Included page settings
+        // Included page settings; remove deleted pages and replace temporary ids of new pages
 
         key = queryPageSettingKeyDAO.findByName("collage2d.pageSettings");
         QueryPageSetting pageSettingsSetting = queryPageSettingDAO.findByKeyAndQueryPage(key, collagePage);
         if (pageSettingsSetting != null) {
+          List<String> pageSettingsList = new ArrayList<String>();
           String[] pageSettings = pageSettingsSetting.getValue().split("&");
           for (int i = 0; i < pageSettings.length; i++) {
             int eqPos = pageSettings[i].indexOf('=');
-            pageSettings[i] = pageIds.get(pageSettings[i].substring(0, eqPos)) + pageSettings[i].substring(eqPos);
+            String pageIdPart = pageSettings[i].substring(0, eqPos);
+            String rgbPart = pageSettings[i].substring(eqPos);
+            if (pageIds.containsKey(pageIdPart)) {
+              pageSettingsList.add(pageIds.get(pageIdPart) + rgbPart);
+            }
           }
-          queryPageSettingDAO.updateValue(pageSettingsSetting, StringUtils.join(pageSettings, '&'));
+          queryPageSettingDAO.updateValue(pageSettingsSetting, StringUtils.join(pageSettingsList, '&'));
         }
       }
     }

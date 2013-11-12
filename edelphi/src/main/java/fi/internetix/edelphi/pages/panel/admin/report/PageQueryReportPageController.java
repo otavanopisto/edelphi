@@ -48,7 +48,7 @@ public class PageQueryReportPageController extends PanelPageController {
     Long pageId = pageRequestContext.getLong("pageId");
     ReportChartFormat chartFormat = ReportChartFormat.valueOf(pageRequestContext.getString("chartFormat"));
     
-    // By default the whole query data is beign output
+    // By default the whole query data is being output
     Boolean isFiltered = pageRequestContext.getBoolean("useFilters");
     isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
     

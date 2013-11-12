@@ -329,12 +329,14 @@ public class Collage2DQueryPageHandler extends AbstractQueryPageHandler {
   
   private Map<Long, Map<String, String>> getPageOptions(QueryPage queryPage) {
   	Map<Long, Map<String, String>> result = new HashMap<Long, Map<String,String>>();
-  	
   	NavigableMap<String, String> map = getMapOptionValue(queryPage, getDefinedOption("collage2d.pageSettings"));
-  	for (String pageId : map.keySet()) {
-  		result.put(NumberUtils.createLong(pageId), QueryPageUtils.parseSerializedMap(map.get(pageId)));
-  	}
   	
+  	for (String pageId : map.keySet()) {
+  		if (NumberUtils.isNumber(pageId)) {
+  	    result.put(NumberUtils.createLong(pageId), QueryPageUtils.parseSerializedMap(map.get(pageId)));
+  		}
+  	}
+
   	return result;
   }
   

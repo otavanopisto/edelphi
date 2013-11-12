@@ -131,9 +131,25 @@ public class SystemUtilsPageController extends PageController {
       QueryOptionFieldOptionDAO queryOptionFieldOptionDAO = new QueryOptionFieldOptionDAO();
       String name = pageRequestContext.getString("name");
       String urlName = name == null ? pageRequestContext.getString("urlName") : ResourceUtils.getUrlName(name);
+      String queryPageId = pageRequestContext.getString("queryPageId");
+      String queryFieldId = pageRequestContext.getString("queryFieldId");
       List<Query> queries;
       if (urlName != null) {
         queries = queryDAO.listByUrlName(urlName);
+      }
+      else if (queryPageId != null) {
+        QueryPage queryPage = queryPageDAO.findById(new Long(queryPageId));
+        queries = new ArrayList<Query>();
+        if (queryPage != null) {
+          queries.add(queryPage.getQuerySection().getQuery());
+        }
+      }
+      else if (queryFieldId != null) {
+        QueryField queryField = queryFieldDAO.findById(new Long(queryFieldId));
+        queries = new ArrayList<Query>();
+        if (queryField != null) {
+          queries.add(queryField.getQueryPage().getQuerySection().getQuery());
+        }
       }
       else {
         queries = new ArrayList<Query>();

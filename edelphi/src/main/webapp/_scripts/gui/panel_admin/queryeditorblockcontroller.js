@@ -980,9 +980,8 @@ QueryEditorBlockController = Class.create(BlockController, {
               _this._createNewPage(templateIdInput.value);
               _dialog.close(true);
             });
-            // TODO page description
-            Event.observe(element, "mouseenter", function (event) {
-              var master = $('panelAdminQueryEditorCreatePageTemplateGuideContainer');
+
+            Event.observe(templateElement, "mouseenter", function (event) {
               var element = Event.element(event);
               var templateTitle = element.down('.panelAdminQueryEditorCreatePagePageTemplateName').innerHTML;
               var templateDescription = element.down('input[name="templateDescription"]').value;
@@ -2149,17 +2148,17 @@ QueryEditorTimelineQuestionPreview = Class.create(QueryEditorQuestionPreview, {
     this._container.update('');
 
     var minElement = new Element("label", {
-    	className: "queryPreviewTimelineMin"
+      className: "queryPreviewTimelineMin"
     }).update(this._min); 
     this._container.appendChild(minElement);
 
     var maxElement = new Element("label", {
-    	className: "queryPreviewTimelineMax"
+      className: "queryPreviewTimelineMax"
     }).update(this._max); 
     this._container.appendChild(maxElement);
 
     var value1LabelElement = new Element("label", {
-    	className: "queryPreviewTimelineValue1Label"
+      className: "queryPreviewTimelineValue1Label"
     }).update(this._value1Label);
     this._container.appendChild(value1LabelElement);
     
@@ -2273,17 +2272,17 @@ QueryEditorAbstractScaleQuestionPreview = Class.create(QueryEditorQuestionPrevie
         });  
       } else if (i == (options.length - 1)) {
         // ...and last in far right
-	      label.setStyle({
-	        right: '0px'
-	      });  
+        label.setStyle({
+          right: '0px'
+        });  
       } else {
         // others can be centered
         var labelWidth = label.getLayout().get("width");
         var left = (labelStep * i) - (labelWidth / 2);
 
-  	    label.setStyle({
-  	      left: left + 'px'
-  	    });  
+        label.setStyle({
+          left: left + 'px'
+        });  
       }
     }
     
