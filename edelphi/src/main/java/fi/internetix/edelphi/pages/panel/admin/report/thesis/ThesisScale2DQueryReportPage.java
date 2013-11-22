@@ -54,49 +54,30 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
 
   private void appendQueryPageComments(RequestContext requestContext, final QueryPage queryPage) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
-    final QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
-    final QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
-    final QueryOptionField queryFieldX = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName("x"));
-    final QueryOptionField queryFieldY = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName("y"));
-    final PanelStamp panelStamp = RequestUtils.getActiveStamp(requestContext);
+    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
+    QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
+    QueryOptionField queryFieldX = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName("x"));
+    QueryOptionField queryFieldY = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName("y"));
+    PanelStamp panelStamp = RequestUtils.getActiveStamp(requestContext);
     
     QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
     List<QueryQuestionComment> rootComments = queryQuestionCommentDAO.listRootCommentsByQueryPageAndStamp(queryPage, panelStamp);
 
-    Collections.sort(rootComments, new Comparator<QueryQuestionComment>() {
-      @Override
-      public int compare(QueryQuestionComment o1, QueryQuestionComment o2) {
-        QueryReply o1Reply = queryReplyDAO.findByUserAndQueryAndStamp(o1.getCreator(), queryPage.getQuerySection().getQuery(), panelStamp);
-        QueryReply o2Reply = queryReplyDAO.findByUserAndQueryAndStamp(o2.getCreator(), queryPage.getQuerySection().getQuery(), panelStamp);
-        QueryQuestionOptionAnswer o1XAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(o1Reply, queryFieldX); 
-        QueryQuestionOptionAnswer o1YAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(o1Reply, queryFieldY); 
-        QueryQuestionOptionAnswer o2XAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(o2Reply, queryFieldX);
-        QueryQuestionOptionAnswer o2YAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(o2Reply, queryFieldY);
-        String o1XAnswerStr = o1XAnswer == null ? "" : o1XAnswer.getOption().getValue();
-        String o1YAnswerStr = o1YAnswer == null ? "" : o1YAnswer.getOption().getValue();
-        String o2XAnswerStr = o2XAnswer == null ? "" : o2XAnswer.getOption().getValue();
-        String o2YAnswerStr = o2YAnswer == null ? "" : o2YAnswer.getOption().getValue();
-        return StringUtils.equals(o1XAnswerStr, o2XAnswerStr) ?
-            StringUtils.equals(o1YAnswerStr, o2YAnswerStr) ?
-                o1.getCreated().compareTo(o2.getCreated()) :
-                  o1YAnswerStr.compareTo(o2YAnswerStr) :
-                    o1XAnswerStr.compareTo(o2XAnswerStr);
-      }
-    });
-    
     @SuppressWarnings("unchecked")
     Map<Long,Map<String,String>> answers = (Map<Long,Map<String,String>>) requestContext.getRequest().getAttribute("commentAnswers");
     if (answers == null) {
       answers = new HashMap<Long,Map<String,String>>();
       requestContext.getRequest().setAttribute("commentAnswers", answers);
     }
-    for (QueryQuestionComment rootComment : rootComments) {
-      QueryReply reply = queryReplyDAO.findByUserAndQueryAndStamp(rootComment.getCreator(), queryPage.getQuerySection().getQuery(), panelStamp);
-      QueryQuestionOptionAnswer xAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(reply, queryFieldX);
+    final Map<Long,String> answerMap = new HashMap<Long,String>();
+    for (QueryQuestionComment comment : rootComments) {
+      QueryReply reply = queryReplyDAO.findByUserAndQueryAndStamp(comment.getCreator(), queryPage.getQuerySection().getQuery(), panelStamp);
+      QueryQuestionOptionAnswer xAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(reply, queryFieldX); 
       QueryQuestionOptionAnswer yAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(reply, queryFieldY);
+      answerMap.put(comment.getId(), (xAnswer == null ? "-" : xAnswer.getOption().getValue()) + (yAnswer == null ? "-" : yAnswer.getOption().getValue()));
       if (xAnswer != null || yAnswer != null) {
         Map<String,String> valueMap = new LinkedHashMap<String,String>();
-        answers.put(rootComment.getId(), valueMap);
+        answers.put(comment.getId(), valueMap);
         if (xAnswer != null) {
           String caption = StringUtils.capitalize(StringUtils.lowerCase(xAnswer.getOption().getOptionField().getCaption()));
           valueMap.put(caption, xAnswer.getOption().getText());
@@ -107,7 +88,13 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
         }
       }
     }
-    
+    Collections.sort(rootComments, new Comparator<QueryQuestionComment>() {
+      @Override
+      public int compare(QueryQuestionComment o1, QueryQuestionComment o2) {
+        return answerMap.get(o2.getId()).compareTo(answerMap.get(o1.getId()));
+      }
+    });
+
     Map<Long, List<QueryQuestionComment>> childComments = queryQuestionCommentDAO.listTreesByQueryPage(queryPage);
     QueryUtils.appendQueryPageRootComments(requestContext, queryPage.getId(), rootComments);
     QueryUtils.appendQueryPageChildComments(requestContext, childComments);
