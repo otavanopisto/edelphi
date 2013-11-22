@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,6 +37,7 @@ import fi.internetix.edelphi.domainmodel.base.ModificationTrackedEntity;
 
 @Entity
 @Indexed
+@Cacheable
 @Inheritance(strategy=InheritanceType.JOINED)
 public class User implements ArchivableEntity, ModificationTrackedEntity {
 

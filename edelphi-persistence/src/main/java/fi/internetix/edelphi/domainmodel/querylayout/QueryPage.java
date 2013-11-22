@@ -2,6 +2,7 @@ package fi.internetix.edelphi.domainmodel.querylayout;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,6 +23,7 @@ import fi.internetix.edelphi.domainmodel.base.ModificationTrackedEntity;
 import fi.internetix.edelphi.domainmodel.users.User;
 
 @Entity
+@Cacheable
 public class QueryPage implements ArchivableEntity, ModificationTrackedEntity{
   
   public Long getId() {

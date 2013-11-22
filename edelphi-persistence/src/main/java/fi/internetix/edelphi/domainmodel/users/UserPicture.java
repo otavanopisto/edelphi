@@ -2,6 +2,7 @@ package fi.internetix.edelphi.domainmodel.users;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Cacheable
 public class UserPicture {
 
   /**

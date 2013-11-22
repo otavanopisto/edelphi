@@ -1,5 +1,6 @@
 package fi.internetix.edelphi.domainmodel.querymeta;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +20,7 @@ import fi.internetix.edelphi.domainmodel.base.ArchivableEntity;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 
 @Entity
+@Cacheable
 @Inheritance(strategy=InheritanceType.JOINED)
 public class QueryField implements ArchivableEntity {
 

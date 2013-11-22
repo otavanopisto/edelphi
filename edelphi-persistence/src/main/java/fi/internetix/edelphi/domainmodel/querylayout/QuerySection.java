@@ -2,6 +2,7 @@ package fi.internetix.edelphi.domainmodel.querylayout;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.domainmodel.users.User;
 
 @Entity
+@Cacheable
 public class QuerySection implements ArchivableEntity, ModificationTrackedEntity{
   
   public Long getId() {

@@ -1,5 +1,6 @@
 package fi.internetix.edelphi.domainmodel.actions;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Cacheable
 public class DelfoiAction {
 
   /**

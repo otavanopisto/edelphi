@@ -1,5 +1,6 @@
 package fi.internetix.edelphi.domainmodel.actions;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ import fi.internetix.edelphi.domainmodel.users.UserRole;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@Cacheable
 public abstract class UserRoleAction {
 
   /**

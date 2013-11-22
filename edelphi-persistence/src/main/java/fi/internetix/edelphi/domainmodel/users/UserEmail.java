@@ -1,5 +1,6 @@
 package fi.internetix.edelphi.domainmodel.users;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Cacheable
 @Indexed
 public class UserEmail {
 

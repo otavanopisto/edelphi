@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Cacheable
 public class QueryPageSetting {
 
 	

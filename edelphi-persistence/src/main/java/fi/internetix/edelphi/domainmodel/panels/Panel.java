@@ -2,6 +2,7 @@ package fi.internetix.edelphi.domainmodel.panels;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,6 +26,7 @@ import fi.internetix.edelphi.domainmodel.resources.Folder;
 import fi.internetix.edelphi.domainmodel.users.User;
 
 @Entity
+@Cacheable
 public class Panel implements ArchivableEntity, ModificationTrackedEntity {
 
   /**

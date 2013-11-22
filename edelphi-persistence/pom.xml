@@ -1,25 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>fi.internetix.edelphi</groupId>
   <artifactId>persistence</artifactId>
   <packaging>jar</packaging>
   <name>eDelfoi persistence</name>
-  <version>1.0.9-SNAPSHOT</version>
-  <licenses>
-    <license>
-      <name>GNU LGPL v3</name>
-      <url>http://www.gnu.org/licenses/lgpl.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
   
-  <repositories>
-    <repository>
-      <id>jboss-releases</id>
-      <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
-    </repository>
-  </repositories>
-  
+  <parent>
+    <groupId>fi.internetix.edelphi</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.9-SNAPSHOT</version>    
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <!-- 
   <distributionManagement>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
@@ -34,36 +25,56 @@
       <url>http://maven.otavanopisto.fi:7070/nexus/content/repositories/releases</url>
     </repository>
   </distributionManagement>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
+   -->
   <dependencies>
   	<dependency>
-  		<groupId>org.hibernate</groupId>
-  		<artifactId>hibernate-validator</artifactId>
-  		<version>4.2.0.Final</version>
+      <groupId>org.hibernate</groupId>
+  	  <artifactId>hibernate-validator</artifactId>
   	</dependency>
   	<dependency>
-  		<groupId>org.hibernate</groupId>
-  		<artifactId>hibernate-search</artifactId>
-  		<version>4.1.0.Final</version>
+  	  <groupId>org.hibernate</groupId>
+  	  <artifactId>hibernate-search</artifactId>
   	</dependency>
   	<dependency>
-  		<groupId>org.hibernate</groupId>
-  		<artifactId>hibernate-entitymanager</artifactId>
-  		<version>4.0.1.Final</version>
+  	  <groupId>org.hibernate</groupId>
+  	  <artifactId>hibernate-entitymanager</artifactId>
   	</dependency>
   	<dependency>
 	  <groupId>javax</groupId>
 	  <artifactId>javaee-api</artifactId>
-	  <version>6.0</version>
 	  <scope>provided</scope>
 	</dependency>
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <versionRange>[1.7,)</versionRange>
+                    <goals>
+                      <goal>run</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -84,7 +95,7 @@
           <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>1.0.0.Final</version>
+            <version>${hibernate-jpamodelgen.version}</version>
           </dependency>     
         </dependencies>
         <executions>
@@ -152,10 +163,46 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-instrumentation.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <target>
+            <taskdef name="instrument" classname="org.hibernate.tool.instrument.javassist.InstrumentTask">
+              <classpath>
+                <path refid="maven.runtime.classpath" />
+                <path refid="maven.plugin.classpath" />
+              </classpath>
+            </taskdef>
+            <instrument verbose="true">
+              <fileset dir="${project.build.outputDirectory}">
+                <include name="**fi/internetix/edelphi/domainmodel/**/*.class" />
+              </fileset>
+            </instrument>
+          </target>
+        </configuration>
+      </plugin>
+
     </plugins>
-
   </build>
-
+<!-- 
   <profiles>
     <profile>
       <id>release</id>
@@ -190,17 +237,5 @@
       </plugin>
     </plugins>
   </reporting>
-
-  <issueManagement>
-    <url>https://code.google.com/p/edelphi/issues/</url>
-    <system>Google Code</system>
-  </issueManagement>
-  <scm>
-    <url>http://edelphi.googlecode.com/svn</url>
-  </scm>
-  <organization>
-    <name>Internetix / Otava Folk High School</name>
-    <url>http://www.otavanopisto.fi</url>
-  </organization>
-  <url>http://edelphi.googlecode.com/</url>
+   -->
 </project>

@@ -2,6 +2,7 @@ package fi.internetix.edelphi.domainmodel.resources;
 
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,6 +27,7 @@ import fi.internetix.edelphi.domainmodel.users.User;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@Cacheable
 public class Resource implements ArchivableEntity, ModificationTrackedEntity {
   
   /**

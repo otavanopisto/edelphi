@@ -1,5 +1,6 @@
 package fi.internetix.edelphi.domainmodel.querylayout;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.TableGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Cacheable
 public class QueryPageSettingKey {
 
   public Long getId() {
