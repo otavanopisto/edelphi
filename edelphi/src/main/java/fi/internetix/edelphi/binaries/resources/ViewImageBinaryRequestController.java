@@ -48,14 +48,7 @@ public class ViewImageBinaryRequestController extends BinaryController {
   }
 
   private void handleLocalImage(BinaryRequestContext binaryRequestContext, LocalImage image) {
-    binaryRequestContext.getResponse().setContentType(image.getContentType());
-
-    try {
-      binaryRequestContext.getResponse().getOutputStream().write(image.getData());
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException("image corrupted");
-    }
+    binaryRequestContext.setResponseContent(image.getData(), image.getContentType());
   }
 
   private void handleLinkedImage(BinaryRequestContext binaryRequestContext, LinkedImage image) {

@@ -3,6 +3,7 @@ package fi.internetix.edelphi.binaries.queries;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,6 +35,7 @@ import fi.internetix.edelphi.utils.SystemUtils;
 import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.BinaryRequestContext;
 import fi.internetix.smvc.controllers.RequestContext;
+import fi.internetix.smvc.logging.Logging;
 
 public class ExportReportBinaryController extends BinaryController {
 
@@ -106,8 +108,24 @@ public class ExportReportBinaryController extends BinaryController {
       connection.setRequestMethod("GET");
       connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed  
       connection.connect();
-
-      String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
+      InputStream is = connection.getInputStream();
+      
+      String reportHtml = null;
+      try {
+        reportHtml = StreamUtils.readStreamToString(is, "UTF-8");
+      }
+      finally {
+        if (is != null) {
+          try {
+            is.close();
+          }
+          catch (IOException ioe) {
+            Logging.logException(ioe);
+          }
+        }
+        connection.disconnect();
+      }
+        
       ByteArrayOutputStream tidyXHtml = new ByteArrayOutputStream();
       Tidy tidy = new Tidy();
       tidy.setInputEncoding("UTF-8");
@@ -142,7 +160,6 @@ public class ExportReportBinaryController extends BinaryController {
 
       requestContext.setResponseContent(outputStream.toByteArray(), "application/pdf");
       requestContext.setFileName(query.getUrlName() + ".pdf");
-
     }
     catch (Exception e) {
       // TODO: Proper error handling

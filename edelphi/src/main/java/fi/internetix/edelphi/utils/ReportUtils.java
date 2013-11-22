@@ -56,7 +56,23 @@ public class ReportUtils {
     connection.setRequestMethod("GET");
     connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
     connection.connect();
-    String html = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
+    InputStream is = connection.getInputStream();
+    
+    String html = null;
+    try {
+      html = StreamUtils.readStreamToString(is, "UTF-8");
+    }
+    finally {
+      if (is != null) {
+        try {
+          is.close();
+        }
+        catch (IOException ioe) {
+          Logging.logException(ioe);
+        }
+      }
+      connection.disconnect();
+    }
 
     // ...tidy it...
 
@@ -104,7 +120,11 @@ public class ReportUtils {
       NodeList imgList = XPathAPI.selectNodeList(document, "//img");
       for (int i = 0, l = imgList.getLength(); i < l; i++) {
         Element imgElement = (Element) imgList.item(i);
-        String imgUrl = hostUrl + imgElement.getAttribute("src");
+        // TODO This assumes the image source is not relative
+        String imgUrl = imgElement.getAttribute("src");
+        if (imgUrl.startsWith("/")) {
+          imgUrl = hostUrl + imgUrl;
+        }
         ZipEntry zipEntry = new ZipEntry(String.format("%03d", i + 1) + ".png");
         zipOutputStream.putNextEntry(zipEntry);
         zipOutputStream.write(downloadUrlAsByteArray(imgUrl));
@@ -132,8 +152,23 @@ public class ReportUtils {
       connection.setRequestMethod("GET");
       connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
+      InputStream is = connection.getInputStream(); 
 
-      String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
+      String reportHtml = null;
+      try {
+        reportHtml = StreamUtils.readStreamToString(is, "UTF-8");
+      }
+      finally {
+        if (is != null) {
+          try {
+            is.close();
+          }
+          catch (IOException ioe) {
+            Logging.logException(ioe);
+          }
+        }
+        connection.disconnect();
+      }
 
       // .. tidy it a bit
 
@@ -276,36 +311,57 @@ public class ReportUtils {
   }
 
   private static String downloadUrlAsString(String urlString) throws IOException {
-    InputStream inputStream = null;
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
+    connection.setRequestMethod("GET");
+    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
+    connection.connect();
+    InputStream is = connection.getInputStream();
+    String urlContent = null;
     try {
-      URL url = new URL(urlString);
-      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
-      connection.setRequestMethod("GET");
-      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
-      connection.connect();
-      inputStream = connection.getInputStream();
-      return StreamUtils.readStreamToString(inputStream, "UTF-8");
+      urlContent = StreamUtils.readStreamToString(is, "UTF-8");
     }
     finally {
-      inputStream.close();
+      if (is != null) {
+        try {
+          is.close();
+        }
+        catch (IOException ioe) {
+          Logging.logInfo("downloadUrlAsString sanoi PUM!!");
+          Logging.logException(ioe);
+        }
+      }
+      connection.disconnect();
     }
+    return urlContent;
   }
 
   private static byte[] downloadUrlAsByteArray(String urlString) throws IOException {
-    InputStream inputStream = null;
+    URL url = new URL(urlString);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
+    connection.setRequestMethod("GET");
+    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
+    connection.connect();
+    InputStream is = connection.getInputStream();
+    byte[] urlContent = null;
     try {
-      URL url = new URL(urlString);
-      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
-      connection.setRequestMethod("GET");
-      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
-      connection.connect();
-      inputStream = connection.getInputStream();
-      return StreamUtils.readStreamToByteArray(inputStream);
+      urlContent = StreamUtils.readStreamToByteArray(is); 
     }
     finally {
-      inputStream.close();
+      if (is != null) {
+        try {
+          is.close();
+        }
+        catch (IOException ioe) {
+          Logging.logInfo("downloadUrlAsByteArray sanoi PUM!!");
+          Logging.logException(ioe);
+        }
+      }
+      connection.disconnect();
     }
+    return urlContent; 
   }
+
 }

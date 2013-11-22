@@ -3,6 +3,7 @@ package fi.internetix.edelphi.binaries.queries;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -35,6 +36,7 @@ import fi.internetix.edelphi.utils.SystemUtils;
 import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.BinaryRequestContext;
 import fi.internetix.smvc.controllers.RequestContext;
+import fi.internetix.smvc.logging.Logging;
 
 public class ExportReportPageBinaryController extends BinaryController {
 
@@ -109,8 +111,25 @@ public class ExportReportPageBinaryController extends BinaryController {
       connection.setRequestMethod("GET");
       connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
       connection.connect();
-
-      String reportHtml = StreamUtils.readStreamToString(connection.getInputStream(), "UTF-8");
+      InputStream is = connection.getInputStream();
+      
+      String reportHtml= null;
+      try {
+        reportHtml = StreamUtils.readStreamToString(is, "UTF-8");
+      }
+      finally {
+        if (is != null) {
+          try {
+            is.close();
+          }
+          catch (IOException ioe) {
+            Logging.logInfo("exportPDF sanoi PUM!!");
+            Logging.logException(ioe);
+          }
+        }
+        connection.disconnect();
+      }
+      
       ByteArrayOutputStream tidyXHtml = new ByteArrayOutputStream();
       Tidy tidy = new Tidy();
       tidy.setInputEncoding("UTF-8");
@@ -122,7 +141,7 @@ public class ExportReportPageBinaryController extends BinaryController {
       tidy.setWraplen(0);
       tidy.setQuoteNbsp(false);
       tidy.parse(new StringReader(reportHtml), tidyXHtml);
-      
+
       DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
       builderFactory.setNamespaceAware(false);
       builderFactory.setValidating(false);
@@ -131,7 +150,7 @@ public class ExportReportPageBinaryController extends BinaryController {
       builderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
       builderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
       DocumentBuilder builder = builderFactory.newDocumentBuilder();
-      
+
       ByteArrayInputStream inputStream = new ByteArrayInputStream(tidyXHtml.toByteArray());
       Document doc = builder.parse(inputStream);
       ITextRenderer renderer = new ITextRenderer();
@@ -145,7 +164,6 @@ public class ExportReportPageBinaryController extends BinaryController {
 
       requestContext.setResponseContent(outputStream.toByteArray(), "application/pdf");
       requestContext.setFileName(ResourceUtils.getUrlName(queryPage.getTitle()) + ".pdf");
-
     }
     catch (Exception ex) {
       // TODO: Proper error handling

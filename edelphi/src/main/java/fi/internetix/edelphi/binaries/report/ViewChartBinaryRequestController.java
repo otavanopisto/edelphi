@@ -1,9 +1,5 @@
 package fi.internetix.edelphi.binaries.report;
 
-import java.io.InputStream;
-
-import javax.servlet.ServletOutputStream;
-
 import org.eclipse.birt.chart.model.Chart;
 import org.eclipse.birt.chart.model.attribute.Bounds;
 
@@ -31,11 +27,6 @@ public class ViewChartBinaryRequestController extends BinaryController {
     Long queryPageId = binaryRequestContext.getLong("queryPageId");
     Long stampId = binaryRequestContext.getLong("stampId");
     
-//    IDataRowExpressionEvaluator data = null;
-//    IStyleProcessor styleProcessor = null;
-//    RunTimeContext runtimeContext = null;
-//    IExternalContext externalContext = null;
-    
     try {
       if (!ChartWebHelper.checkOutputType(outputFormat)) {
         throw new SmvcRuntimeException(EdelfoiStatusCode.REPORTING_ERROR, "Unknown output format.");
@@ -57,28 +48,14 @@ public class ViewChartBinaryRequestController extends BinaryController {
         Bounds bounds = chartModel.getBlock().getBounds();
         bounds.setWidth(width);
         bounds.setHeight(height);
-      } else {
+      }
+      else {
         throw new SmvcRuntimeException(EdelfoiStatusCode.REPORTING_ERROR, "ChartModel was not found.");
       }
-      
-      InputStream in = ChartModelProvider.generateStream(chartModel, outputFormat);
-      binaryRequestContext.getResponse().setContentType(ChartModelProvider.getContentType(outputFormat));
-      
-//      System.out.println(binaryRequestContext.getResponse().getContentType());
-//      ChartImageManager imageManager = new ChartImageManager(chartModel, outputFormat, data, runtimeContext, externalContext, styleProcessor);
 
-      ServletOutputStream out = binaryRequestContext.getResponse().getOutputStream();
-
-      byte[] buf = new byte[4096];
-      int len;
-
-      while ((len = in.read(buf)) > 0) {
-        out.write(buf, 0, len);
-      }
-
-      out.flush();
-      out.close();
-    } catch (Exception e) {
+      binaryRequestContext.setResponseContent(ChartModelProvider.getChartData(chartModel, outputFormat), ChartModelProvider.getContentType(outputFormat));
+    }
+    catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }

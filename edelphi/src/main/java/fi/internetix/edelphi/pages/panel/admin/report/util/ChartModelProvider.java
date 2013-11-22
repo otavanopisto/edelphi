@@ -1,9 +1,7 @@
 package fi.internetix.edelphi.pages.panel.admin.report.util;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -443,22 +441,11 @@ public class ChartModelProvider {
     return "image/png";
   }
   
-  public static InputStream generateStream(Chart chartModel, String imageFormatExtension) throws BirtException {
-    InputStream fis = null;
+  public static byte[] getChartData(Chart chartModel, String imageFormatExtension) throws BirtException {
+    byte[] chartData = null;
     Generator generator = Generator.instance();
     IDeviceRenderer deviceRenderer = null;
     try {
-//      if (evaluator == null) {
-//        // If chart has runtime dataset, do not create sample data
-//        if (!ChartWebHelper.isChartInRuntime(chartModel)) {
-//          chartModel.createSampleRuntimeSeries();
-//        }
-//      } else {
-//        generator.bindData(evaluator, new SimpleActionEvaluator(), chartModel, runtimeContext);
-//      }
-
-//      runtimeContext.setActionRenderer(new SimpleActionRenderer(evaluator));
-
       // FETCH A HANDLE TO THE DEVICE RENDERER
       deviceRenderer = ChartEngine.instance().getRenderer("dv." + imageFormatExtension.toUpperCase());
 
@@ -487,22 +474,15 @@ public class ChartModelProvider {
 
       generator.render(deviceRenderer, gcs);
 
-      // cleanup the dataRow evaluator.
-      // rowAdapter.close( );
-
       // RETURN A STREAM HANDLE TO THE NEWLY CREATED IMAGE
       try {
-        fis = new ByteArrayInputStream(baos.toByteArray());
+        chartData = baos.toByteArray();
         bos.close();
       } catch (Exception ioex) {
         throw new ChartException(ChartEnginePlugin.ID, ChartException.GENERATION, ioex);
       }
-
-//      if (!"SVG".equalsIgnoreCase(imageFormatExtension) && deviceRenderer instanceof IImageMapEmitter) {
-//        imageMap = ((IImageMapEmitter) deviceRenderer).getImageMap();
-//      }
-
-    } catch (BirtException birtException) {
+    }
+    catch (BirtException birtException) {
       Throwable ex = birtException;
       while (ex.getCause() != null) {
         ex = ex.getCause();
@@ -527,17 +507,18 @@ public class ChartModelProvider {
       }
 
       throw birtException;
-    } catch (RuntimeException ex) {
+    }
+    catch (RuntimeException ex) {
       throw new ChartException(ChartEnginePlugin.ID, ChartException.GENERATION, ex);
-    } finally {
+    }
+    finally {
       if (deviceRenderer != null) {
         deviceRenderer.dispose();
       }
     }
 
-    return fis;
+    return chartData;
   }
-
   public static Chart createStackedBarChartHorizontal(String chartCaption, List<String> categoryCaptions, List<List<Double>> stackedSeriess) {
     ChartWithAxes chart = (ChartWithAxes) createStackedBarChart(chartCaption, categoryCaptions, stackedSeriess);
     chart.setTransposed(true);
@@ -611,7 +592,6 @@ public class ChartModelProvider {
     
     return cwaBar;
   }
-  
 
   public static Chart createBubbleChart(String chartCaption, String xLabel, List<String> xTickLabels, String yLabel, List<String> yTickLabels, int xAxisLabelRotation, int yAxisLabelRotation, Double[][] values) {
     // TODO: Tick labels
