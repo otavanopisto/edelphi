@@ -85,8 +85,7 @@ public class UserUtils {
     List<UserEmail> sourceEmails = userEmailDAO.listByUser(source);
     for (UserEmail sourceEmail : sourceEmails) {
       userEmailDAO.delete(sourceEmail);
-      userEmailDAO.flush(); // required for the previous delete to take place
-                            // before the insert below
+      userEmailDAO.flush(); // required for the previous delete to take place before the insert below
       userEmailDAO.create(target, sourceEmail.getAddress());
     }
     // User picture

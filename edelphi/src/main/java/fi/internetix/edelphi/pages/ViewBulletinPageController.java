@@ -6,13 +6,10 @@ import java.util.List;
 
 import fi.internetix.edelphi.dao.base.DelfoiBulletinDAO;
 import fi.internetix.edelphi.dao.panels.PanelDAO;
-import fi.internetix.edelphi.dao.panels.PanelInvitationDAO;
 import fi.internetix.edelphi.domainmodel.base.Bulletin;
 import fi.internetix.edelphi.domainmodel.base.Delfoi;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelAccessLevel;
-import fi.internetix.edelphi.domainmodel.panels.PanelInvitation;
-import fi.internetix.edelphi.domainmodel.panels.PanelInvitationState;
 import fi.internetix.edelphi.domainmodel.panels.PanelState;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.utils.ActionUtils;
@@ -50,12 +47,6 @@ public class ViewBulletinPageController extends DelfoiPageController {
         }
       });
       pageRequestContext.getRequest().setAttribute("myPanels", myPanels);
-      // TODO what about invitations to user's other e-mail addresses?
-      if (loggedUser.getDefaultEmail() != null) {
-        PanelInvitationDAO panelInvitationDAO = new PanelInvitationDAO();
-        List<PanelInvitation> myInvitations = panelInvitationDAO.listByEmailAndState(loggedUser.getDefaultEmail().getAddress(), PanelInvitationState.PENDING);
-        pageRequestContext.getRequest().setAttribute("myInvitations", myInvitations);
-      }
     }
     
     // Action access information

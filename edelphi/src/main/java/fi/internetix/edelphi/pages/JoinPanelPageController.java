@@ -5,7 +5,11 @@ import java.util.Locale;
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.panels.PanelInvitationDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserDAO;
+import fi.internetix.edelphi.dao.users.DelfoiUserDAO;
+import fi.internetix.edelphi.dao.users.UserDAO;
 import fi.internetix.edelphi.dao.users.UserEmailDAO;
+import fi.internetix.edelphi.domainmodel.base.Delfoi;
+import fi.internetix.edelphi.domainmodel.base.DelfoiDefaults;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelInvitation;
 import fi.internetix.edelphi.domainmodel.panels.PanelInvitationState;
@@ -39,62 +43,90 @@ public class JoinPanelPageController extends PageController {
       throw new SmvcRuntimeException(EdelfoiStatusCode.INVALID_INVITATION, messages.getText(locale, "exception.1008.invalidInvitation"));
     }
 
-    if (accepted) {
+    UserDAO userDAO = new UserDAO();
+    UserEmailDAO userEmailDAO = new UserEmailDAO();
+    DelfoiUserDAO delfoiUserDAO = new DelfoiUserDAO();
+    PanelUserDAO panelUserDAO = new PanelUserDAO();
 
-      AuthUtils.storeRedirectUrl(pageRequestContext, RequestUtils.getCurrentUrl(pageRequestContext.getRequest(), true));
+    if (accepted) {
+      
+      // Invitation was accepted
       
       User user = RequestUtils.getUser(pageRequestContext);
+      UserEmail userEmail = userEmailDAO.findByAddress(panelInvitation.getEmail());
       Panel panel = panelInvitation.getPanel();
       Query query = panelInvitation.getQuery();
-      if (user == null) {
+
+      if (userEmail != null && user != null && !user.getId().equals(userEmail.getUser().getId())) {
+
+        // Someone is already logged in but the invitation email resolves to another account
+        // -> ask the user to log out and try again
+        
+        AuthUtils.storeRedirectUrl(pageRequestContext, RequestUtils.getCurrentUrl(pageRequestContext.getRequest(), true));
         pageRequestContext.getRequest().setAttribute("panel", panel);
-        pageRequestContext.getRequest().setAttribute("query", query);
+        pageRequestContext.getRequest().setAttribute("dualAccount", Boolean.TRUE);
+        pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
         pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
         AuthUtils.includeAuthSources(pageRequestContext, "PANEL", panel.getId());
         pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
       }
-      else {
-        UserEmailDAO userEmailDAO = new UserEmailDAO();
-        UserEmail userEmail = userEmailDAO.findByAddress(panelInvitation.getEmail());
-        if (userEmail != null && user != null && user.getId().equals(userEmail.getUser().getId())) {
-          PanelUserDAO panelUserDAO = new PanelUserDAO();
-          PanelUser panelUser = panelUserDAO.findByPanelAndUserAndStamp(panelInvitation.getPanel(), user, panelInvitation.getPanel().getCurrentStamp());
-          if (panelUser == null) {
-            panelUser = panelUserDAO.create(panelInvitation.getPanel(), user, panelInvitation.getRole(), PanelUserJoinType.INVITED, panelInvitation.getPanel().getCurrentStamp(), user);
-          }
-          panelInvitationDAO.archive(panelInvitation);
-          String redirectUrl = pageRequestContext.getRequest().getContextPath() + "/" + panel.getRootFolder().getUrlName();
-          if (query != null) {
-            redirectUrl += "/" + query.getUrlName();
-          }
-          AuthUtils.retrieveRedirectUrl(pageRequestContext);
-          pageRequestContext.setRedirectURL(redirectUrl);
-        }
-        else if (userEmail != null && !user.getId().equals(userEmail.getUser().getId())) {
-          pageRequestContext.getRequest().setAttribute("panel", panel);
-          pageRequestContext.getRequest().setAttribute("dualAccount", Boolean.TRUE);
-          pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
-          pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
-          AuthUtils.includeAuthSources(pageRequestContext, "PANEL", panel.getId());
-          pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
+      else if (userEmail == null && user != null) {
+
+        // Someone is already logged in but the invitation email resolves to no account
+        // -> ask whether to create a new account or link invitation email to current account 
+        
+        AuthUtils.storeRedirectUrl(pageRequestContext, RequestUtils.getCurrentUrl(pageRequestContext.getRequest(), true));
+        pageRequestContext.getRequest().setAttribute("panel", panel);
+        pageRequestContext.getRequest().setAttribute("confirmLinking", Boolean.TRUE);
+        pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
+        pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
+        setJsDataVariable(pageRequestContext, "invitationUserMail", panelInvitation.getEmail());
+        pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
+      }
+      else  {
+        if (userEmail == null) {
+
+          // No one is logged in and the invitation email is available
+          // -> automatically create a new account
+          
+          user = userDAO.create(null, null, null,  null);
+          userEmail = userEmailDAO.create(user, panelInvitation.getEmail());
+          userDAO.addUserEmail(user, userEmail, true, user);
+          Delfoi delfoi = RequestUtils.getDelfoi(pageRequestContext);
+          DelfoiDefaults delfoiDefaults = RequestUtils.getDefaults(pageRequestContext);
+          delfoiUserDAO.create(delfoi, user, delfoiDefaults.getDefaultDelfoiUserRole(), user);
         }
         else {
-          // ask about linking email to current account
-          pageRequestContext.getRequest().setAttribute("panel", panel);
-          pageRequestContext.getRequest().setAttribute("confirmLinking", Boolean.TRUE);
-          pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
-          pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
-          setJsDataVariable(pageRequestContext, "invitationUserMail", panelInvitation.getEmail());
-          pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
+          user = userEmail.getUser();
         }
+        
+        // Ensure panel membership 
+        
+        PanelUser panelUser = panelUserDAO.findByPanelAndUserAndStamp(panelInvitation.getPanel(), user, panelInvitation.getPanel().getCurrentStamp());
+        if (panelUser == null) {
+          panelUser = panelUserDAO.create(panelInvitation.getPanel(), user, panelInvitation.getRole(), PanelUserJoinType.INVITED, panelInvitation.getPanel().getCurrentStamp(), user);
+        }
+        
+        // Ensure user is logged in
+        
+        RequestUtils.loginUser(pageRequestContext, user);
+        
+        // Redirect to the invitation target
+        
+        String redirectUrl = pageRequestContext.getRequest().getContextPath() + "/" + panel.getRootFolder().getUrlName();
+        if (query != null) {
+          redirectUrl += "/" + query.getUrlName();
+        }
+        pageRequestContext.setRedirectURL(redirectUrl);
       }
     }
     else {
+
+      // Invitation was rejected
+      
       panelInvitationDAO.updateState(panelInvitation, PanelInvitationState.DECLINED, null);
-      UserEmailDAO userEmailDAO = new UserEmailDAO();
       UserEmail userEmail = userEmailDAO.findByAddress(panelInvitation.getEmail());
       if (userEmail != null) {
-        PanelUserDAO panelUserDAO = new PanelUserDAO();
         PanelUser panelUser = panelUserDAO.findByPanelAndUserAndStamp(panelInvitation.getPanel(), userEmail.getUser(), panelInvitation.getPanel().getCurrentStamp());
         if (panelUser != null) {
           UserUtils.archivePanelUser(panelUser, panelUser.getUser());

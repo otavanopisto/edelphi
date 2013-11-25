@@ -6,13 +6,10 @@ import java.util.List;
 
 import fi.internetix.edelphi.dao.base.DelfoiBulletinDAO;
 import fi.internetix.edelphi.dao.panels.PanelDAO;
-import fi.internetix.edelphi.dao.panels.PanelInvitationDAO;
 import fi.internetix.edelphi.domainmodel.base.Delfoi;
 import fi.internetix.edelphi.domainmodel.base.DelfoiBulletin;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelAccessLevel;
-import fi.internetix.edelphi.domainmodel.panels.PanelInvitation;
-import fi.internetix.edelphi.domainmodel.panels.PanelInvitationState;
 import fi.internetix.edelphi.domainmodel.panels.PanelState;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.utils.ActionUtils;
@@ -49,19 +46,7 @@ public class IndexPageController extends PageController {
         }
       });
       pageRequestContext.getRequest().setAttribute("myPanels", myPanels);
-      // TODO what about invitations to user's other e-mail addresses?
-      if (loggedUser.getDefaultEmail() != null) {
-        PanelInvitationDAO panelInvitationDAO = new PanelInvitationDAO();
-        List<PanelInvitation> myInvitations = panelInvitationDAO.listByEmailAndState(loggedUser.getDefaultEmail().getAddress(), PanelInvitationState.PENDING);
-        pageRequestContext.getRequest().setAttribute("myInvitations", myInvitations);
-      }
     }
-    
-//    // TODO: Ugly hack...
-//    TupasAuthenticationStrategy tupasAuthenticationProvider = (TupasAuthenticationStrategy) AuthenticationProviderFactory.getInstance().getAuthenticationProvider("Tupas");
-//    if (tupasAuthenticationProvider != null) {
-//      tupasAuthenticationProvider.appendBankSettings(pageRequestContext);
-//    }
 
     List<DelfoiBulletin> bulletins = bulletinDAO.listByDelfoiAndArchived(delfoi, Boolean.FALSE);
     Collections.sort(bulletins, new Comparator<DelfoiBulletin>() {
