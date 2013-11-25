@@ -197,35 +197,40 @@
     <jsp:include page="/jsp/fragments/block_title.jsp">
       <jsp:param value="profile.block.invitationsBlockTitle" name="titleLocale" />
     </jsp:include>
-    <c:forEach var="invitation" items="${myInvitations}">
-      <div>
-        <span>
-          ${invitation.panel.name}
-        </span>
-        <span>
-          <fmt:formatDate pattern="d.M.yyyy" value="${invitation.created}"/>
-        </span>
-        <span>
-          <fmt:message key="profile.block.invitationLinkTemplate">
-            <fmt:param>${invitation.panel.id}</fmt:param>
-            <fmt:param>${invitation.hash}</fmt:param>
-          </fmt:message>
-        </span>
-      </div>
-      <div class="contextualLinks">
-        <div class="blockContextualLink delete">
-          <c:set var="tooltip">
-            <fmt:message key="profile.block.invitationDeleteTooltip"/>
-          </c:set>
-          <a target="" onclick="" href="#invitationId:473" title="${tooltip}">
-            <span class="blockContextualLinkTooltip">
-              <span class="blockContextualLinkTooltipText">${tooltip}</span>
-              <span class="blockContextualLinkTooltipArrow"></span>
-            </span>
-          </a>
+    
+    <div id="profileInvitationBlockContent" class="blockContent">
+      <c:forEach var="invitation" items="${myInvitations}">
+        <div class="profileInvitationRowWrapper">
+          <div>
+            <div class="profileInvitationPanelName">
+              ${invitation.panel.name}
+            </div>
+            <div class="profileInvitationDate">
+              <fmt:formatDate pattern="d.M.yyyy" value="${invitation.created}"/>
+            </div>
+            <div class="profileInvitationUrl">
+              <fmt:message key="profile.block.invitationLinkTemplate">
+                <fmt:param>${invitation.panel.id}</fmt:param>
+                <fmt:param>${invitation.hash}</fmt:param>
+              </fmt:message>
+            </div>
+          </div>
+          <div class="contextualLinks">
+            <div class="blockContextualLink delete">
+              <c:set var="tooltip">
+                <fmt:message key="profile.block.invitationDeleteTooltip"/>
+              </c:set>
+              <a target="" onclick="" href="#invitationId:473" title="${tooltip}">
+                <span class="blockContextualLinkTooltip">
+                  <span class="blockContextualLinkTooltipText">${tooltip}</span>
+                  <span class="blockContextualLinkTooltipArrow"></span>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </c:forEach>
+      </c:forEach>
+    </div>
   </c:if>
 
 

@@ -2681,7 +2681,8 @@ form#panelAdminInvitationForm .formCheckBoxContainer {
 .panelExpertsMatrixHeaderCell:hover .contextualLinksPanelExperts,
 .managePanelUsers_panelUser:hover .contextualLinks,
 .managePanelUsergroups_panelUsergroup:hover .contextualLinks,
-.panelAdminBulletinRow:hover .contextualLinks {
+.panelAdminBulletinRow:hover .contextualLinks,
+.profileInvitationRowWrapper:hover .contextualLinks {
   opacity:1;
 }
 
@@ -4632,6 +4633,7 @@ label.queryScaleSliderItemLabel {
 
 #profileExternalAuthBlockContent.blockContent {
   margin-top:10px;
+  margin-bottom:20px;
 }
 
 .profileExternalAuthLoginTypeIcon a {
@@ -4658,6 +4660,27 @@ label.queryScaleSliderItemLabel {
   background:#6CADD3;
   display:inline-block;
   margin-left:4px;
+}
+
+#profileInvitationBlockContent.blockContent {
+  margin-top:10px;
+}
+
+.profileInvitationRowWrapper {
+  position:relative;
+  margin-bottom:5px;
+}
+
+.profileInvitationPanelName,
+.profileInvitationDate {
+  display:inline-block;
+  margin-right:5px;
+}
+
+.profileInvitationUrl {
+  margin-right:32px;
+  font-style:italic;
+  color:#666;
 }
 
 /*
@@ -5184,7 +5207,7 @@ label.queryScaleSliderItemLabel {
 
 .panelAdminQueryResultPageRow>.contextualLinks {
   top: 0px;
-  }
+}
 
 .panelAdminQueryResultPageRow:hover>.contextualLinks {
   opacity: 1;
