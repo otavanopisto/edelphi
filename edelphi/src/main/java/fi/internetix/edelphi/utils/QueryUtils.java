@@ -449,7 +449,9 @@ public class QueryUtils {
           for (int i = 0; i < includedPages.length; i++) {
             includedPages[i] = pageIds.get(includedPages[i]).toString();
           }
-          queryPageSettingDAO.updateValue(includedPageSetting, StringUtils.join(includedPages, '&'));
+          if (includedPages.length > 0) {
+            queryPageSettingDAO.updateValue(includedPageSetting, StringUtils.join(includedPages, '&'));
+          }
         }
         
         // Included page settings
@@ -462,7 +464,9 @@ public class QueryUtils {
             int eqPos = pageSettings[i].indexOf('=');
             pageSettings[i] = pageIds.get(pageSettings[i].substring(0, eqPos)) + pageSettings[i].substring(eqPos);
           }
-          queryPageSettingDAO.updateValue(pageSettingsSetting, StringUtils.join(pageSettings, '&'));
+          if (pageSettings.length > 0) {
+            queryPageSettingDAO.updateValue(pageSettingsSetting, StringUtils.join(pageSettings, '&'));
+          }
         }
       }
     }

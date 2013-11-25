@@ -278,7 +278,9 @@ public class SaveQueryJSONRequestController extends JSONController {
               includedPageIds.add(pageIds.get(includedPages[i]).toString());
             }
           }
-          queryPageSettingDAO.updateValue(includedPageSetting, StringUtils.join(includedPageIds, '&'));
+          if (!includedPageIds.isEmpty()) {
+            queryPageSettingDAO.updateValue(includedPageSetting, StringUtils.join(includedPageIds, '&'));
+          }
         }
 
         // Included page settings; remove deleted pages and replace temporary ids of new pages
@@ -296,7 +298,9 @@ public class SaveQueryJSONRequestController extends JSONController {
               pageSettingsList.add(pageIds.get(pageIdPart) + rgbPart);
             }
           }
-          queryPageSettingDAO.updateValue(pageSettingsSetting, StringUtils.join(pageSettingsList, '&'));
+          if (!pageSettingsList.isEmpty()) {
+            queryPageSettingDAO.updateValue(pageSettingsSetting, StringUtils.join(pageSettingsList, '&'));
+          }
         }
       }
     }

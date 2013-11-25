@@ -163,7 +163,8 @@ public class QueryPageUtils {
       if (queryPageSetting != null) {
         queryPageSettingDAO.delete(queryPageSetting);
       }
-    } else {
+    }
+    else {
       if (queryPageSetting != null) 
         queryPageSettingDAO.updateValue(queryPageSetting, value);
       else
