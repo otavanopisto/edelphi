@@ -71,7 +71,9 @@ public class ProfilePageController extends PanelPageController {
         Collections.sort(myInvitations, new Comparator<PanelInvitation>() {
           @Override
           public int compare(PanelInvitation o1, PanelInvitation o2) {
-            return o1.getPanel().getName().toLowerCase().compareTo(o2.getPanel().getName().toLowerCase());
+            String s1 = o1.getQuery() == null ? o1.getPanel().getName() : o1.getQuery().getName(); 
+            String s2 = o2.getQuery() == null ? o2.getPanel().getName() : o2.getQuery().getName(); 
+            return s1.toLowerCase().compareTo(s2.toLowerCase());
           }
         });
         pageRequestContext.getRequest().setAttribute("myInvitations", myInvitations);

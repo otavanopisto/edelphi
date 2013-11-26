@@ -111,6 +111,9 @@ public class JoinPanelPageController extends PageController {
         
         RequestUtils.loginUser(pageRequestContext, user);
         
+        // TODO if user has no password or external authentication, add a welcome message 
+        // TODO SMVC refactoring; addMessage + setRedirectURL does not compute
+        
         // Redirect to the invitation target
         
         String redirectUrl = pageRequestContext.getRequest().getContextPath() + "/" + panel.getRootFolder().getUrlName();
