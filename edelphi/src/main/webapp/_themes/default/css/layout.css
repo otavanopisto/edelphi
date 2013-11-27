@@ -4677,7 +4677,13 @@ label.queryScaleSliderItemLabel {
   margin-right:5px;
 }
 
-.profileInvitationUrl {
+.profileInvitationSenderTitle {
+  font-style:normal;
+  color:#000;
+  padding-right:4px;
+}
+
+.profileInvitationSender {
   margin-right:32px;
   font-style:italic;
   color:#666;

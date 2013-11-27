@@ -215,11 +215,9 @@
             <div class="profileInvitationDate">
               <fmt:formatDate pattern="d.M.yyyy" value="${invitation.created}"/>
             </div>
-            <div class="profileInvitationUrl">
-              <fmt:message key="profile.block.invitationLinkTemplate">
-                <fmt:param>${invitation.panel.id}</fmt:param>
-                <fmt:param>${invitation.hash}</fmt:param>
-              </fmt:message>
+            <div class="profileInvitationSender">
+              <span class="profileInvitationSenderTitle">Lähettäjä:</span>
+              ${invitation.creator.defaultEmailAsString}
             </div>
           </div>
           <div class="contextualLinks">
