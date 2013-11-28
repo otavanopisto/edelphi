@@ -60,3 +60,7 @@ LoginBlockController = Class.create(BlockController, {
 });
 
 addBlockController(new LoginBlockController());
+
+setInterval(function (){
+  forceRevalidateAll(true);
+ },0);
