@@ -203,16 +203,21 @@
         <div class="profileInvitationRowWrapper">
           <div>
             <div class="profileInvitationPanelName">
-              ${invitation.panel.name}
+              <c:choose>
+                <c:when test="${!empty(invitation.query)}">
+                  ${invitation.query.name}
+                </c:when>
+                <c:otherwise>
+                  ${invitation.panel.name}
+                </c:otherwise>
+              </c:choose>
             </div>
             <div class="profileInvitationDate">
               <fmt:formatDate pattern="d.M.yyyy" value="${invitation.created}"/>
             </div>
-            <div class="profileInvitationUrl">
-              <fmt:message key="profile.block.invitationLinkTemplate">
-                <fmt:param>${invitation.panel.id}</fmt:param>
-                <fmt:param>${invitation.hash}</fmt:param>
-              </fmt:message>
+            <div class="profileInvitationSender">
+              <span class="profileInvitationSenderTitle">Lähettäjä:</span>
+              ${invitation.creator.defaultEmailAsString}
             </div>
           </div>
           <div class="contextualLinks">
@@ -220,7 +225,7 @@
               <c:set var="tooltip">
                 <fmt:message key="profile.block.invitationDeleteTooltip"/>
               </c:set>
-              <a target="" onclick="" href="#invitationId:473" title="${tooltip}">
+              <a href="#invitationId:${invitation.id}" title="${tooltip}">
                 <span class="blockContextualLinkTooltip">
                   <span class="blockContextualLinkTooltipText">${tooltip}</span>
                   <span class="blockContextualLinkTooltipArrow"></span>

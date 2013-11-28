@@ -11,6 +11,7 @@
 <title><fmt:message key="index.pageTitle" /></title>
 <jsp:include page="/jsp/templates/index_head.jsp"></jsp:include>
 <jsp:include page="/jsp/supports/jshash_support.jsp"></jsp:include>
+<jsp:include page="/jsp/supports/modalpopup_support.jsp"></jsp:include>
 <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/profile.js"></script>
 <c:choose>
   <c:when test="${empty user.defaultEmail.address && (empty user.firstName || empty user.lastName)}">

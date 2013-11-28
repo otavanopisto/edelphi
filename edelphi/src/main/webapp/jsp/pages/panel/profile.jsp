@@ -15,6 +15,7 @@
     </title>
     <jsp:include page="/jsp/templates/panel_head.jsp"></jsp:include>
     <jsp:include page="/jsp/supports/jshash_support.jsp"></jsp:include>
+    <jsp:include page="/jsp/supports/modalpopup_support.jsp"></jsp:include>
     <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/profile.js"></script>
   </head>
   <body class="panel index">

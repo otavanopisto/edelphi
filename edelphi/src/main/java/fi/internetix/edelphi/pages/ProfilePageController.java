@@ -28,6 +28,7 @@ import fi.internetix.edelphi.domainmodel.users.UserSettingKey;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
+import fi.internetix.smvc.Severity;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
 public class ProfilePageController extends PageController {
@@ -67,7 +68,9 @@ public class ProfilePageController extends PageController {
         Collections.sort(myInvitations, new Comparator<PanelInvitation>() {
           @Override
           public int compare(PanelInvitation o1, PanelInvitation o2) {
-            return o1.getPanel().getName().toLowerCase().compareTo(o2.getPanel().getName().toLowerCase());
+            String s1 = o1.getQuery() == null ? o1.getPanel().getName() : o1.getQuery().getName(); 
+            String s2 = o2.getQuery() == null ? o2.getPanel().getName() : o2.getQuery().getName(); 
+            return s1.toLowerCase().compareTo(s2.toLowerCase());
           }
         });
         pageRequestContext.getRequest().setAttribute("myInvitations", myInvitations);
@@ -110,7 +113,7 @@ public class ProfilePageController extends PageController {
       }
     });
     pageRequestContext.getRequest().setAttribute("openPanels", openPanels);
-
+    
     pageRequestContext.setIncludeJSP("/jsp/pages/profile.jsp");
   }
 
