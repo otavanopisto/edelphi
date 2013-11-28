@@ -1511,14 +1511,37 @@ margin:5px 0px 0px 0px;
  */
  
 #GUI_inviteUsersActionColumn {
-  float: left;
+/*   float: left; */
   width: 40%;
   min-height: 500px;
 }
 
 #GUI_inviteUsersListColumn {
-  margin-left: 42%;
+  left:42%;
   min-height: 500px;
+  position:absolute;
+  right:0px;
+  top:40px;
+  bottom:0px;
+}
+
+#GUI_inviteUsersListColumn .block {
+  left:0;
+  position:absolute;
+  right:0px;
+  top:0px;
+  bottom:0px;
+}
+
+#panelAdminInviteUsersListBlockContent.blockContent {
+    bottom: 0;
+    left: 8px;
+    min-height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    right: 8px;
+    top: 50px;
 }
 
 #panelAdminInviteUsersActionsBlockContent.blockContent {
@@ -1590,7 +1613,7 @@ margin:5px 0px 0px 0px;
 
 .inviteUsersListUserInfo {
   float: left;
-  width: 230px;
+  width: 330px;
   padding-left: 20px;
 }
 
