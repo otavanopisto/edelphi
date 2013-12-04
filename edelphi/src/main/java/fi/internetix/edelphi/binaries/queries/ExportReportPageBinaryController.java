@@ -123,7 +123,6 @@ public class ExportReportPageBinaryController extends BinaryController {
             is.close();
           }
           catch (IOException ioe) {
-            Logging.logInfo("exportPDF sanoi PUM!!");
             Logging.logException(ioe);
           }
         }

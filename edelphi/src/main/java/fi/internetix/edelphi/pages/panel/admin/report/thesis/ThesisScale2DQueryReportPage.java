@@ -14,7 +14,6 @@ import org.eclipse.birt.chart.model.Chart;
 
 import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionAnswerDAO;
-import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageSettingDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageSettingKeyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
@@ -54,7 +53,6 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
 
   private void appendQueryPageComments(RequestContext requestContext, final QueryPage queryPage) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
-    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
     QueryOptionField queryFieldX = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName("x"));
     QueryOptionField queryFieldY = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName("y"));
@@ -71,9 +69,8 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
     }
     final Map<Long,String> answerMap = new HashMap<Long,String>();
     for (QueryQuestionComment comment : rootComments) {
-      QueryReply reply = queryReplyDAO.findByUserAndQueryAndStamp(comment.getCreator(), queryPage.getQuerySection().getQuery(), panelStamp);
-      QueryQuestionOptionAnswer xAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(reply, queryFieldX); 
-      QueryQuestionOptionAnswer yAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(reply, queryFieldY);
+      QueryQuestionOptionAnswer xAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(comment.getQueryReply(), queryFieldX); 
+      QueryQuestionOptionAnswer yAnswer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(comment.getQueryReply(), queryFieldY);
       answerMap.put(comment.getId(), (xAnswer == null ? "-" : xAnswer.getOption().getValue()) + (yAnswer == null ? "-" : yAnswer.getOption().getValue()));
       if (xAnswer != null || yAnswer != null) {
         Map<String,String> valueMap = new LinkedHashMap<String,String>();

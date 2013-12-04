@@ -24,6 +24,7 @@ import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.GoogleDriveUtils.DownloadResponse;
 import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.BinaryRequestContext;
+import fi.internetix.smvc.logging.Logging;
 
 public class ViewImageBinaryRequestController extends BinaryController {
 
@@ -56,17 +57,29 @@ public class ViewImageBinaryRequestController extends BinaryController {
       URL imageUrl = new URL(image.getUrl());
       URLConnection uc = imageUrl.openConnection();
       binaryRequestContext.getResponse().setContentType(uc.getContentType());
-
       InputStream in = uc.getInputStream();
-      ServletOutputStream out = binaryRequestContext.getResponse().getOutputStream();
+      try {
+        ServletOutputStream out = binaryRequestContext.getResponse().getOutputStream();
 
-      byte[] buf = new byte[1024];
-      int len;
+        byte[] buf = new byte[1024];
+        int len;
 
-      while ((len = in.read(buf)) > 0) {
-        out.write(buf, 0, len);
+        while ((len = in.read(buf)) > 0) {
+          out.write(buf, 0, len);
+        }
       }
-    } catch (Exception ex) {
+      finally {
+        if (in != null) {
+          try {
+            in.close();
+          }
+          catch (IOException ioe) {
+            Logging.logException(ioe);
+          }
+        }
+      }
+    }
+    catch (Exception ex) {
       throw new RuntimeException(ex);
     }
   }

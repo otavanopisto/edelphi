@@ -122,7 +122,7 @@ public class ReportUtils {
         Element imgElement = (Element) imgList.item(i);
         // TODO This assumes the image source is not relative
         String imgUrl = imgElement.getAttribute("src");
-        if (imgUrl.startsWith("/")) {
+        if (StringUtils.startsWith(imgUrl, "/")) {
           imgUrl = hostUrl + imgUrl;
         }
         ZipEntry zipEntry = new ZipEntry(String.format("%03d", i + 1) + ".png");
@@ -328,7 +328,6 @@ public class ReportUtils {
           is.close();
         }
         catch (IOException ioe) {
-          Logging.logInfo("downloadUrlAsString sanoi PUM!!");
           Logging.logException(ioe);
         }
       }
@@ -355,7 +354,6 @@ public class ReportUtils {
           is.close();
         }
         catch (IOException ioe) {
-          Logging.logInfo("downloadUrlAsByteArray sanoi PUM!!");
           Logging.logException(ioe);
         }
       }
