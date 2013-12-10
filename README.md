@@ -10,3 +10,5 @@ as a foundation for planning and decision making, i.e. making
 qualitative research. The program can also be used for making a
 simple, Survey-type of query. The newest version of the program is
 called eDelfoi. 
+
+eDelfoi is licensed under GPLv3.
