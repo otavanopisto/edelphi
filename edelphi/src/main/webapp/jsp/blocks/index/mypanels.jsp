@@ -12,6 +12,20 @@
   </jsp:include>
   
   <div id="myPanelsBlockContent" class="blockContent">
+
+    <c:if test="${!empty(myPanelInvitations)}">
+      <div class="myPanelsInvitationsContainer">
+        <c:forEach var="invitation" items="${myPanelInvitations}">
+          <div class="myPanelsInvitation">
+            <fmt:message key="index.block.myInvitationsMsg1"/> <span class="invitationPanelTitle">${invitation.panel.name}</span><fmt:message key="index.block.myInvitationsMsg2"/>
+            <a href="${pageContext.request.contextPath}/joinpanel.page?panelId=${invitation.panel.id}&hash=${invitation.hash}&join=1"><fmt:message key="index.block.myInvitationsMsg3"/></a>
+            <fmt:message key="index.block.myInvitationsMsg4"/>
+            <a href="${pageContext.request.contextPath}/joinpanel.page?panelId=${invitation.panel.id}&hash=${invitation.hash}&join=0"><fmt:message key="index.block.myInvitationsMsg5"/></a>
+            <fmt:message key="index.block.myInvitationsMsg6"/>
+          </div>
+        </c:forEach>
+      </div>
+    </c:if>
     
     <c:choose>
       <c:when test="${empty(myPanels)}">

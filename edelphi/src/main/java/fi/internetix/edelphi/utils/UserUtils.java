@@ -12,6 +12,7 @@ import fi.internetix.edelphi.dao.users.UserIdentificationDAO;
 import fi.internetix.edelphi.dao.users.UserPasswordDAO;
 import fi.internetix.edelphi.dao.users.UserPictureDAO;
 import fi.internetix.edelphi.domainmodel.base.DelfoiUser;
+import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelExpertiseGroupUser;
 import fi.internetix.edelphi.domainmodel.panels.PanelUser;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
@@ -42,6 +43,12 @@ public class UserUtils {
       return !userIdentifications.isEmpty();
     }
     return true;
+  }
+  
+  public static boolean isPanelUser(Panel panel, User user) {
+    PanelUserDAO panelUserDAO = new PanelUserDAO();
+    PanelUser panelUser = panelUserDAO.findByPanelAndUserAndStamp(panel, user, panel.getCurrentStamp());
+    return panelUser != null;
   }
 
   public static void merge(User source, User target) {

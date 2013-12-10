@@ -1,20 +1,27 @@
 package fi.internetix.edelphi.pages;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import fi.internetix.edelphi.dao.base.DelfoiBulletinDAO;
 import fi.internetix.edelphi.dao.panels.PanelDAO;
+import fi.internetix.edelphi.dao.panels.PanelInvitationDAO;
+import fi.internetix.edelphi.dao.users.UserEmailDAO;
 import fi.internetix.edelphi.domainmodel.base.Delfoi;
 import fi.internetix.edelphi.domainmodel.base.DelfoiBulletin;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelAccessLevel;
+import fi.internetix.edelphi.domainmodel.panels.PanelInvitation;
+import fi.internetix.edelphi.domainmodel.panels.PanelInvitationState;
 import fi.internetix.edelphi.domainmodel.panels.PanelState;
 import fi.internetix.edelphi.domainmodel.users.User;
+import fi.internetix.edelphi.domainmodel.users.UserEmail;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
+import fi.internetix.edelphi.utils.UserUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
 public class IndexPageController extends PageController {
@@ -46,6 +53,25 @@ public class IndexPageController extends PageController {
         }
       });
       pageRequestContext.getRequest().setAttribute("myPanels", myPanels);
+
+      // Panel invitations
+      
+      if (loggedUser.getDefaultEmail() != null) {
+        UserEmailDAO userEmailDAO = new UserEmailDAO();
+        PanelInvitationDAO panelInvitationDAO = new PanelInvitationDAO();
+        List<PanelInvitation> myPanelInvitations = new ArrayList<PanelInvitation>();
+        List<UserEmail> emails = userEmailDAO.listByUser(loggedUser);
+        for (UserEmail email : emails) {
+          List<PanelInvitation> invitations = panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.PENDING);
+          myPanelInvitations.addAll(invitations);
+        }
+        for (int i = myPanelInvitations.size() - 1; i >=0; i--) {
+          if (UserUtils.isPanelUser(myPanelInvitations.get(i).getPanel(), loggedUser)) {
+            myPanelInvitations.remove(i);
+          }
+        }
+        pageRequestContext.getRequest().setAttribute("myPanelInvitations", myPanelInvitations);
+      }
     }
 
     List<DelfoiBulletin> bulletins = bulletinDAO.listByDelfoiAndArchived(delfoi, Boolean.FALSE);

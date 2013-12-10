@@ -56,37 +56,35 @@ public class JoinPanelPageController extends PageController {
       UserEmail userEmail = userEmailDAO.findByAddress(panelInvitation.getEmail());
       Panel panel = panelInvitation.getPanel();
       Query query = panelInvitation.getQuery();
+      
+      if (user != null && userEmail != null && !user.getId().equals(userEmail.getUser().getId())) {
 
-      if (user != null) { // someone is logged in
-        if (userEmail != null && !user.getId().equals(userEmail.getUser().getId())) {
+        // Exception; someone is already logged in but the invitation email resolves to another account
+        // -> ask the user to log out and try again
 
-          // Someone is already logged in but the invitation email resolves to another account
-          // -> ask the user to log out and try again
-
-          AuthUtils.storeRedirectUrl(pageRequestContext, RequestUtils.getCurrentUrl(pageRequestContext.getRequest(), true));
-          pageRequestContext.getRequest().setAttribute("panel", panel);
-          pageRequestContext.getRequest().setAttribute("dualAccount", Boolean.TRUE);
-          pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
-          pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
-          AuthUtils.includeAuthSources(pageRequestContext, "PANEL", panel.getId());
-          pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
-        }
-        else if (userEmail == null) {
-
-          // Someone is already logged in but the invitation email resolves to no account
-          // -> ask whether to create a new account or link invitation email to current account 
-
-          AuthUtils.storeRedirectUrl(pageRequestContext, RequestUtils.getCurrentUrl(pageRequestContext.getRequest(), true));
-          pageRequestContext.getRequest().setAttribute("panel", panel);
-          pageRequestContext.getRequest().setAttribute("confirmLinking", Boolean.TRUE);
-          pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
-          pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
-          setJsDataVariable(pageRequestContext, "invitationUserMail", panelInvitation.getEmail());
-          pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
-        }
+        AuthUtils.storeRedirectUrl(pageRequestContext, RequestUtils.getCurrentUrl(pageRequestContext.getRequest(), true));
+        pageRequestContext.getRequest().setAttribute("panel", panel);
+        pageRequestContext.getRequest().setAttribute("dualAccount", Boolean.TRUE);
+        pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
+        pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
+        AuthUtils.includeAuthSources(pageRequestContext, "PANEL", panel.getId());
+        pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
       }
-      else  { // no one logged in
-        if (userEmail == null) {
+      else if (user != null && userEmail == null) {
+
+        // Exception; someone is already logged in but the invitation email resolves to no account
+        // -> ask whether to create a new account or link invitation email to current account 
+
+        AuthUtils.storeRedirectUrl(pageRequestContext, RequestUtils.getCurrentUrl(pageRequestContext.getRequest(), true));
+        pageRequestContext.getRequest().setAttribute("panel", panel);
+        pageRequestContext.getRequest().setAttribute("confirmLinking", Boolean.TRUE);
+        pageRequestContext.getRequest().setAttribute("currentUserMail", user.getDefaultEmail() == null ? "undefined" : user.getDefaultEmail().getAddress());
+        pageRequestContext.getRequest().setAttribute("invitationUserMail", panelInvitation.getEmail());
+        setJsDataVariable(pageRequestContext, "invitationUserMail", panelInvitation.getEmail());
+        pageRequestContext.setIncludeJSP("/jsp/pages/panel/joinpanel.jsp");
+      }
+      else {
+        if (user == null && userEmail == null) {
 
           // No one is logged in and the invitation email is available
           // -> automatically create a new account

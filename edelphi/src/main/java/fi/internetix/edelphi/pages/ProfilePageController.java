@@ -28,7 +28,7 @@ import fi.internetix.edelphi.domainmodel.users.UserSettingKey;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
-import fi.internetix.smvc.Severity;
+import fi.internetix.edelphi.utils.UserUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
 public class ProfilePageController extends PageController {
@@ -53,8 +53,8 @@ public class ProfilePageController extends PageController {
         }
       });
       pageRequestContext.getRequest().setAttribute("myPanels", myPanels);
-      
-      // Invitations
+
+      // Invitations (pending to left side panel listing, all in profile view)
 
       if (loggedUser.getDefaultEmail() != null) {
         UserEmailDAO userEmailDAO = new UserEmailDAO();
@@ -73,7 +73,14 @@ public class ProfilePageController extends PageController {
             return s1.toLowerCase().compareTo(s2.toLowerCase());
           }
         });
-        pageRequestContext.getRequest().setAttribute("myInvitations", myInvitations);
+        List<PanelInvitation> myPanelInvitations = new ArrayList<PanelInvitation>();
+        for (PanelInvitation invitation : myInvitations) {
+          if (!UserUtils.isPanelUser(invitation.getPanel(), loggedUser)) {
+            myPanelInvitations.add(invitation);
+          }
+        }
+        pageRequestContext.getRequest().setAttribute("myPanelInvitations", myPanelInvitations); // panel listing
+        pageRequestContext.getRequest().setAttribute("myInvitations", myInvitations); // profile view
       }
 
       UserPasswordDAO userPasswordDAO = new UserPasswordDAO();
