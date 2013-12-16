@@ -107,6 +107,10 @@ public class JoinPanelPageController extends PageController {
           panelUser = panelUserDAO.create(panelInvitation.getPanel(), user, panelInvitation.getRole(), PanelUserJoinType.INVITED, panelInvitation.getPanel().getCurrentStamp(), user);
         }
         
+        // Mark invitation as accepted
+        
+        panelInvitationDAO.updateState(panelInvitation, PanelInvitationState.ACCEPTED, user);
+        
         // Ensure user is logged in
         
         RequestUtils.loginUser(pageRequestContext, user);

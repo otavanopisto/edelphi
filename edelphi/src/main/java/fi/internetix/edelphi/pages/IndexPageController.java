@@ -21,7 +21,6 @@ import fi.internetix.edelphi.domainmodel.users.UserEmail;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
-import fi.internetix.edelphi.utils.UserUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
 public class IndexPageController extends PageController {
@@ -54,7 +53,7 @@ public class IndexPageController extends PageController {
       });
       pageRequestContext.getRequest().setAttribute("myPanels", myPanels);
 
-      // Panel invitations
+      // Pending panel invitations
       
       if (loggedUser.getDefaultEmail() != null) {
         UserEmailDAO userEmailDAO = new UserEmailDAO();
@@ -62,13 +61,7 @@ public class IndexPageController extends PageController {
         List<PanelInvitation> myPanelInvitations = new ArrayList<PanelInvitation>();
         List<UserEmail> emails = userEmailDAO.listByUser(loggedUser);
         for (UserEmail email : emails) {
-          List<PanelInvitation> invitations = panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.PENDING);
-          myPanelInvitations.addAll(invitations);
-        }
-        for (int i = myPanelInvitations.size() - 1; i >=0; i--) {
-          if (UserUtils.isPanelUser(myPanelInvitations.get(i).getPanel(), loggedUser)) {
-            myPanelInvitations.remove(i);
-          }
+          myPanelInvitations.addAll(panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.PENDING));
         }
         pageRequestContext.getRequest().setAttribute("myPanelInvitations", myPanelInvitations);
       }

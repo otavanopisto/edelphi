@@ -10,6 +10,7 @@ import fi.internetix.edelphi.dao.panels.PanelUserDAO;
 import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelInvitation;
+import fi.internetix.edelphi.domainmodel.panels.PanelInvitationState;
 import fi.internetix.edelphi.domainmodel.panels.PanelUser;
 import fi.internetix.edelphi.pages.panel.PanelPageController;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -42,8 +43,16 @@ public class InvitationListPageController extends PanelPageController {
     int queuedCount = 0;
     int declinedCount = 0;
     int pendingCount = 0;
+    // Prune accepted invitations as the user is listed as a panelist 
+    for (int i = invitations.size() - 1; i >= 0; i--) {
+      if (invitations.get(i).getState() == PanelInvitationState.ACCEPTED) {
+        invitations.remove(i);
+      }
+    }
     for (PanelInvitation invitation : invitations) {
       switch (invitation.getState()) {
+        case ACCEPTED:
+          break;
         case DECLINED:
           declinedCount++;
           break;

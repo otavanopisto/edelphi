@@ -65,8 +65,8 @@ public class ProfilePageController extends PanelPageController {
         List<PanelInvitation> myInvitations = new ArrayList<PanelInvitation>();
         List<UserEmail> emails = userEmailDAO.listByUser(loggedUser);
         for (UserEmail email : emails) {
-          List<PanelInvitation> invitations = panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.PENDING);
-          myInvitations.addAll(invitations);
+          myInvitations.addAll(panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.PENDING));
+          myInvitations.addAll(panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.ACCEPTED));
         }
         Collections.sort(myInvitations, new Comparator<PanelInvitation>() {
           @Override

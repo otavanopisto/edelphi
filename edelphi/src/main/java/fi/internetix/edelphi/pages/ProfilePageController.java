@@ -28,7 +28,6 @@ import fi.internetix.edelphi.domainmodel.users.UserSettingKey;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
-import fi.internetix.edelphi.utils.UserUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
 public class ProfilePageController extends PageController {
@@ -59,13 +58,16 @@ public class ProfilePageController extends PageController {
       if (loggedUser.getDefaultEmail() != null) {
         UserEmailDAO userEmailDAO = new UserEmailDAO();
         PanelInvitationDAO panelInvitationDAO = new PanelInvitationDAO();
-        List<PanelInvitation> myInvitations = new ArrayList<PanelInvitation>();
+        List<PanelInvitation> pendingInvitations = new ArrayList<PanelInvitation>();
+        List<PanelInvitation> allInvitations = new ArrayList<PanelInvitation>();
         List<UserEmail> emails = userEmailDAO.listByUser(loggedUser);
         for (UserEmail email : emails) {
-          List<PanelInvitation> invitations = panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.PENDING);
-          myInvitations.addAll(invitations);
+          List<PanelInvitation> invitations = panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.PENDING); 
+          pendingInvitations.addAll(invitations);
+          allInvitations.addAll(invitations);
+          allInvitations.addAll(panelInvitationDAO.listByEmailAndState(email.getAddress(), PanelInvitationState.ACCEPTED));
         }
-        Collections.sort(myInvitations, new Comparator<PanelInvitation>() {
+        Collections.sort(pendingInvitations, new Comparator<PanelInvitation>() {
           @Override
           public int compare(PanelInvitation o1, PanelInvitation o2) {
             String s1 = o1.getQuery() == null ? o1.getPanel().getName() : o1.getQuery().getName(); 
@@ -73,14 +75,16 @@ public class ProfilePageController extends PageController {
             return s1.toLowerCase().compareTo(s2.toLowerCase());
           }
         });
-        List<PanelInvitation> myPanelInvitations = new ArrayList<PanelInvitation>();
-        for (PanelInvitation invitation : myInvitations) {
-          if (!UserUtils.isPanelUser(invitation.getPanel(), loggedUser)) {
-            myPanelInvitations.add(invitation);
+        Collections.sort(allInvitations, new Comparator<PanelInvitation>() {
+          @Override
+          public int compare(PanelInvitation o1, PanelInvitation o2) {
+            String s1 = o1.getQuery() == null ? o1.getPanel().getName() : o1.getQuery().getName(); 
+            String s2 = o2.getQuery() == null ? o2.getPanel().getName() : o2.getQuery().getName(); 
+            return s1.toLowerCase().compareTo(s2.toLowerCase());
           }
-        }
-        pageRequestContext.getRequest().setAttribute("myPanelInvitations", myPanelInvitations); // panel listing
-        pageRequestContext.getRequest().setAttribute("myInvitations", myInvitations); // profile view
+        });
+        pageRequestContext.getRequest().setAttribute("myPanelInvitations", pendingInvitations); // panel listing
+        pageRequestContext.getRequest().setAttribute("myInvitations", allInvitations); // profile view
       }
 
       UserPasswordDAO userPasswordDAO = new UserPasswordDAO();
