@@ -7,8 +7,10 @@ import org.apache.commons.lang.StringUtils;
 
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.users.PasswordResetDAO;
+import fi.internetix.edelphi.dao.users.UserActivationDAO;
 import fi.internetix.edelphi.dao.users.UserEmailDAO;
 import fi.internetix.edelphi.domainmodel.users.PasswordReset;
+import fi.internetix.edelphi.domainmodel.users.UserActivation;
 import fi.internetix.edelphi.domainmodel.users.UserEmail;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.jsons.JSONController;
@@ -33,6 +35,15 @@ public class ResetPasswordJSONRequestController extends JSONController {
     UserEmail userEmail = userEmailDAO.findByAddress(email);
     if (userEmail == null) {
       throw new SmvcRuntimeException(EdelfoiStatusCode.PASSWORD_RESET_UNKNOWN_EMAIL, messages.getText(locale, "exception.1018.passwordResetUnknownEmail"));
+    }
+    // Has the account been activated yet?
+    UserActivationDAO userActivationDAO = new UserActivationDAO();
+    UserActivation userActivation = userActivationDAO.findByUser(userEmail.getUser());
+    if (userActivation != null) {
+      String errorLink = messages.getText(locale,  "exception.1039.accountNotYetActivated.link");
+      errorLink = "<a href=\"" + RequestUtils.getBaseUrl(jsonRequestContext.getRequest()) + "/resendactivation.page?email=" + email + "\">" + errorLink + "</a>";
+      String errorTemplate = messages.getText(locale,  "exception.1039.accountNotYetActivated.template", new String[] { errorLink });
+      throw new SmvcRuntimeException(EdelfoiStatusCode.ACCOUNT_NOT_YET_ACTIVATED, errorTemplate);
     }
     // Reset request
     PasswordResetDAO passwordResetDAO = new PasswordResetDAO();

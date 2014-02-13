@@ -36,6 +36,9 @@ public class InternalAuthenticationStrategy
 
   @Override
   public AuthenticationResult processLogin(RequestContext requestContext) {
+    Messages messages = Messages.getInstance();
+    Locale locale = requestContext.getRequest().getLocale();
+
     String username = StringUtils.lowerCase(requestContext.getString("username"));
     String password = RequestUtils.md5EncodeString(requestContext.getString("password"));
     
@@ -50,18 +53,21 @@ public class InternalAuthenticationStrategy
       UserActivationDAO userActivationDAO = new UserActivationDAO();
       UserActivation userActivation = userActivationDAO.findByUser(user);
       
-      if (userActivation == null && userPassword != null && password.equals(userPassword.getPasswordHash())) {
+      if (userActivation != null) {
+        String errorLink = messages.getText(locale,  "exception.1039.accountNotYetActivated.link");
+        errorLink = "<a href=\"" + RequestUtils.getBaseUrl(requestContext.getRequest()) + "/resendactivation.page?email=" + username + "\">" + errorLink + "</a>";
+        String errorTemplate = messages.getText(locale,  "exception.1039.accountNotYetActivated.template", new String[] { errorLink });
+        throw new SmvcRuntimeException(EdelfoiStatusCode.ACCOUNT_NOT_YET_ACTIVATED, errorTemplate);
+      }
+      
+      if (userPassword != null && password.equals(userPassword.getPasswordHash())) {
         RequestUtils.loginUser(requestContext, user);
         return AuthenticationResult.LOGIN;
       }
       else {
-        Messages messages = Messages.getInstance();
-        Locale locale = requestContext.getRequest().getLocale();
         throw new SmvcRuntimeException(EdelfoiStatusCode.INVALID_LOGIN, messages.getText(locale, "exception.1007.invalidLogin"));
       }
     } else {
-      Messages messages = Messages.getInstance();
-      Locale locale = requestContext.getRequest().getLocale();
       throw new SmvcRuntimeException(EdelfoiStatusCode.INVALID_LOGIN, messages.getText(locale, "exception.1007.invalidLogin"));
     }
   }

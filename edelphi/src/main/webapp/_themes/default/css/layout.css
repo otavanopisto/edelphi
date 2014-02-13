@@ -4747,6 +4747,10 @@ label.queryScaleSliderItemLabel {
   width: 24px;
 }
 
+.eventQueueErrorItem .eventQueueItemText > a {
+    color: #000;
+}
+
 .eventQueue {
   position: fixed;
   top: 0px;

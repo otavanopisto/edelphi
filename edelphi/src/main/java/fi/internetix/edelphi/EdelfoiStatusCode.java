@@ -43,6 +43,7 @@ public class EdelfoiStatusCode extends StatusCode {
   public static final int DUPLICATE_EMAIL = 1036;
   public static final int UNNAMED_QUERY_SECTION = 1037;
   public static final int UNNAMED_QUERY_PAGE = 1038;
+  public static final int ACCOUNT_NOT_YET_ACTIVATED = 1039;
   
   
 }
