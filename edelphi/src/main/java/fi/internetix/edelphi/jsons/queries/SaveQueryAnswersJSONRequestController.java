@@ -6,6 +6,7 @@ import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
+import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.resources.Query;
@@ -21,6 +22,11 @@ import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.JSONRequestContext;
 
 public class SaveQueryAnswersJSONRequestController extends JSONController {
+
+  public SaveQueryAnswersJSONRequestController() {
+    super();
+    setAccessAction(DelfoiActionName.ACCESS_PANEL, DelfoiActionScope.PANEL);
+  }
 
   @Override
   public void process(JSONRequestContext jsonRequestContext) {

@@ -1,14 +1,19 @@
 package fi.internetix.edelphi.jsons;
 
+import java.util.Locale;
+
 import fi.internetix.edelphi.ActionedController;
 import fi.internetix.edelphi.DelfoiActionName;
+import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.base.Delfoi;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
+import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.smvc.AccessDeniedException;
 import fi.internetix.smvc.LoginRequiredException;
+import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.JSONRequestController;
 import fi.internetix.smvc.controllers.RequestContext;
 
@@ -22,12 +27,40 @@ public abstract class JSONController implements JSONRequestController, ActionedC
       switch(actionAccessScope) {
         case DELFOI:
           Delfoi delfoi = RequestUtils.getDelfoi(requestContext);
-          authorizeDelfoi(requestContext, delfoi, actionAccessName);
+          if (delfoi == null)
+            throw new AccessDeniedException(requestContext.getRequest().getLocale());
+          
+          if (!ActionUtils.hasDelfoiAccess(requestContext, actionAccessName)) {
+            if (!requestContext.isLoggedIn()) {
+              Messages messages = Messages.getInstance();
+              Locale locale = requestContext.getRequest().getLocale();
+              String url = requestContext.getReferer(true);
+              String link = "<a href=\"" + url + "\">" + messages.getText(locale, "exception.1040.sessionTimeout.link") + "</a>";
+              throw new SmvcRuntimeException(EdelfoiStatusCode.SESSION_TIMEOUT, messages.getText(locale, "exception.1040.sessionTimeout.text", new String[] { link }));
+            }
+            else {
+              throw new AccessDeniedException(requestContext.getRequest().getLocale());
+            }
+          }
         break;
         
         case PANEL:
           Panel panel = RequestUtils.getPanel(requestContext);
-          authorizePanel(requestContext, panel, actionAccessName);
+          if (panel == null)
+            throw new AccessDeniedException(requestContext.getRequest().getLocale());
+            
+          if (!ActionUtils.hasPanelAccess(requestContext, actionAccessName)) {
+            if (!requestContext.isLoggedIn()) {
+              Messages messages = Messages.getInstance();
+              Locale locale = requestContext.getRequest().getLocale();
+              String url = requestContext.getReferer(true);
+              String link = "<a href=\"" + url + "\">" + messages.getText(locale, "exception.1040.sessionTimeout.link") + "</a>";
+              throw new SmvcRuntimeException(EdelfoiStatusCode.SESSION_TIMEOUT, messages.getText(locale, "exception.1040.sessionTimeout.text", new String[] { link }));
+            }
+            else {
+              throw new AccessDeniedException(requestContext.getRequest().getLocale());
+            }
+          }
         break;
       }
     }

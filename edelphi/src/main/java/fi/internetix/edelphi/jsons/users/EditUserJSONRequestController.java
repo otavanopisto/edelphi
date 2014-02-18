@@ -4,11 +4,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.dao.panels.PanelDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserRoleDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
 import fi.internetix.edelphi.dao.users.UserEmailDAO;
+import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.panels.PanelUser;
 import fi.internetix.edelphi.domainmodel.panels.PanelUserJoinType;
@@ -20,6 +22,11 @@ import fi.internetix.edelphi.utils.UserUtils;
 import fi.internetix.smvc.controllers.JSONRequestContext;
 
 public class EditUserJSONRequestController extends JSONController {
+
+  public EditUserJSONRequestController() {
+    super();
+    setAccessAction(DelfoiActionName.MANAGE_PANEL_USERS, DelfoiActionScope.PANEL);
+  }
 
   @Override
   public void process(JSONRequestContext jsonRequestContext) {

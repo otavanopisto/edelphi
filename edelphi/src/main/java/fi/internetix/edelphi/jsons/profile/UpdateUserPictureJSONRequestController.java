@@ -4,8 +4,10 @@ import java.util.Locale;
 
 import org.apache.commons.fileupload.FileItem;
 
+import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.users.UserPictureDAO;
+import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.domainmodel.users.UserPicture;
 import fi.internetix.edelphi.i18n.Messages;
@@ -18,7 +20,7 @@ public class UpdateUserPictureJSONRequestController extends JSONController {
 
   public UpdateUserPictureJSONRequestController() {
     super();
-//    setAccessAction(DelfoiActionName.MANAGE_PANEL_MATERIALS, DelfoiActionScope.PANEL);
+    setAccessAction(DelfoiActionName.MANAGE_USER_PROFILE, DelfoiActionScope.DELFOI);
   }
 
   @Override

@@ -2,12 +2,14 @@ package fi.internetix.edelphi.jsons.queries;
 
 import java.util.Locale;
 
+import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.base.EmailMessageDAO;
 import fi.internetix.edelphi.dao.base.MailQueueItemDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.dao.users.UserSettingDAO;
+import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.base.EmailMessage;
 import fi.internetix.edelphi.domainmodel.base.MailQueueItemState;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
@@ -27,6 +29,11 @@ import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.JSONRequestContext;
 
 public class SaveQueryQuestionCommentJSONRequestController extends JSONController {
+
+  public SaveQueryQuestionCommentJSONRequestController() {
+    super();
+    setAccessAction(DelfoiActionName.ACCESS_PANEL, DelfoiActionScope.PANEL);
+  }
 
   @Override
   public void process(JSONRequestContext jsonRequestContext) {
@@ -59,7 +66,7 @@ public class SaveQueryQuestionCommentJSONRequestController extends JSONControlle
     // Comment reply e-mail support
     
     if (SystemUtils.isProductionEnvironment()) {
-      if (parentComment != null && !parentComment.getCreator().getId().equals(loggedUser.getId())) {
+      if (parentComment != null && parentComment.getCreator() != null && !parentComment.getCreator().getId().equals(loggedUser.getId())) {
         User user = parentComment.getCreator();
         UserSettingDAO userSettingDAO = new UserSettingDAO();
         UserSetting userSetting = userSettingDAO.findByUserAndKey(user, UserSettingKey.MAIL_COMMENT_REPLY);
