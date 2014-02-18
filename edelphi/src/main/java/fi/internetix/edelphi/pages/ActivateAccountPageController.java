@@ -8,6 +8,8 @@ import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.domainmodel.users.UserActivation;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.utils.RequestUtils;
+import fi.internetix.smvc.Severity;
+import fi.internetix.smvc.SmvcMessage;
 import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
@@ -27,6 +29,12 @@ public class ActivateAccountPageController extends PageController {
     userActivationDAO.delete(userActivation);
     User user = userActivation.getUser();
     RequestUtils.loginUser(pageRequestContext, user);
+
+    Messages messages = Messages.getInstance();
+    Locale locale = pageRequestContext.getRequest().getLocale();
+    SmvcMessage message = new SmvcMessage(Severity.INFORMATION, messages.getText(locale, "index.block.accountActivated"));
+    RequestUtils.storeRedirectMessage(pageRequestContext, message);
+    
     String baseUrl = RequestUtils.getBaseUrl(pageRequestContext.getRequest());
     String redirectUrl = baseUrl + "/index.page";
     pageRequestContext.setRedirectURL(redirectUrl);

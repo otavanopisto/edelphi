@@ -6,9 +6,11 @@ import org.apache.commons.lang.StringUtils;
 
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.users.PasswordResetDAO;
+import fi.internetix.edelphi.dao.users.UserActivationDAO;
 import fi.internetix.edelphi.dao.users.UserEmailDAO;
 import fi.internetix.edelphi.dao.users.UserPasswordDAO;
 import fi.internetix.edelphi.domainmodel.users.PasswordReset;
+import fi.internetix.edelphi.domainmodel.users.UserActivation;
 import fi.internetix.edelphi.domainmodel.users.UserEmail;
 import fi.internetix.edelphi.domainmodel.users.UserPassword;
 import fi.internetix.edelphi.i18n.Messages;
@@ -23,7 +25,9 @@ public class ChangePasswordJSONRequestController extends JSONController {
   public void process(JSONRequestContext jsonRequestContext) {
     Messages messages = Messages.getInstance();
     Locale locale = jsonRequestContext.getRequest().getLocale();
+
     // E-mail given and exists?
+    
     String email = StringUtils.lowerCase(jsonRequestContext.getString("email"));
     if (email == null) {
       throw new SmvcRuntimeException(EdelfoiStatusCode.PASSWORD_RESET_NO_EMAIL, messages.getText(locale, "exception.1017.passwordResetNoEmail"));
@@ -33,7 +37,9 @@ public class ChangePasswordJSONRequestController extends JSONController {
     if (userEmail == null) {
       throw new SmvcRuntimeException(EdelfoiStatusCode.PASSWORD_RESET_UNKNOWN_EMAIL, messages.getText(locale, "exception.1018.passwordResetUnknownEmail"));
     }
+
     // Password reset request exists?
+    
     String hash = jsonRequestContext.getString("hash");
     PasswordResetDAO passwordResetDAO = new PasswordResetDAO();
     PasswordReset passwordReset = passwordResetDAO.findByEmailAndHash(email, hash);
@@ -44,6 +50,7 @@ public class ChangePasswordJSONRequestController extends JSONController {
     String password = jsonRequestContext.getString("password");
     
     // Create or change password
+    
     UserPasswordDAO userPasswordDAO = new UserPasswordDAO();
     UserPassword userPassword = userPasswordDAO.findByUser(userEmail.getUser());
     if (userPassword != null) {
@@ -52,9 +59,21 @@ public class ChangePasswordJSONRequestController extends JSONController {
     else {
       userPasswordDAO.create(userEmail.getUser(), password);
     }
+
     // Delete password reset request
+    
     passwordResetDAO.delete(passwordReset);
+    
+    // Remove possible user account activation as password resets go via e-mail as well
+    
+    UserActivationDAO userActivationDAO = new UserActivationDAO();
+    UserActivation userActivation = userActivationDAO.findByUser(userEmail.getUser());
+    if (userActivation != null) {
+      userActivationDAO.delete(userActivation);
+    }
+    
     // All done
+    
     jsonRequestContext.addMessage(Severity.INFORMATION, messages.getText(locale, "information.passwordChanged"));
   }
   

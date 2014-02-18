@@ -27,6 +27,7 @@ public class IndexPageController extends PageController {
 
   @Override
   public void process(PageRequestContext pageRequestContext) {
+    super.process(pageRequestContext);
     PanelDAO panelDAO = new PanelDAO();
     DelfoiBulletinDAO bulletinDAO = new DelfoiBulletinDAO();
     Delfoi delfoi = RequestUtils.getDelfoi(pageRequestContext);

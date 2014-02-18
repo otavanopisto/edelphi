@@ -1,8 +1,10 @@
 package fi.internetix.edelphi.utils;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +32,7 @@ import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.panels.PanelUser;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.domainmodel.users.UserRole;
+import fi.internetix.smvc.SmvcMessage;
 import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.RequestContext;
 
@@ -66,6 +69,25 @@ public class RequestUtils {
       }
       return currentUrl.toString();
     }
+  }
+
+  public static void storeRedirectMessage(RequestContext requestContext, SmvcMessage message) {
+    HttpSession session = requestContext.getRequest().getSession();
+    @SuppressWarnings("unchecked")
+    List<SmvcMessage> messages = (List<SmvcMessage>) session.getAttribute("redirectMessages");
+    if (messages == null) {
+      messages = new ArrayList<SmvcMessage>();
+    }
+    messages.add(message);
+    session.setAttribute("redirectMessages", messages);
+  }
+
+  public static List<SmvcMessage> retrieveRedirectMessages(RequestContext requestContext) {
+    HttpSession session = requestContext.getRequest().getSession();
+    @SuppressWarnings("unchecked")
+    List<SmvcMessage> messages = (List<SmvcMessage>) session.getAttribute("redirectMessages");
+    session.removeAttribute("redirectMessages");
+    return messages;
   }
   
   public static String sortUrlQueryParams(String url) {

@@ -1,6 +1,7 @@
 package fi.internetix.edelphi.pages;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import fi.internetix.edelphi.ActionedController;
@@ -12,6 +13,7 @@ import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.smvc.AccessDeniedException;
 import fi.internetix.smvc.LoginRequiredException;
+import fi.internetix.smvc.SmvcMessage;
 import fi.internetix.smvc.controllers.PageRequestContext;
 import fi.internetix.smvc.controllers.RequestContext;
 
@@ -73,7 +75,16 @@ public abstract class PageController implements fi.internetix.smvc.controllers.P
       throw new AccessDeniedException(requestContext.getRequest().getLocale());
     }
   }
-
+  
+  public void process(PageRequestContext pageRequestContext) {
+    List<SmvcMessage> messages = RequestUtils.retrieveRedirectMessages(pageRequestContext);
+    if (messages != null) {
+      for (SmvcMessage message : messages) {
+        pageRequestContext.addMessage(message);
+      }
+    }
+  }
+  
   protected void setJsDataVariable(PageRequestContext pageRequestContext, String name, String value) {
     @SuppressWarnings("unchecked")
     Map<String, String> jsData = (Map<String, String>) pageRequestContext.getRequest().getAttribute("jsData");
