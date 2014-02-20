@@ -19,6 +19,7 @@
     <jsp:include page="/jsp/supports/modalpopup_support.jsp"></jsp:include>
     <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/mathutils.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/panel/queryblockcontroller.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/ping.js"></script>
   </head>
   <body class="panel index">
   

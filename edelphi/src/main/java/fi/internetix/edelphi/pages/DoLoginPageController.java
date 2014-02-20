@@ -56,10 +56,6 @@ public class DoLoginPageController extends PageController {
             UserActivation userActivation = userActivationDAO.findByUser(loggedUser);
             if (userActivation != null) {
               userActivationDAO.delete(userActivation);
-              Messages messages = Messages.getInstance();
-              Locale locale = pageRequestContext.getRequest().getLocale();
-              SmvcMessage message = new SmvcMessage(Severity.INFORMATION, messages.getText(locale, "index.block.accountActivated"));
-              RequestUtils.storeRedirectMessage(pageRequestContext, message);
             }
           }
 

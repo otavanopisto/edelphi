@@ -91,6 +91,7 @@ QueryBlockController = Class.create(BlockController, {
         this.queryPageController = new Collage2DQueryPageController(this);
       break;
     }
+    startPing();
   },
   deinitialize: function ($super) {
     if (this._nextButton)
