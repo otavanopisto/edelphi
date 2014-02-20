@@ -7,6 +7,5 @@ public class PingJSONRequestController extends JSONController {
 
   @Override
   public void process(JSONRequestContext jsonRequestContext) {
-    System.out.println("pong");
   }
 }
