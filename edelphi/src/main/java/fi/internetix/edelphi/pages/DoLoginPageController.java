@@ -1,7 +1,5 @@
 package fi.internetix.edelphi.pages;
 
-import java.util.Locale;
-
 import fi.internetix.edelphi.auth.AuthenticationProvider;
 import fi.internetix.edelphi.auth.AuthenticationProviderFactory;
 import fi.internetix.edelphi.auth.AuthenticationResult;
@@ -11,11 +9,8 @@ import fi.internetix.edelphi.dao.users.UserDAO;
 import fi.internetix.edelphi.domainmodel.base.AuthSource;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.domainmodel.users.UserActivation;
-import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
-import fi.internetix.smvc.Severity;
-import fi.internetix.smvc.SmvcMessage;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
 public class DoLoginPageController extends PageController {
