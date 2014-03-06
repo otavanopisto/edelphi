@@ -1,11 +1,22 @@
 SendMailViewController = Class.create({
   initialize : function() {
+    this._selectAllRecipients = $('selectAllRecipients');
+    this._selectAllRecipientsClickListener = this._onSelectAllRecipientsClick.bindAsEventListener(this);
+    Event.observe(this._selectAllRecipients, "click", this._selectAllRecipientsClickListener);
+
     this._submitButton = $('sendEmailSubmitButton');
     this._submitButtonClickListener = this._onSubmitClick.bindAsEventListener(this);
     Event.observe(this._submitButton, "click", this._submitButtonClickListener);
   },
   deinitialize : function() {
+    Event.stopObserving(this._selectAllRecipients, "click", this._selectAllRecipientsClickListener);
     Event.stopObserving(this._submitButton, "click", this._submitButtonClickListener);
+  },
+  _onSelectAllRecipientsClick: function (event) {
+    Event.stop(event);
+    $('panelAdminSendEmailRecipientBlockContent').select('input[type=checkbox]').each(function(e) {
+      e.checked = !e.checked;
+    });
   },
   _onSubmitClick: function (event) {
     Event.stop(event);

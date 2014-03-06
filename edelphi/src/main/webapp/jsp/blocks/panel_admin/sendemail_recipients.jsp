@@ -11,6 +11,8 @@
   </jsp:include>
 
   <div id="panelAdminSendEmailRecipientBlockContent" class="blockContent">
+  
+    <div id="selectAllRecipients" class="sendMainRecipientEmail" style="cursor:pointer;"><fmt:message key="panel.admin.sendEmail.selectAll"/></div>
 
     <c:forEach var="panelUser" items="${panelUsers}">
       <c:set var="classes">formField formCheckBox</c:set>
