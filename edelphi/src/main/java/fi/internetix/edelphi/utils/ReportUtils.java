@@ -23,6 +23,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Document;
@@ -225,10 +226,15 @@ public class ReportUtils {
         Element svgObjectElement = (Element) svgObjectList.item(i);
 
         if ("image/svg+xml".equals(svgObjectElement.getAttribute("type"))) {
-          String svgUri = hostUrl + svgObjectElement.getAttribute("data");
-
+          String svgUri = svgObjectElement.getAttribute("data");
+          String svgContent = null;
+          
           Logging.logInfo("Uploading SVG from " + svgUri + " into Google Drive");
-          String svgContent = downloadUrlAsString(svgUri);
+          if (StringUtils.startsWith(svgUri, "data:image/svg+xml;base64,")) {
+            svgContent = new String(Base64.decodeBase64(StringUtils.substring(svgUri, 26)), "UTF-8");
+          } else {
+            svgContent = downloadUrlAsString(hostUrl + svgUri);
+          }
 
           // Google Drive does not support SVG so we need to convert them into
           // another format.

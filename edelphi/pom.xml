@@ -262,7 +262,7 @@ Delphi technique is used for bringing values, new viewpoints and ideas as a foun
     </dependency>
     <dependency>
       <groupId>org.xhtmlrenderer</groupId>
-      <artifactId>core-renderer</artifactId>
+      <artifactId>flying-saucer-pdf-itext5</artifactId>
     </dependency>
     <dependency>
       <groupId>dom4j</groupId>

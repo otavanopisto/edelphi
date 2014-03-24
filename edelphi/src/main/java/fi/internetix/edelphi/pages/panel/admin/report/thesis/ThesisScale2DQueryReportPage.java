@@ -29,6 +29,7 @@ import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -99,71 +100,136 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
   
   @Override
   public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
+    
+    // Data Access Objects
+
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryOptionFieldOptionDAO queryOptionFieldOptionDAO = new QueryOptionFieldOptionDAO();
     QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
     
-    String fieldNameX = getFieldName("x");
-    String fieldNameY = getFieldName("y");
-    QueryOptionField queryFieldX = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldNameX);
-    QueryOptionField queryFieldY = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldNameY);
+    // Determine whether 2D is rendered as bubble chart or as an X/Y axis bar chart   
+    // TODO chart parameters?
 
-    List<QueryOptionFieldOption> optionsX = queryOptionFieldOptionDAO.listByQueryField(queryFieldX);
-    List<QueryOptionFieldOption> optionsY = queryOptionFieldOptionDAO.listByQueryField(queryFieldY);
+    Map<String, String> chartParameters = chartContext.getParameters();
+    String axis = chartParameters.get("render2dAxis");
+    Render2dAxis render2dAxis = "x".equals(axis) ? Render2dAxis.X : "y".equals(axis) ? Render2dAxis.Y : Render2dAxis.BOTH;
     
-    int maxX = 0;
-    int maxY = 0;
+    //render2dAxis = Render2dAxis.Y; // TODO Just testing
     
-    List<String> xTickLabels = new ArrayList<String>();
+    if (render2dAxis == Render2dAxis.BOTH) {
     
-    for (QueryOptionFieldOption optionX : optionsX) {
-      int x = NumberUtils.createInteger(optionX.getValue());
-      maxX = Math.max(maxX, x);
-      xTickLabels.add(optionX.getText());
-    }
-
-    List<String> yTickLabels = new ArrayList<String>();
-    for (QueryOptionFieldOption optionY : optionsY) {
-      int y = NumberUtils.createInteger(optionY.getValue());
-      maxY = Math.max(maxY, y);
-      yTickLabels.add(optionY.getText());
-    }
-    
-    maxX++;
-    maxY++;
-    
-    Double[][] values = new Double[maxX][];
-    for (int x = 0; x < maxX; x++) {
-      values[x] = new Double[maxY];
-    }
-    
-    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
-    for (QueryReply queryReply : queryReplies) {
-      QueryQuestionOptionAnswer answerX = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryFieldX);
-      QueryQuestionOptionAnswer answerY = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryFieldY);
+      // Render an ordinary 2D bubble chart
       
-      if (answerX != null && answerY != null) {
-        int x = NumberUtils.createInteger(answerX.getOption().getValue());
-        int y = NumberUtils.createInteger(answerY.getOption().getValue());
-        
-        values[x][y] = new Double(values[x][y] != null ? values[x][y] + 1 : 1); 
-      }
-    }
+      String fieldNameX = getFieldName("x");
+      String fieldNameY = getFieldName("y");
+      QueryOptionField queryFieldX = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldNameX);
+      QueryOptionField queryFieldY = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldNameY);
 
-    QueryPageSettingDAO queryPageSettingDAO = new QueryPageSettingDAO();
-    QueryPageSettingKeyDAO queryPageSettingKeyDAO = new QueryPageSettingKeyDAO();
-    QueryPageSettingKey queryPageSettingKey = queryPageSettingKeyDAO.findByName("scale2d.label.x");
-    QueryPageSetting queryPageSetting = queryPageSettingDAO.findByKeyAndQueryPage(queryPageSettingKey, queryPage);
-    String xLabel = queryPageSetting == null ? null : queryPageSetting.getValue();
-    queryPageSettingKey = queryPageSettingKeyDAO.findByName("scale2d.label.y");
-    queryPageSetting = queryPageSettingDAO.findByKeyAndQueryPage(queryPageSettingKey, queryPage);
-    String yLabel = queryPageSetting == null ? null : queryPageSetting.getValue();
-    
-    return ChartModelProvider.createBubbleChart(queryPage.getTitle(), xLabel, xTickLabels, yLabel, yTickLabels, 0, 0, values);
+      List<QueryOptionFieldOption> optionsX = queryOptionFieldOptionDAO.listByQueryField(queryFieldX);
+      List<QueryOptionFieldOption> optionsY = queryOptionFieldOptionDAO.listByQueryField(queryFieldY);
+
+      int maxX = 0;
+      int maxY = 0;
+
+      List<String> xTickLabels = new ArrayList<String>();
+
+      for (QueryOptionFieldOption optionX : optionsX) {
+        int x = NumberUtils.createInteger(optionX.getValue());
+        maxX = Math.max(maxX, x);
+        xTickLabels.add(optionX.getText());
+      }
+
+      List<String> yTickLabels = new ArrayList<String>();
+      for (QueryOptionFieldOption optionY : optionsY) {
+        int y = NumberUtils.createInteger(optionY.getValue());
+        maxY = Math.max(maxY, y);
+        yTickLabels.add(optionY.getText());
+      }
+
+      maxX++;
+      maxY++;
+
+      Double[][] values = new Double[maxX][];
+      for (int x = 0; x < maxX; x++) {
+        values[x] = new Double[maxY];
+      }
+
+      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+      for (QueryReply queryReply : queryReplies) {
+        QueryQuestionOptionAnswer answerX = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryFieldX);
+        QueryQuestionOptionAnswer answerY = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryFieldY);
+
+        if (answerX != null && answerY != null) {
+          int x = NumberUtils.createInteger(answerX.getOption().getValue());
+          int y = NumberUtils.createInteger(answerY.getOption().getValue());
+
+          values[x][y] = new Double(values[x][y] != null ? values[x][y] + 1 : 1); 
+        }
+      }
+
+      QueryPageSettingDAO queryPageSettingDAO = new QueryPageSettingDAO();
+      QueryPageSettingKeyDAO queryPageSettingKeyDAO = new QueryPageSettingKeyDAO();
+      QueryPageSettingKey queryPageSettingKey = queryPageSettingKeyDAO.findByName("scale2d.label.x");
+      QueryPageSetting queryPageSetting = queryPageSettingDAO.findByKeyAndQueryPage(queryPageSettingKey, queryPage);
+      String xLabel = queryPageSetting == null ? null : queryPageSetting.getValue();
+      queryPageSettingKey = queryPageSettingKeyDAO.findByName("scale2d.label.y");
+      queryPageSetting = queryPageSettingDAO.findByKeyAndQueryPage(queryPageSettingKey, queryPage);
+      String yLabel = queryPageSetting == null ? null : queryPageSetting.getValue();
+
+      return ChartModelProvider.createBubbleChart(queryPage.getTitle(), xLabel, xTickLabels, yLabel, yTickLabels, 0, 0, values);
+    }
+    else {
+
+      // Render a bar chart of X or Y axis
+      
+      String fieldName = render2dAxis == Render2dAxis.X ? getFieldName("x") : getFieldName("y");
+      QueryOptionField queryField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldName);
+      List<QueryOptionFieldOption> queryFieldOptions = queryOptionFieldOptionDAO.listByQueryField(queryField);
+
+      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+      Map<Long, Long> data = ReportUtils.getOptionListData(queryField, queryFieldOptions, queryReplies);
+      
+      List<Double> values = new ArrayList<Double>();
+      List<String> categoryCaptions = new ArrayList<String>();
+      
+      for (QueryOptionFieldOption optionFieldOption : queryFieldOptions) {
+        Long optionId = optionFieldOption.getId();
+        categoryCaptions.add(optionFieldOption.getText());
+        values.add(new Double(data.get(optionId)));
+      }
+      
+      // Axis label
+      
+      QueryPageSettingDAO queryPageSettingDAO = new QueryPageSettingDAO();
+      QueryPageSettingKeyDAO queryPageSettingKeyDAO = new QueryPageSettingKeyDAO();
+      String labelSettingName = render2dAxis == Render2dAxis.X ? "scale2d.label.x" : "scale2d.label.y";
+      QueryPageSettingKey queryPageSettingKey = queryPageSettingKeyDAO.findByName(labelSettingName);
+      QueryPageSetting queryPageSetting = queryPageSettingDAO.findByKeyAndQueryPage(queryPageSettingKey, queryPage);
+      String labelText = queryPageSetting == null ? null : queryPageSetting.getValue();
+
+      // Statistics
+      // TODO These could be calculated elsewhere and added below the chart image?
+      
+      QueryFieldDataStatistics statistics = ReportUtils.getOptionListStatistics(queryFieldOptions, data);
+      Double avg = statistics.getCount() > 1 ? statistics.getAvg() : null;
+      Double q1 = statistics.getCount() >= 5 ? statistics.getQ1() : null;
+      Double q3 = statistics.getCount() >= 5 ? statistics.getQ3() : null;
+      
+      // Bar chart rendering
+      
+      return ChartModelProvider.createBarChart(queryPage.getTitle(), labelText, categoryCaptions, values, avg, q1, q3);
+    }
   }
   
 
   private String getFieldName(String axis) {
     return "scale2d." + axis;
   }
+
+  private enum Render2dAxis {
+    X,
+    Y,
+    BOTH;
+  }
+ 
 }

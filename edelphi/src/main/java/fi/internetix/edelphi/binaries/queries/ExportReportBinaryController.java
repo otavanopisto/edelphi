@@ -15,6 +15,7 @@ import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
+import org.xhtmlrenderer.layout.SharedContext;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xml.sax.SAXException;
 
@@ -27,6 +28,7 @@ import fi.internetix.edelphi.dao.panels.PanelStampDAO;
 import fi.internetix.edelphi.dao.resources.QueryDAO;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.resources.Query;
+import fi.internetix.edelphi.utils.B64ImgReplacedElementFactory;
 import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -150,6 +152,8 @@ public class ExportReportBinaryController extends BinaryController {
       ByteArrayInputStream inputStream = new ByteArrayInputStream(tidyXHtml.toByteArray());
       Document doc = builder.parse(inputStream);
       ITextRenderer renderer = new ITextRenderer();
+      SharedContext sharedContext = renderer.getSharedContext();
+      sharedContext.setReplacedElementFactory(new B64ImgReplacedElementFactory());
 
       renderer.setDocument(doc, baseURL + "/panel/admin/report/query/");
       renderer.layout();

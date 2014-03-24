@@ -35,6 +35,8 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvid
 import fi.internetix.edelphi.taglib.chartutil.ChartImageManager;
 import fi.internetix.edelphi.taglib.chartutil.ChartWebHelper;
 import fi.internetix.edelphi.taglib.chartutil.ImageHTMLEmitter;
+import fi.internetix.edelphi.taglib.chartutil.PngImageHTMLEmitter;
+import fi.internetix.edelphi.taglib.chartutil.SvgImageHTMLEmitter;
 import fi.internetix.edelphi.utils.ResourceUtils;
 import fi.internetix.smvc.SmvcRuntimeException;
 
@@ -47,9 +49,9 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
 
   private static final long serialVersionUID = 8922643273976526624L;
 
-  private double width;
+  private int width;
 
-	private double height;
+	private int height;
 
 	private String renderURL;
 
@@ -104,6 +106,7 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
       String imageMap = imageManager.getImageMap();
       
       pageContext.getOut().println(createEmitter(chartModel, elementId, imageUrl, imageMap).generateHTML());
+      
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -113,18 +116,13 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
   }
 
   private ImageHTMLEmitter createEmitter(Chart chartModel, String elementId, String imageSrc, String imageMap) {
-    ImageHTMLEmitter emitter = new ImageHTMLEmitter(
-        this.queryPageId,
-        this.stampId,
-        elementId,
-        this.output, 
-        imageSrc,
-        chartModel != null ? chartModel.getTitle().getLabel().getCaption().getValue() : "",
-        (int) this.width,
-        (int) this.height, 
-        imageMap,
-        parameters);
-    return emitter;
+    if ("SVG".equals(output)) {
+      return new SvgImageHTMLEmitter(chartModel, width, height);
+    } else if ("PNG".equals(output)) {
+      return new PngImageHTMLEmitter(chartModel, width, height);
+    }
+    // TODO: Proper error handling
+    throw new RuntimeException("Could not find an Image emitter for " + output);
   }
 
   /**
@@ -132,7 +130,8 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
    *          the width to set
    */
   public void setWidth(double width) {
-    this.width = width;
+    // TODO: ????????????
+    this.width = Math.round((float) width);
   }
 
   /**
@@ -147,7 +146,8 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
    *          the height to set
    */
   public void setHeight(double height) {
-    this.height = height;
+    // TODO: ????????????
+    this.height = Math.round((float) height);
   }
 
   /**

@@ -7,16 +7,16 @@
 
 <div class="block">
 
-<%--   <jsp:include page="/jsp/fragments/block_title.jsp"> --%>
-<%--     <jsp:param name="titleLocale" value="index.block.myPanelsBlockTitle"/> --%>
-<%--     <jsp:param name="helpText" value="<p><b>Omat paneelit</b> -ohjeistus</p>"/> --%>
-<%--   </jsp:include> --%>
-  
   <c:set var="reportPageData" value="${reportPageDatas[param.reportPageNumber]}" />
   
   <div class="blockContent">
     <div class="blockContent">
+    
+      <!-- Title -->
+    
       <h2>${reportPageData.queryPage.title}</h2>
+      
+      <!-- Thesis -->
 
       <jsp:include page="/jsp/fragments/query_report_thesis.jsp">
         <jsp:param value="${reportPageData.queryPage.id}" name="queryPageId"/>
@@ -29,6 +29,8 @@
           <ed:param name="filter:${filter.type}" value="${filter.value}"/>
         </c:forEach>
       </ed:queryPageChart>
+      
+      <!-- Statistics -->
 
       <table>
         <tr>
@@ -63,7 +65,7 @@
         </tr>
       </table>
 
-      <!-- Applying of comments -->
+      <!-- Comment list -->
 
       <jsp:include page="/jsp/fragments/query_commentlist.jsp">
         <jsp:param value="true" name="reportMode"/>
