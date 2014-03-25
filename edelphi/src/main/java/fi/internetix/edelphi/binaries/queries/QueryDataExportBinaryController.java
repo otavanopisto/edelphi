@@ -57,14 +57,15 @@ public class QueryDataExportBinaryController extends BinaryController {
         
     List<QueryReply> replies = queryReplyDAO.listByQueryAndStampAndArchived(query, panelStamp, Boolean.FALSE);
 
-    if (isFiltered) {
-      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryId);
-      if (filters != null) {
-        for (QueryReplyFilter filter : filters) {
-          replies = filter.filterList(replies);
-        }
-      }
-    }
+    // TODO QUERYREPORTCHARTCONTEXT NEEDED TO FILTER REPLIES 
+//    if (isFiltered) {
+//      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryId);
+//      if (filters != null) {
+//        for (QueryReplyFilter filter : filters) {
+//          replies = filter.filterList(replies);
+//        }
+//      }
+//    }
 
     switch (format) {
     case CSV:

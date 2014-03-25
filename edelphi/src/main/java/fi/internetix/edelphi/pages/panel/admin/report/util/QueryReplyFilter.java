@@ -1,8 +1,10 @@
 package fi.internetix.edelphi.pages.panel.admin.report.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
@@ -40,6 +42,15 @@ public abstract class QueryReplyFilter {
     } catch (Exception e) {
       throw new SmvcRuntimeException(EdelfoiStatusCode.UNDEFINED, e.getLocalizedMessage(), e);
     }
+  }
+  
+  public static List<QueryReplyFilter> parseFilters(Map<String, String> filters) {
+    List<QueryReplyFilter> l = new ArrayList<QueryReplyFilter>();
+    Set<String> filterKeys = filters.keySet();
+    for (String filterKey : filterKeys) {
+      l.add(createFilter(filterKey, filters.get(filterKey)));
+    }
+    return l;
   }
 
   private static Map<QueryReplyFilterType, Class<? extends QueryReplyFilter>> filters;

@@ -79,6 +79,13 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
 
+    <attribute>
+      <description>reportContext</description>
+      <name>reportContext</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+
 <!--    <attribute> -->
 <!--      <description>Data to bind to chart model.</description> -->
 <!--      <name>data</name> -->

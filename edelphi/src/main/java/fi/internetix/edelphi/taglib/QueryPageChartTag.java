@@ -63,6 +63,16 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
 	private Long stampId;
 
   private Map<String, String> parameters;
+  
+  private QueryReportChartContext reportContext;
+  
+  public QueryReportChartContext getReportContext() {
+    return reportContext;
+  }
+  
+  public void setReportContext(QueryReportChartContext reportContext) {
+    this.reportContext = reportContext;
+  }
 	
   public int doEndTag() throws JspException {
     try {
@@ -86,8 +96,9 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
         panelStamp = panelStampDAO.findById(stampId);
       }
       QueryReportPageController queryReportPageController = QueryReportPageProvider.getController(queryPage.getPageType());
-      QueryReportChartContext queryReportChartContext = new QueryReportChartContext(locale, parameters, panelStamp);
-      Chart chartModel = queryReportPageController.constructChart(queryReportChartContext, queryPage);
+      
+      //QueryReportChartContext queryReportChartContext = new QueryReportChartContext(locale, parameters, panelStamp);
+      Chart chartModel = queryReportPageController.constructChart(reportContext, queryPage);
 
       if (chartModel != null) {
         // Set size in chart model

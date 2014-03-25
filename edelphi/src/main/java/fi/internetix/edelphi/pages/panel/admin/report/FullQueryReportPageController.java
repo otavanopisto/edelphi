@@ -53,7 +53,7 @@ public class FullQueryReportPageController extends PanelPageController {
     Long queryId = pageRequestContext.getLong("queryId");
     ReportChartFormat chartFormat = ReportChartFormat.valueOf(pageRequestContext.getString("chartFormat"));
     
-    // By default the whole query data is beign output
+    // By default the whole query data is being output
     Boolean isFiltered = pageRequestContext.getBoolean("useFilters");
     isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
 
@@ -78,14 +78,15 @@ public class FullQueryReportPageController extends PanelPageController {
     
     // Apply report filters from the session, if any
     
-    if (isFiltered) {
-      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(pageRequestContext,  queryId);
-      if (filters != null) {
-        for (QueryReplyFilter filter : filters) {
-          chartContext.addFilter(filter);
-        }
-      }
-    }
+    // TODO QUERYREPORTCHARTCONTEXT NEEDED TO FILTER REPLIES 
+//    if (isFiltered) {
+//      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(pageRequestContext,  queryId);
+//      if (filters != null) {
+//        for (QueryReplyFilter filter : filters) {
+//          chartContext.addFilter(filter);
+//        }
+//      }
+//    }
     
     // Generate the report pages
     
@@ -126,7 +127,7 @@ public class FullQueryReportPageController extends PanelPageController {
     pageRequestContext.getRequest().setAttribute("queryId", queryId);
     pageRequestContext.getRequest().setAttribute("chartFormat", chartFormat);
     pageRequestContext.getRequest().setAttribute("reportPageDatas", pageDatas);
-    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters()); // for rendering chart images
+//    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters()); // for rendering chart images
 
     pageRequestContext.setIncludeJSP("/jsp/pages/panel/admin/report/showreport.jsp");
   }

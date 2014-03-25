@@ -3,6 +3,7 @@ package fi.internetix.edelphi.pages.panel.admin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import fi.internetix.edelphi.dao.panels.PanelExpertiseGroupUserDAO;
 import fi.internetix.edelphi.dao.panels.PanelStampDAO;
@@ -51,6 +53,7 @@ import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.ReportChartFormat;
 import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
+import fi.internetix.smvc.controllers.RequestContext;
 
 public abstract class AbstractQueryReportPageController extends PanelPageController {
   
@@ -106,17 +109,17 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     
     Query query = queryDAO.findById(queryId); 
 
-    QueryReportChartContext chartContext = new QueryReportChartContext(pageRequestContext.getRequest().getLocale(), activeStamp);
-    chartContext.populateRequestParameters(pageRequestContext);
-
-    if (!StringUtils.isEmpty(queryExpertiseFilter))
-      chartContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.EXPERTISE, queryExpertiseFilter));
+    QueryReportChartContext reportContext = new QueryReportChartContext(pageRequestContext.getRequest().getLocale(), activeStamp);
+    this.populateRequestParameters(pageRequestContext, reportContext);
+    if (!StringUtils.isEmpty(queryExpertiseFilter)) {
+      reportContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.EXPERTISE.toString(), queryExpertiseFilter));
+    }
 
     Set<Long> checkedUserGroups = null;
     List<UserGroupFilterBean> userGroups = new ArrayList<UserGroupFilterBean>();
   	String[] userGroupsFilter = pageRequestContext.getStrings("userGroups");
   	if (userGroupsFilter != null && userGroupsFilter.length < panelUserGroups.size()) {
-  		chartContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.USER_GROUPS, userGroupsFilter != null ? StringUtils.join(userGroupsFilter, ",") : null));
+  	  reportContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.USER_GROUPS.toString(), userGroupsFilter != null ? StringUtils.join(userGroupsFilter, ",") : null));
 		  checkedUserGroups = new HashSet<Long>(); 
       for (String userGroup : userGroupsFilter) {
   		 checkedUserGroups.add(NumberUtils.createLong(userGroup));
@@ -132,9 +135,9 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
       }
     });
 
-    handleFormFilter(pageRequestContext, query, chartContext);
+    handleFormFilter(pageRequestContext, query, reportContext);
     
-    List<QueryReportPageData> pageDatas = getPageDatas(pageRequestContext, chartContext, query);
+    List<QueryReportPageData> pageDatas = getPageDatas(pageRequestContext, reportContext, query);
     
     List<PanelUserExpertiseClass> expertiseClasses = panelUserExpertiseClassDAO.listByPanel(panel);
     Collections.sort(expertiseClasses, new Comparator<PanelUserExpertiseClass>() {
@@ -178,12 +181,18 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
 
     ActionUtils.includeRoleAccessList(pageRequestContext);
     
-    // Store current query filters in session for possible export
-
-    ReportUtils.clearQueryFilters(pageRequestContext);
-    if (queryId != null) {
-      ReportUtils.storeQueryFilters(pageRequestContext, queryId, chartContext.getReplyFilters());
-    }
+//    // Store current query filters in session for possible export
+//
+//    ReportUtils.clearQueryFilters(pageRequestContext);
+//    if (queryId != null) {
+//      ReportUtils.storeQueryFilters(pageRequestContext, queryId, chartContext.getReplyFilters());
+//    }
+    
+//    ObjectMapper om = new ObjectMapper();
+//    String s = om.writeValueAsString(requestContext);
+//    om.readValue(s, dklasjdklas);
+    
+    // Jacksonoi reportContext?
 
     pageRequestContext.getRequest().setAttribute("queries", queries);
     pageRequestContext.getRequest().setAttribute("queryPages", queryPages);
@@ -193,7 +202,8 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     pageRequestContext.getRequest().setAttribute("queryId", queryId);
     pageRequestContext.getRequest().setAttribute("chartFormat", ReportChartFormat.PNG);
     pageRequestContext.getRequest().setAttribute("reportPageDatas", pageDatas);
-    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters());
+    pageRequestContext.getRequest().setAttribute("reportContext", reportContext);
+//    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters());
     pageRequestContext.getRequest().setAttribute("queryExpertiseFilterExpertises", expertiseClasses);
     pageRequestContext.getRequest().setAttribute("queryExpertiseFilterInterests", intressClasses);
     pageRequestContext.getRequest().setAttribute("queryExpertiseFilterGroupMap", expertiseGroupMap);
@@ -206,6 +216,24 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     pageRequestContext.getRequest().setAttribute("userGroups", userGroups);
 
     pageRequestContext.setIncludeJSP(jspFile);
+  }
+  
+  private void populateRequestParameters(RequestContext requestContext, QueryReportChartContext reportContext) {
+    Enumeration<?> names = requestContext.getRequest().getParameterNames();
+    while (names.hasMoreElements()) {
+      String name = (String) names.nextElement();
+      if (name.startsWith(CHART_PARAMETER_PREFIX)) {
+        String value = requestContext.getRequest().getParameter(name);
+        name = name.substring(CHART_PARAMETER_PREFIX.length());
+        if (!name.startsWith(CHART_FILTER_PARAMETER_PREFIX)) {
+          reportContext.addParameter(name, value);
+        }
+        else {
+          name = name.substring(CHART_FILTER_PARAMETER_PREFIX.length());
+          reportContext.addFilter(QueryReplyFilter.createFilter(name, value));
+        }
+      }
+    }
   }
 
   private Map<Long, Boolean> getSelectedExpertiseMap(String queryExpertiseFilter) {
@@ -359,4 +387,9 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
       return selectedOptions;
     }
   }
+
+  private static final String CHART_PARAMETER_PREFIX = "chart_";
+  private static final String CHART_FILTER_PARAMETER_PREFIX = "filter:";
+
+
 }

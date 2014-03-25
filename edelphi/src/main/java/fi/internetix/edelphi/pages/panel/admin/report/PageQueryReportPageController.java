@@ -62,14 +62,15 @@ public class PageQueryReportPageController extends PanelPageController {
 
     // Apply report filters from the session, if any
     
-    if (isFiltered) {
-      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(pageRequestContext, queryPage.getQuerySection().getQuery().getId());
-      if (filters != null) {
-        for (QueryReplyFilter filter : filters) {
-          chartContext.addFilter(filter);
-        }
-      }
-    }
+    // TODO QUERYREPORTCHARTCONTEXT NEEDED TO FILTER REPLIES 
+//    if (isFiltered) {
+//      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(pageRequestContext, queryPage.getQuerySection().getQuery().getId());
+//      if (filters != null) {
+//        for (QueryReplyFilter filter : filters) {
+//          chartContext.addFilter(filter);
+//        }
+//      }
+//    }
 
     QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, chartContext, queryPage);
     pageDatas.add(pageData);
@@ -85,7 +86,7 @@ public class PageQueryReportPageController extends PanelPageController {
     pageRequestContext.getRequest().setAttribute("panel", panel);
     pageRequestContext.getRequest().setAttribute("chartFormat", chartFormat);
     pageRequestContext.getRequest().setAttribute("reportPageDatas", pageDatas);
-    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters()); // for rendering chart images
+//    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters()); // for rendering chart images
     
     pageRequestContext.setIncludeJSP("/jsp/pages/panel/admin/report/showreport.jsp");
   }

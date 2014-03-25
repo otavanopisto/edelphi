@@ -1,5 +1,6 @@
 package fi.internetix.edelphi.pages.panel.admin.report.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -10,37 +11,35 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
+import fi.internetix.edelphi.dao.panels.PanelStampDAO;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.smvc.controllers.RequestContext;
 
-public class QueryReportChartContext {
+public class QueryReportChartContext implements Serializable {
 
-  public static final String CHART_PARAMETER_PREFIX = "chart_";
-  public static final String CHART_FILTER_PARAMETER_PREFIX = "filter:";
+  private static final long serialVersionUID = 8128813216252853554L;
 
   public QueryReportChartContext(Locale locale, PanelStamp panelStamp) {
     this(locale, null, panelStamp);
-    this.panelStamp = panelStamp;
+    this.panelStampId = panelStamp.getId();
   }
 
   public QueryReportChartContext(Locale locale, Map<String, String> parameters, PanelStamp panelStamp) {
     this.locale = locale;
     if (parameters != null)
       this.parameters.putAll(parameters);
-    this.panelStamp = panelStamp;
+    this.panelStampId = panelStamp.getId();
   }
   
   public PanelStamp getStamp() {
-    return panelStamp;
+    // TODO Performance?
+    PanelStampDAO panelStampDAO = new PanelStampDAO();
+    return panelStampDAO.findById(panelStampId);
   }
-
+  
   public Map<String, String> getParameters() {
     return parameters;
-  }
-
-  public void putParameters(Map<String, String> parameters) {
-    this.parameters.putAll(parameters);
   }
   
   public Long getLong(String paramName) {
@@ -50,56 +49,36 @@ public class QueryReportChartContext {
 
   public String getString(String paramName) {
     String value = parameters.get(paramName);
-    
     return StringUtils.isBlank(value) ? null : value;
   }
   
-  public List<QueryReplyFilter> getReplyFilters() {
-    return replyFilters;
-  }
-
-  public void addFilter(QueryReplyFilter filter) {
-    this.replyFilters.add(filter);
-  }
-
-  public List<QueryReply> filterReplies(List<QueryReply> queryReplies) {
-    List<QueryReply> result = queryReplies;
-    
-    for (QueryReplyFilter filter : replyFilters) {
-      result = filter.filterList(result);
-    }
-    
-    return result;
+  public void addParameter(String name, String value) {
+    parameters.put(name, value);
   }
   
-  public void populateRequestParameters(RequestContext requestContext) {
-    Enumeration<?> names = requestContext.getRequest().getParameterNames();
-    
-    while (names.hasMoreElements()) {
-      String name = (String) names.nextElement();
-      if (name.startsWith(CHART_PARAMETER_PREFIX)) {
-        String value = requestContext.getRequest().getParameter(name);
-        
-        name = name.substring(CHART_PARAMETER_PREFIX.length());
-
-        if (!name.startsWith(CHART_FILTER_PARAMETER_PREFIX))
-          this.parameters.put(name, value);
-        else {
-          name = name.substring(CHART_FILTER_PARAMETER_PREFIX.length());
-
-          QueryReplyFilter queryReplyFilter = QueryReplyFilter.createFilter(name, value);
-          this.replyFilters.add(queryReplyFilter);
-        }
-      }
-    }
+  public void addFilter(QueryReplyFilter filter) {
+    filters.put(filter.getType().toString(), filter.getValue());
   }
   
   public Locale getLocale() {
     return locale;
   }
 
+  public Map<String, String> getFilters() {
+    return filters;
+  }
+
+  public Long getPanelStampId() {
+    return panelStampId;
+  }
+
+  public void setPanelStampId(Long panelStampId) {
+    this.panelStampId = panelStampId;
+  }
+
   private Locale locale;
-  private PanelStamp panelStamp;
-  private final List<QueryReplyFilter> replyFilters = new ArrayList<QueryReplyFilter>();
-  private final Map<String, String> parameters = new HashMap<String, String>();
+  private Long panelStampId;
+  private Map<String, String> filters = new HashMap<String, String>();
+  private Map<String, String> parameters = new HashMap<String, String>();
+
 }

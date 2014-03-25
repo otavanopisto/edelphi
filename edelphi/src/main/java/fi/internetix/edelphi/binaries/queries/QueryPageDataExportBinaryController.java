@@ -36,7 +36,7 @@ public class QueryPageDataExportBinaryController extends BinaryController {
     Long stampId = requestContext.getLong("stampId");
     String replierExportStrategyParam = requestContext.getString("replierExportStrategy");
 
-    // By default the whole query data is beign output
+    // By default the whole query data is being output
     Boolean isFiltered = requestContext.getBoolean("useFilters");
     isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
 
@@ -52,14 +52,15 @@ public class QueryPageDataExportBinaryController extends BinaryController {
     
     List<QueryReply> replies = queryReplyDAO.listByQueryAndStampAndArchived(queryPage.getQuerySection().getQuery(), panelStamp, Boolean.FALSE);
 
-    if (isFiltered) {
-      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryPage.getQuerySection().getQuery().getId());
-      if (filters != null) {
-        for (QueryReplyFilter filter : filters) {
-          replies = filter.filterList(replies);
-        }
-      }
-    }
+    // TODO QUERYREPORTCHARTCONTEXT NEEDED TO FILTER REPLIES 
+//    if (isFiltered) {
+//      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryPage.getQuerySection().getQuery().getId());
+//      if (filters != null) {
+//        for (QueryReplyFilter filter : filters) {
+//          replies = filter.filterList(replies);
+//        }
+//      }
+//    }
     
     switch (format) {
       case CSV:

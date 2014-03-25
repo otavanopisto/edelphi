@@ -28,39 +28,42 @@ import fi.internetix.smvc.controllers.RequestContext;
 
 public class ReportUtils {
   
-  private static final String QUERY_FILTER_PREFIX = "filters.";
-  
-  @SuppressWarnings("unchecked")
-  public static List<QueryReplyFilter> getQueryFilters(RequestContext requestContext, Long queryId) {
-    HttpSession session = requestContext.getRequest().getSession();
-    return (List<QueryReplyFilter>) session.getAttribute(QUERY_FILTER_PREFIX + queryId);
-  }
-  
-  public static void storeQueryFilters(RequestContext requestContext, Long queryId, List<QueryReplyFilter> filters) {
-    HttpSession session = requestContext.getRequest().getSession(); 
-    if (filters.isEmpty()) {
-      session.removeAttribute(QUERY_FILTER_PREFIX + queryId);
-    }
-    else {
-      session.setAttribute(QUERY_FILTER_PREFIX +  queryId, filters);  
-    }
-  }
-  
-  public static void clearQueryFilters(RequestContext requestContext) {
-    HttpSession session = requestContext.getRequest().getSession();
-    Enumeration<String> e = session.getAttributeNames();
-    while (e.hasMoreElements()) {
-      String attribute = e.nextElement();
-      if (attribute.startsWith(QUERY_FILTER_PREFIX)) {
-        session.removeAttribute(attribute);
-      }
-    }
-  }
+//  private static final String QUERY_FILTER_PREFIX = "filters.";
+//  
+//  @SuppressWarnings("unchecked")
+//  public static List<QueryReplyFilter> getQueryFilters(RequestContext requestContext, Long queryId) {
+//    HttpSession session = requestContext.getRequest().getSession();
+//    return (List<QueryReplyFilter>) session.getAttribute(QUERY_FILTER_PREFIX + queryId);
+//  }
+//  
+//  public static void storeQueryFilters(RequestContext requestContext, Long queryId, List<QueryReplyFilter> filters) {
+//    HttpSession session = requestContext.getRequest().getSession(); 
+//    if (filters.isEmpty()) {
+//      session.removeAttribute(QUERY_FILTER_PREFIX + queryId);
+//    }
+//    else {
+//      session.setAttribute(QUERY_FILTER_PREFIX +  queryId, filters);  
+//    }
+//  }
+//  
+//  public static void clearQueryFilters(RequestContext requestContext) {
+//    HttpSession session = requestContext.getRequest().getSession();
+//    Enumeration<String> e = session.getAttributeNames();
+//    while (e.hasMoreElements()) {
+//      String attribute = e.nextElement();
+//      if (attribute.startsWith(QUERY_FILTER_PREFIX)) {
+//        session.removeAttribute(attribute);
+//      }
+//    }
+//  }
   
   public static List<QueryReply> getQueryReplies(QueryPage queryPage, QueryReportChartContext chartContext) {
+    List<QueryReplyFilter> filters = QueryReplyFilter.parseFilters(chartContext.getFilters());
     QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(queryPage.getQuerySection().getQuery(), chartContext.getStamp());
-    queryReplies = chartContext.filterReplies(queryReplies);
+    for (QueryReplyFilter filter : filters) {
+      queryReplies = filter.filterList(queryReplies);
+    }
     return queryReplies;
   }
   
