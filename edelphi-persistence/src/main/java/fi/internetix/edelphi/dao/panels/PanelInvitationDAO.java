@@ -58,7 +58,26 @@ public class PanelInvitationDAO extends GenericDAO<PanelInvitation> {
 
     return getSingleResult(entityManager.createQuery(criteria)); 
   }
-  
+
+  public PanelInvitation findByPanelAndQueryAndEmail(Panel panel, Query query, String email) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<PanelInvitation> criteria = criteriaBuilder.createQuery(PanelInvitation.class);
+    Root<PanelInvitation> root = criteria.from(PanelInvitation.class);
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(PanelInvitation_.panel), panel),
+        criteriaBuilder.equal(root.get(PanelInvitation_.email), email),
+        criteriaBuilder.equal(root.get(PanelInvitation_.query), query),
+        criteriaBuilder.equal(root.get(PanelInvitation_.archived), Boolean.FALSE)
+      )
+    );
+
+    return getSingleResult(entityManager.createQuery(criteria)); 
+  }
+
   public PanelInvitation findByHash(String hash) {
     EntityManager entityManager = getEntityManager();
 

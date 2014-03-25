@@ -84,7 +84,7 @@ public class CreateInvitationsJSONRequestController extends JSONController {
       int invitationCount = jsonRequestContext.getInteger("invitationCount").intValue();
       for (int i = 0; i < invitationCount; i++) {
         String email = jsonRequestContext.getString("inviteUser." + i + ".email");
-        PanelInvitation invitation = panelInvitationDAO.findByPanelAndEmail(panel, email);
+        PanelInvitation invitation = query == null ? panelInvitationDAO.findByPanelAndEmail(panel, email) : panelInvitationDAO.findByPanelAndQueryAndEmail(panel, query, email);
 
         boolean createInvitation = true;
         if (invitation != null && invitation.getState() == PanelInvitationState.DECLINED) {

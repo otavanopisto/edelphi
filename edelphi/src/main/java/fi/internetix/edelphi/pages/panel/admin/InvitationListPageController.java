@@ -2,7 +2,9 @@ package fi.internetix.edelphi.pages.panel.admin;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.dao.panels.PanelInvitationDAO;
@@ -39,16 +41,45 @@ public class InvitationListPageController extends PanelPageController {
         return o1.getEmail().compareTo(o2.getEmail());
       }
     });
+    
     int failedCount = 0;
     int queuedCount = 0;
     int declinedCount = 0;
     int pendingCount = 0;
+    
     // Prune accepted invitations as the user is listed as a panelist 
+    
     for (int i = invitations.size() - 1; i >= 0; i--) {
       if (invitations.get(i).getState() == PanelInvitationState.ACCEPTED) {
         invitations.remove(i);
       }
     }
+    
+    // Prune duplicates (e.g. same user invited to two different queries in the same panel)
+    
+    PanelInvitation currentInvitation, storedInvitation;
+    Map<String, Integer> userIndices = new HashMap<String, Integer>();
+    for (int i = 0; i < invitations.size(); i++) {
+      currentInvitation = invitations.get(i);
+      Integer storedIndex = userIndices.get(currentInvitation.getEmail());
+      if (storedIndex != null) {
+        storedInvitation = invitations.get(storedIndex);
+        long currentStamp = currentInvitation.getLastModified() == null ? 0 : currentInvitation.getLastModified().getTime(); 
+        long storedStamp = storedInvitation.getLastModified() == null ? 0 : storedInvitation.getLastModified().getTime(); 
+        if (storedStamp < currentStamp) {
+          userIndices.put(currentInvitation.getEmail(), i - 1);
+          invitations.remove(storedIndex.intValue());
+        }
+        else {
+          invitations.remove(i);
+        }
+        i--;
+      }
+      else {
+        userIndices.put(currentInvitation.getEmail(), i);
+      }
+    }
+    
     for (PanelInvitation invitation : invitations) {
       switch (invitation.getState()) {
         case ACCEPTED:
