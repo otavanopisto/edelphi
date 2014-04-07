@@ -21,6 +21,9 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvid
 import fi.internetix.edelphi.utils.QueryUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
+/**
+ * Full query report as shown in the Query Results of panel administration. 
+ */
 public class QueryResultsQueryReportPageController extends AbstractQueryReportPageController {
 
   public QueryResultsQueryReportPageController() {

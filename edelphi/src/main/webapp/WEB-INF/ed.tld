@@ -42,25 +42,9 @@
     </tag-class>
     <body-content>JSP</body-content>
 
-<!--    <attribute> -->
-<!--      <name>model</name> -->
-<!--      <required>true</required> -->
-<!--      <rtexprvalue>true</rtexprvalue> -->
-<!--      <description> -->
-<!--        QueryPage Chart Model -->
-<!--      </description> -->
-<!--    </attribute> -->
-
     <attribute>
       <description>Query Page Id</description>
       <name>queryPageId</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-
-    <attribute>
-      <description>Panel Stamp Id</description>
-      <name>stampId</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -82,16 +66,9 @@
     <attribute>
       <description>reportContext</description>
       <name>reportContext</name>
-      <required>false</required>
+      <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-
-<!--    <attribute> -->
-<!--      <description>Data to bind to chart model.</description> -->
-<!--      <name>data</name> -->
-<!--      <required>false</required> -->
-<!--      <rtexprvalue>true</rtexprvalue> -->
-<!--    </attribute> -->
 
     <attribute>
       <description>
@@ -103,33 +80,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
 
-<!--    <attribute> -->
-<!--      <description> -->
-<!--        Context to be used in chart scripting. -->
-<!--      </description> -->
-<!--      <name>externalContext</name> -->
-<!--      <required>false</required> -->
-<!--      <rtexprvalue>true</rtexprvalue> -->
-<!--    </attribute> -->
-
-<!--    <attribute> -->
-<!--      <description> -->
-<!--        Used to enable styling of the chart -->
-<!--      </description> -->
-<!--      <name>styleProcessor</name> -->
-<!--      <required>false</required> -->
-<!--      <rtexprvalue>true</rtexprvalue> -->
-<!--    </attribute> -->
-
-<!--    <attribute> -->
-<!--      <description> -->
-<!--        Used to set various runtime attributes for the chart -->
-<!--        generation and rendering -->
-<!--      </description> -->
-<!--      <name>runtimeContext</name> -->
-<!--      <required>false</required> -->
-<!--      <rtexprvalue>true</rtexprvalue> -->
-<!--    </attribute> -->
   </tag>
 
 </taglib>

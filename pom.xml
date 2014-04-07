@@ -37,6 +37,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <hibernate-jpamodelgen.version>1.2.0.Final</hibernate-jpamodelgen.version>
     <hibernate-instrumentation.version>4.0.1.Final</hibernate-instrumentation.version>
+    <jackson-mapper-asl.version>1.9.2</jackson-mapper-asl.version>
   </properties>
   
   <modules>
@@ -249,6 +250,15 @@
         <artifactId>javaee-api</artifactId>
         <version>6.0</version>
       </dependency>
+      
+      <!-- Jackson -->
+      
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+        <version>${jackson-mapper-asl.version}</version>
+      </dependency>
+      
     </dependencies>
   </dependencyManagement>
 

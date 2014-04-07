@@ -33,7 +33,7 @@ public class ThesisMultiselectQueryReportPage extends QueryReportPageController 
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
 
-    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_multiselect.jsp", null, chartContext.getStamp());
+    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_multiselect.jsp", null);
   }
 
   private QueryOptionField getOptionFieldFromScale1DPage(QueryPage queryPage) {

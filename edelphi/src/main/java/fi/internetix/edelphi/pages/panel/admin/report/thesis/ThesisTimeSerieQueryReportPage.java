@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
+import org.apache.commons.lang.LocaleUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.eclipse.birt.chart.model.Chart;
@@ -42,14 +43,14 @@ public class ThesisTimeSerieQueryReportPage extends QueryReportPageController {
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
     
-    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/time_serie.jsp", null, chartContext.getStamp());
+    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/time_serie.jsp", null);
   }
   
   @Override
   public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     
-    Locale locale = chartContext.getLocale();
+    Locale locale = LocaleUtils.toLocale(chartContext.getLocale());
     
     Double minX = QueryPageUtils.getDoubleSetting(queryPage, "time_serie.minX");
     Double maxX = QueryPageUtils.getDoubleSetting(queryPage, "time_serie.maxX");

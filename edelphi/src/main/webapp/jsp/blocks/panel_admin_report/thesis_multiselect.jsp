@@ -22,11 +22,7 @@
         <jsp:param value="${reportPageData.queryPage.id}" name="queryPageId"/>
       </jsp:include>
 
-      <ed:queryPageChart output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}" stampId="${reportPageData.stamp.id}">
-        <c:forEach var="filter" items="${reportReplyFilters}">
-          <ed:param name="filter:${filter.type}" value="${filter.value}"/>
-        </c:forEach>
-      </ed:queryPageChart>
+      <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}"/>
 
       <!-- Applying of comments -->
 

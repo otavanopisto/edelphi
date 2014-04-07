@@ -12,7 +12,6 @@
 package fi.internetix.edelphi.taglib;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -24,10 +23,7 @@ import org.eclipse.birt.chart.model.Chart;
 import org.eclipse.birt.chart.model.attribute.Bounds;
 
 import fi.internetix.edelphi.EdelfoiStatusCode;
-import fi.internetix.edelphi.dao.panels.PanelStampDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
-import fi.internetix.edelphi.domainmodel.panels.Panel;
-import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
@@ -60,8 +56,6 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
 
 	private Long queryPageId;
 	
-	private Long stampId;
-
   private Map<String, String> parameters;
   
   private QueryReportChartContext reportContext;
@@ -80,24 +74,10 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
         throw new SmvcRuntimeException(EdelfoiStatusCode.REPORTING_ERROR, "Unknown output format.");
       }
       
-      // TODO: Localization
-      Locale locale = Locale.getDefault();
-
       QueryPageDAO queryPageDAO = new QueryPageDAO();
-      PanelStampDAO panelStampDAO = new PanelStampDAO();
       QueryPage queryPage = queryPageDAO.findById(queryPageId);
-      PanelStamp panelStamp = null;
-      if (stampId == null) {
-        Panel panel = ResourceUtils.getResourcePanel(queryPage.getQuerySection().getQuery()); 
-        panelStamp = panel.getCurrentStamp();
-        stampId = panelStamp.getId();
-      }
-      else {
-        panelStamp = panelStampDAO.findById(stampId);
-      }
       QueryReportPageController queryReportPageController = QueryReportPageProvider.getController(queryPage.getPageType());
       
-      //QueryReportChartContext queryReportChartContext = new QueryReportChartContext(locale, parameters, panelStamp);
       Chart chartModel = queryReportPageController.constructChart(reportContext, queryPage);
 
       if (chartModel != null) {
@@ -224,11 +204,4 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
     parameters.put(name, value);
   }
 
-  public Long getStampId() {
-    return stampId;
-  }
-
-  public void setStampId(Long stampId) {
-    this.stampId = stampId;
-  }
 }

@@ -63,7 +63,7 @@ public class ThesisScale1DQueryReportPage extends QueryReportPageController {
     QueryFieldDataStatistics statistics = ReportUtils.getOptionListStatistics(queryFieldOptions, data);
     
     statistics.setShift(-queryFieldOptions.size() / 2);
-    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_scale_1d.jsp", statistics, chartContext.getStamp());
+    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_scale_1d.jsp", statistics);
   }
   
   private void appendQueryPageComments(RequestContext requestContext, final QueryPage queryPage) {

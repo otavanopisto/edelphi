@@ -26,11 +26,8 @@
 
       <!-- 2D chart -->
       
-      <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}" stampId="${reportPageData.stamp.id}">
+      <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}">
 		<ed:param name="render2dAxis" value="both"/>
-        <c:forEach var="filter" items="${reportReplyFilters}">
-          <ed:param name="filter:${filter.type}" value="${filter.value}"/>
-        </c:forEach>
       </ed:queryPageChart>
 
       <!-- Comment list -->

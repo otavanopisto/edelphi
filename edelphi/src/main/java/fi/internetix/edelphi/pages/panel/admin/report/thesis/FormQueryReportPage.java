@@ -101,7 +101,7 @@ public class FormQueryReportPage extends QueryReportPageController {
       }
     });
 
-    return new FormQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_form.jsp", beans, chartContext.getStamp());
+    return new FormQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_form.jsp", beans);
   }
 
   @Override

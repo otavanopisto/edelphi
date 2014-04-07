@@ -55,7 +55,7 @@ public class ThesisGroupingQueryReportPage extends QueryReportPageController {
     appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
 
-    return new ThesisGroupingQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_grouping.jsp", groups, chartContext.getStamp());
+    return new ThesisGroupingQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_grouping.jsp", groups);
   }
 
   private QueryOptionField getOptionFieldFromGroupingPage(QueryPage queryPage) {
@@ -133,8 +133,8 @@ public class ThesisGroupingQueryReportPage extends QueryReportPageController {
   public class ThesisGroupingQueryReportPageData extends QueryReportPageData {
     private List<QueryOptionFieldOptionGroup> groups;
 
-    public ThesisGroupingQueryReportPageData(QueryPage queryPage, String jspFile, List<QueryOptionFieldOptionGroup> groups, PanelStamp panelStamp) {
-      super(queryPage, jspFile, null, panelStamp);
+    public ThesisGroupingQueryReportPageData(QueryPage queryPage, String jspFile, List<QueryOptionFieldOptionGroup> groups) {
+      super(queryPage, jspFile, null);
       
       this.groups = groups;
     }

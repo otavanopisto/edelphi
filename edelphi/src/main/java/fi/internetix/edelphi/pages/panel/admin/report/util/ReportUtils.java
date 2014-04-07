@@ -1,19 +1,18 @@
 package fi.internetix.edelphi.pages.panel.admin.report.util;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpSession;
-
+import fi.internetix.edelphi.dao.panels.PanelStampDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionMultiOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionNumericAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionGroupOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
+import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionMultiOptionAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionNumericAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionOptionAnswer;
@@ -24,43 +23,15 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOptionGroup;
-import fi.internetix.smvc.controllers.RequestContext;
 
 public class ReportUtils {
-  
-//  private static final String QUERY_FILTER_PREFIX = "filters.";
-//  
-//  @SuppressWarnings("unchecked")
-//  public static List<QueryReplyFilter> getQueryFilters(RequestContext requestContext, Long queryId) {
-//    HttpSession session = requestContext.getRequest().getSession();
-//    return (List<QueryReplyFilter>) session.getAttribute(QUERY_FILTER_PREFIX + queryId);
-//  }
-//  
-//  public static void storeQueryFilters(RequestContext requestContext, Long queryId, List<QueryReplyFilter> filters) {
-//    HttpSession session = requestContext.getRequest().getSession(); 
-//    if (filters.isEmpty()) {
-//      session.removeAttribute(QUERY_FILTER_PREFIX + queryId);
-//    }
-//    else {
-//      session.setAttribute(QUERY_FILTER_PREFIX +  queryId, filters);  
-//    }
-//  }
-//  
-//  public static void clearQueryFilters(RequestContext requestContext) {
-//    HttpSession session = requestContext.getRequest().getSession();
-//    Enumeration<String> e = session.getAttributeNames();
-//    while (e.hasMoreElements()) {
-//      String attribute = e.nextElement();
-//      if (attribute.startsWith(QUERY_FILTER_PREFIX)) {
-//        session.removeAttribute(attribute);
-//      }
-//    }
-//  }
   
   public static List<QueryReply> getQueryReplies(QueryPage queryPage, QueryReportChartContext chartContext) {
     List<QueryReplyFilter> filters = QueryReplyFilter.parseFilters(chartContext.getFilters());
     QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
-    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(queryPage.getQuerySection().getQuery(), chartContext.getStamp());
+    PanelStampDAO panelStampDAO = new PanelStampDAO();
+    PanelStamp panelStamp = panelStampDAO.findById(chartContext.getPanelStampId());
+    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(queryPage.getQuerySection().getQuery(), panelStamp);
     for (QueryReplyFilter filter : filters) {
       queryReplies = filter.filterList(queryReplies);
     }

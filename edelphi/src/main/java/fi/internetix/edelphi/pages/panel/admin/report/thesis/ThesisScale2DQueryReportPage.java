@@ -49,7 +49,7 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
 //    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
     appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
-    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_scale_2d.jsp", null, chartContext.getStamp());
+    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_scale_2d.jsp", null);
   }
 
   private void appendQueryPageComments(RequestContext requestContext, final QueryPage queryPage) {

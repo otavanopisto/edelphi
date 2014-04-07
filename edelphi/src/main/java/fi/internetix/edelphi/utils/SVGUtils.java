@@ -9,8 +9,8 @@ import net.hanjava.svg.SVG2EMF;
 
 public class SVGUtils {
 	
-	public static byte[] convertSvgToEmf(String svgContent) throws IOException {
-		InputStream svgStream = new ByteArrayInputStream(svgContent.getBytes("UTF-8"));
+	public static byte[] convertSvgToEmf(byte[] svgContent) throws IOException {
+		InputStream svgStream = new ByteArrayInputStream(svgContent);
 		try {
 			ByteArrayOutputStream emfStream = new ByteArrayOutputStream();
 		  SVG2EMF.convert("about:blank", svgStream, emfStream);
@@ -21,5 +21,5 @@ public class SVGUtils {
 		  svgStream.close();
 		}
 	}
-
+	
 }

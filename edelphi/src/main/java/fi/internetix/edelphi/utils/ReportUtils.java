@@ -109,11 +109,15 @@ public class ReportUtils {
       for (int i = 0, l = svgObjectList.getLength(); i < l; i++) {
         Element svgObjectElement = (Element) svgObjectList.item(i);
         if ("image/svg+xml".equals(svgObjectElement.getAttribute("type"))) {
-          String svgUri = hostUrl + svgObjectElement.getAttribute("data");
-          String svgContent = downloadUrlAsString(svgUri);
+          String svgUri = svgObjectElement.getAttribute("data");
+          if (StringUtils.startsWith(svgUri, "/")) {
+            svgUri = hostUrl + svgUri;
+          }
+          
+          byte[] svgContent = downloadUrlAsByteArray(svgUri);
           ZipEntry zipEntry = new ZipEntry(String.format("%03d", i + 1) + ".svg");
           zipOutputStream.putNextEntry(zipEntry);
-          zipOutputStream.write(svgContent.getBytes());
+          zipOutputStream.write(svgContent);
         }
       }
     }
@@ -227,15 +231,12 @@ public class ReportUtils {
 
         if ("image/svg+xml".equals(svgObjectElement.getAttribute("type"))) {
           String svgUri = svgObjectElement.getAttribute("data");
-          String svgContent = null;
           
-          Logging.logInfo("Uploading SVG from " + svgUri + " into Google Drive");
-          if (StringUtils.startsWith(svgUri, "data:image/svg+xml;base64,")) {
-            svgContent = new String(Base64.decodeBase64(StringUtils.substring(svgUri, 26)), "UTF-8");
-          } else {
-            svgContent = downloadUrlAsString(hostUrl + svgUri);
+          if (StringUtils.startsWith(svgUri, "/")) {
+            svgUri = hostUrl + svgUri;
           }
-
+          
+          byte[] svgContent = downloadUrlAsByteArray(svgUri);
           // Google Drive does not support SVG so we need to convert them into
           // another format.
           byte[] emfData = SVGUtils.convertSvgToEmf(svgContent);
@@ -316,56 +317,63 @@ public class ReportUtils {
     }
   }
 
-  private static String downloadUrlAsString(String urlString) throws IOException {
-    URL url = new URL(urlString);
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-    connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
-    connection.setRequestMethod("GET");
-    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
-    connection.connect();
-    InputStream is = connection.getInputStream();
-    String urlContent = null;
-    try {
-      urlContent = StreamUtils.readStreamToString(is, "UTF-8");
-    }
-    finally {
-      if (is != null) {
-        try {
-          is.close();
-        }
-        catch (IOException ioe) {
-          Logging.logException(ioe);
-        }
-      }
-      connection.disconnect();
-    }
-    return urlContent;
-  }
+//  private static String downloadUrlAsString(String urlString) throws IOException {
+//    URL url = new URL(urlString);
+//    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//    connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
+//    connection.setRequestMethod("GET");
+//    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
+//    connection.connect();
+//    InputStream is = connection.getInputStream();
+//    String urlContent = null;
+//    try {
+//      urlContent = StreamUtils.readStreamToString(is, "UTF-8");
+//    }
+//    finally {
+//      if (is != null) {
+//        try {
+//          is.close();
+//        }
+//        catch (IOException ioe) {
+//          Logging.logException(ioe);
+//        }
+//      }
+//      connection.disconnect();
+//    }
+//    return urlContent;
+//    return new String(downloadUrlAsByteArray(urlString), "UTF-8");
+//  }
 
   private static byte[] downloadUrlAsByteArray(String urlString) throws IOException {
-    URL url = new URL(urlString);
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-    connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
-    connection.setRequestMethod("GET");
-    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
-    connection.connect();
-    InputStream is = connection.getInputStream();
-    byte[] urlContent = null;
-    try {
-      urlContent = StreamUtils.readStreamToByteArray(is); 
+    if (StringUtils.startsWith(urlString,  "data:")) {
+      int base64Index = urlString.indexOf("base64,");
+      return Base64.decodeBase64(urlString.substring(base64Index + 7));
     }
-    finally {
-      if (is != null) {
-        try {
-          is.close();
-        }
-        catch (IOException ioe) {
-          Logging.logException(ioe);
-        }
+    else {
+      URL url = new URL(urlString);
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
+      connection.setRequestMethod("GET");
+      connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
+      connection.connect();
+      InputStream is = connection.getInputStream();
+      byte[] urlContent = null;
+      try {
+        urlContent = StreamUtils.readStreamToByteArray(is); 
       }
-      connection.disconnect();
+      finally {
+        if (is != null) {
+          try {
+            is.close();
+          }
+          catch (IOException ioe) {
+            Logging.logException(ioe);
+          }
+        }
+        connection.disconnect();
+      }
+      return urlContent;
     }
-    return urlContent; 
   }
 
 }

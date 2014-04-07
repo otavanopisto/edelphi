@@ -30,11 +30,8 @@
             </p>
           </c:when>
           <c:when test="${field.fieldType eq 'LIST'}">
-            <ed:queryPageChart output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}" stampId="${reportPageData.stamp.id}">
+            <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}">
               <ed:param name="queryFieldId" value="${field.optionField.id}"/>
-              <c:forEach var="filter" items="${reportReplyFilters}">
-                <ed:param name="filter:${filter.type}" value="${filter.value}"/>
-              </c:forEach>
             </ed:queryPageChart>
           </c:when>
         </c:choose>

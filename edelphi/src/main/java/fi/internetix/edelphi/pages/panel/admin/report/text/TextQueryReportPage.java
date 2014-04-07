@@ -1,6 +1,5 @@
   package fi.internetix.edelphi.pages.panel.admin.report.text;
 
-import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
@@ -22,13 +21,13 @@ public class TextQueryReportPage extends QueryReportPageController {
     
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
 
-    return new TextQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/text.jsp", text, chartContext.getStamp());
+    return new TextQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/text.jsp", text);
   }
  
   public class TextQueryReportPageData extends QueryReportPageData {
     
-    public TextQueryReportPageData(QueryPage queryPage, String jspFile, String text, PanelStamp panelStamp) {
-      super(queryPage, jspFile, null, panelStamp);
+    public TextQueryReportPageData(QueryPage queryPage, String jspFile, String text) {
+      super(queryPage, jspFile, null);
       
       this.text = text;
     }

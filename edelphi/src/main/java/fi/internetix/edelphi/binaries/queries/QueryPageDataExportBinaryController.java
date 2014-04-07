@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
@@ -19,7 +21,7 @@ import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilter;
-import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
 import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.QueryDataUtils;
 import fi.internetix.edelphi.utils.ResourceUtils;
@@ -36,9 +38,18 @@ public class QueryPageDataExportBinaryController extends BinaryController {
     Long stampId = requestContext.getLong("stampId");
     String replierExportStrategyParam = requestContext.getString("replierExportStrategy");
 
-    // By default the whole query data is being output
-    Boolean isFiltered = requestContext.getBoolean("useFilters");
-    isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
+    QueryReportChartContext reportContext = null;
+    String serializedContext = requestContext.getString("serializedContext");
+    if (serializedContext != null) {
+      try {
+        ObjectMapper om = new ObjectMapper();
+        byte[] serializedData = Base64.decodeBase64(serializedContext);
+        String stringifiedData = new String(serializedData, "UTF-8");
+        reportContext = om.readValue(stringifiedData, QueryReportChartContext.class); 
+      }
+      catch (Exception e) {
+      }
+    }
 
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
@@ -51,16 +62,12 @@ public class QueryPageDataExportBinaryController extends BinaryController {
     // Query replies, possibly filtered
     
     List<QueryReply> replies = queryReplyDAO.listByQueryAndStampAndArchived(queryPage.getQuerySection().getQuery(), panelStamp, Boolean.FALSE);
-
-    // TODO QUERYREPORTCHARTCONTEXT NEEDED TO FILTER REPLIES 
-//    if (isFiltered) {
-//      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(requestContext,  queryPage.getQuerySection().getQuery().getId());
-//      if (filters != null) {
-//        for (QueryReplyFilter filter : filters) {
-//          replies = filter.filterList(replies);
-//        }
-//      }
-//    }
+    List<QueryReplyFilter> filters = reportContext == null ? null : QueryReplyFilter.parseFilters(reportContext.getFilters());
+    if (filters != null) {
+      for (QueryReplyFilter filter : filters) {
+        replies = filter.filterList(replies);
+      }
+    }
     
     switch (format) {
       case CSV:

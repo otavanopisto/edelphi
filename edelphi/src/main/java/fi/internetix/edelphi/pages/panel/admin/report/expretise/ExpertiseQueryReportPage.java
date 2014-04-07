@@ -129,6 +129,6 @@ public class ExpertiseQueryReportPage extends QueryReportPageController {
   @Override
   public QueryReportPageData loadPageData(RequestContext requestContext, QueryReportChartContext chartContext, QueryPage queryPage) {
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
-    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/expertise.jsp", null, chartContext.getStamp());
+    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/expertise.jsp", null);
   }
 }

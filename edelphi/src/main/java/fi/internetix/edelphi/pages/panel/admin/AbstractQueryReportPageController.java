@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -42,11 +43,9 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.pages.panel.PanelPageController;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilter;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilterType;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
-import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
 import fi.internetix.edelphi.query.form.FormFieldType;
 import fi.internetix.edelphi.utils.ActionUtils;
 import fi.internetix.edelphi.utils.QueryPageUtils;
@@ -109,17 +108,17 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     
     Query query = queryDAO.findById(queryId); 
 
-    QueryReportChartContext reportContext = new QueryReportChartContext(pageRequestContext.getRequest().getLocale(), activeStamp);
+    QueryReportChartContext reportContext = new QueryReportChartContext(pageRequestContext.getRequest().getLocale().toString(), activeStamp.getId());
     this.populateRequestParameters(pageRequestContext, reportContext);
     if (!StringUtils.isEmpty(queryExpertiseFilter)) {
-      reportContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.EXPERTISE.toString(), queryExpertiseFilter));
+      reportContext.addFilter(QueryReplyFilterType.EXPERTISE.toString(), queryExpertiseFilter);
     }
 
     Set<Long> checkedUserGroups = null;
     List<UserGroupFilterBean> userGroups = new ArrayList<UserGroupFilterBean>();
   	String[] userGroupsFilter = pageRequestContext.getStrings("userGroups");
   	if (userGroupsFilter != null && userGroupsFilter.length < panelUserGroups.size()) {
-  	  reportContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.USER_GROUPS.toString(), userGroupsFilter != null ? StringUtils.join(userGroupsFilter, ",") : null));
+  	  reportContext.addFilter(QueryReplyFilterType.USER_GROUPS.toString(), userGroupsFilter != null ? StringUtils.join(userGroupsFilter, ",") : null);
 		  checkedUserGroups = new HashSet<Long>(); 
       for (String userGroup : userGroupsFilter) {
   		 checkedUserGroups.add(NumberUtils.createLong(userGroup));
@@ -181,18 +180,15 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
 
     ActionUtils.includeRoleAccessList(pageRequestContext);
     
-//    // Store current query filters in session for possible export
-//
-//    ReportUtils.clearQueryFilters(pageRequestContext);
-//    if (queryId != null) {
-//      ReportUtils.storeQueryFilters(pageRequestContext, queryId, chartContext.getReplyFilters());
-//    }
+    // Serialize the report context so that it can be re-used when exporting reports
     
-//    ObjectMapper om = new ObjectMapper();
-//    String s = om.writeValueAsString(requestContext);
-//    om.readValue(s, dklasjdklas);
-    
-    // Jacksonoi reportContext?
+    String serializedContext = null;
+    try {
+      ObjectMapper om = new ObjectMapper();
+      serializedContext = Base64.encodeBase64URLSafeString(om.writeValueAsBytes(reportContext)); 
+    }
+    catch (Exception e) {
+    }
 
     pageRequestContext.getRequest().setAttribute("queries", queries);
     pageRequestContext.getRequest().setAttribute("queryPages", queryPages);
@@ -203,7 +199,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     pageRequestContext.getRequest().setAttribute("chartFormat", ReportChartFormat.PNG);
     pageRequestContext.getRequest().setAttribute("reportPageDatas", pageDatas);
     pageRequestContext.getRequest().setAttribute("reportContext", reportContext);
-//    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters());
+    pageRequestContext.getRequest().setAttribute("serializedContext", serializedContext);
     pageRequestContext.getRequest().setAttribute("queryExpertiseFilterExpertises", expertiseClasses);
     pageRequestContext.getRequest().setAttribute("queryExpertiseFilterInterests", intressClasses);
     pageRequestContext.getRequest().setAttribute("queryExpertiseFilterGroupMap", expertiseGroupMap);
@@ -230,7 +226,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
         }
         else {
           name = name.substring(CHART_FILTER_PARAMETER_PREFIX.length());
-          reportContext.addFilter(QueryReplyFilter.createFilter(name, value));
+          reportContext.addFilter(name, value);
         }
       }
     }
@@ -296,7 +292,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
               
               String formFieldFilter = pageRequestContext.getString("ff:" + queryOptionField.getId());
               if (!StringUtils.isEmpty(formFieldFilter))
-                chartContext.addFilter(QueryReplyFilter.createFilter(QueryReplyFilterType.FORMFIELD, queryOptionField.getId() + "=" + formFieldFilter));
+                chartContext.addFilter(QueryReplyFilterType.FORMFIELD.toString(), queryOptionField.getId() + "=" + formFieldFilter);
               
               mrBean = new FormOptionListFieldDescriptor(fieldType.toString(), queryOptionField, options, formFieldFilter);
               beans.add(mrBean);

@@ -1,15 +1,13 @@
 package fi.internetix.edelphi.pages.panel.admin.report.util;
 
-import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 
 public class QueryReportPageData {
 
-  public QueryReportPageData(QueryPage queryPage, String jspFile, QueryFieldDataStatistics statistics, PanelStamp panelStamp) {
+  public QueryReportPageData(QueryPage queryPage, String jspFile, QueryFieldDataStatistics statistics) {
     this.queryPage = queryPage;
     this.jspFile = jspFile;
     this.statistics = statistics;
-    this.stamp = panelStamp;
   }
   
   public String getJspFile() {
@@ -20,10 +18,6 @@ public class QueryReportPageData {
     return queryPage;
   }
 
-  public PanelStamp getStamp() {
-    return stamp;
-  }
-  
   public QueryFieldDataStatistics getStatistics() {
     return statistics;
   }
@@ -31,5 +25,5 @@ public class QueryReportPageData {
   private final QueryFieldDataStatistics statistics;
   private final String jspFile;
   private final QueryPage queryPage;
-  private final PanelStamp stamp;
+
 }

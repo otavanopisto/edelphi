@@ -13,6 +13,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.apache.commons.codec.binary.Base64;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
 import org.xhtmlrenderer.pdf.ITextRenderer;
@@ -27,6 +29,7 @@ import fi.internetix.edelphi.dao.panels.PanelStampDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
 import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -44,10 +47,16 @@ public class ExportReportPageBinaryController extends BinaryController {
   public void process(BinaryRequestContext requestContext) {
     Long queryPageId = requestContext.getLong("queryPageId");
     Long stampId = requestContext.getLong("stampId");
-
-    // By default the whole query data is being output
-    Boolean isFiltered = requestContext.getBoolean("useFilters");
-    isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
+    String serializedContext = requestContext.getString("serializedContext");
+    if (serializedContext == null) {
+      QueryReportChartContext reportContext = new QueryReportChartContext(requestContext.getRequest().getLocale().toString(), stampId);
+      try {
+        ObjectMapper om = new ObjectMapper();
+        serializedContext = Base64.encodeBase64URLSafeString(om.writeValueAsBytes(reportContext)); 
+      }
+      catch (Exception e) {
+      }
+    }
     
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     PanelStampDAO panelStampDAO = new PanelStampDAO();
@@ -58,29 +67,29 @@ public class ExportReportPageBinaryController extends BinaryController {
 
     switch (format) {
     case GOOGLE_DOCUMENT:
-      exportGoogleDocument(requestContext, queryPage, panelStamp, false, isFiltered);
+      exportGoogleDocument(requestContext, queryPage, panelStamp, false, serializedContext);
       break;
     case GOOGLE_IMAGES:
-      exportGoogleDocument(requestContext, queryPage, panelStamp, true, isFiltered);
+      exportGoogleDocument(requestContext, queryPage, panelStamp, true, serializedContext);
       break;
     case PDF:
-      exportPdf(requestContext, queryPage, panelStamp, isFiltered);
+      exportPdf(requestContext, queryPage, panelStamp, serializedContext);
       break;
     case PNG_ZIP:
-      exportChartZip(requestContext, "PNG", queryPage, panelStamp, isFiltered);
+      exportChartZip(requestContext, "PNG", queryPage, panelStamp, serializedContext);
       break;
     case SVG_ZIP:
-      exportChartZip(requestContext, "SVG", queryPage, panelStamp, isFiltered);
+      exportChartZip(requestContext, "SVG", queryPage, panelStamp, serializedContext);
       break;
     }
   }
 
-  public void exportGoogleDocument(RequestContext requestContext, QueryPage queryPage, PanelStamp panelStamp, boolean imagesOnly, Boolean useFilters) {
+  public void exportGoogleDocument(RequestContext requestContext, QueryPage queryPage, PanelStamp panelStamp, boolean imagesOnly, String serializedContext) {
     Drive drive = GoogleDriveUtils.getAuthenticatedService(requestContext);
     if (drive != null) {
       try {
         String baseUrl = RequestUtils.getBaseUrl(requestContext.getRequest());
-        URL url = new URL(baseUrl + "/panel/admin/report/page.page?chartFormat=SVG&pageId=" + queryPage.getId() + "&panelId=" + panelStamp.getPanel().getId() + "&useFilters=" + useFilters.toString());
+        URL url = new URL(baseUrl + "/panel/admin/report/page.page?chartFormat=SVG&pageId=" + queryPage.getId() + "&panelId=" + panelStamp.getPanel().getId() + "&serializedContext=" + serializedContext);
         String title = queryPage.getQuerySection().getQuery().getName() + " - " + queryPage.getTitle();
         File file = ReportUtils.uploadReportToGoogleDrive(requestContext, drive, url, title, 3, imagesOnly);
         requestContext.setRedirectURL(file.getAlternateLink());
@@ -100,11 +109,11 @@ public class ExportReportPageBinaryController extends BinaryController {
     }
   }
 
-  public void exportPdf(BinaryRequestContext requestContext, QueryPage queryPage, PanelStamp panelStamp, Boolean useFilters) {
+  public void exportPdf(BinaryRequestContext requestContext, QueryPage queryPage, PanelStamp panelStamp, String serializedContext) {
     try {
       String baseURL = RequestUtils.getBaseUrl(requestContext.getRequest());
 
-      URL url = new URL(baseURL + "/panel/admin/report/page.page?chartFormat=PNG&pageId=" + queryPage.getId() + "&panelId=" + panelStamp.getPanel().getId() + "&useFilters=" + useFilters.toString());
+      URL url = new URL(baseURL + "/panel/admin/report/page.page?chartFormat=PNG&pageId=" + queryPage.getId() + "&panelId=" + panelStamp.getPanel().getId() + "&serializedContext=" + serializedContext);
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
@@ -170,11 +179,11 @@ public class ExportReportPageBinaryController extends BinaryController {
     }
   }
 
-  public void exportChartZip(BinaryRequestContext requestContext, String imageFormat, QueryPage queryPage, PanelStamp panelStamp, Boolean useFilters) {
+  public void exportChartZip(BinaryRequestContext requestContext, String imageFormat, QueryPage queryPage, PanelStamp panelStamp, String serializedContext) {
     try {
       String baseURL = RequestUtils.getBaseUrl(requestContext.getRequest());
       URL url = new URL(baseURL + "/panel/admin/report/page.page?chartFormat=" + imageFormat + "&pageId=" + queryPage.getId()
-          + "&panelId=" + panelStamp.getPanel().getId() + "&useFilters=" + useFilters.toString());
+          + "&panelId=" + panelStamp.getPanel().getId() + "&serializedContext=" + serializedContext);
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       try {
         ReportUtils.zipCharts(requestContext, outputStream, imageFormat, url);

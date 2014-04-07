@@ -44,7 +44,7 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
     }
     QueryFieldDataStatistics statistics = ReportUtils.getStatistics(data, dataNames);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
-    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_timeline.jsp", statistics, chartContext.getStamp());
+    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_timeline.jsp", statistics);
   }
 
   @Override

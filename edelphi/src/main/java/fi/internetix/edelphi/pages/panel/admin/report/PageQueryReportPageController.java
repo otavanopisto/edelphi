@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.pages.panel.PanelPageController;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilter;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -26,6 +27,9 @@ import fi.internetix.edelphi.utils.SystemUtils;
 import fi.internetix.smvc.AccessDeniedException;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
+/**
+ * Single query page report for export purposes. 
+ */
 public class PageQueryReportPageController extends PanelPageController {
   
   public PageQueryReportPageController() {
@@ -47,10 +51,17 @@ public class PageQueryReportPageController extends PanelPageController {
     
     Long pageId = pageRequestContext.getLong("pageId");
     ReportChartFormat chartFormat = ReportChartFormat.valueOf(pageRequestContext.getString("chartFormat"));
-    
-    // By default the whole query data is being output
-    Boolean isFiltered = pageRequestContext.getBoolean("useFilters");
-    isFiltered = isFiltered != null ? isFiltered : Boolean.FALSE;
+
+    QueryReportChartContext reportContext = null;
+    String serializedContext = pageRequestContext.getString("serializedContext");
+    try {
+      ObjectMapper om = new ObjectMapper();
+      byte[] serializedData = Base64.decodeBase64(serializedContext);
+      String stringifiedData = new String(serializedData, "UTF-8");
+      reportContext = om.readValue(stringifiedData, QueryReportChartContext.class); 
+    }
+    catch (Exception e) {
+    }
     
     QueryPage queryPage = queryPageDAO.findById(pageId);
     Panel panel = RequestUtils.getPanel(pageRequestContext);
@@ -58,26 +69,13 @@ public class PageQueryReportPageController extends PanelPageController {
     List<QueryReportPageData> pageDatas = new ArrayList<QueryReportPageData>();
 
     QueryReportPageController queryReportPageController = QueryReportPageProvider.getController(queryPage.getPageType());
-    QueryReportChartContext chartContext = new QueryReportChartContext(pageRequestContext.getRequest().getLocale(), RequestUtils.getActiveStamp(pageRequestContext));
 
-    // Apply report filters from the session, if any
-    
-    // TODO QUERYREPORTCHARTCONTEXT NEEDED TO FILTER REPLIES 
-//    if (isFiltered) {
-//      List<QueryReplyFilter> filters = ReportUtils.getQueryFilters(pageRequestContext, queryPage.getQuerySection().getQuery().getId());
-//      if (filters != null) {
-//        for (QueryReplyFilter filter : filters) {
-//          chartContext.addFilter(filter);
-//        }
-//      }
-//    }
-
-    QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, chartContext, queryPage);
+    QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, reportContext, queryPage);
     pageDatas.add(pageData);
     
     // Query reply ids are needed for proper filtering of comments
     
-    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, reportContext);
     QueryUtils.appendQueryPageReplys(pageRequestContext, queryPage.getId(), queryReplies);
     
     ActionUtils.includeRoleAccessList(pageRequestContext);
@@ -86,7 +84,7 @@ public class PageQueryReportPageController extends PanelPageController {
     pageRequestContext.getRequest().setAttribute("panel", panel);
     pageRequestContext.getRequest().setAttribute("chartFormat", chartFormat);
     pageRequestContext.getRequest().setAttribute("reportPageDatas", pageDatas);
-//    pageRequestContext.getRequest().setAttribute("reportReplyFilters", chartContext.getReplyFilters()); // for rendering chart images
+    pageRequestContext.getRequest().setAttribute("reportContext", reportContext);
     
     pageRequestContext.setIncludeJSP("/jsp/pages/panel/admin/report/showreport.jsp");
   }

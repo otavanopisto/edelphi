@@ -44,7 +44,7 @@ public class ThesisOrderQueryReportPage extends QueryReportPageController {
     appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
 
-    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_order.jsp", null, chartContext.getStamp());
+    return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_order.jsp", null);
   }
 
   @Override

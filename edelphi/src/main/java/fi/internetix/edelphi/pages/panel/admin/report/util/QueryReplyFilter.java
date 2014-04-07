@@ -44,11 +44,16 @@ public abstract class QueryReplyFilter {
     }
   }
   
-  public static List<QueryReplyFilter> parseFilters(Map<String, String> filters) {
+  public static List<QueryReplyFilter> parseFilters(Map<String, List<String>> filters) {
     List<QueryReplyFilter> l = new ArrayList<QueryReplyFilter>();
     Set<String> filterKeys = filters.keySet();
     for (String filterKey : filterKeys) {
-      l.add(createFilter(filterKey, filters.get(filterKey)));
+      List<String> filterValues = filters.get(filterKey);
+      if (filterValues != null) {
+        for (String filterValue : filterValues) {
+          l.add(createFilter(filterKey, filterValue));
+        }
+      }
     }
     return l;
   }
