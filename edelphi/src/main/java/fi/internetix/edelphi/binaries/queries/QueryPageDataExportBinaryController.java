@@ -21,7 +21,7 @@ import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilter;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.QueryDataUtils;
 import fi.internetix.edelphi.utils.ResourceUtils;
@@ -38,14 +38,14 @@ public class QueryPageDataExportBinaryController extends BinaryController {
     Long stampId = requestContext.getLong("stampId");
     String replierExportStrategyParam = requestContext.getString("replierExportStrategy");
 
-    QueryReportChartContext reportContext = null;
+    ReportContext reportContext = null;
     String serializedContext = requestContext.getString("serializedContext");
     if (serializedContext != null) {
       try {
         ObjectMapper om = new ObjectMapper();
         byte[] serializedData = Base64.decodeBase64(serializedContext);
         String stringifiedData = new String(serializedData, "UTF-8");
-        reportContext = om.readValue(stringifiedData, QueryReportChartContext.class); 
+        reportContext = om.readValue(stringifiedData, ReportContext.class); 
       }
       catch (Exception e) {
       }

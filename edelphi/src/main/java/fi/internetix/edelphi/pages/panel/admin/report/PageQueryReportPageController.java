@@ -13,7 +13,7 @@ import fi.internetix.edelphi.domainmodel.panels.Panel;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.pages.panel.PanelPageController;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvider;
@@ -52,13 +52,13 @@ public class PageQueryReportPageController extends PanelPageController {
     Long pageId = pageRequestContext.getLong("pageId");
     ReportChartFormat chartFormat = ReportChartFormat.valueOf(pageRequestContext.getString("chartFormat"));
 
-    QueryReportChartContext reportContext = null;
+    ReportContext reportContext = null;
     String serializedContext = pageRequestContext.getString("serializedContext");
     try {
       ObjectMapper om = new ObjectMapper();
       byte[] serializedData = Base64.decodeBase64(serializedContext);
       String stringifiedData = new String(serializedData, "UTF-8");
-      reportContext = om.readValue(stringifiedData, QueryReportChartContext.class); 
+      reportContext = om.readValue(stringifiedData, ReportContext.class); 
     }
     catch (Exception e) {
     }

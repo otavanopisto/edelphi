@@ -12,9 +12,9 @@ public abstract class QueryReportPageController {
     this.queryPageType = queryPageType;
   }
 
-  public abstract QueryReportPageData loadPageData(RequestContext requestContext, QueryReportChartContext chartContext, QueryPage queryPage);
+  public abstract QueryReportPageData loadPageData(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage);
   
-  public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
+  public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     return null;
   }
   

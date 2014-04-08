@@ -25,7 +25,8 @@ import org.eclipse.birt.chart.model.attribute.Bounds;
 import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvider;
 import fi.internetix.edelphi.taglib.chartutil.ChartImageManager;
@@ -58,13 +59,13 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
 	
   private Map<String, String> parameters;
   
-  private QueryReportChartContext reportContext;
+  private ReportContext reportContext;
   
-  public QueryReportChartContext getReportContext() {
+  public ReportContext getReportContext() {
     return reportContext;
   }
   
-  public void setReportContext(QueryReportChartContext reportContext) {
+  public void setReportContext(ReportContext reportContext) {
     this.reportContext = reportContext;
   }
 	
@@ -78,7 +79,11 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
       QueryPage queryPage = queryPageDAO.findById(queryPageId);
       QueryReportPageController queryReportPageController = QueryReportPageProvider.getController(queryPage.getPageType());
       
-      Chart chartModel = queryReportPageController.constructChart(reportContext, queryPage);
+      Map<String, String> chartParameters = new HashMap<String, String>();
+      chartParameters.putAll(parameters);
+      ChartContext chartContext = new ChartContext(reportContext, chartParameters);
+      
+      Chart chartModel = queryReportPageController.constructChart(chartContext, queryPage);
 
       if (chartModel != null) {
         // Set size in chart model
@@ -200,7 +205,6 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
   public void addParameter(String name, String value) {
     name = ResourceUtils.decodeUrlName(name);
     value = ResourceUtils.decodeUrlName(value);
-
     parameters.put(name, value);
   }
 

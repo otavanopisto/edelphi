@@ -10,18 +10,18 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-public class QueryReportChartContext implements Serializable {
+public class ReportContext implements Serializable {
 
   private static final long serialVersionUID = 8128813216252853554L;
   
-  public QueryReportChartContext() {
+  public ReportContext() {
   }
 
-  public QueryReportChartContext(String locale, Long panelStampId) {
+  public ReportContext(String locale, Long panelStampId) {
     this(locale, null, panelStampId);
   }
 
-  public QueryReportChartContext(String locale, Map<String, String> parameters, Long panelStampId) {
+  public ReportContext(String locale, Map<String, String> parameters, Long panelStampId) {
     this.locale = locale;
     if (parameters != null)
       this.parameters.putAll(parameters);

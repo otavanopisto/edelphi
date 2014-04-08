@@ -14,7 +14,7 @@ import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.domainmodel.querylayout.QuerySection;
 import fi.internetix.edelphi.domainmodel.resources.Query;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvider;
@@ -32,7 +32,7 @@ public class QueryResultsQueryReportPageController extends AbstractQueryReportPa
   }
 
   @Override
-  protected List<QueryReportPageData> getPageDatas(PageRequestContext pageRequestContext, QueryReportChartContext chartContext, Query query) {
+  protected List<QueryReportPageData> getPageDatas(PageRequestContext pageRequestContext, ReportContext reportContext, Query query) {
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     QuerySectionDAO querySectionDAO = new QuerySectionDAO();
     List<QueryReportPageData> pageDatas = new ArrayList<QueryReportPageData>();
@@ -63,10 +63,10 @@ public class QueryResultsQueryReportPageController extends AbstractQueryReportPa
             
             // We need to remove pages w/o report controller from the list.
             if (queryReportPageController != null) {
-              QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, chartContext, queryPage);
+              QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, reportContext, queryPage);
               pageDatas.add(pageData);
 
-              List<QueryReply> queryReplies = fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils.getQueryReplies(queryPage, chartContext);
+              List<QueryReply> queryReplies = fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils.getQueryReplies(queryPage, reportContext);
               QueryUtils.appendQueryPageReplys(pageRequestContext, queryPage.getId(), queryReplies);
             }
             

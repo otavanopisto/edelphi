@@ -12,9 +12,10 @@ import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
@@ -30,9 +31,9 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
   }
 
   @Override
-  public QueryReportPageData loadPageData(RequestContext requestContext, QueryReportChartContext chartContext, QueryPage queryPage) {
+  public QueryReportPageData loadPageData(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
-    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, reportContext);
     QueryField queryField = queryFieldDAO.findByQueryPageAndName(queryPage, "timeline.value1");
     List<Double> data = ReportUtils.getNumberFieldData(queryField, queryReplies);
     Double min = QueryPageUtils.getDoubleSetting(queryPage, "timeline.min");
@@ -48,7 +49,7 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
   }
 
   @Override
-  public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
+  public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     // Data access objects
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     // Axis labels
@@ -58,7 +59,7 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
     int type = QueryPageUtils.getIntegerSetting(queryPage, "timeline.type");
 
     List<String> captions = new ArrayList<String>();
-    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext.getReportContext());
     for (double d = min; d <= max; d += step) {
       captions.add(step % 1 == 0 ? new Long(Math.round(d)).toString() : new Double(d).toString());
     }

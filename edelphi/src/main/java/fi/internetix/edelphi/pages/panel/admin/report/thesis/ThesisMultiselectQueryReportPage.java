@@ -14,8 +14,9 @@ import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
@@ -29,7 +30,7 @@ public class ThesisMultiselectQueryReportPage extends QueryReportPageController 
   }
 
   @Override
-  public QueryReportPageData loadPageData(RequestContext requestContext, QueryReportChartContext chartContext, QueryPage queryPage) {
+  public QueryReportPageData loadPageData(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
 
@@ -48,13 +49,13 @@ public class ThesisMultiselectQueryReportPage extends QueryReportPageController 
   }
   
   @Override
-  public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
+  public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     QueryOptionFieldOptionDAO queryOptionFieldOptionDAO = new QueryOptionFieldOptionDAO();
 
     QueryOptionField queryOptionField = getOptionFieldFromScale1DPage(queryPage);
     List<QueryOptionFieldOption> queryFieldOptions = queryOptionFieldOptionDAO.listByQueryField(queryOptionField);
 
-    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext.getReportContext());
 
     Map<Long, Long> listOptionAnswerCounts = ReportUtils.getMultiselectData(queryOptionField, queryFieldOptions, queryReplies);
     

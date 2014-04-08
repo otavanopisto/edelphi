@@ -97,6 +97,15 @@
               </jsp:include>
             </c:forEach>
           </c:if>
+          
+          <h3><fmt:message key="panel.admin.report.options.otherOptionsTitle" /></h3>
+
+          <jsp:include page="/jsp/fragments/formfield_checkbox.jsp">
+            <jsp:param name="name" value="show2dAs1d"/>
+            <jsp:param name="labelLocale" value="panel.admin.report.options.show2dAs1d"/>
+            <jsp:param name="value" value="true"/>
+            <jsp:param name="checked" value="${!empty reportContext && !empty reportContext.parameters['show2dAs1d']}"/>
+          </jsp:include>
 
           <jsp:include page="/jsp/fragments/formfield_submit.jsp">
             <jsp:param name="name" value="applyFilter"/>

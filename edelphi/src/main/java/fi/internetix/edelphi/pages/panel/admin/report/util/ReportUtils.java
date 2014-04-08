@@ -26,11 +26,11 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOptionGroup;
 
 public class ReportUtils {
   
-  public static List<QueryReply> getQueryReplies(QueryPage queryPage, QueryReportChartContext chartContext) {
-    List<QueryReplyFilter> filters = QueryReplyFilter.parseFilters(chartContext.getFilters());
+  public static List<QueryReply> getQueryReplies(QueryPage queryPage, ReportContext reportContext) {
+    List<QueryReplyFilter> filters = QueryReplyFilter.parseFilters(reportContext.getFilters());
     QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     PanelStampDAO panelStampDAO = new PanelStampDAO();
-    PanelStamp panelStamp = panelStampDAO.findById(chartContext.getPanelStampId());
+    PanelStamp panelStamp = panelStampDAO.findById(reportContext.getPanelStampId());
     List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStamp(queryPage.getQuerySection().getQuery(), panelStamp);
     for (QueryReplyFilter filter : filters) {
       queryReplies = filter.filterList(queryReplies);

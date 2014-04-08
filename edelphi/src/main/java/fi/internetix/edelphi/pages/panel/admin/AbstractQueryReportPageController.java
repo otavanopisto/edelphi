@@ -44,7 +44,7 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.pages.panel.PanelPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilterType;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.query.form.FormFieldType;
 import fi.internetix.edelphi.utils.ActionUtils;
@@ -62,7 +62,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     this.jspFile = jspFile;
   }
 
-  protected abstract List<QueryReportPageData> getPageDatas(PageRequestContext pageRequestContext, QueryReportChartContext chartContext, Query query);
+  protected abstract List<QueryReportPageData> getPageDatas(PageRequestContext pageRequestContext, ReportContext reportContext, Query query);
   
   @Override
   public void processPageRequest(PageRequestContext pageRequestContext) {
@@ -106,9 +106,16 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
 
     List<PanelUserGroup> panelUserGroups = panelUserGroupDAO.listByPanelAndStamp(panel, RequestUtils.getActiveStamp(pageRequestContext));
     
-    Query query = queryDAO.findById(queryId); 
-
-    QueryReportChartContext reportContext = new QueryReportChartContext(pageRequestContext.getRequest().getLocale().toString(), activeStamp.getId());
+    Query query = queryDAO.findById(queryId);
+    
+    ReportContext reportContext = new ReportContext(pageRequestContext.getRequest().getLocale().toString(), activeStamp.getId());
+    
+    // Report options
+    
+    if (Boolean.valueOf(pageRequestContext.getString("show2dAs1d"))) {
+      reportContext.addParameter("show2dAs1d", "true");
+    }
+    
     this.populateRequestParameters(pageRequestContext, reportContext);
     if (!StringUtils.isEmpty(queryExpertiseFilter)) {
       reportContext.addFilter(QueryReplyFilterType.EXPERTISE.toString(), queryExpertiseFilter);
@@ -214,7 +221,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     pageRequestContext.setIncludeJSP(jspFile);
   }
   
-  private void populateRequestParameters(RequestContext requestContext, QueryReportChartContext reportContext) {
+  private void populateRequestParameters(RequestContext requestContext, ReportContext reportContext) {
     Enumeration<?> names = requestContext.getRequest().getParameterNames();
     while (names.hasMoreElements()) {
       String name = (String) names.nextElement();
@@ -248,7 +255,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     return queryExpertiseFilterSelected;
   }
  
-  private void handleFormFilter(PageRequestContext pageRequestContext, Query query, QueryReportChartContext chartContext) {
+  private void handleFormFilter(PageRequestContext pageRequestContext, Query query, ReportContext reportContext) {
     /**
      * Load fields on page
      */
@@ -292,7 +299,7 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
               
               String formFieldFilter = pageRequestContext.getString("ff:" + queryOptionField.getId());
               if (!StringUtils.isEmpty(formFieldFilter))
-                chartContext.addFilter(QueryReplyFilterType.FORMFIELD.toString(), queryOptionField.getId() + "=" + formFieldFilter);
+                reportContext.addFilter(QueryReplyFilterType.FORMFIELD.toString(), queryOptionField.getId() + "=" + formFieldFilter);
               
               mrBean = new FormOptionListFieldDescriptor(fieldType.toString(), queryOptionField, options, formFieldFilter);
               beans.add(mrBean);

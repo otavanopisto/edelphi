@@ -24,8 +24,9 @@ import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.resources.Query;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
@@ -40,7 +41,7 @@ public class ExpertiseQueryReportPage extends QueryReportPageController {
   }
 
   @Override
-  public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
+  public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     PanelUserExpertiseClassDAO panelUserExpertiseClassDAO = new PanelUserExpertiseClassDAO();
     PanelUserIntressClassDAO panelUserIntressClassDAO = new PanelUserIntressClassDAO();
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
@@ -95,7 +96,7 @@ public class ExpertiseQueryReportPage extends QueryReportPageController {
         values[x] = new Double[maxY];
       }
       
-      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext.getReportContext());
 
       for (PanelUserExpertiseClass expertiseClass : expertiseClasses) {
         QueryOptionField queryField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName(expertiseClass));
@@ -127,7 +128,7 @@ public class ExpertiseQueryReportPage extends QueryReportPageController {
   }
 
   @Override
-  public QueryReportPageData loadPageData(RequestContext requestContext, QueryReportChartContext chartContext, QueryPage queryPage) {
+  public QueryReportPageData loadPageData(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
     return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/expertise.jsp", null);
   }

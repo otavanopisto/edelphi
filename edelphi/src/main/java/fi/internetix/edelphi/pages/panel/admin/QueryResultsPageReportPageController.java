@@ -9,7 +9,7 @@ import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.resources.Query;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvider;
@@ -27,7 +27,7 @@ public class QueryResultsPageReportPageController extends AbstractQueryReportPag
   }
 
   @Override
-  protected List<QueryReportPageData> getPageDatas(PageRequestContext pageRequestContext, QueryReportChartContext chartContext, Query query) {
+  protected List<QueryReportPageData> getPageDatas(PageRequestContext pageRequestContext, ReportContext reportContext, Query query) {
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     Long pageId = pageRequestContext.getLong("pageId");
     QueryPage queryPage = queryPageDAO.findById(pageId);
@@ -40,10 +40,10 @@ public class QueryResultsPageReportPageController extends AbstractQueryReportPag
     
     // We need to check whether page type has a report controller or not before continuing.
     if (queryReportPageController != null) {
-      QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, chartContext, queryPage);
+      QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, reportContext, queryPage);
       pageDatas.add(pageData);
 
-      List<QueryReply> queryReplies = fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils.getQueryReplies(queryPage, chartContext);
+      List<QueryReply> queryReplies = fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils.getQueryReplies(queryPage, reportContext);
       QueryUtils.appendQueryPageReplys(pageRequestContext, queryPage.getId(), queryReplies);
     }
     

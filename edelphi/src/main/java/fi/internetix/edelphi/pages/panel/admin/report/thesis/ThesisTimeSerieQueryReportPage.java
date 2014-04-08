@@ -18,10 +18,11 @@ import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryNumericField;
 import fi.internetix.edelphi.i18n.Messages;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartDataSeries;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
@@ -37,7 +38,7 @@ public class ThesisTimeSerieQueryReportPage extends QueryReportPageController {
   }
 
   @Override
-  public QueryReportPageData loadPageData(RequestContext requestContext, QueryReportChartContext chartContext, QueryPage queryPage) {
+  public QueryReportPageData loadPageData(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
     // TODO: Any statistics for web page?
 
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
@@ -47,10 +48,10 @@ public class ThesisTimeSerieQueryReportPage extends QueryReportPageController {
   }
   
   @Override
-  public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
+  public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     
-    Locale locale = LocaleUtils.toLocale(chartContext.getLocale());
+    Locale locale = LocaleUtils.toLocale(chartContext.getReportContext().getLocale());
     
     Double minX = QueryPageUtils.getDoubleSetting(queryPage, "time_serie.minX");
     Double maxX = QueryPageUtils.getDoubleSetting(queryPage, "time_serie.maxX");
@@ -111,7 +112,7 @@ public class ThesisTimeSerieQueryReportPage extends QueryReportPageController {
       categoryCaptions.set(index, Math.floor(x) == x ? String.valueOf((int) x) : String.valueOf(x));
     }
 
-    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext.getReportContext());
     
     if (predefinedCount > 0) {
       // last predefined value is set as first value in all series connecting the predefined line with the actual series

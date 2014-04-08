@@ -28,9 +28,10 @@ import fi.internetix.edelphi.domainmodel.querylayout.QueryPageSettingKey;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
@@ -45,8 +46,7 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
   }
 
   @Override
-  public QueryReportPageData loadPageData(RequestContext requestContext, QueryReportChartContext chartContext, QueryPage queryPage) {
-//    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+  public QueryReportPageData loadPageData(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
     appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
     return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_scale_2d.jsp", null);
@@ -99,7 +99,7 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
   }
   
   @Override
-  public Chart constructChart(QueryReportChartContext chartContext, QueryPage queryPage) {
+  public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     
     // Data Access Objects
 
@@ -108,13 +108,9 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
     QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
     
     // Determine whether 2D is rendered as bubble chart or as an X/Y axis bar chart   
-    // TODO chart parameters?
 
-    Map<String, String> chartParameters = chartContext.getParameters();
-    String axis = chartParameters.get("render2dAxis");
+    String axis = chartContext.getParameter("render2dAxis");
     Render2dAxis render2dAxis = "x".equals(axis) ? Render2dAxis.X : "y".equals(axis) ? Render2dAxis.Y : Render2dAxis.BOTH;
-    
-    //render2dAxis = Render2dAxis.Y; // TODO Just testing
     
     if (render2dAxis == Render2dAxis.BOTH) {
     
@@ -154,7 +150,7 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
         values[x] = new Double[maxY];
       }
 
-      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext.getReportContext());
       for (QueryReply queryReply : queryReplies) {
         QueryQuestionOptionAnswer answerX = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryFieldX);
         QueryQuestionOptionAnswer answerY = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryFieldY);
@@ -186,7 +182,7 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
       QueryOptionField queryField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldName);
       List<QueryOptionFieldOption> queryFieldOptions = queryOptionFieldOptionDAO.listByQueryField(queryField);
 
-      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext);
+      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, chartContext.getReportContext());
       Map<Long, Long> data = ReportUtils.getOptionListData(queryField, queryFieldOptions, queryReplies);
       
       List<Double> values = new ArrayList<Double>();

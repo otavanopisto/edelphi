@@ -23,12 +23,24 @@
       </jsp:include>
       
       <!-- TODO either 2D chart or two 1D charts (render2dAxis x & y) -->
-
-      <!-- 2D chart -->
       
-      <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}">
-		<ed:param name="render2dAxis" value="both"/>
-      </ed:queryPageChart>
+      <c:choose>
+        <c:when test="${!empty reportContext.parameters['show2dAs1d']}">
+          <!-- 1D chart -->
+          <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}">
+	        <ed:param name="render2dAxis" value="x"/>
+          </ed:queryPageChart>
+          <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}">
+	        <ed:param name="render2dAxis" value="y"/>
+          </ed:queryPageChart>
+        </c:when>
+        <c:otherwise>
+          <!-- 2D chart -->
+          <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}">
+	        <ed:param name="render2dAxis" value="both"/>
+          </ed:queryPageChart>
+        </c:otherwise>
+      </c:choose>
 
       <!-- Comment list -->
 

@@ -29,7 +29,7 @@ import fi.internetix.edelphi.dao.panels.PanelStampDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
-import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportChartContext;
+import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -49,7 +49,7 @@ public class ExportReportPageBinaryController extends BinaryController {
     Long stampId = requestContext.getLong("stampId");
     String serializedContext = requestContext.getString("serializedContext");
     if (serializedContext == null) {
-      QueryReportChartContext reportContext = new QueryReportChartContext(requestContext.getRequest().getLocale().toString(), stampId);
+      ReportContext reportContext = new ReportContext(requestContext.getRequest().getLocale().toString(), stampId);
       try {
         ObjectMapper om = new ObjectMapper();
         serializedContext = Base64.encodeBase64URLSafeString(om.writeValueAsBytes(reportContext)); 
