@@ -22,11 +22,9 @@
         <jsp:param value="${reportPageData.queryPage.id}" name="queryPageId"/>
       </jsp:include>
       
-      <!-- TODO either 2D chart or two 1D charts (render2dAxis x & y) -->
-      
       <c:choose>
         <c:when test="${!empty reportContext.parameters['show2dAs1d']}">
-          <!-- 1D chart -->
+          <!-- two 1D charts -->
           <ed:queryPageChart reportContext="${reportContext}" output="${param.reportChartFormat}" width="${param.reportChartWidth}" height="${param.reportChartHeight}" queryPageId="${reportPageData.queryPage.id}">
 	        <ed:param name="render2dAxis" value="x"/>
           </ed:queryPageChart>
