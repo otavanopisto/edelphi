@@ -24,6 +24,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Document;
@@ -316,33 +317,6 @@ public class ReportUtils {
       }
     }
   }
-
-//  private static String downloadUrlAsString(String urlString) throws IOException {
-//    URL url = new URL(urlString);
-//    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//    connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
-//    connection.setRequestMethod("GET");
-//    connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed
-//    connection.connect();
-//    InputStream is = connection.getInputStream();
-//    String urlContent = null;
-//    try {
-//      urlContent = StreamUtils.readStreamToString(is, "UTF-8");
-//    }
-//    finally {
-//      if (is != null) {
-//        try {
-//          is.close();
-//        }
-//        catch (IOException ioe) {
-//          Logging.logException(ioe);
-//        }
-//      }
-//      connection.disconnect();
-//    }
-//    return urlContent;
-//    return new String(downloadUrlAsByteArray(urlString), "UTF-8");
-//  }
 
   private static byte[] downloadUrlAsByteArray(String urlString) throws IOException {
     if (StringUtils.startsWith(urlString,  "data:")) {

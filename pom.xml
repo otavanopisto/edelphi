@@ -38,6 +38,7 @@
     <hibernate-jpamodelgen.version>1.2.0.Final</hibernate-jpamodelgen.version>
     <hibernate-instrumentation.version>4.0.1.Final</hibernate-instrumentation.version>
     <jackson-mapper-asl.version>1.9.2</jackson-mapper-asl.version>
+    <jackson-core-asl.version>1.9.2</jackson-core-asl.version>
   </properties>
   
   <modules>
@@ -258,6 +259,12 @@
         <artifactId>jackson-mapper-asl</artifactId>
         <version>${jackson-mapper-asl.version}</version>
       </dependency>
+      
+	    <dependency>
+	      <groupId>org.codehaus.jackson</groupId>
+	      <artifactId>jackson-core-asl</artifactId>
+	      <version>${jackson-core-asl.version}</version>
+	    </dependency>
       
     </dependencies>
   </dependencyManagement>

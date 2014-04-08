@@ -299,6 +299,13 @@ Delphi technique is used for bringing values, new viewpoints and ideas as a foun
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-mapper-asl</artifactId>
+      <scope>provided</scope>
+    </dependency>
+      
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
@@ -345,6 +352,13 @@ Delphi technique is used for bringing values, new viewpoints and ideas as a foun
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.2</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Dependencies>org.codehaus.jackson.jackson-mapper-asl,org.codehaus.jackson.jackson-core-asl</Dependencies>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
     </plugins>
   </build>
