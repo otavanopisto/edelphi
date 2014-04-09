@@ -18,10 +18,10 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatist
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
-import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
 import fi.internetix.edelphi.query.thesis.TimelineThesisQueryPageHandler;
 import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
+import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.smvc.controllers.RequestContext;
 
 public class ThesisTimelineQueryReportPage extends QueryReportPageController {

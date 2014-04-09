@@ -56,6 +56,8 @@ public class ExportReportBinaryController extends BinaryController {
         serializedContext = Base64.encodeBase64URLSafeString(om.writeValueAsBytes(reportContext)); 
       }
       catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
     }
 

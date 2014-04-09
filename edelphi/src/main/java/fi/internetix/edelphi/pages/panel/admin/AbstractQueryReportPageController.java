@@ -112,8 +112,8 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
     
     // Report options
     
-    if (Boolean.valueOf(pageRequestContext.getString("show2dAs1d"))) {
-      reportContext.addParameter("show2dAs1d", "true");
+    if (Boolean.valueOf(pageRequestContext.getString(SHOW_2D_AS_1D_PARAM))) {
+      reportContext.addParameter(SHOW_2D_AS_1D_PARAM, "true");
     }
     
     this.populateRequestParameters(pageRequestContext, reportContext);
@@ -195,6 +195,8 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
       serializedContext = Base64.encodeBase64URLSafeString(om.writeValueAsBytes(reportContext)); 
     }
     catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
 
     pageRequestContext.getRequest().setAttribute("queries", queries);
@@ -393,6 +395,8 @@ public abstract class AbstractQueryReportPageController extends PanelPageControl
 
   private static final String CHART_PARAMETER_PREFIX = "chart_";
   private static final String CHART_FILTER_PARAMETER_PREFIX = "filter:";
+  
+  private static final String SHOW_2D_AS_1D_PARAM = "show2dAs1d";
 
 
 }

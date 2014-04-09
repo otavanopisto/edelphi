@@ -29,8 +29,8 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
-import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
+import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.ResourceUtils;
 import fi.internetix.smvc.controllers.RequestContext;
 

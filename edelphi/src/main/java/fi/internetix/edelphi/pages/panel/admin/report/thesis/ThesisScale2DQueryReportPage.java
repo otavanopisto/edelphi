@@ -34,8 +34,8 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatist
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
-import fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
+import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.smvc.controllers.RequestContext;
 
@@ -109,8 +109,8 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
     
     // Determine whether 2D is rendered as bubble chart or as an X/Y axis bar chart   
 
-    String axis = chartContext.getParameter("render2dAxis");
-    Render2dAxis render2dAxis = "x".equals(axis) ? Render2dAxis.X : "y".equals(axis) ? Render2dAxis.Y : Render2dAxis.BOTH;
+    String axis = chartContext.getParameter(RENDER_2D_AXIS_PARAM);
+    Render2dAxis render2dAxis = RENDER_2D_AXIS_X_OPTION.equals(axis) ? Render2dAxis.X : RENDER_2D_AXIS_Y_OPTION.equals(axis) ? Render2dAxis.Y : Render2dAxis.BOTH;
     
     if (render2dAxis == Render2dAxis.BOTH) {
     
@@ -221,6 +221,10 @@ public class ThesisScale2DQueryReportPage extends QueryReportPageController {
   private String getFieldName(String axis) {
     return "scale2d." + axis;
   }
+  
+  private final static String RENDER_2D_AXIS_PARAM = "render2dAxis";
+  private final static String RENDER_2D_AXIS_X_OPTION = "x";
+  private final static String RENDER_2D_AXIS_Y_OPTION = "y";
 
   private enum Render2dAxis {
     X,

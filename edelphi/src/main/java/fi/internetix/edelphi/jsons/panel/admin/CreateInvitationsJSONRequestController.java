@@ -84,8 +84,14 @@ public class CreateInvitationsJSONRequestController extends JSONController {
       int invitationCount = jsonRequestContext.getInteger("invitationCount").intValue();
       for (int i = 0; i < invitationCount; i++) {
         String email = jsonRequestContext.getString("inviteUser." + i + ".email");
+        
+        // See if the user already has an existing invitation that points to the invitation target,
+        // i.e. the front page of the panel or the front page of a single query within the panel 
+        
         PanelInvitation invitation = query == null ? panelInvitationDAO.findByPanelAndEmail(panel, email) : panelInvitationDAO.findByPanelAndQueryAndEmail(panel, query, email);
 
+        // The invitation will be sent, unless the panelist has already received and declined it before
+        
         boolean createInvitation = true;
         if (invitation != null && invitation.getState() == PanelInvitationState.DECLINED) {
           createInvitation = false;
@@ -96,7 +102,12 @@ public class CreateInvitationsJSONRequestController extends JSONController {
         }
 
         if (createInvitation) {
+          
+          // Reuse the hash of an existing invitation, if we have one 
+          
           String invitationHash = invitation == null ? UUID.randomUUID().toString() : invitation.getHash();
+          
+          // Construct the invitation e-mail message
 
           String mailSubject = messages.getText(locale, "panel.admin.inviteUsers.mailSubject");
           int index = mailSubject.indexOf(panelNameReplace);
@@ -121,12 +132,22 @@ public class CreateInvitationsJSONRequestController extends JSONController {
             mailContent = mailContent.replace(senderReplace, creator.getFullName(false, false));
           }
           
+          // Create or update the invitation
+          
           if (invitation == null) {
+            
+            // Invitation doesn't exist, so create both a new e-mail message and the actual invitation
+            
             EmailMessage emailMessage = emailMessageDAO.create(creator.getDefaultEmailAsString(), email, mailSubject, mailContent, creator);
             invitation = panelInvitationDAO.create(panel, query, email, invitationHash, panel.getDefaultPanelUserRole(), PanelInvitationState.IN_QUEUE,
                 emailMessage, creator);
           }
           else {
+            
+            // Invitation exists and should be associated with a corresponding e-mail message. Create or update
+            // the e-mail as applicable and reset the state of the invitation back to being in queue, so that the
+            // scheduler will eventually send it again
+            
             EmailMessage emailMessage = invitation.getEmailMessage();
             if (emailMessage == null) {
               emailMessage = emailMessageDAO.create(creator.getDefaultEmailAsString(), email, mailSubject, mailContent, creator);

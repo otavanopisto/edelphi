@@ -29,7 +29,6 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvider;
-import fi.internetix.edelphi.taglib.chartutil.ChartImageManager;
 import fi.internetix.edelphi.taglib.chartutil.ChartWebHelper;
 import fi.internetix.edelphi.taglib.chartutil.ImageHTMLEmitter;
 import fi.internetix.edelphi.taglib.chartutil.PngImageHTMLEmitter;
@@ -93,15 +92,8 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
       } else {
         throw new SmvcRuntimeException(EdelfoiStatusCode.REPORTING_ERROR, "ChartModel was not found.");
       }
-
-      ChartImageManager imageManager = new ChartImageManager(chartModel, output);
-
-      String elementId = "";
-      String imageUrl = this.pageContext.getServletContext().getContextPath() + "/report/viewchart.binary";
       
-      String imageMap = imageManager.getImageMap();
-      
-      pageContext.getOut().println(createEmitter(chartModel, elementId, imageUrl, imageMap).generateHTML());
+      pageContext.getOut().println(createEmitter(chartModel).generateHTML());
       
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -111,7 +103,7 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
     return EVAL_PAGE;
   }
 
-  private ImageHTMLEmitter createEmitter(Chart chartModel, String elementId, String imageSrc, String imageMap) {
+  private ImageHTMLEmitter createEmitter(Chart chartModel) {
     if ("SVG".equals(output)) {
       return new SvgImageHTMLEmitter(chartModel, width, height);
     } else if ("PNG".equals(output)) {
@@ -125,15 +117,14 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
    * @param width
    *          the width to set
    */
-  public void setWidth(double width) {
-    // TODO: ????????????
-    this.width = Math.round((float) width);
+  public void setWidth(int width) {
+    this.width = width;
   }
 
   /**
    * @return the width
    */
-  public double getWidth() {
+  public int getWidth() {
     return width;
   }
 
@@ -141,15 +132,14 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
    * @param height
    *          the height to set
    */
-  public void setHeight(double height) {
-    // TODO: ????????????
-    this.height = Math.round((float) height);
+  public void setHeight(int height) {
+    this.height = height;
   }
 
   /**
    * @return the height
    */
-  public double getHeight() {
+  public int getHeight() {
     return height;
   }
 

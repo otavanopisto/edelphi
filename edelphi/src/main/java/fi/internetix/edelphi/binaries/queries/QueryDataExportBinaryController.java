@@ -48,6 +48,8 @@ public class QueryDataExportBinaryController extends BinaryController {
         reportContext = om.readValue(stringifiedData, ReportContext.class); 
       }
       catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
     }
     

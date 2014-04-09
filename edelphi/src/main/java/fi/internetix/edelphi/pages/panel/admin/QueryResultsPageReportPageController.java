@@ -14,6 +14,7 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageContro
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageProvider;
 import fi.internetix.edelphi.utils.QueryUtils;
+import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
 
 /**
@@ -43,7 +44,7 @@ public class QueryResultsPageReportPageController extends AbstractQueryReportPag
       QueryReportPageData pageData = queryReportPageController.loadPageData(pageRequestContext, reportContext, queryPage);
       pageDatas.add(pageData);
 
-      List<QueryReply> queryReplies = fi.internetix.edelphi.pages.panel.admin.report.util.ReportUtils.getQueryReplies(queryPage, reportContext);
+      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, reportContext);
       QueryUtils.appendQueryPageReplys(pageRequestContext, queryPage.getId(), queryReplies);
     }
     
