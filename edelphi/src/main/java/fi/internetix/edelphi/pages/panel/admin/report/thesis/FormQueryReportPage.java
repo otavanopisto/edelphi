@@ -111,7 +111,7 @@ public class FormQueryReportPage extends QueryReportPageController {
     QueryOptionFieldDAO optionFieldDAO = new QueryOptionFieldDAO();
 
     // TODO: Rights check
-    Long queryFieldId = chartContext.getReportContext().getLong("queryFieldId");
+    Long queryFieldId = chartContext.getLong("queryFieldId");
     QueryOptionField queryOptionField = optionFieldDAO.findById(queryFieldId);
     List<QueryOptionFieldOption> queryFieldOptions = queryOptionFieldOptionDAO.listByQueryField(queryOptionField);
 

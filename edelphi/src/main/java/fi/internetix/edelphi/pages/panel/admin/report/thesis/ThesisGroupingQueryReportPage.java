@@ -75,7 +75,7 @@ public class ThesisGroupingQueryReportPage extends QueryReportPageController {
     QueryOptionFieldOptionDAO queryOptionFieldOptionDAO = new QueryOptionFieldOptionDAO();
     QueryOptionFieldOptionGroupDAO groupDAO = new QueryOptionFieldOptionGroupDAO();
 
-    Long groupId = chartContext.getReportContext().getLong("groupId");
+    Long groupId = chartContext.getLong("groupId");
     QueryOptionField queryOptionField = getOptionFieldFromGroupingPage(queryPage);
     QueryOptionFieldOptionGroup group = groupDAO.findById(groupId);
     List<QueryOptionFieldOption> queryFieldOptions = queryOptionFieldOptionDAO.listByQueryField(queryOptionField);

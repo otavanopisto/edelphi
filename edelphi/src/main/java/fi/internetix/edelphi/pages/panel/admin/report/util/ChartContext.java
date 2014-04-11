@@ -3,6 +3,7 @@ package fi.internetix.edelphi.pages.panel.admin.report.util;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class ChartContext implements Serializable {
@@ -28,6 +29,12 @@ public class ChartContext implements Serializable {
   @JsonIgnore
   public String getParameter(String key) {
     return parameters.get(key);
+  }
+
+  @JsonIgnore
+  public Long getLong(String key) {
+    String value = getParameter(key);
+    return NumberUtils.isNumber(value) ? NumberUtils.toLong(value) : null;  
   }
 
   public Map<String, String> getParameters() {
