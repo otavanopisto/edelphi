@@ -50,7 +50,7 @@ PanelistActivityController = Class.create(BlockController, {
       panelists.sort(function(o1, o2) {
         var o1value = o1.down('.panelistActivityName').innerHTML.toLowerCase().strip();
         var o2value = o2.down('.panelistActivityName').innerHTML.toLowerCase().strip();
-        return o1value == o2.value ? 0 : _this._sortAscending ? o1value < o2value : o2value < o1value;
+        return o1value == o2value ? 0 : _this._sortAscending ? o1value < o2value ? -1 : 1 : o1value < o2value ? 1 : -1; 
       });
       panelists.each(function(panelist) {
         $('panelistActivityAnsweredReplicants').appendChild(panelist);
@@ -61,7 +61,7 @@ PanelistActivityController = Class.create(BlockController, {
       panelists.sort(function(o1, o2) {
         var o1value = o1.down('input[name="lastLogin"]').value;
         var o2value = o2.down('input[name="lastLogin"]').value;
-        return o1value == o2.value ? 0 : _this._sortAscending ? o1value < o2value : o2value < o1value;
+        return o1value == o2value ? 0 : _this._sortAscending ? o1value < o2value ? -1 : 1 : o1value < o2value ? 1 : -1; 
       });
       panelists.each(function(panelist) {
         $('panelistActivityAnsweredReplicants').appendChild(panelist);
@@ -72,7 +72,7 @@ PanelistActivityController = Class.create(BlockController, {
       panelists.sort(function(o1, o2) {
         var o1value = o1.down('input[name="lastReply"]').value;
         var o2value = o2.down('input[name="lastReply"]').value;
-        return o1value == o2.value ? 0 : _this._sortAscending ? o1value < o2value : o2value < o1value;
+        return o1value == o2value ? 0 : _this._sortAscending ? o1value < o2value ? -1 : 1 : o1value < o2value ? 1 : -1; 
       });
       panelists.each(function(panelist) {
         $('panelistActivityAnsweredReplicants').appendChild(panelist);
@@ -83,7 +83,7 @@ PanelistActivityController = Class.create(BlockController, {
       panelists.sort(function(o1, o2) {
         var o1value = o1.down('.panelistActivityName').innerHTML.toLowerCase().strip();
         var o2value = o2.down('.panelistActivityName').innerHTML.toLowerCase().strip();
-        return o1value == o2.value ? 0 : _this._sortAscending ? o1value < o2value : o2value < o1value;
+        return o1value == o2value ? 0 : _this._sortAscending ? o1value < o2value ? -1 : 1 : o1value < o2value ? 1 : -1; 
       });
       panelists.each(function(panelist) {
         $('panelistActivityUnAnsweredReplicants').appendChild(panelist);
@@ -94,7 +94,7 @@ PanelistActivityController = Class.create(BlockController, {
       panelists.sort(function(o1, o2) {
         var o1value = o1.down('input[name="lastLogin"]').value;
         var o2value = o2.down('input[name="lastLogin"]').value;
-        return o1value == o2.value ? 0 : _this._sortAscending ? o1value < o2value : o2value < o1value;
+        return o1value == o2value ? 0 : _this._sortAscending ? o1value < o2value ? -1 : 1 : o1value < o2value ? 1 : -1; 
       });
       panelists.each(function(panelist) {
         $('panelistActivityUnAnsweredReplicants').appendChild(panelist);
