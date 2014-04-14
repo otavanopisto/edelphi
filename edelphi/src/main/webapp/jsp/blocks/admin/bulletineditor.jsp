@@ -12,26 +12,30 @@
 
     <div id="panelAdminBulletinEditorForm">
     
-      <input type="hidden" name="bulletinId" value="${bulletin.id}"/>
+      <form>
+    
+        <input type="hidden" name="bulletinId" value="${bulletin.id}"/>
 
-      <jsp:include page="/jsp/fragments/formfield_text.jsp">
-        <jsp:param name="labelLocale" value="admin.managePanelBulletins.titleLabel" />
-        <jsp:param name="name" value="title" />
-        <jsp:param name="value" value="${bulletin.title}" />
-        <jsp:param name="classes" value="required" />
-      </jsp:include>
+        <jsp:include page="/jsp/fragments/formfield_text.jsp">
+          <jsp:param name="labelLocale" value="admin.managePanelBulletins.titleLabel" />
+          <jsp:param name="name" value="title" />
+          <jsp:param name="value" value="${bulletin.title}" />
+          <jsp:param name="classes" value="required" />
+        </jsp:include>
       
-      <jsp:include page="/jsp/fragments/formfield_memo.jsp">
-        <jsp:param name="labelLocale" value="admin.managePanelBulletins.messageLabel" />
-        <jsp:param name="name" value="message" />
-        <jsp:param name="value" value="${bulletin.message}" />
-      </jsp:include>
+        <jsp:include page="/jsp/fragments/formfield_memo.jsp">
+          <jsp:param name="labelLocale" value="admin.managePanelBulletins.messageLabel" />
+          <jsp:param name="name" value="message" />
+          <jsp:param name="value" value="${bulletin.message}" />
+        </jsp:include>
 
-      <jsp:include page="/jsp/fragments/formfield_submit.jsp">
-        <jsp:param name="labelLocale" value="admin.managePanelBulletins.save" />
-        <jsp:param name="classes" value="formvalid" />
-        <jsp:param name="name" value="save" />
-      </jsp:include>
+        <jsp:include page="/jsp/fragments/formfield_submit.jsp">
+          <jsp:param name="labelLocale" value="admin.managePanelBulletins.save" />
+          <jsp:param name="classes" value="formvalid" />
+          <jsp:param name="name" value="save" />
+        </jsp:include>
+      
+      </form>
     </div>
   </div>
 </div>

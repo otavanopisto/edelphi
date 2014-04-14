@@ -34,36 +34,46 @@ BulletinEditorBlockController = Class.create(BlockController, {
     
     var title = this.getBlockElement().down('input[name="title"]').value;
     var message = this._ckEditor.getData();
+    if (message) {
     
-    startLoadingOperation("panelAdmin.block.bulletins.savingBulletin");
-    
-    if (this._bulletinId) {
-      JSONUtils.request(CONTEXTPATH + '/admin/updatebulletin.json', {
-        parameters: {
-          bulletinId: this._bulletinId,
-          title: title,
-          message: message
-        },
-        onComplete: function (transport) {
-          endLoadingOperation();
-        },
-        onSuccess: function (jsonResponse) {
-          window.location.href = CONTEXTPATH + '/admin/editbulletin.page?bulletinId=' + jsonResponse.bulletinId;
-        }
-      });
-    } else {
-      JSONUtils.request(CONTEXTPATH + '/admin/createbulletin.json', {
-        parameters: {
-          title: title,
-          message: message
-        },
-        onComplete: function (transport) {
-          endLoadingOperation();
-        },
-        onSuccess: function (jsonResponse) {
-          window.location.href = CONTEXTPATH + '/admin/editbulletin.page?bulletinId=' + jsonResponse.bulletinId;
-        }
-      });
+      startLoadingOperation("panelAdmin.block.bulletins.savingBulletin");
+      
+      if (this._bulletinId) {
+        JSONUtils.request(CONTEXTPATH + '/admin/updatebulletin.json', {
+          parameters: {
+            bulletinId: this._bulletinId,
+            title: title,
+            message: message
+          },
+          onComplete: function (transport) {
+            endLoadingOperation();
+          },
+          onSuccess: function (jsonResponse) {
+            window.location.href = CONTEXTPATH + '/admin/editbulletin.page?bulletinId=' + jsonResponse.bulletinId;
+          }
+        });
+      } else {
+        JSONUtils.request(CONTEXTPATH + '/admin/createbulletin.json', {
+          parameters: {
+            title: title,
+            message: message
+          },
+          onComplete: function (transport) {
+            endLoadingOperation();
+          },
+          onSuccess: function (jsonResponse) {
+            window.location.href = CONTEXTPATH + '/admin/editbulletin.page?bulletinId=' + jsonResponse.bulletinId;
+          }
+        });
+      }
+    }
+    else {
+      var eventQueue = getGlobalEventQueue();
+      eventQueue.addItem(new EventQueueItem(getLocale().getText("panelAdmin.block.bulletins.emptyContent"), {
+        className: "eventQueueWarningItem",
+        timeout: -1
+      }));
+      
     }
   }
 });
