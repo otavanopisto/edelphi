@@ -45,6 +45,20 @@ public class PanelExpertiseGroupUserDAO extends GenericDAO<PanelExpertiseGroupUs
     return getSingleResult(entityManager.createQuery(criteria)); 
   }
 
+  public List<PanelExpertiseGroupUser> listByGroup(PanelUserExpertiseGroup group) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<PanelExpertiseGroupUser> criteria = criteriaBuilder.createQuery(PanelExpertiseGroupUser.class);
+    Root<PanelExpertiseGroupUser> root = criteria.from(PanelExpertiseGroupUser.class);
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.equal(root.get(PanelExpertiseGroupUser_.expertiseGroup), group)
+    );
+
+    return entityManager.createQuery(criteria).getResultList(); 
+  }
+
   public List<PanelExpertiseGroupUser> listByGroupAndArchived(PanelUserExpertiseGroup group, Boolean archived) {
     EntityManager entityManager = getEntityManager();
 

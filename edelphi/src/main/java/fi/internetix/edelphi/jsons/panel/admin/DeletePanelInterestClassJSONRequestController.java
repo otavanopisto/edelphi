@@ -46,7 +46,6 @@ public class DeletePanelInterestClassJSONRequestController extends JSONControlle
     Long interestClassId = jsonRequestContext.getLong("interestClassId");
     PanelUserIntressClassDAO interestClassDAO = new PanelUserIntressClassDAO();
     PanelUserExpertiseGroupDAO expertiseGroupDAO = new PanelUserExpertiseGroupDAO();
-    PanelExpertiseGroupUserDAO groupUserDAO = new PanelExpertiseGroupUserDAO();
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     
     PanelUserIntressClass interestClass = interestClassDAO.findById(interestClassId);
@@ -58,22 +57,27 @@ public class DeletePanelInterestClassJSONRequestController extends JSONControlle
 
     Messages messages = Messages.getInstance();
     Locale locale = jsonRequestContext.getRequest().getLocale();
+    
+    // Interest class cannot be deleted if it has been used in queries
 
     if (hasAnswers(interestClass)) {
       throw new SmvcRuntimeException(EdelfoiStatusCode.INTEREST_CONTAINS_ANSWERS, messages.getText(locale, "exception.1025.interestContainsAnswers"));
     }
     
-    List<PanelUserExpertiseGroup> groups = expertiseGroupDAO.listByInterestAndStamp(interestClass, panel.getCurrentStamp());
+    // Interest class cannot be deleted if it contains panelists
     
+    if (hasMembers(interestClass)) {
+      throw new SmvcRuntimeException(EdelfoiStatusCode.INTEREST_CONTAINS_USERS, messages.getText(locale, "exception.1042.interestContainsUsers"));
+    }
+    
+    // Delete all groups of the interest class...  
+    
+    List<PanelUserExpertiseGroup> groups = expertiseGroupDAO.listByInterest(interestClass);
     for (PanelUserExpertiseGroup group : groups) {
-      List<PanelExpertiseGroupUser> users = groupUserDAO.listByGroupAndArchived(group, Boolean.FALSE);
-      
-      for (PanelExpertiseGroupUser user : users) {
-        groupUserDAO.delete(user);
-      }
-      
       expertiseGroupDAO.delete(group);
     }
+    
+    // ...as well as the interest class itself
     
     interestClassDAO.delete(interestClass);
 
@@ -107,6 +111,19 @@ public class DeletePanelInterestClassJSONRequestController extends JSONControlle
       }
     }
     
+    return false;
+  }
+  
+  private boolean hasMembers(PanelUserIntressClass interestClass) {
+    PanelUserExpertiseGroupDAO expertiseGroupDAO = new PanelUserExpertiseGroupDAO();
+    PanelExpertiseGroupUserDAO groupUserDAO = new PanelExpertiseGroupUserDAO();
+    List<PanelUserExpertiseGroup> groups = expertiseGroupDAO.listByInterest(interestClass);
+    for (PanelUserExpertiseGroup group : groups) {
+      List<PanelExpertiseGroupUser> users = groupUserDAO.listByGroup(group);
+      if (!users.isEmpty()) {
+        return true;
+      }
+    }
     return false;
   }
   

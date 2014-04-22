@@ -45,5 +45,7 @@ public class EdelfoiStatusCode extends StatusCode {
   public static final int UNNAMED_QUERY_PAGE = 1038;
   public static final int ACCOUNT_NOT_YET_ACTIVATED = 1039;
   public static final int SESSION_TIMEOUT = 1040;
+  public static final int EXPERTISE_CONTAINS_USERS = 1041;
+  public static final int INTEREST_CONTAINS_USERS = 1042;
   
 }

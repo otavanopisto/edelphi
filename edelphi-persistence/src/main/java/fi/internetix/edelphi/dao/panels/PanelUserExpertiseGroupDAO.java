@@ -65,6 +65,20 @@ public class PanelUserExpertiseGroupDAO extends GenericDAO<PanelUserExpertiseGro
     return getSingleResult(entityManager.createQuery(criteria));
   }
 
+  public List<PanelUserExpertiseGroup> listByInterest(PanelUserIntressClass interest) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<PanelUserExpertiseGroup> criteria = criteriaBuilder.createQuery(PanelUserExpertiseGroup.class);
+    Root<PanelUserExpertiseGroup> root = criteria.from(PanelUserExpertiseGroup.class);
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.equal(root.get(PanelUserExpertiseGroup_.intressClass), interest)
+    );
+
+    return entityManager.createQuery(criteria).getResultList();
+  }
+
   public List<PanelUserExpertiseGroup> listByInterestAndStamp(PanelUserIntressClass interest, PanelStamp stamp) {
     EntityManager entityManager = getEntityManager();
 
@@ -77,6 +91,20 @@ public class PanelUserExpertiseGroupDAO extends GenericDAO<PanelUserExpertiseGro
             criteriaBuilder.equal(root.get(PanelUserExpertiseGroup_.intressClass), interest),
             criteriaBuilder.equal(root.get(PanelUserExpertiseGroup_.stamp), stamp)
         )
+    );
+
+    return entityManager.createQuery(criteria).getResultList();
+  }
+
+  public List<PanelUserExpertiseGroup> listByExpertise(PanelUserExpertiseClass expertise) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<PanelUserExpertiseGroup> criteria = criteriaBuilder.createQuery(PanelUserExpertiseGroup.class);
+    Root<PanelUserExpertiseGroup> root = criteria.from(PanelUserExpertiseGroup.class);
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.equal(root.get(PanelUserExpertiseGroup_.expertiseClass), expertise)
     );
 
     return entityManager.createQuery(criteria).getResultList();

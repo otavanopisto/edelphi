@@ -40,7 +40,6 @@ public class DeletePanelExpertiseClassJSONRequestController extends JSONControll
     Long expertiseClassId = jsonRequestContext.getLong("expertiseClassId");
     PanelUserExpertiseClassDAO expertiseClassDAO = new PanelUserExpertiseClassDAO();
     PanelUserExpertiseGroupDAO expertiseGroupDAO = new PanelUserExpertiseGroupDAO();
-    PanelExpertiseGroupUserDAO groupUserDAO = new PanelExpertiseGroupUserDAO();
     QueryPageDAO queryPageDAO = new QueryPageDAO();
 
     Panel panel = RequestUtils.getPanel(jsonRequestContext);
@@ -52,22 +51,28 @@ public class DeletePanelExpertiseClassJSONRequestController extends JSONControll
     Locale locale = jsonRequestContext.getRequest().getLocale();
 
     PanelUserExpertiseClass expertiseClass = expertiseClassDAO.findById(expertiseClassId);
+
+    // Expertise class cannot be deleted if it has been used in queries
+    
     if (hasAnswers(expertiseClass)) {
       throw new SmvcRuntimeException(EdelfoiStatusCode.EXPERTISE_CONTAINS_ANSWERS, messages.getText(locale, "exception.1024.expertiseContainsAnswers"));
     }
+
+    // Expertise class cannot be deleted if it contains panelists
     
-    List<PanelUserExpertiseGroup> groups = expertiseGroupDAO.listByExpertiseAndStamp(expertiseClass, panel.getCurrentStamp());
+    if (hasMembers(expertiseClass)) {
+      throw new SmvcRuntimeException(EdelfoiStatusCode.EXPERTISE_CONTAINS_USERS, messages.getText(locale, "exception.1041.expertiseContainsUsers"));
+    }
+
+    // Delete all groups of the expertise class...  
     
+    List<PanelUserExpertiseGroup> groups = expertiseGroupDAO.listByExpertise(expertiseClass);
     for (PanelUserExpertiseGroup group : groups) {
-      List<PanelExpertiseGroupUser> users = groupUserDAO.listByGroupAndArchived(group, Boolean.FALSE);
-      
-      for (PanelExpertiseGroupUser user : users) {
-        groupUserDAO.delete(user);
-      }
-      
       expertiseGroupDAO.delete(group);
     }
     
+    // ...as well as the expertise class itself
+
     expertiseClassDAO.delete(expertiseClass);
     
     List<QueryPage> expertisePages = queryPageDAO.listByQueryParentFolderAndPageType(expertiseClass.getPanel().getRootFolder(), QueryPageType.EXPERTISE);
@@ -89,6 +94,19 @@ public class DeletePanelExpertiseClassJSONRequestController extends JSONControll
       return replies > 0;
     }
     
+    return false;
+  }
+
+  private boolean hasMembers(PanelUserExpertiseClass expertiseClass) {
+    PanelUserExpertiseGroupDAO expertiseGroupDAO = new PanelUserExpertiseGroupDAO();
+    PanelExpertiseGroupUserDAO groupUserDAO = new PanelExpertiseGroupUserDAO();
+    List<PanelUserExpertiseGroup> groups = expertiseGroupDAO.listByExpertise(expertiseClass);
+    for (PanelUserExpertiseGroup group : groups) {
+      List<PanelExpertiseGroupUser> users = groupUserDAO.listByGroup(group);
+      if (!users.isEmpty()) {
+        return true;
+      }
+    }
     return false;
   }
   
