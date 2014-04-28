@@ -92,7 +92,7 @@ public class QueryDataExportBinaryController extends BinaryController {
       
       // Add UTF-8 preamble bytes so that poor little Excel realizes this is UTF-8 data (as usual, OpenOffice/LibreOffice figure it out automatically)
       
-      byte[] preamble = new String("\uFEFF").getBytes();
+      byte[] preamble = new String("\uFEFF").getBytes("UTF-8");
       byte[] combined = new byte[preamble.length + csvData.length];
       System.arraycopy(preamble, 0, combined, 0, preamble.length);
       System.arraycopy(csvData, 0, combined, preamble.length, csvData.length);
