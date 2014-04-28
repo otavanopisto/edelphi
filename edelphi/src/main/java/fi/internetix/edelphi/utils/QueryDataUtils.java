@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -90,6 +92,12 @@ public class QueryDataUtils {
   public static byte[] exportQueryDataAsCSV(Locale locale, ReplierExportStrategy replierExportStrategy, List<QueryReply> replies, Query query, PanelStamp panelStamp) throws IOException {
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     List<QueryPage> queryPages = queryPageDAO.listByQuery(query);
+    Collections.sort(queryPages, new Comparator<QueryPage>() {
+      @Override
+      public int compare(QueryPage o1, QueryPage o2) {
+        return o1.getPageNumber() - o2.getPageNumber();
+      }
+    });
     
     Map<QueryReply, Map<Integer, Object>> rows = new HashMap<QueryReply, Map<Integer, Object>>();
     List<String> columns = new ArrayList<String>();
@@ -165,8 +173,13 @@ public class QueryDataUtils {
         } else {
           if (value instanceof Number) {
             csvWriter.write(String.valueOf(value));
-          } else {
-            csvWriter.write(String.valueOf(value));
+          }
+          else {
+
+            // Convert cell value line breaks to spaces, as poor little Excel has trouble interpreting them correctly    
+            // TODO This conversion could probably be avoided some way; OpenOffice/LibreOffice handle line breaks just fine  
+            
+            csvWriter.write(String.valueOf(value).replace('\n', ' '));
           }
         }
       }

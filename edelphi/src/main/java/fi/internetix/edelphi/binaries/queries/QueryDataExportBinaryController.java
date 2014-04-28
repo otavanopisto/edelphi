@@ -89,6 +89,15 @@ public class QueryDataExportBinaryController extends BinaryController {
   private void exportCsv(BinaryRequestContext requestContext, ReplierExportStrategy replierExportStrategy, List<QueryReply> replies, Query query, PanelStamp panelStamp) {
     try {
       byte[] csvData = QueryDataUtils.exportQueryDataAsCSV(requestContext.getRequest().getLocale(), replierExportStrategy, replies, query, panelStamp);
+      
+      // Add UTF-8 preamble bytes so that poor little Excel realizes this is UTF-8 data (as usual, OpenOffice/LibreOffice figure it out automatically)
+      
+      byte[] preamble = new String("\uFEFF").getBytes();
+      byte[] combined = new byte[preamble.length + csvData.length];
+      System.arraycopy(preamble, 0, combined, 0, preamble.length);
+      System.arraycopy(csvData, 0, combined, preamble.length, csvData.length);
+      csvData = combined;
+      
       requestContext.setResponseContent(csvData, "text/csv");
       requestContext.setFileName(ResourceUtils.getUrlName(query.getName()) + ".csv");
     } catch (IOException e) {
