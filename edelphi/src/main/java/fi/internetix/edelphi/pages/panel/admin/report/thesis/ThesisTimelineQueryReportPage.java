@@ -88,7 +88,6 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
         String caption = step % 1 == 0 ? new Long(Math.round(d)).toString() : new Double(d).toString();
         dataNames.put(d, caption);
         occurences.add(classifiedData.get(d) == null ? new Double(0) : classifiedData.get(d));
-        captions.add(caption);
       }
       QueryFieldDataStatistics statistics = ReportUtils.getStatistics(data, dataNames);
       Double avg = statistics.getCount() > 1 ? statistics.getAvg() : null;
