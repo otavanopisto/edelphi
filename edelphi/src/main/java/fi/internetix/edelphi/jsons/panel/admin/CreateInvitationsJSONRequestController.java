@@ -88,7 +88,7 @@ public class CreateInvitationsJSONRequestController extends JSONController {
         // See if the user already has an existing invitation that points to the invitation target,
         // i.e. the front page of the panel or the front page of a single query within the panel 
         
-        PanelInvitation invitation = query == null ? panelInvitationDAO.findByPanelAndEmail(panel, email) : panelInvitationDAO.findByPanelAndQueryAndEmail(panel, query, email);
+        PanelInvitation invitation = panelInvitationDAO.findByPanelAndQueryAndEmail(panel, query, email);
 
         // The invitation will be sent, unless the panelist has already received and declined it before
         
@@ -208,7 +208,7 @@ public class CreateInvitationsJSONRequestController extends JSONController {
         else {
           jsonRequestContext.addMessage(Severity.WARNING, messages.getText(locale, "panel.admin.inviteUsers.userExists", new String[] { user.getFullName() }));
         }
-        PanelInvitation panelInvitation = panelInvitationDAO.findByPanelAndEmail(panel, email);
+        PanelInvitation panelInvitation = panelInvitationDAO.findByPanelAndQueryAndEmail(panel, query, email);
         if (panelInvitation != null) {
           panelInvitationDAO.delete(panelInvitation);
         }
