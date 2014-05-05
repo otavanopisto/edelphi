@@ -118,6 +118,7 @@ public class ExportReportBinaryController extends BinaryController {
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Cookie", "JSESSIONID=" + requestContext.getRequest().getSession().getId());
       connection.setRequestProperty("Authorization", "InternalAuthorization " + SystemUtils.getSettingValue("system.internalAuthorizationHash"));
+      connection.setRequestProperty("Accept-Language", requestContext.getRequest().getLocale().getLanguage());
       connection.setRequestMethod("GET");
       connection.setReadTimeout(900000); // 15 minutes; gross overkill but at least eventual termination is guaranteed  
       connection.connect();
