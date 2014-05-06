@@ -234,7 +234,7 @@ h2.newsEntryTitle {
   margin-left:360px;
 }
 
-.errorPageGoToFrontPageLinkContainer a {
+.errorPageGoToFrontPageLinkContainer a, .errorPageGoToPanelFrontPageLinkContainer a {
   margin:40px 0px 0px 0px;
   color: #0099ff;
   display:inline-block;

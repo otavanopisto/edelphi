@@ -49,6 +49,9 @@
                 </c:forEach>
               </div>
               <div class="clearBoth"></div>
+              <c:if test="${!empty panel}">
+                <div class="errorPageGoToPanelFrontPageLinkContainer"><a href="${pageContext.request.contextPath}${panel.fullPath}"><fmt:message key="generic.errorPage.goToPanelFrontPageLabel" /></a></div>
+              </c:if>
               <div class="errorPageGoToFrontPageLinkContainer"><a href="${pageContext.request.contextPath}/index.page"><fmt:message key="generic.errorPage.goToFrontPageLabel" /></a></div>
             </div>
           
@@ -64,6 +67,9 @@
                 <fmt:message key="exception.pageNotFound.description"/>
               </div>
               <div class="clearBoth"></div>
+              <c:if test="${!empty panel}">
+                <div class="errorPageGoToPanelFrontPageLinkContainer"><a href="${pageContext.request.contextPath}${panel.fullPath}"><fmt:message key="generic.errorPage.goToPanelFrontPageLabel" /></a></div>
+              </c:if>
               <div class="errorPageGoToFrontPageLinkContainer"><a href="${pageContext.request.contextPath}/index.page"><fmt:message key="generic.errorPage.goToFrontPageLabel" /></a></div>
             </div>
           </c:when>
@@ -78,6 +84,9 @@
                 <fmt:message key="exception.unauthorized.description"/>
               </div>
               <div class="clearBoth"></div>
+              <c:if test="${!empty panel}">
+                <div class="errorPageGoToPanelFrontPageLinkContainer"><a href="${pageContext.request.contextPath}${panel.fullPath}"><fmt:message key="generic.errorPage.goToPanelFrontPageLabel" /></a></div>
+              </c:if>
               <div class="errorPageGoToFrontPageLinkContainer"><a href="${pageContext.request.contextPath}/index.page"><fmt:message key="generic.errorPage.goToFrontPageLabel" /></a></div>
             </div>
           </c:when>
@@ -94,6 +103,9 @@
                 </c:forEach>
               </div>
               <div class="clearBoth"></div>
+              <c:if test="${!empty panel}">
+                <div class="errorPageGoToPanelFrontPageLinkContainer"><a href="${pageContext.request.contextPath}${panel.fullPath}"><fmt:message key="generic.errorPage.goToPanelFrontPageLabel" /></a></div>
+              </c:if>
               <div class="errorPageGoToFrontPageLinkContainer"><a href="${pageContext.request.contextPath}/index.page"><fmt:message key="generic.errorPage.goToFrontPageLabel" /></a></div>
             </div>
           </c:otherwise>
