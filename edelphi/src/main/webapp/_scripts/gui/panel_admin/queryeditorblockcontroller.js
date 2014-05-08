@@ -3800,7 +3800,7 @@ QueryEditorFormPageEditor = Class.create(QueryEditorPageEditor, {
         
         for (var j = 0, jl = fieldEditor.getFieldJson().options.length; j < jl; j++) {
           if (!fieldEditor.getFieldJson().options[j].value||fieldEditor.getFieldJson().options[j].value.startsWith('NEW')) {
-            fieldEditor.getFieldJson().options[j].value = new String(++maxValue);
+            fieldEditor.getFieldJson().options[j].value = new String(++maxValue).toString();
           }
         }
       }
@@ -3810,7 +3810,7 @@ QueryEditorFormPageEditor = Class.create(QueryEditorPageEditor, {
       var fieldEditor = this._fieldEditors[i];
       var name = fieldEditor.getFieldJson().name; 
       if (!name || name.startsWith('NEW')) {
-        fieldEditor.getFieldJson().name = new String(++maxName);
+        fieldEditor.getFieldJson().name = new String(++maxName).toString();
       }
     }
     
@@ -4667,7 +4667,7 @@ QueryEditorCollage2DPageEditor = Class.create(QueryEditorQuestionEditor, {
       className: "queryEditorCollage2DPageColor"
     });
     
-    var settings = pageSettings.get(new String(pageData.id));
+    var settings = pageSettings.get(new String(pageData.id).toString());
     if (settings) {
       var color = settings.get("color")||'#aaaaaa';
       colorElement.setStyle({
