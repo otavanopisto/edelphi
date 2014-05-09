@@ -7,6 +7,7 @@ import fi.internetix.edelphi.EdelfoiStatusCode;
 import fi.internetix.edelphi.dao.base.EmailMessageDAO;
 import fi.internetix.edelphi.dao.base.MailQueueItemDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
+import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.dao.users.UserSettingDAO;
 import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
@@ -38,6 +39,7 @@ public class SaveQueryQuestionCommentJSONRequestController extends JSONControlle
   @Override
   public void process(JSONRequestContext jsonRequestContext) {
     QueryPageDAO queryPageDAO = new QueryPageDAO();
+    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
     
     Long queryPageId = jsonRequestContext.getLong("queryPageId");
@@ -55,6 +57,7 @@ public class SaveQueryQuestionCommentJSONRequestController extends JSONControlle
       Locale locale = jsonRequestContext.getRequest().getLocale();
       throw new SmvcRuntimeException(EdelfoiStatusCode.UNKNOWN_REPLICANT, messages.getText(locale, "exception.1026.unknownReplicant"));
     }
+    queryReplyDAO.updateLastModified(queryReply, loggedUser);
 
     QueryQuestionComment parentComment = null;
     if (parentCommentId != null)

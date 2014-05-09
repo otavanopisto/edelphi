@@ -153,7 +153,6 @@ public class ViewQueryPageController extends PanelPageController {
           QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
           queryReply = queryReplyDAO.create(loggedUser, query, panel.getCurrentStamp(), loggedUser);
         }
-
         QueryDataUtils.storeQueryReplyId(pageRequestContext.getRequest().getSession(), queryReply);
       }
 

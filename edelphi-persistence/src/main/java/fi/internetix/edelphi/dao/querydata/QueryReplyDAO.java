@@ -136,6 +136,13 @@ public class QueryReplyDAO extends GenericDAO<QueryReply> {
     getEntityManager().persist(queryReply);
     return queryReply;
   }
+
+  public QueryReply updateLastModified(QueryReply queryReply, User modifier) {
+    queryReply.setLastModifier(modifier);
+    queryReply.setLastModified(new Date());
+    getEntityManager().persist(queryReply);
+    return queryReply;
+  }
   
   public QueryReply updateComplete(QueryReply queryReply, User user, Boolean complete) {
     queryReply.setComplete(complete);

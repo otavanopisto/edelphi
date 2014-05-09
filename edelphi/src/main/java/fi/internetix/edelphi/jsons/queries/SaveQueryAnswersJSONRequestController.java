@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import fi.internetix.edelphi.DelfoiActionName;
 import fi.internetix.edelphi.EdelfoiStatusCode;
+import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
 import fi.internetix.edelphi.domainmodel.actions.DelfoiActionScope;
@@ -32,6 +33,7 @@ public class SaveQueryAnswersJSONRequestController extends JSONController {
   public void process(JSONRequestContext jsonRequestContext) {
     UserDAO userDAO = new UserDAO();
     QueryPageDAO queryPageDAO = new QueryPageDAO();
+    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     
     Long queryPageId = jsonRequestContext.getLong("queryPageId");
     
@@ -57,6 +59,7 @@ public class SaveQueryAnswersJSONRequestController extends JSONController {
       if (queryReply == null) {
         throw new SmvcRuntimeException(EdelfoiStatusCode.UNKNOWN_REPLICANT, messages.getText(locale, "exception.1026.unknownReplicant"));
       }
+      queryReplyDAO.updateLastModified(queryReply, loggedUser);
       
       QueryDataUtils.storeQueryReplyId(jsonRequestContext.getRequest().getSession(), queryReply);
       

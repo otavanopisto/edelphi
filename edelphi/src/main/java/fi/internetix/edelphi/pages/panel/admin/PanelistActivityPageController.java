@@ -82,7 +82,7 @@ public class PanelistActivityPageController extends PanelPageController {
       
       List<PanelistBean> repliedPanelists = new ArrayList<PanelistBean>();
       List<PanelistBean> unrepliedPanelists = new ArrayList<PanelistBean>();
-      List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndArchived(query, Boolean.FALSE);
+      List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStampAndArchived(query, panel.getCurrentStamp(), Boolean.FALSE);
       for (PanelUser panelUser : panelUsers) {
         Long userId = panelUser.getUser().getId();
 
