@@ -16,6 +16,7 @@ import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldOptionDAO;
+import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionTextAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
@@ -36,6 +37,7 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.TextFieldAnswerBean;
 import fi.internetix.edelphi.query.form.FormFieldType;
 import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.ReportUtils;
+import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.smvc.controllers.RequestContext;
 
 public class FormQueryReportPage extends QueryReportPageController {
@@ -56,8 +58,10 @@ public class FormQueryReportPage extends QueryReportPageController {
     String fieldsSetting = QueryPageUtils.getSetting(queryPage, "form.fields");
     JSONArray fieldsJson = JSONArray.fromObject(fieldsSetting);
 
+    PanelStamp panelStamp = RequestUtils.getActiveStamp(requestContext);
+    
     List<FormFieldAnswerBean> beans = new ArrayList<FormFieldAnswerBean>();
-    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndArchived(queryPage.getQuerySection().getQuery(), Boolean.FALSE);
+    List<QueryReply> queryReplies = queryReplyDAO.listByQueryAndStampAndArchived(queryPage.getQuerySection().getQuery(), panelStamp, Boolean.FALSE);
 
     JSONObject fieldJson = null;
     for (int i = 0, l = fieldsJson.size(); i < l; i++) {
