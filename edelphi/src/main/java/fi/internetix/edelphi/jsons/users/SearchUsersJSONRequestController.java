@@ -37,7 +37,7 @@ public class SearchUsersJSONRequestController extends JSONController {
         userInfo.put("id", user.getId());
         userInfo.put("firstName", user.getFirstName());
         userInfo.put("lastName", user.getLastName());
-        userInfo.put("email", user.getDefaultEmail() == null ? null : user.getDefaultEmail().getAddress());
+        userInfo.put("email", user.getDefaultEmail() == null ? null : user.getDefaultEmail().getObfuscatedAddress());
         jsonResults.add(userInfo);
       }
     }

@@ -83,7 +83,16 @@ public class CreateInvitationsJSONRequestController extends JSONController {
       String baseUrl = RequestUtils.getBaseUrl(jsonRequestContext.getRequest());
       int invitationCount = jsonRequestContext.getInteger("invitationCount").intValue();
       for (int i = 0; i < invitationCount; i++) {
+        
+        // Get the user e-mail address. Since the user interface passes on obfuscated
+        // e-mail addresses for existing users, they need to be reverted back
+        
         String email = jsonRequestContext.getString("inviteUser." + i + ".email");
+        Long userId = jsonRequestContext.getLong("inviteUser." + i + ".id");
+        if (userId != null && userId > 0) {
+          User user = userDAO.findById(userId);
+          email = user.getDefaultEmailAsString();
+        }
         
         // See if the user already has an existing invitation that points to the invitation target,
         // i.e. the front page of the panel or the front page of a single query within the panel 

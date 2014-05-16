@@ -125,25 +125,15 @@ InviteActionsBlockController = Class.create(BlockController, {
     });
   },
   _onResendInvitations: function (event) {
-    var missingMails = 0;
-    var emails = event.memo.emails;
-    for (var i = 0; i < emails.length; i++) {
-      if (emails[i] == "") {
-        missingMails++;
+    var rowElements = event.memo.rowElements;
+    for (var i = 0; i < rowElements.length; i++) {
+      var userId = rowElements[i].down('input[name="userId"]').value;
+      var firstName = rowElements[i].down('input[name="firstName"]').value;
+      var lastName = rowElements[i].down('input[name="lastName"]').value;
+      var email = rowElements[i].down('input[name="email"]').value;
+      if (!this._invitationList.contains(userId, email)) {
+        this._invitationList.add(userId, firstName, lastName, email);
       }
-      else if (!this._invitationList.contains(null, emails[i])) {
-        this._invitationList.add(null, null, null, emails[i]);
-      }
-    }
-    if (missingMails > 0) {
-      var eventQueue = getGlobalEventQueue();
-      var msg = missingMails == 1
-        ? getLocale().getText("panelAdmin.block.invitations.missingEmail")
-        : getLocale().getText("panelAdmin.block.invitations.missingEmails", [missingMails]);
-      eventQueue.addItem(new EventQueueItem(msg, {
-        className: "eventQueueWarningItem",
-        timeout: -1
-      }));
     } 
   },
   _onCSVButtonClick: function (event) {

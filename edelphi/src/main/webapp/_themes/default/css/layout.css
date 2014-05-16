@@ -2413,16 +2413,10 @@ form#panelAdminInvitationForm .formCheckBoxContainer {
   min-height:210px;
 }
 
-.manageUsersUserViewColumn_userInformation_firstNameWrapper {
-  width:200px;
-  float:left;
+.manageUsersUserViewColumn_userInformation_nameWrapper {
+  margin-bottom:10px;
 }
 
-.manageUsersUserViewColumn_userInformation_lastNameWrapper {
-  margin-left:210px;
-}
-
-.manageUsersUserViewColumn_userInformation_lastNameWrapper,
 .manageUsersUserViewColumn_userInformation_emailWrapper,
 .manageUsersUserViewColumn_userInformation_roleWrapper,
 .manageUsersUserViewColumn_userInformation_authWrapper {

@@ -16,15 +16,19 @@
 
     <c:forEach var="panelUser" items="${panelUsers}">
       <c:set var="classes">formField formCheckBox</c:set>
-      <c:set var="email"></c:set>
       <c:choose>
-        <c:when test="${panelUser.user.defaultEmailAsString != panelUser.user.fullName}">
-          <c:set var="email">${panelUser.user.defaultEmailAsString}</c:set>
+        <c:when test="${empty(panelUser.user.firstName) && empty(panelUser.user.lastName)}">
+          <c:set var="name">${panelUser.user.defaultEmailAsObfuscatedString}</c:set>
+          <c:set var="email"></c:set>
         </c:when>
+        <c:otherwise>
+          <c:set var="name">${panelUser.user.fullName}</c:set>
+          <c:set var="email">${panelUser.user.defaultEmailAsObfuscatedString}</c:set>
+        </c:otherwise>
       </c:choose>
       <div class="formFieldContainer formCheckBoxContainer">
         <input type="checkbox" id="emailRecipient.${panelUser.id}" name="emailRecipient.${panelUser.id}" value="${panelUser.id}" />
-        <label for="emailRecipient.${panelUser.id}">${panelUser.user.fullName} <span class="sendMainRecipientEmail">${email}</span></label><br />
+        <label for="emailRecipient.${panelUser.id}">${name} <span class="sendMainRecipientEmail">${email}</span></label><br />
       </div>
     </c:forEach>
 

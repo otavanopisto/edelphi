@@ -19,17 +19,20 @@
             <a href="#" class="inviteUsersResendAllInvitationsLink"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationPending.resendInvitationToAll"></fmt:message></a>
           </span>
         </h3>
-        <c:forEach var="panelUser" items="${panelUsers}">
-          <c:if test="${panelUser.joinType eq 'ADDED'}">
+        <c:forEach var="userBean" items="${userBeans}">
+          <c:if test="${userBean.type eq 'ADDED'}">
             <div class="inviteUsersListRow">
-              <input type="hidden" name="email" value="${panelUser.user.defaultEmail.address}"/>
+              <input type="hidden" name="userId" value="${userBean.userId}"/>
+              <input type="hidden" name="firstName" value="${userBean.firstName}"/>
+              <input type="hidden" name="lastName" value="${userBean.lastName}"/>
+              <input type="hidden" name="email" value="${userBean.email}"/>
               <div class="inviteUsersListUserInfo">
                 <c:choose>
-                  <c:when test="${panelUser.user.fullName eq panelUser.user.defaultEmail.address}">
-                    ${panelUser.user.fullName}
+                  <c:when test="${!empty(userBean.fullName)}">
+                    ${userBean.fullName} <div class="inviteUsersListUserEmail">${userBean.email}</div>
                   </c:when>
                   <c:otherwise>
-                    ${panelUser.user.fullName} <div class="inviteUsersListUserEmail">${panelUser.user.defaultEmail.address}</div>
+                    ${userBean.email}
                   </c:otherwise>
                 </c:choose>
               </div>
@@ -48,17 +51,20 @@
             <a href="#" class="inviteUsersResendAllInvitationsLink"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationPending.resendInvitationToAll"></fmt:message></a>
           </span>
         </h3>
-        <c:forEach var="panelUser" items="${panelUsers}">
-          <c:if test="${panelUser.joinType eq 'REGISTERED'}">
+        <c:forEach var="userBean" items="${userBeans}">
+          <c:if test="${userBean eq 'REGISTERED'}">
             <div class="inviteUsersListRow">
-              <input type="hidden" name="email" value="${panelUser.user.defaultEmail.address}"/>
+              <input type="hidden" name="userId" value="${userBean.userId}"/>
+              <input type="hidden" name="firstName" value="${userBean.firstName}"/>
+              <input type="hidden" name="lastName" value="${userBean.lastName}"/>
+              <input type="hidden" name="email" value="${userBean.email}"/>
               <div class="inviteUsersListUserInfo">
                 <c:choose>
-                  <c:when test="${panelUser.user.fullName eq panelUser.user.defaultEmail.address}">
-                    ${panelUser.user.fullName}
+                  <c:when test="${!empty(userBean.fullName)}">
+                    ${userBean.fullName} <div class="inviteUsersListUserEmail">${userBean.email}</div>
                   </c:when>
                   <c:otherwise>
-                    ${panelUser.user.fullName} <div class="inviteUsersListUserEmail">${panelUser.user.defaultEmail.address}</div>
+                    ${userBean.email}
                   </c:otherwise>
                 </c:choose>
               </div>
@@ -77,17 +83,20 @@
             <a href="#" class="inviteUsersResendAllInvitationsLink"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationPending.resendInvitationToAll"></fmt:message></a>
           </span>
         </h3>
-        <c:forEach var="panelUser" items="${panelUsers}">
-          <c:if test="${panelUser.joinType eq 'INVITED'}">
+        <c:forEach var="userBean" items="${userBeans}">
+          <c:if test="${userBean.type eq 'ACCEPTED'}">
             <div class="inviteUsersListRow">
-              <input type="hidden" name="email" value="${panelUser.user.defaultEmail.address}"/>
+              <input type="hidden" name="userId" value="${userBean.userId}"/>
+              <input type="hidden" name="firstName" value="${userBean.firstName}"/>
+              <input type="hidden" name="lastName" value="${userBean.lastName}"/>
+              <input type="hidden" name="email" value="${userBean.email}"/>
               <div class="inviteUsersListUserInfo">
                 <c:choose>
-                  <c:when test="${panelUser.user.fullName eq panelUser.user.defaultEmail.address}">
-                    ${panelUser.user.fullName}
+                  <c:when test="${!empty(userBean.fullName)}">
+                    ${userBean.fullName} <div class="inviteUsersListUserEmail">${userBean.email}</div>
                   </c:when>
                   <c:otherwise>
-                    ${panelUser.user.fullName} <div class="inviteUsersListUserEmail">${panelUser.user.defaultEmail.address}</div>
+                    ${userBean.email}
                   </c:otherwise>
                 </c:choose>
               </div>
@@ -106,12 +115,22 @@
             <a href="#" class="inviteUsersResendAllInvitationsLink"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationPending.resendInvitationToAll"></fmt:message></a>
           </span>
         </h3>
-        <c:forEach var="invitation" items="${invitations}">
-          <c:if test="${invitation.state eq 'PENDING'}">
+        <c:forEach var="userBean" items="${userBeans}">
+          <c:if test="${userBean.type eq 'PENDING'}">
             <div class="inviteUsersListRow">
-              <input type="hidden" name="email" value="${invitation.email}"/>
+              <input type="hidden" name="userId" value="${userBean.userId}"/>
+              <input type="hidden" name="firstName" value="${userBean.firstName}"/>
+              <input type="hidden" name="lastName" value="${userBean.lastName}"/>
+              <input type="hidden" name="email" value="${userBean.email}"/>
               <div class="inviteUsersListUserInfo">
-                ${invitation.email}
+                <c:choose>
+                  <c:when test="${!empty(userBean.fullName)}">
+                    ${userBean.fullName} <div class="inviteUsersListUserEmail">${userBean.email}</div>
+                  </c:when>
+                  <c:otherwise>
+                    ${userBean.email}
+                  </c:otherwise>
+                </c:choose>
               </div>
               <div class="inviteUsersListMeta panelAdminGenericMeta"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationSentDateTimeLabel"></fmt:message> <fmt:formatDate value="${invitation.lastModified}"/></div>
               <div class="inviteUsersListResendLink"><a href="#" class="inviteUsersResendInvitationLink"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationPending.resendInvitationToUser"></fmt:message></a></div>
@@ -124,11 +143,22 @@
     <c:if test="${declinedCount gt 0}">
       <div class="userContainer inviteUsersListInvitationDeniedContainer">
         <h3><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationDeniedLabel"></fmt:message></h3>
-        <c:forEach var="invitation" items="${invitations}">
-          <c:if test="${invitation.state eq 'DECLINED'}">
+        <c:forEach var="userBean" items="${userBeans}">
+          <c:if test="${userBean.type eq 'DECLINED'}">
             <div class="inviteUsersListRow">
+              <input type="hidden" name="userId" value="${userBean.userId}"/>
+              <input type="hidden" name="firstName" value="${userBean.firstName}"/>
+              <input type="hidden" name="lastName" value="${userBean.lastName}"/>
+              <input type="hidden" name="email" value="${userBean.email}"/>
               <div class="inviteUsersListUserInfo">
-                ${invitation.email}
+                <c:choose>
+                  <c:when test="${!empty(userBean.fullName)}">
+                    ${userBean.fullName} <div class="inviteUsersListUserEmail">${userBean.email}</div>
+                  </c:when>
+                  <c:otherwise>
+                    ${userBean.email}
+                  </c:otherwise>
+                </c:choose>
               </div>
               <div class="inviteUsersListMeta panelAdminGenericMeta"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationDeniedDateTimeLabel"></fmt:message> <fmt:formatDate value="${invitation.lastModified}"/></div>
             </div>
@@ -140,11 +170,22 @@
     <c:if test="${queuedCount gt 0}">
       <div class="userContainer inviteUsersListInvitationQueuedContainer">
         <h3><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationQueuedLabel"></fmt:message></h3>
-        <c:forEach var="invitation" items="${invitations}">
-          <c:if test="${(invitation.state eq 'IN_QUEUE') or (invitation.state eq 'BEING_SENT')}">
+        <c:forEach var="userBean" items="${userBeans}">
+          <c:if test="${userBean.type eq 'QUEUED'}">
             <div class="inviteUsersListRow">
+              <input type="hidden" name="userId" value="${userBean.userId}"/>
+              <input type="hidden" name="firstName" value="${userBean.firstName}"/>
+              <input type="hidden" name="lastName" value="${userBean.lastName}"/>
+              <input type="hidden" name="email" value="${userBean.email}"/>
               <div class="inviteUsersListUserInfo">
-                ${invitation.email}
+                <c:choose>
+                  <c:when test="${!empty(userBean.fullName)}">
+                    ${userBean.fullName} <div class="inviteUsersListUserEmail">${userBean.email}</div>
+                  </c:when>
+                  <c:otherwise>
+                    ${userBean.email}
+                  </c:otherwise>
+                </c:choose>
               </div>
               <div class="inviteUsersListMeta panelAdminGenericMeta"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationQueuedDateTimeLabel"></fmt:message> <fmt:formatDate value="${invitation.lastModified}"/></div>
             </div>
@@ -160,11 +201,22 @@
             <a href="#" class="inviteUsersResendAllInvitationsLink"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationPending.resendInvitationToAll"></fmt:message></a>
           </span>
         </h3>
-        <c:forEach var="invitation" items="${invitations}">
-          <c:if test="${invitation.state eq 'SEND_FAIL'}">
+        <c:forEach var="userBean" items="${userBeans}">
+          <c:if test="${userBean.type eq 'FAILED'}">
             <div class="inviteUsersListRow">
+              <input type="hidden" name="userId" value="${userBean.userId}"/>
+              <input type="hidden" name="firstName" value="${userBean.firstName}"/>
+              <input type="hidden" name="lastName" value="${userBean.lastName}"/>
+              <input type="hidden" name="email" value="${userBean.email}"/>
               <div class="inviteUsersListUserInfo">
-                ${invitation.email}
+                <c:choose>
+                  <c:when test="${!empty(userBean.fullName)}">
+                    ${userBean.fullName} <div class="inviteUsersListUserEmail">${userBean.email}</div>
+                  </c:when>
+                  <c:otherwise>
+                    ${userBean.email}
+                  </c:otherwise>
+                </c:choose>
               </div>
               <div class="inviteUsersListMeta panelAdminGenericMeta"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationFailedDateTimeLabel"></fmt:message> <fmt:formatDate value="${invitation.lastModified}"/></div>
               <div class="inviteUsersListResendLink"><a href="#" class="inviteUsersResendInvitationLink"><fmt:message key="panel.admin.inviteUsers.usersListBlock.invitationPending.resendInvitationToUser"></fmt:message></a></div>

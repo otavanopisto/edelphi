@@ -81,7 +81,7 @@ public class ManagePanelUsersPageController extends PanelPageController {
       panelUserObj.put("firstName", pUser.getUser().getFirstName());
       panelUserObj.put("lastName", pUser.getUser().getLastName());
       if (pUser.getUser().getDefaultEmail() != null)
-        panelUserObj.put("email", pUser.getUser().getDefaultEmail().getAddress());
+        panelUserObj.put("email", pUser.getUser().getDefaultEmail().getObfuscatedAddress());
       if (pUser.getRole() != null)
         panelUserObj.put("roleId", pUser.getRole().getId().toString());
       panelUserObj.put("created", String.valueOf(pUser.getCreated().getTime()));      

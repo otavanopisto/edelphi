@@ -154,6 +154,11 @@ public class User implements ArchivableEntity, ModificationTrackedEntity {
   }
 
   @Transient
+  public String getDefaultEmailAsObfuscatedString() {
+    return getDefaultEmail() == null ? null : getDefaultEmail().getObfuscatedAddress();
+  }
+
+  @Transient
   @Field(index = Index.YES, store = Store.NO, analyze = Analyze.NO)
   public String getFullNameSearch() {
     return StringUtils.lowerCase(getFullName(false));

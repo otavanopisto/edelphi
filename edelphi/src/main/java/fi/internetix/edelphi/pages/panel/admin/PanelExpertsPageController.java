@@ -82,7 +82,7 @@ public class PanelExpertsPageController extends PanelPageController {
       jsonObj.put("id", panelUser.getId().toString());
       jsonObj.put("role", panelUser.getRole().toString());
       jsonObj.put("name", panelUser.getUser().getFullName(true, false));
-      jsonObj.put("email", panelUser.getUser().getDefaultEmailAsString());
+      jsonObj.put("email", panelUser.getUser().getDefaultEmailAsObfuscatedString());
       
       jsonArr.add(jsonObj);
     }
@@ -172,7 +172,7 @@ public class PanelExpertsPageController extends PanelPageController {
         groupUserJsonObj.put("id", groupUser.getId().toString());
         groupUserJsonObj.put("panelUserId", groupUser.getPanelUser().getId().toString());
         groupUserJsonObj.put("name", groupUser.getPanelUser().getUser().getFullName(true, false));
-        groupUserJsonObj.put("email", groupUser.getPanelUser().getUser().getDefaultEmailAsString());
+        groupUserJsonObj.put("email", groupUser.getPanelUser().getUser().getDefaultEmailAsObfuscatedString());
         
         jsonArr.add(groupUserJsonObj);
       }

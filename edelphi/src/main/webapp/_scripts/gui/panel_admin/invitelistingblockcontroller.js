@@ -55,22 +55,16 @@ InviteListingBlockController = Class.create(BlockController, {
   },
   _onResendInvitationClick: function (event) {
     var rowElement = event.target.up('div.inviteUsersListRow');
-    var email = rowElement.down('input[name="email"]').value;
-    var emails = [email];
+    var rowElements = [rowElement];
     document.fire("ed:resendInvitation", {
-      "emails": emails
+      "rowElements": rowElements
     });
   },
   _onResendAllInvitationsClick: function (event) {
-    var i = 0;
-    var emails = [];
     var containerElement = event.target.up('div.userContainer');
-    containerElement.select('div.inviteUsersListRow').each(function(e) {
-      var email = e.down('input[name="email"]').value;
-      emails[i++] = email;
-    });
+    var rowElements = containerElement.select('div.inviteUsersListRow');
     document.fire("ed:resendInvitation", {
-      "emails": emails
+      "rowElements": rowElements
     });
   },
   _onRefreshRequested: function (event) {

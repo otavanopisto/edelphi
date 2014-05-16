@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -105,6 +106,15 @@ public class PanelInvitation implements ArchivableEntity, ModificationTrackedEnt
 
   public String getEmail() {
     return email;
+  }
+
+  @Transient
+  public String getObfuscatedEmail() {
+    int i = email == null ? 0 : email.indexOf('@');
+    if (email == null || i <= 2) {
+      return email;
+    }
+    return (i < 9 ? email.substring(0, 3) : email.substring(0, 8)) + "..." + email.substring(i);
   }
 
   public void setEmailMessage(EmailMessage emailMessage) {

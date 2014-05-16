@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.search.annotations.DocumentId;
@@ -38,6 +39,15 @@ public class UserEmail {
 
   public String getAddress() {
     return address;
+  }
+
+  @Transient
+  public String getObfuscatedAddress() {
+    int i = address == null ? 0 : address.indexOf('@');
+    if (address == null || i <= 2) {
+      return address;
+    }
+    return (i < 9 ? address.substring(0, 3) : address.substring(0, 8)) + "..." + address.substring(i);
   }
 
   public void setUser(User user) {

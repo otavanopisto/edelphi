@@ -204,8 +204,7 @@ ManagePanelUsersBlockController = Class.create(BlockController, {
     var userNameStr = "" + (user.lastName ? user.lastName + ", " : "") + (user.firstName ? user.firstName : "");
     
     $('manageUsersUserViewColumn_userName').update(userNameStr);
-    $('manageUsersUserViewColumn_userInformation_firstName').value = user.firstName ? user.firstName : "";
-    $('manageUsersUserViewColumn_userInformation_lastName').value = user.lastName ? user.lastName : "";
+    $('manageUsersUserViewColumn_userInformation_name').update(userNameStr);
     $('manageUsersUserViewColumn_userInformation_email').update(user.email);
     $('manageUsersUserViewColumn_userInformation_role').down("select").value = user.roleId;
     $('manageUsersUserViewColumnContent').show();
@@ -282,8 +281,6 @@ ManagePanelUsersBlockController = Class.create(BlockController, {
   },
   _saveUser: function (user) {
     var panelUserId = user.id;
-    var newFirstName = $('manageUsersUserViewColumn_userInformation_firstName').value;
-    var newLastName = $('manageUsersUserViewColumn_userInformation_lastName').value;
     var newRoleId = $('manageUsersUserViewColumn_userInformation_role').down("select[name='selectedUserRole']").value;
 
     var _this = this;
@@ -291,16 +288,10 @@ ManagePanelUsersBlockController = Class.create(BlockController, {
     JSONUtils.request(CONTEXTPATH + '/panel/admin/updatepaneluser.json', {
       parameters: {
         panelUserId: panelUserId,
-        newFirstName: newFirstName,
-        newLastName: newLastName,
         newRoleId: newRoleId
       },
       onSuccess: function (jsonRequest) {
-        user.firstName = newFirstName;
-        user.lastName = newLastName;
         user.roleId = newRoleId;
-        $('manageUsersUserViewColumn_userName').update(user.firstName + " " + user.lastName);
-        
         _this._updateUserListUser(user);
       }
     });

@@ -88,7 +88,7 @@ public class PanelistActivityPageController extends PanelPageController {
 
         PanelistBean panelistBean = new PanelistBean();
         panelistBean.setName(panelUser.getUser().getFullName(true, false));
-        panelistBean.setEmail(panelUser.getUser().getDefaultEmailAsString());
+        panelistBean.setEmail(panelUser.getUser().getDefaultEmailAsObfuscatedString());
         panelistBean.setLastLogin(panelUser.getUser().getLastLogin());
         
         for (QueryReply queryReply : queryReplies) {

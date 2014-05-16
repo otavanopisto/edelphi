@@ -79,7 +79,7 @@ public class ManagePanelUsergroupsPageController extends PanelPageController {
       panelUserJs.put("id", panelUser.getId().toString());
       panelUserJs.put("userId", panelUser.getUser().getId());
       panelUserJs.put("name", panelUser.getUser().getFullName(true, false)); // last name first, don't fall back to email
-      panelUserJs.put("mail", panelUser.getUser().getDefaultEmailAsString());
+      panelUserJs.put("mail", panelUser.getUser().getDefaultEmailAsObfuscatedString());
       panelUsersJs.add(panelUserJs);
     }
     setJsDataVariable(pageRequestContext, "panelUsers", panelUsersJs.toString());
