@@ -60,7 +60,7 @@
       </table>
 
       <!-- Applying of comments -->
-
+      
       <jsp:include page="/jsp/fragments/query_commentlist.jsp">
         <jsp:param value="true" name="reportMode"/>
         <jsp:param value="${reportPageData.queryPage.id}" name="queryPageId"/>

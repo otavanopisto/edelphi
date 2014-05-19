@@ -44,6 +44,7 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
       dataNames.put(d, step % 1 == 0 ? new Long(Math.round(d)).toString() : new Double(d).toString());
     }
     QueryFieldDataStatistics statistics = ReportUtils.getStatistics(data, dataNames);
+    QueryUtils.appendQueryPageComments(requestContext, queryPage);
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
     return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_timeline.jsp", statistics);
   }
