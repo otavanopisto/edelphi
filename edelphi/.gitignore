@@ -1,6 +1,6 @@
 /.settings
 /target
 /.classpath
-/.DS_Store
+.DS_Store
 /.factorypath
 /.project

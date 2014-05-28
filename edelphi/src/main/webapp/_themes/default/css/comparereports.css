@@ -1,0 +1,154 @@
+@CHARSET "UTF-8";
+
+@import url("reset-min.css");
+@import url("fonts.css");
+
+html {
+  height:100%;
+  background:#226d97;
+}
+
+body {
+  margin:0;
+  background-color:#226d97;
+  color:#ffffff;
+  height:100%;
+  font-family:"PT Sans";
+  font-size:0.875em;
+}
+
+.panel_admin_selection .GUI_pageWrapper .GUI_pageContainer {
+  margin:0 auto;
+  padding:20px 0;
+  width:620px;
+  min-height:500px;  
+}
+
+.panel_admin_selection .GUI_pageContainer .pageTitle h1 {
+  font-size:2.5em; /* Font baseline inherited from <body> font-size rule  */
+  margin:0 0 20px 0;
+  font-family:"Open Sans Condensed";
+}
+
+.GUI_pageContainer .pageDescription {
+  font-size:1.2em; /* Font baseline inherited from <body> font-size rule  */
+  margin:0 0 20px 0;
+  line-height:1.4em;
+}
+
+.queryListingWrapper {
+  margin-top:30px;
+  border-radius:3px;
+  background:#397ca2;
+  width:640px;
+  margin-left:-20px;
+  padding:10px;
+  max-height:270px;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+
+.queryListingWrapper .queryListingRow {
+  clear:both;
+  min-height:40px;
+  margin-bottom:5px;
+  border-radius:2px;
+  transition: background-color 0.5s ease-out;
+}
+
+.queryListingWrapper .queryListingRow:hover {
+  background:#4c93bb;
+}
+
+.querySubmitRow {
+  margin:20px -20px 0 0;
+  text-align:right;
+}
+
+.querySubmitRow input[type=submit] {
+  border:none;
+  background:#2c8bc1;
+  color:#fff;
+  text-transform:uppercase;
+  padding:15px 20px;
+  cursor:pointer;
+  transition: background 0.5s ease-out;
+  border-radius:3px;
+  min-width:150px;
+  text-align:center;
+}
+
+.querySubmitRow input[type=submit]:hover {
+  background:#0099ff;
+}
+
+.queryListingWrapper .queryListingRow .queryListingInputContainer {
+  float:left;
+  height:10px;
+  width:10px;
+  padding:15px 15px 15px 15px;
+}
+
+.queryListingWrapper .queryListingRow .queryListingInputContainer input[type=checkbox] {
+  
+}
+
+.queryListingWrapper .queryListingRow .queryListingNameContainer {
+  height:30px;
+  padding:5px;
+  font-size:1.5em;
+  font-family:"Open Sans Condensed";
+}
+
+.queryListingWrapper .queryListingRow .queryListingNameContainer label {
+  cursor:pointer;
+  display:block;
+  height:35px;
+  margin-top:-5px;
+  padding-top:5px;
+}
+
+/* COMPARE REPORTS RULES */
+
+.panel_admin_compare .GUI_pageContainer .pageTitle h1 {
+  font-size:2.5em; /* Font baseline inherited from <body> font-size rule  */
+  margin:0 0 20px 10px;
+  font-family:"Open Sans Condensed";
+}
+
+.panel_admin_compare .GUI_pageWrapper .GUI_pageContainer {
+  margin:0 auto;
+  padding:20px 0;
+  min-width:1280px;
+  max-width:1600px;
+  min-height:500px;  
+  position:relative;
+}
+
+.GUI_pageContainer .GUI_selectedQueryReportWrapperLeft,
+.GUI_pageContainer .GUI_selectedQueryReportWrapperRight {
+  margin:0 10px 0 0;
+  background:#ffffff;
+  min-height:1000px;
+  box-shadow:0 0 15px rgba(0,0,0,0.3);
+  max-width:785px; /* Prevents reports from stretching too much when resolution exceeds 1600 */
+  min-width:615px; /* Prevent each report from overlapping when screen resolution goes below 1280 */
+}
+
+.GUI_pageContainer .GUI_selectedQueryReportWrapperLeft {
+  margin:0 5px 0 0;
+  position:absolute;
+  left:10px;
+  top:0;
+  right:50%;
+}
+
+.GUI_pageContainer .GUI_selectedQueryReportWrapperRight {
+  margin:0 0 0 5px;
+  position:absolute;
+  right:10px;
+  top:0;
+  left:50%;
+}
+
+
