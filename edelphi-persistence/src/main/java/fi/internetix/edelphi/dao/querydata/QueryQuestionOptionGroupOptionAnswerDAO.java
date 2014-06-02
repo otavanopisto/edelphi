@@ -74,6 +74,23 @@ public class QueryQuestionOptionGroupOptionAnswerDAO extends GenericDAO<QueryQue
     return entityManager.createQuery(criteria).getResultList();
   }
 
+  public List<QueryQuestionOptionGroupOptionAnswer> listByQueryRepliesAndQueryField(List<QueryReply> queryReplies, QueryField queryField) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<QueryQuestionOptionGroupOptionAnswer> criteria = criteriaBuilder.createQuery(QueryQuestionOptionGroupOptionAnswer.class);
+    Root<QueryQuestionOptionGroupOptionAnswer> root = criteria.from(QueryQuestionOptionGroupOptionAnswer.class);
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(QueryQuestionOptionGroupOptionAnswer_.queryField), queryField),
+        root.get(QueryQuestionOptionGroupOptionAnswer_.queryReply).in(queryReplies)
+      )
+    );
+
+    return entityManager.createQuery(criteria).getResultList();
+  }
+
   public List<QueryQuestionOptionGroupOptionAnswer> listByQueryReplyAndQueryFieldAndOptionFieldGroup(QueryReply queryReply, QueryOptionField queryField, QueryOptionFieldOptionGroup group) {
     EntityManager entityManager = getEntityManager();
 

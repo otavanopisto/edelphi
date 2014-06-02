@@ -231,6 +231,7 @@ public class QueryUtils {
               queryReply.getUser(),
               newQuery,
               queryReply.getStamp(),
+              queryReply.getComplete(),
               queryReply.getCreator(),
               queryReply.getCreated(),
               queryReply.getLastModifier(),
@@ -248,6 +249,7 @@ public class QueryUtils {
               queryReply.getUser(),
               newQuery,
               targetPanel.getCurrentStamp(),
+              queryReply.getComplete(),
               queryReply.getCreator(),
               queryReply.getCreated(),
               queryReply.getLastModifier(),
@@ -475,7 +477,7 @@ public class QueryUtils {
   }
 
   public static void stampQuery(Query query, PanelStamp sourceStamp, PanelStamp targetStamp) {
-
+    
     // Data access objects
 
     QueryPageDAO queryPageDAO = new QueryPageDAO();
@@ -499,6 +501,7 @@ public class QueryUtils {
           queryReply.getUser(),
           queryReply.getQuery(),
           targetStamp,
+          queryReply.getComplete(),
           queryReply.getCreator(),
           queryReply.getCreated(),
           queryReply.getLastModifier(),
@@ -562,32 +565,78 @@ public class QueryUtils {
             // Option fields
 
             case OPTIONFIELD:
-              
-              for (QueryReply queryReply : queryReplies) {
-                QueryQuestionMultiOptionAnswer multiAnswer = queryQuestionMultiOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryField);
-                if (multiAnswer != null) {
-                  // QueryQuestionMultiOptionAnswer
-                  Set<QueryOptionFieldOption> options = new HashSet<QueryOptionFieldOption>();
-                  options.addAll(multiAnswer.getOptions());
-                  queryQuestionMultiOptionAnswerDAO.create(replyMap.get(queryReply.getId()), queryField, options);
-                }
-                else {
-                  // QueryQuestionOptionGroupOptionAnswer
-                  List<QueryQuestionOptionGroupOptionAnswer> groupAnswers = queryQuestionOptionGroupOptionAnswerDAO.listByQueryReplyAndQueryField(queryReply, queryField);
-                  if (!groupAnswers.isEmpty()) {
-                    for (QueryQuestionOptionGroupOptionAnswer groupAnswer : groupAnswers) {
-                      queryQuestionOptionGroupOptionAnswerDAO.create(replyMap.get(queryReply.getId()), queryField, groupAnswer.getOption(), groupAnswer.getGroup());
+
+              QueryPageType pageType = queryPage.getPageType();
+              switch (pageType) {
+                case THESIS_GROUPING:
+                  HashMap<Long, List<QueryQuestionOptionGroupOptionAnswer>> groupOptionAnswersByReplies = null;
+                  List<QueryQuestionOptionGroupOptionAnswer> allGroupOptionAnswers = queryQuestionOptionGroupOptionAnswerDAO.listByQueryRepliesAndQueryField(queryReplies, queryField);
+                  if (!allGroupOptionAnswers.isEmpty()) {
+                    groupOptionAnswersByReplies = new HashMap<Long, List<QueryQuestionOptionGroupOptionAnswer>>();
+                    for (QueryQuestionOptionGroupOptionAnswer optionAnswer : allGroupOptionAnswers) {
+                      List<QueryQuestionOptionGroupOptionAnswer> singleReplyAnswers = groupOptionAnswersByReplies.get(optionAnswer.getQueryReply().getId());
+                      if (singleReplyAnswers == null) {
+                        singleReplyAnswers = new ArrayList<QueryQuestionOptionGroupOptionAnswer>();
+                        groupOptionAnswersByReplies.put(optionAnswer.getQueryReply().getId(), singleReplyAnswers);
+                      }
+                      singleReplyAnswers.add(optionAnswer);
+                    }
+                    for (QueryReply queryReply : queryReplies) {
+                      List<QueryQuestionOptionGroupOptionAnswer> groupAnswers = groupOptionAnswersByReplies.get(queryReply.getId());
+                      if (groupAnswers != null && !groupAnswers.isEmpty()) {
+                        for (QueryQuestionOptionGroupOptionAnswer groupAnswer : groupAnswers) {
+                          queryQuestionOptionGroupOptionAnswerDAO.create(replyMap.get(queryReply.getId()), queryField, groupAnswer.getOption(), groupAnswer.getGroup());
+                        }
+                      }
                     }
                   }
-                  else {
-                    // QueryQuestionOptionAnswer
-                    List<QueryQuestionOptionAnswer> optionAnswers = queryQuestionOptionAnswerDAO.listByQueryReplyAndQueryField(queryReply, queryField);
-                    for (QueryQuestionOptionAnswer optionAnswer : optionAnswers) {
-                      queryQuestionOptionAnswerDAO.create(replyMap.get(queryReply.getId()), queryField, optionAnswer.getOption());
+                  break;
+                case THESIS_MULTI_SELECT:
+                case EXPERTISE:
+                  HashMap<Long, QueryQuestionMultiOptionAnswer> multiOptionAnswersByReplies = null;
+                  List<QueryQuestionMultiOptionAnswer> allMultiOptionAnswers = queryQuestionMultiOptionAnswerDAO.listByQueryRepliesAndQueryField(queryReplies, queryField);
+                  if (!allMultiOptionAnswers.isEmpty()) {
+                    multiOptionAnswersByReplies = new HashMap<Long, QueryQuestionMultiOptionAnswer>();
+                    for (QueryQuestionMultiOptionAnswer optionAnswer : allMultiOptionAnswers) {
+                      multiOptionAnswersByReplies.put(optionAnswer.getQueryReply().getId(), optionAnswer);
+                    }
+                    for (QueryReply queryReply : queryReplies) {
+                      QueryQuestionMultiOptionAnswer multiAnswer = multiOptionAnswersByReplies.get(queryReply.getId());
+                      if (multiAnswer != null) {
+                        Set<QueryOptionFieldOption> options = new HashSet<QueryOptionFieldOption>();
+                        options.addAll(multiAnswer.getOptions());
+                        queryQuestionMultiOptionAnswerDAO.create(replyMap.get(queryReply.getId()), queryField, options);
+                      }
                     }
                   }
-                }
+                  break;
+                default:
+                  HashMap<Long, List<QueryQuestionOptionAnswer>> optionAnswersByReplies = null;
+                  List<QueryQuestionOptionAnswer> allOptionAnswers = queryQuestionOptionAnswerDAO.listByQueryRepliesAndQueryField(queryReplies, queryField);
+                  if (!allOptionAnswers.isEmpty()) {
+                    optionAnswersByReplies = new HashMap<Long, List<QueryQuestionOptionAnswer>>(); 
+                    for (QueryQuestionOptionAnswer optionAnswer : allOptionAnswers) {
+                      List<QueryQuestionOptionAnswer> singleReplyAnswers = optionAnswersByReplies.get(optionAnswer.getQueryReply().getId());
+                      if (singleReplyAnswers == null) {
+                        singleReplyAnswers = new ArrayList<QueryQuestionOptionAnswer>();
+                        optionAnswersByReplies.put(optionAnswer.getQueryReply().getId(), singleReplyAnswers);
+                      }
+                      singleReplyAnswers.add(optionAnswer);
+                    }
+                    for (QueryReply queryReply : queryReplies) {
+                      if (optionAnswersByReplies != null) {
+                        List<QueryQuestionOptionAnswer> optionAnswers = optionAnswersByReplies.get(queryReply.getId());
+                        if (optionAnswers != null && !optionAnswers.isEmpty()) {
+                          for (QueryQuestionOptionAnswer optionAnswer : optionAnswers) {
+                            queryQuestionOptionAnswerDAO.create(replyMap.get(queryReply.getId()), queryField, optionAnswer.getOption());
+                          }
+                        }
+                      }
+                    }
+                  }
+                  break;
               }
+             
               break;
               
             // Numeric scale fields

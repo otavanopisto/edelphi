@@ -213,7 +213,7 @@ public class EntityResolver {
       Panel panel = ResourceUtils.getResourcePanel(targetQuery);
       queryReply = queryReplyDAO.findByUserAndQueryAndStamp(user, targetQuery, panel.getCurrentStamp());
       if (queryReply == null) {
-        queryReply = queryReplyDAO.create(user, targetQuery, panel.getCurrentStamp(), user, creationDate, user, modifiedDate);
+        queryReply = queryReplyDAO.create(user, targetQuery, panel.getCurrentStamp(), Boolean.FALSE, user, creationDate, user, modifiedDate);
       }
       replyMap.put(user, queryReply);
     }

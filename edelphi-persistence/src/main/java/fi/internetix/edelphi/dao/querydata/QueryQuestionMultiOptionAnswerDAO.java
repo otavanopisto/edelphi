@@ -56,6 +56,23 @@ public class QueryQuestionMultiOptionAnswerDAO extends GenericDAO<QueryQuestionM
     return getSingleResult(entityManager.createQuery(criteria));
   }
 
+  public List<QueryQuestionMultiOptionAnswer> listByQueryRepliesAndQueryField(List<QueryReply> queryReplies, QueryField queryField) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<QueryQuestionMultiOptionAnswer> criteria = criteriaBuilder.createQuery(QueryQuestionMultiOptionAnswer.class);
+    Root<QueryQuestionMultiOptionAnswer> root = criteria.from(QueryQuestionMultiOptionAnswer.class);
+    criteria.select(root);
+    criteria.where(
+      criteriaBuilder.and(
+        criteriaBuilder.equal(root.get(QueryQuestionOptionAnswer_.queryField), queryField),
+        root.get(QueryQuestionOptionAnswer_.queryReply).in(queryReplies)
+      )
+    );
+
+    return entityManager.createQuery(criteria).getResultList();
+  }
+
   public List<QueryQuestionMultiOptionAnswer> listByQueryField(QueryField queryField) {
     EntityManager entityManager = getEntityManager();
 

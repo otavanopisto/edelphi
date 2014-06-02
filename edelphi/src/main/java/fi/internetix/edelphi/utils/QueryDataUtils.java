@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -61,6 +62,19 @@ public class QueryDataUtils {
   
   public static void storeQueryReplyId(HttpSession session, QueryReply queryReply) {
     session.setAttribute("queryReplyId_" + queryReply.getQuery().getId(), queryReply.getId());
+  }
+
+  public static void clearQueryReplyIds(HttpSession session) {
+    List<String> attributes = new ArrayList<String>();
+    Enumeration<String> attributeNames = session.getAttributeNames();
+    while (attributeNames.hasMoreElements()) {
+      attributes.add(attributeNames.nextElement());
+    }
+    for (String attribute : attributes) {
+      if (attribute.startsWith("queryReplyId_")) {
+        session.removeAttribute(attribute);
+      }
+    }
   }
   
   private static void clearQueryReplyId(HttpSession session, Query query) {

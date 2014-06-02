@@ -19,10 +19,10 @@ public class QueryReplyDAO extends GenericDAO<QueryReply> {
 
   public QueryReply create(User user, Query query, PanelStamp panelStamp, User creator) {
     Date now = new Date();
-    return create(user, query, panelStamp, creator, now, creator, now);
+    return create(user, query, panelStamp, Boolean.FALSE, creator, now, creator, now);
   }
 
-  public QueryReply create(User user, Query query, PanelStamp panelStamp, User creator, Date created, User modifier, Date modified) {
+  public QueryReply create(User user, Query query, PanelStamp panelStamp, Boolean complete, User creator, Date created, User modifier, Date modified) {
     QueryReply queryReply = new QueryReply();
     queryReply.setStamp(panelStamp);
     queryReply.setArchived(Boolean.FALSE);
@@ -32,6 +32,7 @@ public class QueryReplyDAO extends GenericDAO<QueryReply> {
     queryReply.setLastModifier(modifier);
     queryReply.setQuery(query);
     queryReply.setUser(user);
+    queryReply.setComplete(complete);
 
     getEntityManager().persist(queryReply);
 

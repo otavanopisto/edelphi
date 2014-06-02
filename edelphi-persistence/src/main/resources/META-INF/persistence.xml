@@ -44,6 +44,11 @@
       <property name="hibernate.hbm2ddl.auto" value="validate" />
        -->
       <property name="hibernate.generate_statistics" value="false" />
+ 
+       <!-- Byte code instrumentation -->
+
+      <property name="hibernate.ejb.use_class_enhancer" value="true"/>
+       
     </properties>
   </persistence-unit>
 </persistence>
