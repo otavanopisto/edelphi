@@ -24,16 +24,43 @@
           <h1>Paneelin nimi ladataan tähän</h1>
         </div>
         
-        <div class="GUI_pageContainer">
+        <div class="GUI_reportContainer">
         
           <div class="GUI_selectedQueryReportWrapperLeft">
-          
+            <div class="selectedQueryReportTitle">Vasemman kyselyn nimi</div>
+            <div class="selectedQueryReportActions">
+              <div class="selectedQueryReportActions-filters">
+                <div class="selectedQueryReportActions-filters-icon"></div>
+                <div class="selectedQueryReportActions-filters-container"></div>
+              </div>
+              <div class="selectedQueryReportActions-exports">
+                <div class="selectedQueryReportActions-exports-icon"></div>
+                <div class="selectedQueryReportActions-exports-container"></div>
+              </div>
+              <div class="selectedQueryReportActions-settings">
+                <div class="selectedQueryReportActions-settings-icon"></div>
+                <div class="selectedQueryReportActions-settings-container"></div>
+              </div>
+            </div>
           </div>
         
           <div class="GUI_selectedQueryReportWrapperRight">
-          
+            <div class="selectedQueryReportTitle">Oikean kyselyn nimi</div>
+            <div class="selectedQueryReportActions">
+              <div class="selectedQueryReportActions-filters">
+                <div class="selectedQueryReportActions-filters-icon"></div>
+                <div class="selectedQueryReportActions-filters-container"></div>
+              </div>
+              <div class="selectedQueryReportActions-exports">
+                <div class="selectedQueryReportActions-exports-icon"></div>
+                <div class="selectedQueryReportActions-exports-container"></div>
+              </div>
+              <div class="selectedQueryReportActions-settings">
+                <div class="selectedQueryReportActions-settings-icon"></div>
+                <div class="selectedQueryReportActions-settings-container"></div>
+              </div>
+            </div>
           </div>
-        
         </div>
         
       </div>

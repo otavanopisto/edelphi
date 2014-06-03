@@ -125,6 +125,94 @@ body {
   position:relative;
 }
 
+.panel_admin_compare .GUI_pageWrapper .GUI_reportContainer {
+  position:relative;
+  margin-top:60px;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportTitle {
+  position:absolute;
+  z-index:9;
+  top:-45px;
+  left:0;
+  height:30px;
+  background:#4a88ab;
+  color:#fff;
+  font-size:1.7em;
+  font-family:"Open Sans Condensed";
+  padding:5px 40px 10px 10px;
+  border-top-left-radius:3px;
+  border-top-right-radius:3px;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions {
+  position:absolute;
+  z-index:8;
+  top:-45px;
+  right:0;
+  height:45px;
+  width:100%;
+  text-align:right;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-filters,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-exports,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-settings {
+  height:45px;
+  width:50px;
+  border-top-left-radius:3px;
+  border-top-right-radius:3px;
+  background:#4a88ab;
+  display:inline-block;
+  margin:0 5px 0 0;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-filters-icon {
+  background:url('../gfx/icons/24x24/actions/report_filters.png') center center no-repeat;
+  height:45px;
+  width:50px;
+  cursor:pointer;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-settings-icon {
+  background:url('../gfx/icons/24x24/actions/report_settings.png') center center no-repeat;
+  height:45px;
+  width:50px;
+  cursor:pointer;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-exports-icon {
+  background:url('../gfx/icons/24x24/actions/report_exports.png') center center no-repeat;
+  height:45px;
+  width:50px;
+  cursor:pointer;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-filters-icon:hover,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-settings-icon:hover,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-exports-icon:hover,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .icon-selected,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .icon-selected,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .icon-selected {
+  background-color:#ff6600;
+  border-top-left-radius:3px;
+  border-top-right-radius:3px;
+}
+
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-filters-container,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-exports-container,
+.panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-settings-container {
+  display:none;
+  opacity:0;
+  width:100%;
+  position:absolute;
+  left:0;
+  top:45px;
+  right:0;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  border-bottom:2px solid #ff944c;
+}
+
 .GUI_pageContainer .GUI_selectedQueryReportWrapperLeft,
 .GUI_pageContainer .GUI_selectedQueryReportWrapperRight {
   margin:0 10px 0 0;
@@ -136,7 +224,7 @@ body {
 }
 
 .GUI_pageContainer .GUI_selectedQueryReportWrapperLeft {
-  margin:0 5px 0 0;
+  margin:0 5px 20px 0;
   position:absolute;
   left:10px;
   top:0;
@@ -144,7 +232,7 @@ body {
 }
 
 .GUI_pageContainer .GUI_selectedQueryReportWrapperRight {
-  margin:0 0 0 5px;
+  margin:0 0 20px 5px;
   position:absolute;
   right:10px;
   top:0;
