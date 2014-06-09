@@ -376,7 +376,7 @@ Scale1DQueryPageController = Class.create(QueryPageController, {
     this._max = this._radioListController.getMax();
     this._min = this._radioListController.getMin();
     this._selected = this._radioListController.getSelected();
-    this._tickLabels = this._radioListController.getPossibleValues();
+    this._tickLabels = this._radioListController.getValueLabels();
   },
   _updateReport: function () {
     if (this._liveReportController) {
@@ -1165,7 +1165,7 @@ QueryBlockScaleRadioListFragmentController = Class.create(QueryBlockFragmentCont
     this._minValue = Infinity;
     this._maxValue = -Infinity;
     this._selectedValue = null;
-    this._possibleValues = new Array();
+    this._valueLabels = new Array();
     
     var listItems = element.select('.queryScaleRadioListItemInput');
     for (var i = 0, l = listItems.length; i < l; i++) {
@@ -1173,7 +1173,15 @@ QueryBlockScaleRadioListFragmentController = Class.create(QueryBlockFragmentCont
       
       this._minValue = Math.min(parseInt(listItem.value), this._minValue);
       this._maxValue = Math.max(parseInt(listItem.value), this._maxValue);
-      this._possibleValues.push(listItem.value);
+      var itemValue = listItem.value;
+      var itemContainer = listItems[i].up('.queryScaleRadioListItemContainer');
+      if (itemContainer != undefined) {
+        var labelContainer = itemContainer.down('.queryScaleRadioListItemLabel');
+        if (labelContainer != undefined) {
+          itemValue = labelContainer.innerHTML; 
+        }
+      }
+      this._valueLabels.push(itemValue);
       if (listItem.checked)
         this._selectedValue = listItem.value;
       
@@ -1193,8 +1201,8 @@ QueryBlockScaleRadioListFragmentController = Class.create(QueryBlockFragmentCont
   getMax: function () {
     return this._maxValue;
   },
-  getPossibleValues: function () {
-    return this._possibleValues;
+  getValueLabels: function () {
+    return this._valueLabels;
   },
   getSelected: function () {
     return this._selectedValue;
