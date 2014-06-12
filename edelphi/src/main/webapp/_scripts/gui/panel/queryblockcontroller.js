@@ -8,6 +8,7 @@ QueryBlockController = Class.create(BlockController, {
     this._skipButtonClickListener = this._onSkipButtonClick.bindAsEventListener(this);
     this._skipLastButtonClickListener = this._onSkipLastButtonClick.bindAsEventListener(this);
     this._toggleCommentsClickListener = this._onToggleCommentsClickListener.bindAsEventListener(this);
+    this._toggleCommentsSortClickListener = this._onToggleCommentsSortClickListener.bindAsEventListener(this);
     
     this._currentPage = 0;
     this._nextPageNumber = null;
@@ -52,10 +53,13 @@ QueryBlockController = Class.create(BlockController, {
     if (this._skipLastButton)
       Event.observe(this._skipLastButton, "click", this._skipLastButtonClickListener);
     
-//    this._commentsHeader = this.getBlockElement().down(".queryCommentListSubTitle");
-    this._commentsHeader = this.getBlockElement().down(".queryCommentsShowHideToggle");
-    if (this._commentsHeader)
-      Event.observe(this._commentsHeader, "click", this._toggleCommentsClickListener);
+    this._commentsHeaderToggle = this.getBlockElement().down(".queryCommentsShowHideToggle");
+    if (this._commentsHeaderToggle)
+      Event.observe(this._commentsHeaderToggle, "click", this._toggleCommentsClickListener);
+    
+    this._commentsSortToggle = this.getBlockElement().down(".queryCommentsSortToggle");
+    if (this._commentsSortToggle)
+      Event.observe(this._commentsSortToggle, "click", this._toggleCommentsSortClickListener);
     
     switch (this._pageType) {
       case 'TEXT':
@@ -196,10 +200,7 @@ QueryBlockController = Class.create(BlockController, {
     Event.stop(event);
     
     var commentsContainer = element.up(".queryCommentList").down(".queryCommentsContainer");
-
     var commentsShowHideToggle = element.up(".queryCommentList").down(".queryCommentsShowHideToggle");
-    var commentsShowText = element.up(".queryCommentList").down(".showCommentsTextContainer");
-    var commentsHideText = element.up(".queryCommentList").down(".hideCommentsTextContainer");
 
     if (commentsContainer.visible()) {
       commentsContainer.fade();
@@ -211,7 +212,21 @@ QueryBlockController = Class.create(BlockController, {
       commentsShowHideToggle.addClassName("hideIcon");
     }
     
+  },
+  _onToggleCommentsSortClickListener: function (event) {
+    var element = Event.element(event);
+    Event.stop(event);
+    
+    var commentsSortContainer = element.up(".queryCommentsSortToggleWrapper").down(".queryCommentsSortActionsContainer");
+
+    if (commentsSortContainer.visible()) {
+      commentsSortContainer.fade();
+    } else {
+      commentsSortContainer.appear();
+    }
+    
   }
+  
 });
 
 addBlockController(new QueryBlockController());
