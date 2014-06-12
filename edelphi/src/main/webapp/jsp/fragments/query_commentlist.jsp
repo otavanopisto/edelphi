@@ -27,8 +27,9 @@
     <c:if test="${!param.reportMode eq true}">
       (${queryPageCommentCount})
     </c:if>
-    <div class="queryCommentsShowHideToggle hide">
-      <span class="hideText"><fmt:message key="panel.block.query.commentHideLabel"></fmt:message></span>
+    <div class="queryCommentsShowHideToggle hideIcon">
+      <span class="hideCommentsTextContainer"><fmt:message key="panel.block.query.commentHideLabel"></fmt:message></span>
+      <span class="showCommentsTextContainer"><fmt:message key="panel.block.query.commentShowLabel"></fmt:message></span>
     </div>
   </h2>
   

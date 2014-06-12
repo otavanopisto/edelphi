@@ -3176,7 +3176,7 @@ h2.querySubTitle {
 }
 
 
-.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hide {
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hideIcon {
   display:inline-block;
   padding:2px 8px 1px 24px;
   color:#ffffff;
@@ -3187,7 +3187,7 @@ h2.querySubTitle {
   border-radius:2px;
 }
 
-.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.show {
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.showIcon {
   display:inline-block;
   padding:2px 8px 1px 24px;
   color:#ffffff;
@@ -3198,8 +3198,18 @@ h2.querySubTitle {
   border-radius:2px;
 }
 
-.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hide:hover,
-.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.show:hover {
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.showIcon .showCommentsTextContainer,
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hideIcon .hideCommentsTextContainer {
+  display:inline-block;
+}
+
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hideIcon .showCommentsTextContainer,
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.showIcon .hideCommentsTextContainer {
+  display:none;
+}
+
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hideIcon:hover,
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.showIcon:hover {
   opacity:1;
 }
 

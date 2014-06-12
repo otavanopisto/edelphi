@@ -52,7 +52,8 @@ QueryBlockController = Class.create(BlockController, {
     if (this._skipLastButton)
       Event.observe(this._skipLastButton, "click", this._skipLastButtonClickListener);
     
-    this._commentsHeader = this.getBlockElement().down(".queryCommentListSubTitle");
+//    this._commentsHeader = this.getBlockElement().down(".queryCommentListSubTitle");
+    this._commentsHeader = this.getBlockElement().down(".queryCommentsShowHideToggle");
     if (this._commentsHeader)
       Event.observe(this._commentsHeader, "click", this._toggleCommentsClickListener);
     
@@ -195,11 +196,21 @@ QueryBlockController = Class.create(BlockController, {
     Event.stop(event);
     
     var commentsContainer = element.up(".queryCommentList").down(".queryCommentsContainer");
-    
-    if (commentsContainer.visible())
+
+    var commentsShowHideToggle = element.up(".queryCommentList").down(".queryCommentsShowHideToggle");
+    var commentsShowText = element.up(".queryCommentList").down(".showCommentsTextContainer");
+    var commentsHideText = element.up(".queryCommentList").down(".hideCommentsTextContainer");
+
+    if (commentsContainer.visible()) {
       commentsContainer.fade();
-    else
+      commentsShowHideToggle.removeClassName("hideIcon");
+      commentsShowHideToggle.addClassName("showIcon");
+    } else {
       commentsContainer.appear();
+      commentsShowHideToggle.removeClassName("showIcon");
+      commentsShowHideToggle.addClassName("hideIcon");
+    }
+    
   }
 });
 
