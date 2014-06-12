@@ -3175,6 +3175,34 @@ h2.querySubTitle {
   margin:0;
 }
 
+
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hide {
+  display:inline-block;
+  padding:2px 8px 1px 24px;
+  color:#ffffff;
+  margin-left:10px;
+  background:url('../gfx/icons/16x16/actions/hide-comments.png') 5px center no-repeat #0099ff;
+  opacity:0.5;
+  font-size:0.75em;
+  border-radius:2px;
+}
+
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.show {
+  display:inline-block;
+  padding:2px 8px 1px 24px;
+  color:#ffffff;
+  margin-left:10px;
+  background:url('../gfx/icons/16x16/actions/show-comments.png') 5px center no-repeat #0099ff;
+  opacity:0.5;
+  font-size:0.75em;
+  border-radius:2px;
+}
+
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.hide:hover,
+.queryBlock h2.querySubTitle .queryCommentsShowHideToggle.show:hover {
+  opacity:1;
+}
+
 h2.queryPageTitle {
   margin: 0px 0px 15px 0px;
   padding: 0px 0px 0px 0px;
