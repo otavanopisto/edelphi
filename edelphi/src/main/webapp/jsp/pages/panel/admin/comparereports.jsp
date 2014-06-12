@@ -42,6 +42,7 @@
                 <div class="selectedQueryReportActions-settings-container"></div>
               </div>
             </div>
+            <div class="selectedQueryReportContainer"></div>
           </div>
         
           <div class="GUI_selectedQueryReportWrapperRight">
@@ -60,6 +61,7 @@
                 <div class="selectedQueryReportActions-settings-container"></div>
               </div>
             </div>
+            <div class="selectedQueryReportContainer"></div>
           </div>
         </div>
         

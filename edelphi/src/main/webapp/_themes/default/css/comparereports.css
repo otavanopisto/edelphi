@@ -11,7 +11,7 @@ html {
 body {
   margin:0;
   background-color:#226d97;
-  color:#ffffff;
+  color:#000000;
   height:100%;
   font-family:"PT Sans";
   font-size:0.875em;
@@ -28,6 +28,7 @@ body {
   font-size:2.5em; /* Font baseline inherited from <body> font-size rule  */
   margin:0 0 20px 0;
   font-family:"Open Sans Condensed";
+  color:#ffffff;
 }
 
 .GUI_pageContainer .pageDescription {
@@ -114,6 +115,7 @@ body {
   font-size:2.5em; /* Font baseline inherited from <body> font-size rule  */
   margin:0 0 20px 10px;
   font-family:"Open Sans Condensed";
+  color:#ffffff;
 }
 
 .panel_admin_compare .GUI_pageWrapper .GUI_pageContainer {
@@ -211,6 +213,9 @@ body {
   right:0;
   box-shadow:0 5px 15px rgba(0,0,0,0.08);
   border-bottom:2px solid #ff944c;
+  background:#f9fdff;
+  padding:10px;
+  box-sizing:border-box;
 }
 
 .GUI_pageContainer .GUI_selectedQueryReportWrapperLeft,
@@ -221,6 +226,12 @@ body {
   box-shadow:0 0 15px rgba(0,0,0,0.3);
   max-width:785px; /* Prevents reports from stretching too much when resolution exceeds 1600 */
   min-width:615px; /* Prevent each report from overlapping when screen resolution goes below 1280 */
+}
+
+.GUI_pageContainer .GUI_selectedQueryReportWrapperLeft .selectedQueryReportContainer,
+.GUI_pageContainer .GUI_selectedQueryReportWrapperRight .selectedQueryReportContainer {
+  padding:10px;
+  position:relative;
 }
 
 .GUI_pageContainer .GUI_selectedQueryReportWrapperLeft {
