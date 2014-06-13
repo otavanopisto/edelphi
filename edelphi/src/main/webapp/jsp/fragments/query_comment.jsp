@@ -34,72 +34,80 @@
     
   <div class="${commentClasses}">
     <a id="comment.${param.commentId}"></a>
+    <!-- TODO: 
+      - When clicked change 'hideIcon' class to 'showIcon' class 
+      - When clicked that has class 'queryCommentContainerWrapper' is to be hidden/shown 
+      - HideShow button is hidden from child comments by css rule, if better solution exists the do it!
+    -->
+    <div class="queryCommentShowHideButton hideIcon"></div> 
 	  <div class="queryCommentHeader">
       <div class="queryCommentDate"><fmt:message key="query.comment.commentDate"/> ${commentDate}</div>
-      
     </div>
     
-    <c:if test="${(param.reportMode ne true)}">
-	  <c:if test="${param.commentCreated ne param.commentModified}">
-		<jsp:useBean id="modified" class="java.util.Date" />
-		<jsp:setProperty name="modified" property="time" value="${param.commentModified}" />
-	  	<div class="queryCommentModified">
-	  	  <fmt:message key="query.comment.commentModified">
-	  	    <fmt:param><fmt:formatDate value="${modified}" type="both"/></fmt:param>
-	  	  </fmt:message>
-	    </div>
-	  </c:if>
-	</c:if>
-	
-  <input type="hidden" name="commentId" value="${param.commentId}"/>  
-  <input type="hidden" name="queryPageId" value="${param.queryPageId}"/>
-
-  <c:if test="${(param.printCommentAnswers eq true)}">
-    <c:if test="${!empty(commentAnswers[param.commentId + 0])}">
-      <c:forEach var="entry" items="${commentAnswers[param.commentId + 0]}">
-        <div class="queryCommentText"><b>${fn:escapeXml(entry.key)}:</b> ${fn:escapeXml(entry.value)}</div>
-      </c:forEach>
-    </c:if>
-  </c:if>
-  
-  <c:choose>
-    <c:when test="${param.commentFiltered}">
-      <div class="queryCommentText"><i>&lt; <fmt:message key="query.comment.commentFiltered" /> &gt;</i></div>
-    </c:when>
-    <c:otherwise>
-      <div class="queryCommentText">${fn:replace(fn:escapeXml(param.commentText), newLineChar, "<br/>")}</div>
-    </c:otherwise>
-  </c:choose>
-  
-  <c:if test="${(param.reportMode ne true)}">
-    <div class="queryCommentMeta">
-      <div class="queryCommentNewComment"><a href="#" class="queryCommentNewCommentLink"><fmt:message key="query.comment.commentAnswerLink"/></a></div>
-      
+    <div class="queryCommentContainerWrapper">
+      <c:if test="${(param.reportMode ne true)}">
+    	  <c:if test="${param.commentCreated ne param.commentModified}">
+    		<jsp:useBean id="modified" class="java.util.Date" />
+    		<jsp:setProperty name="modified" property="time" value="${param.commentModified}" />
+    	  	<div class="queryCommentModified">
+    	  	  <fmt:message key="query.comment.commentModified">
+    	  	    <fmt:param><fmt:formatDate value="${modified}" type="both"/></fmt:param>
+    	  	  </fmt:message>
+    	    </div>
+    	  </c:if>
+    	</c:if>
+  	
+      <input type="hidden" name="commentId" value="${param.commentId}"/>  
+      <input type="hidden" name="queryPageId" value="${param.queryPageId}"/>
+    
+      <c:if test="${(param.printCommentAnswers eq true)}">
+        <c:if test="${!empty(commentAnswers[param.commentId + 0])}">
+          <c:forEach var="entry" items="${commentAnswers[param.commentId + 0]}">
+            <div class="queryCommentText"><b>${fn:escapeXml(entry.key)}:</b> ${fn:escapeXml(entry.value)}</div>
+          </c:forEach>
+        </c:if>
+      </c:if>
+    
       <c:choose>
-        <c:when test="${panelActions['MANAGE_QUERY_COMMENTS']}">
-          <div class="queryCommentShowComment"><a href="#" class="queryCommentShowCommentLink"><fmt:message key="query.comment.commentShowLink"/></a></div>
-          <div class="queryCommentHideComment"><a href="#" class="queryCommentHideCommentLink"><fmt:message key="query.comment.commentHideLink"/></a></div>
-          <div class="queryCommentEditComment"><a href="#" class="queryCommentEditCommentLink"><fmt:message key="query.comment.commentEditLink"/></a></div>
-          <div class="queryCommentDeleteComment"><a href="#" class="queryCommentDeleteCommentLink"><fmt:message key="query.comment.commentDeleteLink"/></a></div>
+        <c:when test="${param.commentFiltered}">
+          <div class="queryCommentText"><i>&lt; <fmt:message key="query.comment.commentFiltered" /> &gt;</i></div>
         </c:when>
+        <c:otherwise>
+          <div class="queryCommentText">${fn:replace(fn:escapeXml(param.commentText), newLineChar, "<br/>")}</div>
+        </c:otherwise>
       </c:choose>
-    </div>
-  </c:if>
-	
-	<div class="queryCommentChildren" id="queryCommentChildren.${param.commentId}">
-	  <c:forEach var="childComment" items="${queryPageCommentChildren[param.commentId + 0]}">
-	    <jsp:include page="/jsp/fragments/query_comment.jsp">
-		  <jsp:param value="${childComment.id}" name="commentId"/>
-		  <jsp:param value="${childComment.comment}" name="commentText"/>
-		  <jsp:param value="${childComment.hidden}" name="commentHidden"/>
-		  <jsp:param value="${param.reportMode}" name="reportMode"/>
-		  <jsp:param value="${param.commentHidden or param.parentHidden}" name="parentHidden"/>
-		  <jsp:param value="${childComment.created.time}" name="commentCreated"/>
-      	  <jsp:param value="${childComment.lastModified.time}" name="commentModified"/>
-		  <jsp:param value="${childComment.queryPage.id}" name="queryPageId"/>
-		  <jsp:param value="${param.queryPageCommentable}" name="queryPageCommentable"/>
-        </jsp:include>
-	  </c:forEach>
+      
+      <c:if test="${(param.reportMode ne true)}">
+        <div class="queryCommentMeta">
+          <div class="queryCommentNewComment"><a href="#" class="queryCommentNewCommentLink"><fmt:message key="query.comment.commentAnswerLink"/></a></div>
+          
+          <c:choose>
+            <c:when test="${panelActions['MANAGE_QUERY_COMMENTS']}">
+              <div class="queryCommentShowComment"><a href="#" class="queryCommentShowCommentLink"><fmt:message key="query.comment.commentShowLink"/></a></div>
+              <div class="queryCommentHideComment"><a href="#" class="queryCommentHideCommentLink"><fmt:message key="query.comment.commentHideLink"/></a></div>
+              <div class="queryCommentEditComment"><a href="#" class="queryCommentEditCommentLink"><fmt:message key="query.comment.commentEditLink"/></a></div>
+              <div class="queryCommentDeleteComment"><a href="#" class="queryCommentDeleteCommentLink"><fmt:message key="query.comment.commentDeleteLink"/></a></div>
+            </c:when>
+          </c:choose>
+        </div>
+      </c:if>
+    	
+    	<div class="queryCommentChildren" id="queryCommentChildren.${param.commentId}">
+    	  <c:forEach var="childComment" items="${queryPageCommentChildren[param.commentId + 0]}">
+    	    <jsp:include page="/jsp/fragments/query_comment.jsp">
+    		  <jsp:param value="${childComment.id}" name="commentId"/>
+    		  <jsp:param value="${childComment.comment}" name="commentText"/>
+    		  <jsp:param value="${childComment.hidden}" name="commentHidden"/>
+    		  <jsp:param value="${param.reportMode}" name="reportMode"/>
+    		  <jsp:param value="${param.commentHidden or param.parentHidden}" name="parentHidden"/>
+    		  <jsp:param value="${childComment.created.time}" name="commentCreated"/>
+          <jsp:param value="${childComment.lastModified.time}" name="commentModified"/>
+    		  <jsp:param value="${childComment.queryPage.id}" name="queryPageId"/>
+    		  <jsp:param value="${param.queryPageCommentable}" name="queryPageCommentable"/>
+            </jsp:include>
+    	  </c:forEach>
+      </div>
+    
     </div>
   </div>
 </c:if>

@@ -3393,19 +3393,45 @@ h2.documentPageTitle {
  */
 
 div.queryComment {
-  border-radius:5px;
-  padding:10px;
-  margin-bottom:4px;
+  padding:10px 10px 10px 45px;
+  margin:5px 0 5px 0;
+  position:relative;
+}
+
+div.queryComment .queryCommentShowHideButton {
+  position:absolute;
+  height:24px;
+  width:24px;
+  top:10px;
+  left:10px;
+  border-radius:2px;
+  cursor:pointer;
+}
+
+div.queryComment .queryCommentContainerWrapper .queryCommentShowHideButton {
+  display:none;
+}
+
+div.queryComment .queryCommentShowHideButton.showIcon {
+  background:url('../gfx/icons/24x24/actions/show-comment-thread.png') center center no-repeat #b2e0ff;
+}
+
+div.queryComment .queryCommentShowHideButton.hideIcon {
+  background:url('../gfx/icons/24x24/actions/hide-comment-thread.png') center center no-repeat #b2e0ff;
+}
+
+div.queryComment .queryCommentShowHideButton:hover {
+  background-color:#0099ff;
 }
 
 div.queryCommentChildren div.queryComment {
   margin-left:5px;
   margin-top:4px;  
-  padding-bottom:0px;
+  padding:0px 10px 0px 20px;
 }
 
-.queryCommentList > div.queryComment:nth-child(2n) {
-  background-color:#f5f5f5;
+.queryCommentsContainer > div.queryComment:nth-child(odd) {
+  background-color:#f3f9fc;
 }
 
 .queryComment:hover {
@@ -3413,14 +3439,13 @@ div.queryCommentChildren div.queryComment {
 }
 
 .queryCommentHeader {
-  padding:1px 0px 6px 22px;
+  padding:1px 0px 6px 0px;
   clear:both;
-  background:url("../gfx/icons/16x16/actions/comment.png") no-repeat scroll 0 3px transparent;   
 }
 
 .queryCommentText,
 .queryCommentMeta {
-  padding:0px 0px 6px 22px;
+  padding:0px 0px 6px 0px;
 }
 
 .queryCommentDate {
