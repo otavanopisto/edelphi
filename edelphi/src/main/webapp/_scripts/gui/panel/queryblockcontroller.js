@@ -8,6 +8,7 @@ QueryBlockController = Class.create(BlockController, {
     this._skipButtonClickListener = this._onSkipButtonClick.bindAsEventListener(this);
     this._skipLastButtonClickListener = this._onSkipLastButtonClick.bindAsEventListener(this);
     this._toggleCommentsClickListener = this._onToggleCommentsClickListener.bindAsEventListener(this);
+    this._toggleCommentShowHideButtonClickListener = this._onToggleCommentShowHideButtonClickListener.bindAsEventListener(this);
     
     this._currentPage = 0;
     this._nextPageNumber = null;
@@ -55,6 +56,10 @@ QueryBlockController = Class.create(BlockController, {
     this._commentsHeaderToggle = this.getBlockElement().down(".queryCommentsShowHideToggle");
     if (this._commentsHeaderToggle)
       Event.observe(this._commentsHeaderToggle, "click", this._toggleCommentsClickListener);
+    
+    this._commentShowHideToggle = this.getBlockElement('.queryCommentShowHideButton');
+    if (this._commentShowHideToggle)
+      Event.observe(this._commentShowHideToggle, "click", this._toggleCommentShowHideButtonClickListener);
     
     switch (this._pageType) {
       case 'TEXT':
@@ -205,6 +210,22 @@ QueryBlockController = Class.create(BlockController, {
       commentsContainer.appear();
       commentsShowHideToggle.removeClassName("showIcon");
       commentsShowHideToggle.addClassName("hideIcon");
+    }
+  },
+  _onToggleCommentShowHideButtonClickListener: function (event) {
+    var element = Event.element(event);
+    Event.stop(event);
+    
+    var commentContainer = element.up(".queryComment").down(".queryCommentContainerWrapper");
+
+    if (commentContainer.visible()) {
+      commentContainer.fade();
+      element.removeClassName("hideIcon");
+      element.addClassName("showIcon");
+    } else {
+      commentContainer.appear();
+      element.removeClassName("showIcon");
+      element.addClassName("hideIcon");
     }
   }
 });
