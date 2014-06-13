@@ -3179,14 +3179,6 @@ h2.querySubTitle.queryCommentListSubTitle {
   position:relative;
 }
 
-.queryBlock h2.querySubTitle .queryCommentsSortToggleWrapper {
-  display:inline-block;
-  position:absolute;
-  right:0;
-  top:0;
-  font-size:1em;
-}
-
 .queryBlock h2.querySubTitle .queryCommentsSortToggle {
   display:inline-block;
   padding:2px 8px 1px 28px;
@@ -3207,18 +3199,23 @@ h2.querySubTitle.queryCommentListSubTitle {
   background-color: #0099ff;
 }
 
-.queryBlock h2.querySubTitle .queryCommentsSortToggleWrapper .queryCommentsSortActionsContainer {
+.queryBlock h2.querySubTitle .queryCommentsSortToggle .queryCommentsSortActionsContainer {
   position:absolute;
   right:0;
-  top:35px;
+  margin-top:5px;
   width:200px;
   border-radius:2px;
   background:#ffffff;
   border:1px solid #dde7ed;
   box-shadow:0 0 20px rgba(0,0,0,0.1);
+  display:none;
 }
 
-.queryCommentsSortToggleWrapper .queryCommentsSortActionsContainer .commentsSortArrowTop {
+.queryBlock h2.querySubTitle .queryCommentsSortToggle:hover .queryCommentsSortActionsContainer {
+  display:block;
+}
+
+.queryCommentsSortToggle .queryCommentsSortActionsContainer .commentsSortArrowTop {
    background:url('../gfx/ui/sort-comments-arrow-top.png') no-repeat top right;
    position:absolute;
    top:-6px;
@@ -3227,16 +3224,16 @@ h2.querySubTitle.queryCommentListSubTitle {
    height:6px;
 }
 
-.queryCommentsSortToggleWrapper .queryCommentsSortActionsContainer .commentsSortSubTitle {
+.queryCommentsSortToggle .queryCommentsSortActionsContainer .commentsSortSubTitle {
   text-transform:uppercase;
-  font-size:0.7em;
+  font-size:0.9em;
   padding:2px 10px;
   background-color:#f3f7f9;
   color:#000000;
 }
 
-.queryCommentsSortToggleWrapper .queryCommentsSortActionsContainer .commentsSortActionTitle {
-  font-size:0.7em;
+.queryCommentsSortToggle .queryCommentsSortActionsContainer .commentsSortActionTitle {
+  font-size:0.9em;
   padding:4px 6px 4px 20px;
   text-transform:none;
   color:#0099ff;
@@ -3245,7 +3242,7 @@ h2.querySubTitle.queryCommentListSubTitle {
   cursor:pointer;
 }
 
-.queryCommentsSortToggleWrapper .queryCommentsSortActionsContainer .commentsSortActionTitle:hover {
+.queryCommentsSortToggle .queryCommentsSortActionsContainer .commentsSortActionTitle:hover {
   background-color:#f5fbff;
   border:1px solid #fff;
   padding:3px 5px 4px 19px;

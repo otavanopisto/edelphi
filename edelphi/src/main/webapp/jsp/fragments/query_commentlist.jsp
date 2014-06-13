@@ -31,11 +31,9 @@
       <span class="hideCommentsTextContainer"><fmt:message key="panel.block.query.commentHideLabel"></fmt:message></span>
       <span class="showCommentsTextContainer"><fmt:message key="panel.block.query.commentShowLabel"></fmt:message></span>
     </div>
-    <div class="queryCommentsSortToggleWrapper">
-      <div class="queryCommentsSortToggle">
-        <span class="sortCommentsTextContainer"><fmt:message key="panel.block.query.commentSortLabel"></fmt:message></span>
-      </div>
-      <div class="queryCommentsSortActionsContainer" style="display:none">
+    <div class="queryCommentsSortToggle">
+      <span class="sortCommentsTextContainer"><fmt:message key="panel.block.query.commentSortLabel"></fmt:message></span>
+      <div class="queryCommentsSortActionsContainer">
         <div class="commentsSortArrowTop"></div>
         <div class="commentsSortSubTitle">Ajan mukaan</div>
         <div class="commentsSortActionTitle">Uusin ylimpänä</div>
