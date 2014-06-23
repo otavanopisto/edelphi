@@ -26,6 +26,7 @@ import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.domainmodel.users.User;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.jsons.JSONController;
+import fi.internetix.edelphi.utils.QueryDataUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
 import fi.internetix.smvc.PageNotFoundException;
@@ -109,7 +110,7 @@ public class CreatePanelStampJSONRequestController extends JSONController {
     }
     
     // Stamp panel user expertise groups
-    
+
     List<PanelUserExpertiseGroup> groups = panelUserExpertiseGroupDAO.listByPanelAndStamp(panel, oldStamp);
     for (PanelUserExpertiseGroup group : groups) {
       PanelUserExpertiseGroup newExpertiseGroup = panelUserExpertiseGroupDAO.create(panel, group.getExpertiseClass(), group.getIntressClass(), group.getColor(), newStamp);
@@ -122,6 +123,12 @@ public class CreatePanelStampJSONRequestController extends JSONController {
     // Update current stamp
     
     panelDAO.updateCurrentStamp(panel, newStamp, loggedUser);
+    
+    // Ensure that the new stamp is immediately active. Also clear all query reply ids in session
+    // as they could potentially point to the query reply id of the previous stamp
+    
+    RequestUtils.setActiveStamp(jsonRequestContext, newStamp.getId());
+    QueryDataUtils.clearQueryReplyIds(jsonRequestContext.getRequest().getSession());
     
     jsonRequestContext.addResponseParameter("stampId", oldStamp.getId());
     jsonRequestContext.addResponseParameter("name", oldStamp.getName());
