@@ -16,6 +16,7 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -46,6 +47,11 @@ public class ThesisMultiselectQueryReportPage extends QueryReportPageController 
       return (QueryOptionField) pageFields.get(0);
     else
       throw new RuntimeException("");
+  }
+
+  @Override
+  public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
+    return new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/todo.jsp");
   }
   
   @Override

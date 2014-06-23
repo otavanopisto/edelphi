@@ -12,7 +12,10 @@ public abstract class QueryReportPageController {
     this.queryPageType = queryPageType;
   }
 
+  @Deprecated
   public abstract QueryReportPageData loadPageData(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage);
+  
+  public abstract QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage);
   
   public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     return null;

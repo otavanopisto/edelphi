@@ -104,13 +104,22 @@ public class QueryPageChartTag extends BodyTagSupport implements ParamParent {
   }
 
   private ImageHTMLEmitter createEmitter(Chart chartModel) {
+    ImageHTMLEmitter emitter = null;
     if ("SVG".equals(output)) {
-      return new SvgImageHTMLEmitter(chartModel, width, height);
-    } else if ("PNG".equals(output)) {
-      return new PngImageHTMLEmitter(chartModel, width, height);
+      SvgImageHTMLEmitter svgEmitter = new SvgImageHTMLEmitter(chartModel, width, height);
+      emitter = svgEmitter;
     }
-    // TODO: Proper error handling
-    throw new RuntimeException("Could not find an Image emitter for " + output);
+    else if ("PNG".equals(output)) {
+      PngImageHTMLEmitter pngEmitter = new PngImageHTMLEmitter(chartModel, width, height);
+      if ("true".equals(parameters.get("dynamicSize"))) {
+        pngEmitter.setDynamicSize(true);
+      }
+      emitter = pngEmitter;
+    }
+    else {
+      throw new RuntimeException("Could not find an Image emitter for " + output);
+    }
+    return emitter;
   }
 
   /**

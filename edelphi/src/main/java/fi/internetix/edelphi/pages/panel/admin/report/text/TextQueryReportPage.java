@@ -2,6 +2,7 @@
 
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -22,6 +23,11 @@ public class TextQueryReportPage extends QueryReportPageController {
     QueryUtils.appendQueryPageComments(requestContext, queryPage);
 
     return new TextQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/text.jsp", text);
+  }
+
+  @Override
+  public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
+    return new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/todo.jsp");
   }
  
   public class TextQueryReportPageData extends QueryReportPageData {

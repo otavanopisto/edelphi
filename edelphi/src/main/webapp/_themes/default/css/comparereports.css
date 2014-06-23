@@ -140,7 +140,7 @@ body {
   height:30px;
   background:#4a88ab;
   color:#fff;
-  font-size:1.7em;
+  font-size:1.4em;
   font-family:"Open Sans Condensed";
   padding:5px 40px 10px 10px;
   border-top-left-radius:3px;
@@ -204,8 +204,8 @@ body {
 .panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-filters-container,
 .panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-exports-container,
 .panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-settings-container {
-  display:none;
-  opacity:0;
+  /*display:none;
+  opacity:0;*/
   width:100%;
   position:absolute;
   left:0;

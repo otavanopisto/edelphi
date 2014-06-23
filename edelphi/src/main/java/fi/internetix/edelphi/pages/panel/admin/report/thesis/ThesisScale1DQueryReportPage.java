@@ -31,9 +31,11 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
+import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
 import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -65,6 +67,16 @@ public class ThesisScale1DQueryReportPage extends QueryReportPageController {
     
     statistics.setShift(-queryFieldOptions.size() / 2);
     return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_scale_1d.jsp", statistics);
+  }
+
+  @Override
+  public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
+    // TODO comments
+//    QueryUtils.appendQueryPageComments(requestContext, queryPage);
+    QueryReportPage reportPage = new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/scale1d.jsp");
+    reportPage.setDescription(QueryPageUtils.getSetting(queryPage, "thesis.description"));
+    reportPage.setThesis(QueryPageUtils.getSetting(queryPage, "thesis.text"));
+    return reportPage;
   }
   
   private void appendQueryPageComments(RequestContext requestContext, final QueryPage queryPage) {

@@ -15,6 +15,7 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -50,6 +51,11 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
   }
 
   @Override
+  public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
+    return new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/todo.jsp");
+  }
+
+  @Override
   public Chart constructChart(ChartContext chartContext, QueryPage queryPage) {
     // Data access objects
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
@@ -72,6 +78,9 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
       QueryField yField = queryFieldDAO.findByQueryPageAndName(queryPage, "timeline.value2");
       List<Double> yValues = ReportUtils.getNumberFieldData(yField, queryReplies);
       for (int i = 0; i < xValues.size(); i++) {
+        if (xValues.get(i) == null || yValues.get(i) == null) {
+          continue;
+        }
         int x = (int) ((xValues.get(i) - min) / step);
         int y = (int) ((yValues.get(i) - min) / step);
         values[x][y] = new Double(values[x][y] != null ? values[x][y] + 1 : 1);
