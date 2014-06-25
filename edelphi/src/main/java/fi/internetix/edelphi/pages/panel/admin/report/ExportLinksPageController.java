@@ -13,6 +13,11 @@ public class ExportLinksPageController extends PanelPageController {
   
   @Override
   public void processPageRequest(PageRequestContext pageRequestContext) {
+    pageRequestContext.getRequest().setAttribute("panelId", pageRequestContext.getLong("panelId"));
+    pageRequestContext.getRequest().setAttribute("queryId", pageRequestContext.getLong("queryId"));
+    pageRequestContext.getRequest().setAttribute("queryPageId", pageRequestContext.getLong("queryPageId"));
+    pageRequestContext.getRequest().setAttribute("stampId", pageRequestContext.getLong("stampId"));
+    pageRequestContext.getRequest().setAttribute("serializedContext", pageRequestContext.getString("serializedContext"));
     pageRequestContext.setIncludeJSP("/jsp/blocks/panel/admin/report/exportlinks.jsp");
   }
 

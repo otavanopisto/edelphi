@@ -17,6 +17,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.w3c.dom.Document;
 import org.w3c.tidy.Tidy;
+import org.xhtmlrenderer.layout.SharedContext;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xml.sax.SAXException;
 
@@ -30,6 +31,7 @@ import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
+import fi.internetix.edelphi.utils.B64ImgReplacedElementFactory;
 import fi.internetix.edelphi.utils.GoogleDriveUtils;
 import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -140,7 +142,7 @@ public class ExportReportPageBinaryController extends BinaryController {
         }
         connection.disconnect();
       }
-      
+
       ByteArrayOutputStream tidyXHtml = new ByteArrayOutputStream();
       Tidy tidy = new Tidy();
       tidy.setInputEncoding("UTF-8");
@@ -165,6 +167,8 @@ public class ExportReportPageBinaryController extends BinaryController {
       ByteArrayInputStream inputStream = new ByteArrayInputStream(tidyXHtml.toByteArray());
       Document doc = builder.parse(inputStream);
       ITextRenderer renderer = new ITextRenderer();
+      SharedContext sharedContext = renderer.getSharedContext();
+      sharedContext.setReplacedElementFactory(new B64ImgReplacedElementFactory());
 
       renderer.setDocument(doc, baseURL + "/panel/admin/report/query/");
       renderer.layout();

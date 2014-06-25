@@ -51,7 +51,11 @@ public class ThesisOrderQueryReportPage extends QueryReportPageController {
 
   @Override
   public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
-    return new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/todo.jsp");
+    QueryReportPage reportPage = new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/order.jsp");
+    reportPage.setDescription(QueryPageUtils.getSetting(queryPage, "thesis.description"));
+    reportPage.setThesis(QueryPageUtils.getSetting(queryPage, "thesis.text"));
+    ReportUtils.appendComments(reportPage, queryPage, reportContext);
+    return reportPage;
   }
 
   @Override

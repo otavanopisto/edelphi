@@ -17,6 +17,7 @@ import fi.internetix.edelphi.dao.panels.PanelUserExpertiseGroupDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserGroupDAO;
 import fi.internetix.edelphi.dao.panels.PanelUserIntressClassDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageDAO;
+import fi.internetix.edelphi.dao.querylayout.QuerySectionDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldOptionDAO;
 import fi.internetix.edelphi.dao.resources.QueryDAO;
@@ -29,11 +30,13 @@ import fi.internetix.edelphi.domainmodel.panels.PanelUserGroup;
 import fi.internetix.edelphi.domainmodel.panels.PanelUserIntressClass;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPageType;
+import fi.internetix.edelphi.domainmodel.querylayout.QuerySection;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.pages.panel.PanelPageController;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
 import fi.internetix.edelphi.query.form.FormFieldType;
 import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -55,6 +58,7 @@ public class ReportOptionsPageController extends PanelPageController {
     QueryPageDAO queryPageDAO = new QueryPageDAO();
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryOptionFieldOptionDAO optionFieldOptionDAO = new QueryOptionFieldOptionDAO();
+    QuerySectionDAO querySectionDAO = new QuerySectionDAO();
     PanelUserExpertiseClassDAO panelUserExpertiseClassDAO = new PanelUserExpertiseClassDAO();
     PanelUserIntressClassDAO panelUserIntressClassDAO = new PanelUserIntressClassDAO();
     PanelUserExpertiseGroupDAO panelUserExpertiseGroupDAO = new PanelUserExpertiseGroupDAO();
@@ -175,6 +179,33 @@ public class ReportOptionsPageController extends PanelPageController {
     pageRequestContext.getRequest().setAttribute("stamps", stamps);
     pageRequestContext.getRequest().setAttribute("stampId", stampId);
     
+    // Query pages
+    
+    List<QueryPage> queryPages = new ArrayList<QueryPage>();
+    List<QuerySection> querySections = querySectionDAO.listByQuery(query);
+    Collections.sort(querySections, new Comparator<QuerySection>() {
+      @Override
+      public int compare(QuerySection o1, QuerySection o2) {
+        return o1.getSectionNumber() - o2.getSectionNumber();
+      }
+    });
+    for (QuerySection section : querySections) {
+      if (section.getVisible()) {
+        List<QueryPage> sectionPages = queryPageDAO.listByQuerySection(section);
+        Collections.sort(sectionPages, new Comparator<QueryPage>() {
+          @Override
+          public int compare(QueryPage o1, QueryPage o2) {
+            return o1.getPageNumber() - o2.getPageNumber();
+          }
+        });
+        for (QueryPage sectionPage : sectionPages) {
+          if (sectionPage.getVisible()) {
+            queryPages.add(sectionPage);
+          }
+        }
+      }
+    }
+    pageRequestContext.getRequest().setAttribute("queryPages", queryPages);
    
     pageRequestContext.setIncludeJSP("/jsp/blocks/panel/admin/report/reportoptions.jsp");
   }

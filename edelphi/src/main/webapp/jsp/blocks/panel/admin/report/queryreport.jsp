@@ -5,14 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<div class="queryReport">
-  <c:set var="pageNumber" value="0"/>
-  <c:forEach var="page" items="${queryReportPages}">
-    <div class="queryReportPage">
-      <jsp:include page="${page.jspFile}">
-        <jsp:param name="pageNumber" value="${pageNumber}"/>
-      </jsp:include>
-    </div>
-    <c:set var="pageNumber" value="${pageNumber + 1}"/>
-  </c:forEach>
-</div>
+<input type="hidden" name="serializedContext" value="${serializedReportContext}"/>
+<c:set var="pageNumber" value="0"/>
+<c:forEach var="page" items="${queryReportPages}">
+  <div class="queryReportPage">
+    <jsp:include page="${page.jspFile}">
+      <jsp:param name="pageNumber" value="${pageNumber}"/>
+    </jsp:include>
+  </div>
+  <c:set var="pageNumber" value="${pageNumber + 1}"/>
+</c:forEach>

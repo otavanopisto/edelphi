@@ -8,9 +8,6 @@
 <c:set var="queryReportPage" value="${queryReportPages[param.pageNumber]}" />
 
 <div class="block">
-
-  <c:set var="queryReportPage" value="${queryReportPages[param.pageNumber]}" />
-
   <div class="blockContent">
 
     <!-- Title -->
@@ -48,7 +45,12 @@
     </c:choose>
 
     <!--  TODO statistics -->
-    <!--  TODO comments -->
+
+    <!-- Comments -->
+
+    <jsp:include page="/jsp/blocks/panel/admin/report/querycomments.jsp">
+      <jsp:param name="pageNumber" value="${param.pageNumber}"/>
+    </jsp:include>
 
   </div>
 

@@ -8,6 +8,7 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageContro
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
 import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
+import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.smvc.controllers.RequestContext;
 
 public class TextQueryReportPage extends QueryReportPageController {
@@ -27,7 +28,10 @@ public class TextQueryReportPage extends QueryReportPageController {
 
   @Override
   public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
-    return new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/todo.jsp");
+    QueryReportPage reportPage = new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/text.jsp");
+    reportPage.setDescription(QueryPageUtils.getSetting(queryPage, "text.content"));
+    ReportUtils.appendComments(reportPage, queryPage, reportContext);
+    return reportPage;
   }
  
   public class TextQueryReportPageData extends QueryReportPageData {

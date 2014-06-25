@@ -172,6 +172,23 @@ public class QueryQuestionCommentDAO extends GenericDAO<QueryQuestionComment> {
     return entityManager.createQuery(criteria).getResultList(); 
   }
 
+  public List<QueryQuestionComment> listByParentCommentAndArchived(QueryQuestionComment parentComment, Boolean archived) {
+    EntityManager entityManager = getEntityManager();
+
+    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<QueryQuestionComment> criteria = criteriaBuilder.createQuery(QueryQuestionComment.class);
+    Root<QueryQuestionComment> root = criteria.from(QueryQuestionComment.class);
+    criteria.select(root);
+    criteria.where(
+        criteriaBuilder.and(
+            criteriaBuilder.equal(root.get(QueryQuestionComment_.parentComment), parentComment),
+            criteriaBuilder.equal(root.get(QueryQuestionComment_.archived), archived)
+        )
+    );
+
+    return entityManager.createQuery(criteria).getResultList(); 
+  }
+
   /**
    * Lists all non-root comments on page and orders them to map with parentComment.id as key and 
    * list of comments directly below parentComment as value. 

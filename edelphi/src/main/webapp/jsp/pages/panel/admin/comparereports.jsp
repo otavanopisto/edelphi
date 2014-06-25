@@ -10,7 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><fmt:message key="panelAdmin.block.queryResults.pageTitle" /></title>
 <jsp:include page="/jsp/templates/panel_head.jsp"></jsp:include>
-<!-- <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/jquery/jquery.js"></script> -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/_scripts/gui/panel_admin/comparereports.js"></script>
 <link href="${pageContext.request.contextPath}/_themes/${theme}/css/comparereports.css" rel="stylesheet" />
 </head>

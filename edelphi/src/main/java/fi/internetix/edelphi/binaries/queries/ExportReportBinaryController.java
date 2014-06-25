@@ -139,7 +139,7 @@ public class ExportReportBinaryController extends BinaryController {
         }
         connection.disconnect();
       }
-        
+
       ByteArrayOutputStream tidyXHtml = new ByteArrayOutputStream();
       Tidy tidy = new Tidy();
       tidy.setInputEncoding("UTF-8");

@@ -1,5 +1,8 @@
 package fi.internetix.edelphi.pages.panel.admin.report.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QueryReportPage {
 
   public QueryReportPage(Long queryPageId, String title, String jspFile) {
@@ -44,10 +47,15 @@ public class QueryReportPage {
   }
 
   public void setQueryPageId(Long queryPageId) {
-    if (queryPageId == 0) {
-      throw new RuntimeException("SIVULLE " + pageTitle + " TUUPATTIIN NOLLA?!?!?!");
-    }
     this.queryPageId = queryPageId;
+  }
+  
+  public void addComment(QueryReportPageComment comment) {
+    comments.add(comment);
+  }
+  
+  public List<QueryReportPageComment> getComments() {
+    return comments;
   }
 
   private String jspFile;
@@ -56,6 +64,6 @@ public class QueryReportPage {
   private String pageTitle;
   private String thesis;
   private String description;
-  
+  private List<QueryReportPageComment> comments = new ArrayList<QueryReportPageComment>();
 
 }

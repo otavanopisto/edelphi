@@ -27,8 +27,6 @@
       <ed:param name="dynamicSize" value="true" />
     </ed:queryPageChart>
 
-    <!--  TODO statistics -->
-
     <!-- Comments -->
 
     <jsp:include page="/jsp/blocks/panel/admin/report/querycomments.jsp">

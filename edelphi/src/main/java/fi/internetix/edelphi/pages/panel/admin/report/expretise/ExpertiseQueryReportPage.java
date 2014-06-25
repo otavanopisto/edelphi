@@ -138,7 +138,7 @@ public class ExpertiseQueryReportPage extends QueryReportPageController {
   public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
     // TODO comments
 //    QueryUtils.appendQueryPageComments(requestContext, queryPage);
-    QueryReportPage reportPage = new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/todo.jsp");
+    QueryReportPage reportPage = new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/expertise.jsp");
     return reportPage;
   }
 

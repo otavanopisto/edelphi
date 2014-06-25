@@ -13,6 +13,7 @@ import org.eclipse.birt.chart.model.Chart;
 
 import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionAnswerDAO;
+import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageSettingDAO;
 import fi.internetix.edelphi.dao.querylayout.QueryPageSettingKeyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
@@ -32,6 +33,7 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageComment;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -71,11 +73,36 @@ public class ThesisScale1DQueryReportPage extends QueryReportPageController {
 
   @Override
   public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
-    // TODO comments
-//    QueryUtils.appendQueryPageComments(requestContext, queryPage);
     QueryReportPage reportPage = new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/scale1d.jsp");
     reportPage.setDescription(QueryPageUtils.getSetting(queryPage, "thesis.description"));
     reportPage.setThesis(QueryPageUtils.getSetting(queryPage, "thesis.text"));
+    ReportUtils.appendComments(reportPage, queryPage, reportContext);
+
+    // Add answers to comments and sort by them
+
+    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
+    QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
+
+    QueryOptionField queryOptionField = getOptionFieldFromScale1DPage(queryPage);
+    final Map<Long,String> answerMap = new HashMap<Long,String>();
+
+    List<QueryReportPageComment> comments = reportPage.getComments();
+    for (QueryReportPageComment comment : comments) {
+      QueryReply queryReply = queryReplyDAO.findById(comment.getReplyId());
+      QueryQuestionOptionAnswer answer = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryOptionField);
+      answerMap.put(comment.getReplyId(), answer == null ? "-" : answer.getOption().getValue());
+      if (answer != null) {
+        String caption = StringUtils.capitalize(StringUtils.lowerCase(answer.getOption().getOptionField().getCaption()));
+        comment.setAnswer(caption, answer.getOption().getText());
+      }
+    }
+    Collections.sort(comments, new Comparator<QueryReportPageComment>() {
+      @Override
+      public int compare(QueryReportPageComment o1, QueryReportPageComment o2) {
+        return answerMap.get(o2.getReplyId()).compareTo(answerMap.get(o1.getReplyId()));
+      }
+    });
+    
     return reportPage;
   }
   

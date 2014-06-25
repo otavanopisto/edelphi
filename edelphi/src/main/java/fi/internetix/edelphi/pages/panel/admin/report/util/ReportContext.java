@@ -84,7 +84,7 @@ public class ReportContext implements Serializable {
   public void setPanelStampId(Long panelStampId) {
     this.panelStampId = panelStampId;
   }
-
+ 
   private String locale;
   private Long panelStampId;
   private Map<String, List<String>> filters = new HashMap<String, List<String>>();

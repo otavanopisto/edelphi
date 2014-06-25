@@ -14,21 +14,12 @@
 
     <h2>${queryReportPage.pageTitle}</h2>
 
-    <!-- Thesis -->
-
-    <jsp:include page="/jsp/fragments/query_report_page_thesis.jsp">
-      <jsp:param name="thesis" value="${queryReportPage.thesis}" />
-      <jsp:param name="description" value="${queryReportPage.description}" />
-    </jsp:include>
-
     <!-- Chart -->
 
     <ed:queryPageChart reportContext="${reportContext}" output="PNG" width="740" height="450" queryPageId="${queryReportPage.queryPageId}">
       <ed:param name="dynamicSize" value="true" />
     </ed:queryPageChart>
-
-    <!--  TODO statistics -->
-
+    
     <!-- Comments -->
 
     <jsp:include page="/jsp/blocks/panel/admin/report/querycomments.jsp">

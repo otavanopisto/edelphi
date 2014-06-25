@@ -21,18 +21,19 @@
       <jsp:param name="description" value="${queryReportPage.description}" />
     </jsp:include>
 
-    <!-- Chart -->
+    <!-- Groups -->
 
-    <ed:queryPageChart reportContext="${reportContext}" output="PNG" width="740" height="450" queryPageId="${queryReportPage.queryPageId}">
-      <ed:param name="dynamicSize" value="true" />
-    </ed:queryPageChart>
-
-    <!--  TODO statistics -->
+    <c:forEach var="groupId" items="${queryReportPage.groupIds}">
+      <ed:queryPageChart reportContext="${reportContext}" output="PNG" width="740" height="450" queryPageId="${queryReportPage.queryPageId}">
+        <ed:param name="groupId" value="${groupId}" />
+        <ed:param name="dynamicSize" value="true" />
+      </ed:queryPageChart>
+    </c:forEach>
 
     <!-- Comments -->
 
     <jsp:include page="/jsp/blocks/panel/admin/report/querycomments.jsp">
-      <jsp:param name="pageNumber" value="${param.pageNumber}"/>
+      <jsp:param name="pageNumber" value="${param.pageNumber}" />
     </jsp:include>
 
   </div>

@@ -181,10 +181,10 @@
                 <div class="modalPopupLinksContainerBlock">
                 <h4><fmt:message key="panel.admin.report.options.downloadOrExportExportDataTitle" /></h4>
                 <a
-                  href="${pageContext.request.contextPath}/queries/exportdata.binary?panelId=508&amp;serializedContext=${serializedContext}&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=CSV"
+                  href="${pageContext.request.contextPath}/queries/exportdata.binary?panelId=${panelId}&amp;serializedContext=${serializedContext}&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=CSV"
                   class="modalPopupLinkContainer exportCSV"><fmt:message key="panel.admin.report.options.downloadOrExportExportDataCSV" /></a>
                 <a
-                  href="${pageContext.request.contextPath}/queries/exportdata.binary?panelId=508&amp;serializedContext=${serializedContext}&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=GOOGLE_SPREADSHEET"
+                  href="${pageContext.request.contextPath}/queries/exportdata.binary?panelId=${panelId}&amp;serializedContext=${serializedContext}&amp;queryId=${queryId}&amp;stampId=${activeStamp.id}&amp;format=GOOGLE_SPREADSHEET"
                   class="modalPopupLinkContainer exportGoogle"
                   target="_blank"><fmt:message key="panel.admin.report.options.downloadOrExportExportDataGoogleSpreadsheet" /></a>
                 </div>

@@ -32,43 +32,57 @@
     </c:otherwise>
   </c:choose>
 
+  <!-- pages -->
+
+  <h3>
+    <fmt:message key="panel.admin.report.options.queryPageTitle" />
+  </h3>
+  <select name="queryPageId">
+    <option value="0"><fmt:message key="panel.admin.report.options.allQueryPagesTitle" /></option>
+    <c:forEach var="queryPage" items="${queryPages}">
+      <option value="${queryPage.id}">${queryPage.title}</option>
+    </c:forEach>
+  </select>
+
   <!-- Interests and expertises -->
 
   <c:if test="${fn:length(queryExpertiseFilterExpertises) gt 0}">
-    <h3>
-      <fmt:message key="panel.admin.report.options.expertiseFilterTitle" />
-    </h3>
-    <table>
-      <tr>
-        <td></td>
-        <c:forEach var="expertise" items="${queryExpertiseFilterExpertises}">
-          <td>${expertise.name}</td>
-        </c:forEach>
-      </tr>
-
-      <c:forEach var="interest" items="${queryExpertiseFilterInterests}">
+    <div class="queryExpertiseFilter">
+      <h3>
+        <fmt:message key="panel.admin.report.options.expertiseFilterTitle" />
+      </h3>
+      <table>
         <tr>
-          <td>${interest.name}</td>
-
+          <td></td>
           <c:forEach var="expertise" items="${queryExpertiseFilterExpertises}">
-            <c:set var="groupId" value="${queryExpertiseFilterGroupMap[interest.id][expertise.id]}" />
-            <c:set var="groupUserCount" value="${queryExpertiseFilterGroupUserCount[groupId]}" />
-            <c:choose>
-              <c:when test="${queryExpertiseFilterSelected[groupId]}">
-                <c:set var="groupClassName" value="queryExpertiseFilterGroupSelected" />
-              </c:when>
-              <c:otherwise>
-                <c:set var="groupClassName" value="" />
-              </c:otherwise>
-            </c:choose>
-
-            <td class="queryExpertiseFilterGroup ${groupClassName}">${groupUserCount}<input type="hidden" name="groupId" value="${groupId}" />
-            </td>
+            <td>${expertise.name}</td>
           </c:forEach>
         </tr>
-      </c:forEach>
-    </table>
-    <input type="hidden" id="queryExpertiseFilterValue" name="queryExpertiseFilter" value="${queryExpertiseFilter}" />
+
+        <c:forEach var="interest" items="${queryExpertiseFilterInterests}">
+          <tr>
+            <td>${interest.name}</td>
+
+            <c:forEach var="expertise" items="${queryExpertiseFilterExpertises}">
+              <c:set var="groupId" value="${queryExpertiseFilterGroupMap[interest.id][expertise.id]}" />
+              <c:set var="groupUserCount" value="${queryExpertiseFilterGroupUserCount[groupId]}" />
+              <c:choose>
+                <c:when test="${queryExpertiseFilterSelected[groupId]}">
+                  <c:set var="groupClassName" value="queryExpertiseFilterGroupSelected" />
+                </c:when>
+                <c:otherwise>
+                  <c:set var="groupClassName" value="" />
+                </c:otherwise>
+              </c:choose>
+
+              <td class="queryExpertiseFilterGroup ${groupClassName}">${groupUserCount}<input type="hidden" name="groupId" value="${groupId}" />
+              </td>
+            </c:forEach>
+          </tr>
+        </c:forEach>
+      </table>
+      <input type="hidden" name="queryExpertiseFilter" />
+    </div>
   </c:if>
 
   <!-- Form fields -->

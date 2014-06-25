@@ -250,4 +250,63 @@ body {
   left:50%;
 }
 
+.reportOptions h3 {
+    background: none repeat scroll 0 0 #eaeaea;
+    color: #1e1e1e;
+    font-family: 'PT Sans',Verdana,sans-serif;
+    font-size: 1em;
+    margin: 0 0 10px;
+    padding: 4px 6px;
+    text-transform: uppercase;
+}
 
+.queryExpertiseFilter table {
+  width:100%;
+  line-height:1em;
+  margin:0px 0px 20px 0px;
+}
+
+.queryExpertiseFilter table td{
+  text-align:right;
+  text-transform:uppercase;
+  font-size:0.85em;
+  padding:2px 6px;
+  border:2px solid #fff;
+  border-radius:5px;
+  background:#eee;
+  height:30px;
+}
+
+.queryExpertiseFilter table tr:nth-child(1) td {
+  vertical-align:bottom;
+  background:#F7F7F7;
+  text-align:center;  
+  width:90px;
+}
+
+.queryExpertiseFilter table tr:nth-child(1) td:nth-child(1) {
+  vertical-align:bottom;
+  background:#fff;
+}
+
+.queryExpertiseFilter table tr td:nth-child(1) {
+  vertical-align:middle;
+  background:#F7F7F7;
+}
+
+.queryExpertiseFilter table td.queryExpertiseFilterGroup:hover {
+  background:#e5e5e5;
+}
+
+.queryExpertiseFilter table .queryExpertiseFilterGroup {
+  cursor: pointer;  
+  text-align:center;
+}
+
+.queryExpertiseFilter table td.queryExpertiseFilterGroupSelected,
+.queryExpertiseFilter table td.queryExpertiseFilterGroupSelected:hover {
+  cursor: pointer;  
+  text-align:center;
+  background:#3fb2ff;
+  color:#fff;
+}
