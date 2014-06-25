@@ -31,7 +31,7 @@
           <div class="GUI_selectedQueryReportWrapperLeft">
             <div class="selectedQueryReportTitle">
               <select name="queryId">
-                <option value="">Valitse kysely:</option>
+                <option value=""><fmt:message key="panel.admin.report.options.selectQueryTitle" /></option>
                 <c:forEach var="query" items="${queries}">
                   <option value="${query.id}">${query.name}</option>
                 </c:forEach>
@@ -91,7 +91,7 @@
           <div class="GUI_selectedQueryReportWrapperRight">
             <div class="selectedQueryReportTitle">
               <select name="queryId">
-                <option value="">Valitse kysely:</option>
+                <option value=""><fmt:message key="panel.admin.report.options.selectQueryTitle" /></option>
                 <c:forEach var="query" items="${queries}">
                   <option value="${query.id}">${query.name}</option>
                 </c:forEach>
