@@ -45,7 +45,7 @@ import fi.internetix.smvc.controllers.PageRequestContext;
 public class ReportOptionsPageController extends PanelPageController {
 
   public ReportOptionsPageController() {
-    setAccessAction(DelfoiActionName.MANAGE_PANEL_REPORTS, DelfoiActionScope.PANEL);
+    setAccessAction(DelfoiActionName.MANAGE_PANEL, DelfoiActionScope.PANEL);
   }
   
   @Override

@@ -17,7 +17,6 @@ public enum DelfoiActionName {
   MANAGE_PANEL,                           // the ability to manage panel settings, i.e. access its administrative dashboard
   MANAGE_PANEL_INVITATIONS,               // the ability to manage panel invitations
   MANAGE_PANEL_MATERIALS,                 // the ability to manage panel materials, i.e. documents, images, and queries 
-  MANAGE_PANEL_REPORTS,                   // the ability to manage panel reports
   MANAGE_PANEL_SYSTEM_SETTINGS,           // the ability to modify panel system settings, e.g. role access to these actions
   MANAGE_QUERY_COMMENTS,                  // the ability to moderate query comments
   MANAGE_PANEL_USERS,                     // the ability to manage panel members

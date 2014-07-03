@@ -44,7 +44,7 @@ import fi.internetix.smvc.controllers.PageRequestContext;
 public class ViewQueryReportPageController extends PanelPageController {
 
   public ViewQueryReportPageController() {
-    setAccessAction(DelfoiActionName.MANAGE_PANEL_REPORTS, DelfoiActionScope.PANEL);
+    setAccessAction(DelfoiActionName.MANAGE_PANEL, DelfoiActionScope.PANEL);
   }
   
   @Override

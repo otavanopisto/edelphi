@@ -8,7 +8,7 @@ import fi.internetix.smvc.controllers.PageRequestContext;
 public class ExportLinksPageController extends PanelPageController {
 
   public ExportLinksPageController() {
-    setAccessAction(DelfoiActionName.MANAGE_PANEL_REPORTS, DelfoiActionScope.PANEL);
+    setAccessAction(DelfoiActionName.MANAGE_PANEL, DelfoiActionScope.PANEL);
   }
   
   @Override
