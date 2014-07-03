@@ -120,7 +120,9 @@ CompareReportsBlockController = Class.create(BlockController, {
 
     settingsForm.select('.settingsIcon').each(function(e) {
       if (e.hasClassName('icon-selected')) {
-        e.dispatchEvent(new Event('click'));
+        var clickEvent = document.createEvent("MouseEvents");
+        clickEvent.initEvent("click", true, true);
+        e.dispatchEvent(clickEvent);
       }
     });
 
@@ -130,7 +132,7 @@ CompareReportsBlockController = Class.create(BlockController, {
     while (reportContainer.firstChild) {
       reportContainer.removeChild(reportContainer.firstChild);
     }
-    
+
     // Either do full report, page by page, or just a single page
     
     if (settingsForm.queryPageId.value == 0) {
@@ -176,6 +178,7 @@ CompareReportsBlockController = Class.create(BlockController, {
     // Recreate export links
     new Ajax.Request(CONTEXTPATH + '/panel/admin/report/exportlinks.page', {
       method: "POST",
+      asynchronous: false,
       parameters: {
         panelId: settingsForm.panelId.value,
         queryId : settingsForm.queryId.value,
@@ -208,6 +211,7 @@ CompareReportsBlockController = Class.create(BlockController, {
     var queryDropdown = settingsForm.down('select[name="queryId"]');
     new Ajax.Request(CONTEXTPATH + '/panel/admin/report/reportoptions.page', {
       method: "GET",
+      asynchronous: false,
       parameters: {
         panelId: settingsForm.panelId.value,
         queryId: queryDropdown.value,
@@ -228,7 +232,7 @@ CompareReportsBlockController = Class.create(BlockController, {
         });
         if (refreshReport === true) {
           var settingsButton = settingsForm.down('input[name="applySettings"]');
-          settingsButton.dispatchEvent(new Event('click'));
+          settingsButton.click();
         }
       }
    });
