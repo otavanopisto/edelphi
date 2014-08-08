@@ -54,12 +54,15 @@ QueryBlockController = Class.create(BlockController, {
       Event.observe(this._skipLastButton, "click", this._skipLastButtonClickListener);
     
     this._commentsHeaderToggle = this.getBlockElement().down(".queryCommentsShowHideToggle");
+
     if (this._commentsHeaderToggle)
       Event.observe(this._commentsHeaderToggle, "click", this._toggleCommentsClickListener);
     
-    this._commentShowHideToggle = this.getBlockElement('.queryCommentShowHideButton');
-    if (this._commentShowHideToggle)
-      Event.observe(this._commentShowHideToggle, "click", this._toggleCommentShowHideButtonClickListener);
+    // TODO: This doens't work like at all!!!
+    this._commentShowHideToggle = $$(".queryCommentShowHideButton").each(function() {
+      if (this._commentShowHideToggle)
+        Event.observe(this._commentShowHideToggle, "click", this._toggleCommentShowHideButtonClickListener);
+    });
     
     switch (this._pageType) {
       case 'TEXT':
@@ -215,7 +218,7 @@ QueryBlockController = Class.create(BlockController, {
   _onToggleCommentShowHideButtonClickListener: function (event) {
     var element = Event.element(event);
     Event.stop(event);
-    
+
     var commentContainer = element.up(".queryComment").down(".queryCommentContainerWrapper");
 
     if (commentContainer.visible()) {
