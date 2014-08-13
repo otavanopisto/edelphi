@@ -2059,23 +2059,32 @@ QueryCommentsController = Class.create({
       onSuccess: function (jsonRequest) {
         var newComment = new Element("div", { className: "queryComment" });
         var newCommentHeader = new Element("div", { className: "queryCommentHeader" });
+        var newCommentWrapper = new Element("div", { className: "queryCommentContainerWrapper" });
+        var newCommentMeta = new Element("div", { className: "queryCommentMeta" });
         var newCommentText = new Element("div", { className: "queryCommentText" });
         var newCommentDate = new Element("div", { className: "queryCommentDate" });
         var commentDate = new Date();
         newCommentText.update(comment.replace(/\n/g, '<br/>'));
         newCommentDate.update(getLocale().getText("query.comment.commentDate") + " " + getLocale().getDate(commentDate));
-        
         var childrenContainer = new Element("div", { className: "queryCommentChildren", id: "queryCommentChildren." + jsonRequest.commentId });
+        var newCommentAnchor = new Element("a", { id: "comment." + jsonRequest.commentId });
+        var newCommentHideShowButton = new Element("div", { className: "queryCommentShowHideButton hideIcon" });
         newCommentHeader.appendChild(newCommentDate);        
 
-        _this._createCommentLinks(newCommentHeader);
+        _this._createCommentLinks(newCommentMeta);
         
+        newComment.appendChild(newCommentAnchor);
+        newComment.appendChild(newCommentHideShowButton);
         newComment.appendChild(newCommentHeader);
-        newComment.appendChild(newCommentText);
+        newComment.appendChild(newCommentWrapper);
+        
+        newCommentWrapper.appendChild(new Element("input", { type: "hidden", name: "commentId", value: jsonRequest.commentId }));
+        newCommentWrapper.appendChild(new Element("input", { type: "hidden", name: "queryPageId", value: jsonRequest.queryPageId }));
+        
+        newCommentWrapper.appendChild(newCommentText);
+        newCommentWrapper.appendChild(newCommentMeta);
 
-        newComment.appendChild(new Element("input", { type: "hidden", name: "commentId", value: jsonRequest.commentId }));
-        newComment.appendChild(new Element("input", { type: "hidden", name: "queryPageId", value: jsonRequest.queryPageId }));
-        newComment.appendChild(childrenContainer);
+        newCommentWrapper.appendChild(childrenContainer);
         
         var childrenParent = $('queryCommentChildren.' + parentCommentId);
         if (childrenParent)

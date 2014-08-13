@@ -3202,7 +3202,7 @@ h2.querySubTitle.queryCommentListSubTitle {
 .queryBlock h2.querySubTitle .queryCommentsSortToggle .queryCommentsSortActionsContainer {
   position:absolute;
   right:0;
-  margin-top:5px;
+  margin-top:7px;
   width:200px;
   border-radius:2px;
   background:#ffffff;
@@ -3406,6 +3406,7 @@ div.queryComment .queryCommentShowHideButton {
   left:10px;
   border-radius:2px;
   cursor:pointer;
+  transition:background-color 0.5s ease;
 }
 
 div.queryComment .queryCommentContainerWrapper .queryCommentShowHideButton {
@@ -3466,7 +3467,7 @@ div.queryCommentChildren div.queryComment {
 .queryCommentModified {
   font-style: italic;
   font-weight: bold;
-  margin-left: 22px;
+  margin-left: 0;
   margin-bottom: 4px;
   font-size:0.9em;
 }
@@ -3487,6 +3488,7 @@ div.queryCommentChildren div.queryComment {
 
 .queryCommentHeader {
   min-height: 20px;
+  padding:3px 0 5px 0px;
 }
 
 .queryComment .queryCommentShowComment {
@@ -3512,7 +3514,12 @@ div.queryCommentChildren div.queryComment {
 }
 
 .queryCommentHidden .queryCommentHeader {
-  background-image: url("../gfx/icons/16x16/actions/hidden.png");
+  background: url("../gfx/icons/16x16/actions/hidden.png") no-repeat left 5px;
+  padding:3px 0 5px 26px;
+}
+
+.editCommentEditor {
+  margin-bottom:4px;
 }
 
 /*
