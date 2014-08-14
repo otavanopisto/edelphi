@@ -3411,7 +3411,15 @@ div.queryComment .queryCommentShowHideButton {
 
 div.queryComment .queryCommentContainerWrapper .queryCommentShowHideButton.hideIcon {
 /*   display:none; */
-  background:url('../gfx/icons/16x16/actions/comments-reply.png') center center no-repeat transparent;
+  background:url('../gfx/icons/24x24/actions/hide-comment-thread.png') center center no-repeat #b2e0ff;
+  left:-5px;
+  top:0;
+  opacity:0.7;
+}
+
+div.queryComment .queryCommentContainerWrapper .queryCommentShowHideButton.showIcon {
+/*   display:none; */
+  background:url('../gfx/icons/24x24/actions/show-comment-thread.png') center center no-repeat #b2e0ff;
   left:-5px;
   top:0;
   opacity:0.7;
@@ -3432,7 +3440,7 @@ div.queryComment .queryCommentShowHideButton:hover {
 div.queryCommentChildren div.queryComment {
   margin-left:5px;
   margin-top:4px;  
-  padding:0px 10px 0px 20px;
+  padding:0px 10px 0px 28px;
 }
 
 .queryCommentsContainer > div.queryComment:nth-child(even) {
