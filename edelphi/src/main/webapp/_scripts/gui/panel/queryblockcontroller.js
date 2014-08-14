@@ -58,12 +58,10 @@ QueryBlockController = Class.create(BlockController, {
     if (this._commentsHeaderToggle)
       Event.observe(this._commentsHeaderToggle, "click", this._toggleCommentsClickListener);
     
-    // TODO: This doens't work like at all!!!
-    this._commentShowHideToggle = $$(".queryCommentShowHideButton").each(function() {
-      if (this._commentShowHideToggle)
-        Event.observe(this._commentShowHideToggle, "click", this._toggleCommentShowHideButtonClickListener);
-    });
-    
+    $$("div.queryCommentShowHideButton").each(function(element) {
+        Event.observe(element, "click", this._toggleCommentShowHideButtonClickListener);
+    }.bind(this));
+
     switch (this._pageType) {
       case 'TEXT':
         this.queryPageController = new TextQueryPageController(this);
