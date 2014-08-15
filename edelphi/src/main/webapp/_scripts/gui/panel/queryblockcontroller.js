@@ -8,7 +8,7 @@ QueryBlockController = Class.create(BlockController, {
     this._skipButtonClickListener = this._onSkipButtonClick.bindAsEventListener(this);
     this._skipLastButtonClickListener = this._onSkipLastButtonClick.bindAsEventListener(this);
     this._toggleCommentsClickListener = this._onToggleCommentsClickListener.bindAsEventListener(this);
-    this._toggleCommentShowHideButtonClickListener = this._onToggleCommentShowHideButtonClickListener.bindAsEventListener(this);
+
     
     this._currentPage = 0;
     this._nextPageNumber = null;
@@ -57,10 +57,6 @@ QueryBlockController = Class.create(BlockController, {
 
     if (this._commentsHeaderToggle)
       Event.observe(this._commentsHeaderToggle, "click", this._toggleCommentsClickListener);
-    
-    $$("div.queryCommentShowHideButton").each(function(element) {
-        Event.observe(element, "click", this._toggleCommentShowHideButtonClickListener);
-    }.bind(this));
 
     switch (this._pageType) {
       case 'TEXT':
@@ -211,22 +207,6 @@ QueryBlockController = Class.create(BlockController, {
       commentsContainer.appear();
       commentsShowHideToggle.removeClassName("showIcon");
       commentsShowHideToggle.addClassName("hideIcon");
-    }
-  },
-  _onToggleCommentShowHideButtonClickListener: function (event) {
-    var element = Event.element(event);
-    Event.stop(event);
-
-    var commentContainer = element.up(".queryComment").down(".queryCommentContainerWrapper");
-
-    if (commentContainer.visible()) {
-      commentContainer.fade();
-      element.removeClassName("hideIcon");
-      element.addClassName("showIcon");
-    } else {
-      commentContainer.appear();
-      element.removeClassName("showIcon");
-      element.addClassName("hideIcon");
     }
   }
 });
@@ -1939,6 +1919,7 @@ QueryCommentsController = Class.create({
     this._commentShowLinkClickListener = this._onCommentShowLinkClick.bindAsEventListener(this); 
     this._commentDeleteLinkClickListener = this._onCommentDeleteLinkClick.bindAsEventListener(this); 
     this._newReplyCountInput = $('newRepliesCount');
+    this._toggleCommentShowHideButtonClickListener = this._onToggleCommentShowHideButtonClickListener.bindAsEventListener(this);
     
     var _this = this;
     $$('.queryCommentNewCommentLink').each(function (node) {
@@ -1960,6 +1941,11 @@ QueryCommentsController = Class.create({
     $$('.queryCommentDeleteCommentLink').each(function (node) {
       Event.observe(node, 'click', _this._commentDeleteLinkClickListener);
     });
+    
+    $$("div.queryCommentShowHideButton").each(function(node) {
+      Event.observe(node, "click", _this._toggleCommentShowHideButtonClickListener);
+    });
+    
   },
   deinitialize: function () {
 	var _this = this;
@@ -1981,6 +1967,10 @@ QueryCommentsController = Class.create({
 
     $$('.queryCommentDeleteCommentLink').each(function (node) {
       Event.stopObserving(node, 'click', _this._commentDeleteLinkClickListener);
+    });
+    
+    $$("div.queryCommentShowHideButton").each(function(node) {
+      Event.observe(node, "click", _this._toggleCommentShowHideButtonClickListener);
     });
   },
   _onNewCommentClick: function (event) {
@@ -2010,6 +2000,22 @@ QueryCommentsController = Class.create({
         childrenParent.show();
       }
     });
+  },
+  _onToggleCommentShowHideButtonClickListener: function (event) {
+    var element = Event.element(event);
+    Event.stop(event);
+
+    var commentContainer = element.up(".queryComment").down(".queryCommentContainerWrapper");
+
+    if (commentContainer.visible()) {
+      commentContainer.fade();
+      element.removeClassName("hideIcon");
+      element.addClassName("showIcon");
+    } else {
+      commentContainer.appear();
+      element.removeClassName("showIcon");
+      element.addClassName("hideIcon");
+    }
   },
   _onReplyClick: function (event) {
     Event.stop(event);
@@ -2072,7 +2078,9 @@ QueryCommentsController = Class.create({
         _this._createCommentLinks(newCommentMeta);
         
         newComment.appendChild(newCommentAnchor);
-        newComment.appendChild(newCommentHideShowButton);
+        
+        newComment.appendChild(newCommentHideShowButton); 
+        
         newComment.appendChild(newCommentHeader);
         newComment.appendChild(newCommentWrapper);
         
@@ -2087,6 +2095,8 @@ QueryCommentsController = Class.create({
         var childrenParent = $('queryCommentChildren.' + parentCommentId);
         if (childrenParent)
           childrenParent.appendChild(newComment);
+        
+        Event.observe(newCommentHideShowButton, "click", _this._toggleCommentShowHideButtonClickListener);
 
         Event.stopObserving(newCommentElement.down("input"), 'click', _this._saveCommentReplyClickListener);
         newCommentElement.remove();
