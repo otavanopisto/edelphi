@@ -41,12 +41,14 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
 import fi.internetix.edelphi.dao.panels.PanelStampDAO;
+import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionMultiOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionNumericAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionGroupOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.domainmodel.panels.PanelStamp;
+import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionComment;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionMultiOptionAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionNumericAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionOptionAnswer;
@@ -60,11 +62,35 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOptionGroup;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReplyFilter;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageComment;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.smvc.controllers.RequestContext;
 import fi.internetix.smvc.logging.Logging;
 
 public class ReportUtils {
+  
+  public static void appendComments(QueryReportPage reportPage, QueryPage queryPage, ReportContext reportContext) {
+    PanelStampDAO panelStampDAO = new PanelStampDAO();
+    QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
+    PanelStamp panelStamp = panelStampDAO.findById(reportContext.getPanelStampId());
+    
+    List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, reportContext);
+    List<QueryQuestionComment> comments = queryQuestionCommentDAO.listByQueryPageAndStamp(queryPage, panelStamp);
+    for (QueryQuestionComment comment : comments) {
+      // Root comments
+      QueryReportPageComment reportComment = new QueryReportPageComment(comment.getQueryReply().getId(), comment.getComment(), comment.getLastModified());
+      reportComment.setFiltered(!queryReplies.contains(comment.getQueryReply()));
+      reportPage.addComment(reportComment);
+      // Replies
+      List<QueryQuestionComment> replies = queryQuestionCommentDAO.listByParentCommentAndArchived(comment, Boolean.FALSE);
+      for (QueryQuestionComment reply : replies) {
+        QueryReportPageComment commentReply = new QueryReportPageComment(reply.getQueryReply().getId(), reply.getComment(), reply.getLastModified());
+        commentReply.setFiltered(!queryReplies.contains(reply.getQueryReply()));
+        reportComment.addReply(commentReply);
+      }
+    }
+  }
 
   public static List<QueryReply> getQueryReplies(QueryPage queryPage, ReportContext reportContext) {
     List<QueryReplyFilter> filters = QueryReplyFilter.parseFilters(reportContext.getFilters());

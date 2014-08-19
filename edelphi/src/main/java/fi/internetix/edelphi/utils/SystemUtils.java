@@ -73,7 +73,11 @@ public class SystemUtils {
       System.out.print((methodMs.get(method) / methodCount.get(method)));
       System.out.println("ms avg");
     }
-    
+    if (reset) {
+      lastStart.clear();
+      methodMs.clear();
+      methodCount.clear();
+    }
   }
   
   private static HashMap<String, Long> lastStart = new HashMap<String,Long>();

@@ -2,16 +2,19 @@ package fi.internetix.edelphi.query.thesis;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionOptionGroupOptionAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldOptionDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryOptionFieldOptionGroupDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
+import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionComment;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionOptionGroupOptionAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
@@ -20,6 +23,7 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOptionGroup;
 import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.domainmodel.users.User;
+import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.query.QueryExportContext;
 import fi.internetix.edelphi.query.QueryOption;
 import fi.internetix.edelphi.query.QueryOptionEditor;
@@ -217,6 +221,7 @@ public class GroupingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
   @Override
   public void exportData(QueryExportContext exportContext) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
+    QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
     QueryOptionFieldOptionGroupDAO queryOptionFieldOptionGroupDAO = new QueryOptionFieldOptionGroupDAO();
     QueryQuestionOptionGroupOptionAnswerDAO queryQuestionOptionGroupOptionAnswerDAO = new QueryQuestionOptionGroupOptionAnswerDAO();
 
@@ -224,10 +229,13 @@ public class GroupingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
     QueryPage queryPage = exportContext.getQueryPage();
     QueryOptionField queryField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName());
     List<QueryOptionFieldOptionGroup> fieldGroups = queryOptionFieldOptionGroupDAO.listByQueryField(queryField);
+
+    Messages messages = Messages.getInstance();
+    Locale locale = exportContext.getLocale();
     
     for (QueryOptionFieldOptionGroup fieldGroup : fieldGroups) {
       int columnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + fieldGroup.getName());
-      
+
       for (QueryReply queryReply : queryReplies) {
         List<QueryQuestionOptionGroupOptionAnswer> answers = queryQuestionOptionGroupOptionAnswerDAO.listByQueryReplyAndQueryFieldAndOptionFieldGroup(queryReply, queryField, fieldGroup);
         if (answers.size() > 0) {
@@ -248,6 +256,12 @@ public class GroupingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
         }
       }
     }    
+
+    int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment"));
+    for (QueryReply queryReply : queryReplies) {
+      QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+      exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+    }
   }
   
   @Override

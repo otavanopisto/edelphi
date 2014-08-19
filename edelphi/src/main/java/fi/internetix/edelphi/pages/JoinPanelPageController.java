@@ -21,7 +21,6 @@ import fi.internetix.edelphi.domainmodel.users.UserEmail;
 import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.utils.AuthUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
-import fi.internetix.edelphi.utils.UserUtils;
 import fi.internetix.smvc.Severity;
 import fi.internetix.smvc.SmvcRuntimeException;
 import fi.internetix.smvc.controllers.PageRequestContext;
@@ -131,13 +130,6 @@ public class JoinPanelPageController extends PageController {
       // Invitation was rejected
       
       panelInvitationDAO.updateState(panelInvitation, PanelInvitationState.DECLINED, null);
-      UserEmail userEmail = userEmailDAO.findByAddress(panelInvitation.getEmail());
-      if (userEmail != null) {
-        PanelUser panelUser = panelUserDAO.findByPanelAndUserAndStamp(panelInvitation.getPanel(), userEmail.getUser(), panelInvitation.getPanel().getCurrentStamp());
-        if (panelUser != null) {
-          UserUtils.archivePanelUser(panelUser, panelUser.getUser());
-        }
-      }
       pageRequestContext.getRequest().setAttribute("statusCode", EdelfoiStatusCode.OK);
       pageRequestContext.addMessage(Severity.INFORMATION, messages.getText(locale, "information.invitationDeclined"));
       pageRequestContext.setIncludeJSP("/jsp/pages/error.jsp");

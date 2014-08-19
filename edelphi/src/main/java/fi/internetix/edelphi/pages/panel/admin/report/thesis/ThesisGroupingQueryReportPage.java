@@ -26,9 +26,13 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOption;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryOptionFieldOptionGroup;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageComment;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageGrouping;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
+import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.edelphi.utils.QueryUtils;
 import fi.internetix.edelphi.utils.ReportUtils;
 import fi.internetix.edelphi.utils.RequestUtils;
@@ -57,6 +61,45 @@ public class ThesisGroupingQueryReportPage extends QueryReportPageController {
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
 
     return new ThesisGroupingQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_grouping.jsp", groups);
+  }
+
+  @Override
+  public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
+    QueryReportPageGrouping reportPage = new QueryReportPageGrouping(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/grouping.jsp");
+
+    reportPage.setDescription(QueryPageUtils.getSetting(queryPage, "thesis.description"));
+    reportPage.setThesis(QueryPageUtils.getSetting(queryPage, "thesis.text"));
+    ReportUtils.appendComments(reportPage, queryPage, reportContext);
+
+    // Add answers to comments and sort by them
+
+    QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
+    QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
+    QueryQuestionOptionGroupOptionAnswerDAO queryQuestionOptionGroupOptionAnswerDAO = new QueryQuestionOptionGroupOptionAnswerDAO();
+    QueryOptionFieldOptionGroupDAO queryOptionFieldOptionGroupDAO = new QueryOptionFieldOptionGroupDAO();
+    
+    QueryField queryField = queryFieldDAO.findByQueryPageAndName(queryPage, "grouping");
+    QueryOptionField queryOptionField = getOptionFieldFromGroupingPage(queryPage);
+    List<QueryOptionFieldOptionGroup> groups = queryOptionFieldOptionGroupDAO.listByQueryField(queryOptionField);
+    for (QueryOptionFieldOptionGroup group : groups) {
+      reportPage.addGroupId(group.getId());
+    }
+
+    List<QueryReportPageComment> comments = reportPage.getComments();
+    for (QueryReportPageComment comment : comments) {
+      QueryReply queryReply = queryReplyDAO.findById(comment.getReplyId());
+      List<QueryQuestionOptionGroupOptionAnswer> groupingAnswers = queryQuestionOptionGroupOptionAnswerDAO.listByQueryReplyAndQueryField(queryReply, queryField);
+      if (!groupingAnswers.isEmpty()) {
+        for (QueryQuestionOptionGroupOptionAnswer groupingAnswer : groupingAnswers) {
+          // TODO group order?
+          String groupName = groupingAnswer.getGroup().getName();
+          String optionName = groupingAnswer.getOption().getText();
+          comment.setAnswer(groupName, comment.getAnswer(groupName) != null ? comment.getAnswer(groupName) + ", " + optionName : optionName);
+        }
+      }
+    }
+    
+    return reportPage;
   }
 
   private QueryOptionField getOptionFieldFromGroupingPage(QueryPage queryPage) {

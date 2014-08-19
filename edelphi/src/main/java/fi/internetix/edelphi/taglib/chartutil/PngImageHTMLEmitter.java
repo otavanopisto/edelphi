@@ -26,16 +26,24 @@ public class PngImageHTMLEmitter implements ImageHTMLEmitter {
     this.height = height;
   }
 
+  public void setDynamicSize(boolean dynamicSize) {
+    this.dynamicSize = dynamicSize;
+  }
+
   public String generateHTML() throws BirtException {
     byte[] chartData = ChartModelProvider.getChartData(chartModel, "PNG");
-    
+
     StringBuilder dataUrlBuilder = new StringBuilder();
     dataUrlBuilder.append("data:image/png;base64,");
     dataUrlBuilder.append(Base64.encodeBase64String(chartData));
-    
+
     StringBuilder html = new StringBuilder();
-    html.append(String.format("<img src=\"%s\" style=\"width: %s; height: %s;\" width=\"%s\" height=\"%s\" border=\"%s\">", dataUrlBuilder.toString(), width, height, width, height,
-        0));
+    if (dynamicSize) {
+      html.append(String.format("<img src=\"%s\" width=\"100%%\">", dataUrlBuilder.toString()));
+    } else {
+      html.append(String.format("<img src=\"%s\" width=\"%s\" height=\"%s\">", dataUrlBuilder.toString(), width, height));
+
+    }
     html.append("<br/>");
     return html.toString();
   }
@@ -43,4 +51,5 @@ public class PngImageHTMLEmitter implements ImageHTMLEmitter {
   private Chart chartModel;
   private int width;
   private int height;
+  private boolean dynamicSize = false;
 }

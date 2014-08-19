@@ -30,6 +30,8 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.FormFieldAnswerBean;
 import fi.internetix.edelphi.pages.panel.admin.report.util.FormQueryReportPageData;
 import fi.internetix.edelphi.pages.panel.admin.report.util.OptionFieldAnswerBean;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageForm;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -107,6 +109,67 @@ public class FormQueryReportPage extends QueryReportPageController {
     });
 
     return new FormQueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/thesis_form.jsp", beans);
+  }
+
+  @Override
+  public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
+    QueryReportPageForm reportPage = new QueryReportPageForm(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/form.jsp");
+
+    // Form fields
+
+    QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
+    QueryQuestionTextAnswerDAO queryQuestionTextAnswerDAO = new QueryQuestionTextAnswerDAO();
+
+    String fieldsSetting = QueryPageUtils.getSetting(queryPage, "form.fields");
+    JSONArray fieldsJson = JSONArray.fromObject(fieldsSetting);
+    
+    JSONObject fieldJson = null;
+    List<FormFieldAnswerBean> fieldBeans = new ArrayList<FormFieldAnswerBean>();
+    for (int i = 0, l = fieldsJson.size(); i < l; i++) {
+      fieldJson = fieldsJson.getJSONObject(i);
+      FormFieldType fieldType = FormFieldType.valueOf(fieldJson.getString("type"));
+
+      String name = fieldJson.getString("name");
+      String fieldName = "form." + name;
+      
+      List<QueryReply> queryReplies = ReportUtils.getQueryReplies(queryPage, reportContext);
+
+      FormFieldAnswerBean fieldBean;
+      QueryField queryField = queryFieldDAO.findByQueryPageAndName(queryPage, fieldName);
+      if (queryField == null) {
+        throw new IllegalArgumentException("Field '" + fieldName + "' not found");
+      }
+      else {
+        switch (fieldType) {
+        case MEMO:
+        case TEXT:
+          for (QueryReply queryReply : queryReplies) {
+            QueryQuestionTextAnswer answer = queryQuestionTextAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryField);
+            if (answer != null && answer.getData() != null) {
+              fieldBean = new TextFieldAnswerBean(fieldType.toString(), queryField.getCaption(), answer.getData(), i, answer.getQueryReply().getId());
+              fieldBeans.add(fieldBean);
+            }
+          }
+          break;
+        case LIST:
+          QueryOptionField queryOptionField = (QueryOptionField) queryField;
+          fieldBean = new OptionFieldAnswerBean(fieldType.toString(), queryOptionField, i);
+          fieldBeans.add(fieldBean);
+          break;
+        }
+      }
+    }
+    Collections.sort(fieldBeans, new Comparator<FormFieldAnswerBean>() {
+      @Override
+      public int compare(FormFieldAnswerBean o1, FormFieldAnswerBean o2) {
+        return o1.getReplyId() == null || o2.getReplyId() == null || o1.getReplyId().equals(o2.getReplyId())
+            ? o1.getFieldIndex().compareTo(o2.getFieldIndex())
+            : o1.getReplyId().compareTo(o2.getReplyId());
+      }
+    });
+    reportPage.addFields(fieldBeans);
+
+    return reportPage;
   }
 
   @Override

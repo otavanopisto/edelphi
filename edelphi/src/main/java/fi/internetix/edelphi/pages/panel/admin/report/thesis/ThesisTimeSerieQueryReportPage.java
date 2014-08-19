@@ -22,6 +22,7 @@ import fi.internetix.edelphi.pages.panel.admin.report.util.ChartContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartDataSeries;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ChartModelProvider;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryFieldDataStatistics;
+import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPage;
 import fi.internetix.edelphi.pages.panel.admin.report.util.ReportContext;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageController;
 import fi.internetix.edelphi.pages.panel.admin.report.util.QueryReportPageData;
@@ -45,6 +46,15 @@ public class ThesisTimeSerieQueryReportPage extends QueryReportPageController {
     QueryUtils.appendQueryPageThesis(requestContext, queryPage);
     
     return new QueryReportPageData(queryPage, "/jsp/blocks/panel_admin_report/time_serie.jsp", null);
+  }
+
+  @Override
+  public QueryReportPage generateReportPage(RequestContext requestContext, ReportContext reportContext, QueryPage queryPage) {
+    QueryReportPage reportPage = new QueryReportPage(queryPage.getId(), queryPage.getTitle(), "/jsp/blocks/panel/admin/report/timeseries.jsp");
+    reportPage.setDescription(QueryPageUtils.getSetting(queryPage, "thesis.description"));
+    reportPage.setThesis(QueryPageUtils.getSetting(queryPage, "thesis.text"));
+    ReportUtils.appendComments(reportPage, queryPage, reportContext);
+    return reportPage;
   }
   
   @Override
