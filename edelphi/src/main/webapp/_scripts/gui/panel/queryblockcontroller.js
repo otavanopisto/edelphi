@@ -741,6 +741,7 @@ TimeLineQueryPageController = Class.create(QueryPageController, {
     this._min = this._timeLineController.getMin();
     this._max = this._timeLineController.getMax();
     this._step = this._timeLineController.getStep();
+    this._tickLabels = new Array();
     
     var liveReportContainer = this.getBlockElement().down('.queryLiveReportContainer');
     if (liveReportContainer) {
@@ -748,8 +749,10 @@ TimeLineQueryPageController = Class.create(QueryPageController, {
         this._liveReportController = new QueryBubbleChartLiveReportController("report_bubblechart", liveReportContainer, this._min, this._max, this._min, this._max);
         this._updateBubbleChartReport();
       } else {
-        var tickLabels = new Array();
-        this._liveReportController = new QueryBarChartLiveReportController("report_barchart", liveReportContainer, this._min, this._max, tickLabels);
+        for (var i = this._min; i <= this._max; i += this._step) {
+          this._tickLabels.push(i);
+        }
+        this._liveReportController = new QueryBarChartLiveReportController("report_barchart", liveReportContainer, 0, this._tickLabels.size() - 1, this._tickLabels);
         this._updateBarChartReport();
       }
     }
@@ -773,8 +776,8 @@ TimeLineQueryPageController = Class.create(QueryPageController, {
   _updateBarChartReport: function () {
     if (this._liveReportController) {
       var value = parseInt(this._value1);
-      for (var i = this._min, l = this._max + 1; i < l; i++) {
-        this._liveReportController.setUserData(i - this._min, value == i ? 1 : 0);
+      for (var i = 0; i < this._tickLabels.size(); i++) {
+        this._liveReportController.setUserData(i, value == this._tickLabels[i] ? 1 : 0);
       }
       this._liveReportController.draw();
     }

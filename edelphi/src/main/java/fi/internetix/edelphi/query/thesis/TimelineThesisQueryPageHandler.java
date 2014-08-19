@@ -297,7 +297,7 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
       int i = 0;
       for (double d = min; d <= max; d += step) {
         if (classifiedData.containsKey(d)) {
-          requiredFragment.addAttribute("name." + i, "reportValue." + String.valueOf(Math.round(d)));
+          requiredFragment.addAttribute("name." + i, "reportValue." + String.valueOf(i));
           requiredFragment.addAttribute("value." + i, classifiedData.containsKey(d) ? String.valueOf(classifiedData.get(d)) : "0");
         }
         i++;

@@ -72,6 +72,9 @@ public class ThesisTimelineQueryReportPage extends QueryReportPageController {
       QueryField yField = queryFieldDAO.findByQueryPageAndName(queryPage, "timeline.value2");
       List<Double> yValues = ReportUtils.getNumberFieldData(yField, queryReplies);
       for (int i = 0; i < xValues.size(); i++) {
+        if (xValues.get(i) == null || yValues.get(i) == null) {
+          continue;
+        }
         int x = (int) ((xValues.get(i) - min) / step);
         int y = (int) ((yValues.get(i) - min) / step);
         values[x][y] = new Double(values[x][y] != null ? values[x][y] + 1 : 1);
