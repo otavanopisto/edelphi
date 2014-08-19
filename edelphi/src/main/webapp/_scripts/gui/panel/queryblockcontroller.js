@@ -2124,13 +2124,11 @@ QueryCommentsController = Class.create({
     }
   },
   _onCommentEditLinkClick: function (event) {
-	  Event.stop(event);  
-	  
-    var linkElement = Event.element(event);
-    var commentElement = linkElement.up(".queryComment");
+    Event.stop(event);
+    var commentElement = Event.element(event).up(".queryComment");
     
     var oldEditor = commentElement.down(".editCommentEditor");
-    if ((oldEditor != undefined) && (oldEditor.parentNode == commentElement))
+    if ((oldEditor != undefined)  && (oldEditor.parentNode == commentElement.down(".queryCommentContainerWrapper")))
       return;
     
     var commentId = commentElement.down("input[name='commentId']").value;
