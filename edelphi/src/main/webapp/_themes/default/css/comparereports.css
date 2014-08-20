@@ -35,6 +35,7 @@ body {
   font-size:1.2em; /* Font baseline inherited from <body> font-size rule  */
   margin:0 0 20px 0;
   line-height:1.4em;
+  color:#fff;
 }
 
 .queryListingWrapper {
@@ -55,6 +56,7 @@ body {
   margin-bottom:5px;
   border-radius:2px;
   transition: background-color 0.5s ease-out;
+  color:#fff;
 }
 
 .queryListingWrapper .queryListingRow:hover {
