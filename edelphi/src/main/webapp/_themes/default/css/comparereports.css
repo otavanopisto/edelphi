@@ -113,6 +113,36 @@ body {
 
 /* COMPARE REPORTS RULES */
 
+.panel_admin_compare .GUI_pageWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1600px;
+  min-width: 1220px;
+  padding: 10px;
+  clear: both;
+}
+
+.panel_admin_compare .GUI_pageWrapper .block {
+  border: 0;
+  padding: 8px;
+  position: relative;
+  box-shadow: none;
+}
+
+.panel_admin_compare .GUI_pageWrapper .block div img {
+  margin-bottom: 4px;
+}
+
+.panel_admin_compare .selectedQueryReportContainer .queryReportPage .queryComment {
+  padding:10px 10px 10px 10px;
+}
+
+.panel_admin_compare .selectedQueryReportContainer .queryReportPage .queryComment div.queryCommentChildren div.queryComment {
+  margin-left: 5px;
+  margin-top: 4px;
+  padding: 0px 10px 0px 10px;
+} 
+
 .panel_admin_compare .GUI_pageContainer .pageTitle h1 {
   font-size:2.5em; /* Font baseline inherited from <body> font-size rule  */
   margin:0 0 20px 10px;
@@ -169,6 +199,7 @@ body {
   background:#4a88ab;
   display:inline-block;
   margin:0 5px 0 0;
+  text-align:left;
 }
 
 .panel_admin_compare .GUI_reportContainer .selectedQueryReportActions .selectedQueryReportActions-filters-icon {
@@ -311,4 +342,33 @@ body {
   text-align:center;
   background:#3fb2ff;
   color:#fff;
+}
+
+/* REPORT STYLES */
+
+.queryReportPage h2 { 
+  margin: 0px 0px 15px 0px;
+  padding: 0px 0px 0px 0px;
+  color:#0099ff;
+  font-size:2em;
+  text-transform:none;
+}
+
+.queryReportPage .queryReportThesis { 
+  font-weight:bold;
+  font-size:1.2em;
+  margin-bottom:20px;
+  color:#4c4c4c;
+}
+
+.queryReportPage .queryReportDescription { 
+  margin-bottom:20px;
+}
+ 
+.queryReportPage h2.querySubTitle {
+  border-bottom: 1px solid #DDE7ED;
+  color: #0099FF;
+  font-size: 1.35em;
+  padding: 20px 0 10px;
+  text-transform: uppercase;
 }

@@ -6026,5 +6026,24 @@ label.queryScaleSliderItemLabel {
   width:176px;
 }
 
+/* REPORT'S COMMENTS OVERRIDES - They differ from live query's comment section by removal of show/hide toggles and filter's menu */
 
- 
+#GUI_panelReportContainer .reportPage h2.queryCommentListSubTitle {
+  margin:0;
+}
+
+#GUI_panelReportContainer .reportPage .queryCommentList .queryCommentsShowHideToggle,
+#GUI_panelReportContainer .reportPage .queryCommentList .queryCommentsSortToggle,
+#GUI_panelReportContainer .reportPage .queryCommentList .queryComment .queryCommentShowHideButton {
+  display:none;
+}
+
+#GUI_panelReportContainer .reportPage .queryCommentList .queryComment {
+  padding:10px 10px 10px 10px;
+}
+
+#GUI_panelReportContainer .reportPage .queryCommentList .queryComment div.queryCommentChildren div.queryComment {
+  margin-left: 5px;
+  margin-top: 4px;
+  padding: 0px 10px 0px 10px;
+} 

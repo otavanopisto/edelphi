@@ -31,7 +31,7 @@
       
       <div class="panelAdminProcessRow">
         <div class="panelAdminGenericTitle"><a href="managepanelstamps.page?panelId=${panel.id}"><fmt:message key="panel.admin.dashboard.panelProcessPanelStampsAction" /></a></div>
-        <div class="panelAdminGenericDescription"><fmt:message key="panel.admin.dashboard.panelProcessPanelStampsAction" /></div>
+        <div class="panelAdminGenericDescription"><fmt:message key="panel.admin.dashboard.panelProcessPanelStampsDescription" /></div>
       </div>      
       
     </div>
