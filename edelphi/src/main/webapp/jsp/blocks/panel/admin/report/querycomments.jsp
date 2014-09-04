@@ -6,6 +6,11 @@
   pageContext.setAttribute("newLineChar", "\n");
 %>
 <c:set var="queryReportPage" value="${queryReportPages[param.pageNumber]}" />
+
+<c:if test="${fn:length(queryReportPage.comments) gt 0}">
+  <h2 class="querySubTitle queryCommentListSubTitle"><fmt:message key="panel.block.query.commentListTitle"></fmt:message></h2>
+</c:if>
+
 <div class="queryCommentsContainer">
   <c:forEach var="comment" items="${queryReportPage.comments}">
 
