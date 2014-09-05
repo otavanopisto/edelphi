@@ -42,7 +42,6 @@ public class ViewQueryReportPageController extends PanelPageController {
 
     ReportContext reportContext = null;
     String serializedContext = pageRequestContext.getString("serializedReportContext");
-    System.out.println("She be = " + serializedContext);
     try {
       ObjectMapper om = new ObjectMapper();
       byte[] serializedData = Base64.decodeBase64(serializedContext);
