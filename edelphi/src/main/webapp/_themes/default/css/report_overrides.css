@@ -19,3 +19,9 @@ body.queryReport .queryCommentList {
 body.queryReport h2.querySubTitle {
   border: 0px;
 }
+
+.queryCommentsShowHideToggle,
+.queryCommentsSortToggle,
+.queryCommentShowHideButton {
+  display:none;
+}
