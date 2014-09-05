@@ -38,6 +38,9 @@
               </select>
             </div>
             <div class="selectedQueryReportActions">
+            
+              <!-- Filters -->
+            
               <div class="selectedQueryReportActions-filters">
                 <div class="selectedQueryReportActions-filters-icon settingsIcon"></div>
                 <div class="selectedQueryReportActions-filters-container settingsContainer">
@@ -53,6 +56,9 @@
 
                 </div>
               </div>
+              
+              <!-- Exports -->
+              
               <div class="selectedQueryReportActions-exports">
                 <div class="selectedQueryReportActions-exports-icon settingsIcon"></div>
                 <div class="selectedQueryReportActions-exports-container settingsContainer">
@@ -64,19 +70,26 @@
               <div class="selectedQueryReportActions-settings">
                 <div class="selectedQueryReportActions-settings-icon settingsIcon"></div>
                 <div class="selectedQueryReportActions-settings-container settingsContainer">
-                  <h3>
-                    <fmt:message key="panel.admin.report.options.otherOptionsTitle" />
-                  </h3>
-                  <jsp:include page="/jsp/fragments/formfield_checkbox.jsp">
-                    <jsp:param name="name" value="show2dAs1d" />
-                    <jsp:param name="labelLocale" value="panel.admin.report.options.show2dAs1d" />
-                    <jsp:param name="value" value="true" />
-                  </jsp:include>
-
+                  <div class="otherOptionsContainer">
+                    <div class="otherOptions">
+                      <div class="queryOtherOptionsFilter">
+                        <h3>
+                          <fmt:message key="panel.admin.report.options.otherOptionsTitle" />
+                        </h3>
+                        <jsp:include page="/jsp/fragments/formfield_checkbox.jsp">
+                          <jsp:param name="name" value="show2dAs1d" />
+                          <jsp:param name="labelLocale" value="panel.admin.report.options.show2dAs1d" />
+                          <jsp:param name="value" value="true" />
+                        </jsp:include>
+                      </div>  
+                    </div>
+                  </div>
+                  
                   <jsp:include page="/jsp/fragments/formfield_button.jsp">
                     <jsp:param name="name" value="applySettings" />
                     <jsp:param name="labelLocale" value="panel.admin.report.options.filterTitle" />
                   </jsp:include>
+                  
                 </div>
               </div>
             </div>

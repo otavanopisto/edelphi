@@ -244,7 +244,7 @@ body {
   left:0;
   top:45px;
   right:0;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  box-shadow:0 15px 25px rgba(0,0,0,0.23);
   border-bottom:2px solid #ff944c;
   background:#f9fdff;
   padding:10px;
@@ -283,14 +283,32 @@ body {
   left:50%;
 }
 
-.reportOptions h3 {
-    background: none repeat scroll 0 0 #eaeaea;
-    color: #1e1e1e;
-    font-family: 'PT Sans',Verdana,sans-serif;
-    font-size: 1em;
-    margin: 0 0 10px;
-    padding: 4px 6px;
-    text-transform: uppercase;
+.reportOptions h3,
+.exportLinks h3,
+.otherOptions h3 {
+  background: none repeat scroll 0 0 #eaeaea;
+  color: #1e1e1e;
+  font-family: 'PT Sans',Verdana,sans-serif;
+  font-size: 1em;
+  margin: 0 0 10px;
+  padding: 4px 6px;
+  text-transform: uppercase;
+}
+
+.exportLinks h3 {
+    margin: 0 0 5px;
+}
+
+.reportOptions .queryStampsFilter,
+.reportOptions .queryPagesFilter,
+.reportOptions .queryExpertiseFilter,
+.reportOptions .queryBackgroundFilter,
+.reportOptions .queryUsergroupsFilter,
+.exportLinks .queryExportLinksContent,
+.exportLinks .queryExportLinksCharts,
+.exportLinks .queryExportLinksData,
+.otherOptions .queryOtherOptionsFilter {
+  margin-bottom:10px;
 }
 
 .queryExpertiseFilter table {
@@ -342,6 +360,36 @@ body {
   text-align:center;
   background:#3fb2ff;
   color:#fff;
+}
+
+.queryOptionsBackgroundListWrapper {
+  margin-bottom: 5px;
+  width: 48%;
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.queryOptionsListWrapper {
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.queryOptionsLinkWrapper {
+  margin-bottom: 5px;
+  margin-left: 8px;
+}
+
+.queryOptionsListCaption {
+  text-transform: uppercase;
+  font-size: 0.9em;
+  padding:0 0 0 2px;
+}
+
+.queryUsergroupsFilter .formFieldContainer,
+.queryOtherOptionsFilter .formFieldContainer {
+  display:inline-block;
+  margin:5px 10px 5px 5px;
 }
 
 /* REPORT STYLES */
