@@ -5,10 +5,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<input type="hidden" name="serializedContext" value="${serializedReportContext}"/>
 <c:set var="pageNumber" value="0"/>
 <c:forEach var="page" items="${queryReportPages}">
   <div class="queryReportPage">
+    <input type="hidden" name="queryPageId" value="${page.queryPageId}"/>
     <jsp:include page="${page.jspFile}">
       <jsp:param name="pageNumber" value="${pageNumber}"/>
     </jsp:include>

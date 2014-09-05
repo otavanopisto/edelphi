@@ -132,6 +132,36 @@ CompareReportsBlockController = Class.create(BlockController, {
     while (reportContainer.firstChild) {
       reportContainer.removeChild(reportContainer.firstChild);
     }
+    
+    // Create the report page containers
+    
+    var formName = settingsForm.name;
+    for (var i = 1; i < settingsForm.queryPageId.length; i++) {
+      var pageDiv = new Element('div');
+      pageDiv.id = formName + '-reportPage-' + settingsForm.queryPageId.options[i].value;
+      reportContainer.appendChild(pageDiv);
+    }
+    
+    // Serialize the report context
+    
+    var _this = this;
+    new Ajax.Request(CONTEXTPATH + '/panel/admin/report/serializereportcontext.json', {
+      method: "POST",
+      parameters: settingsForm.serialize(),
+      onSuccess : function(response) {
+        var json = response.responseText.evalJSON();
+        _this._loadReport(settingsForm, json['serializedReportContext']);
+      }
+    });
+  },
+  _loadReport: function(settingsForm, serializedReportContext) {
+
+    // Prepare the variables for export links creation
+
+    var panelId = settingsForm.panelId.value;
+    var queryId = settingsForm.queryId.value;
+    var queryPageId = settingsForm.queryPageId.value;
+    var stampId = settingsForm.stampId.value;
 
     // Either do full report, page by page, or just a single page
     
@@ -140,21 +170,20 @@ CompareReportsBlockController = Class.create(BlockController, {
         settingsForm.queryPageId.value = settingsForm.queryPageId.options[i].value;
         new Ajax.Request(CONTEXTPATH + '/panel/admin/report/viewqueryreport.page', {
           method: "POST",
-          asynchronous: false,
-          parameters: settingsForm.serialize(),
+          parameters: {
+            panelId: panelId,
+            queryId : settingsForm.queryId.value,
+            queryPageId : settingsForm.queryPageId.value,
+            serializedReportContext : serializedReportContext
+          },
           onSuccess : function(response) {
 
-            // Append report
-            
+            // Append the page to its container
+
             var div = new Element('div');
             div.innerHTML = response.responseText;
-            
-            // Each page comes with serializedContext but we only need it once
-            
-            if (settingsForm.serializedContext != undefined) {
-              div.removeChild(div.down('input[name="serializedContext"]'));
-            }
-            reportContainer.appendChild(div);
+            var queryPageId = div.down("input[name='queryPageId']").value;
+            $(settingsForm.name + '-reportPage-' + queryPageId).appendChild(div);
           }
         });
       }
@@ -163,28 +192,34 @@ CompareReportsBlockController = Class.create(BlockController, {
     else {
       new Ajax.Request(CONTEXTPATH + '/panel/admin/report/viewqueryreport.page', {
         method: "POST",
-        asynchronous: false,
-        parameters: settingsForm.serialize(),
+        parameters: {
+          panelId: panelId,
+          queryId : settingsForm.queryId.value,
+          queryPageId : settingsForm.queryPageId.value,
+          serializedReportContext : serializedReportContext
+        },
         onSuccess : function(response) {
-
-          // Append report
+          
+          // Append the page to its container
           
           var div = new Element('div');
           div.innerHTML = response.responseText;
-          reportContainer.appendChild(div);
+          var queryPageId = div.down("input[name='queryPageId']").value;
+          $(settingsForm.name + '-reportPage-' + queryPageId).appendChild(div);
         }
       });
     }
+    
     // Recreate export links
+    
     new Ajax.Request(CONTEXTPATH + '/panel/admin/report/exportlinks.page', {
       method: "POST",
-      asynchronous: false,
       parameters: {
-        panelId: settingsForm.panelId.value,
-        queryId : settingsForm.queryId.value,
-        queryPageId : settingsForm.queryPageId.value,
-        stampId : settingsForm.stampId.value,
-        serializedContext : settingsForm.serializedContext.value
+        panelId: panelId,
+        queryId : queryId,
+        queryPageId : queryPageId,
+        stampId : stampId,
+        serializedReportContext : serializedReportContext
       },
       onSuccess : function(response) {
         // Add report
@@ -211,7 +246,6 @@ CompareReportsBlockController = Class.create(BlockController, {
     var queryDropdown = settingsForm.down('select[name="queryId"]');
     new Ajax.Request(CONTEXTPATH + '/panel/admin/report/reportoptions.page', {
       method: "GET",
-      asynchronous: false,
       parameters: {
         panelId: settingsForm.panelId.value,
         queryId: queryDropdown.value,
