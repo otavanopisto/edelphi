@@ -54,8 +54,10 @@ CompareReportsBlockController = Class.create(BlockController, {
     Event.stop(event);
     var queryDropdown = event.target;
     var settingsForm = queryDropdown.up('form');
-    queryDropdown.blur();
-    this._loadQueryOptions(settingsForm, true);
+    if (settingsForm.queryId.value > 0) {
+      queryDropdown.blur();
+      this._loadQueryOptions(settingsForm, true);
+    }
   },
   _onStampChanged: function (event) {
     Event.stop(event);

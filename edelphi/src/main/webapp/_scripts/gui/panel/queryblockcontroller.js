@@ -8,7 +8,8 @@ QueryBlockController = Class.create(BlockController, {
     this._skipButtonClickListener = this._onSkipButtonClick.bindAsEventListener(this);
     this._skipLastButtonClickListener = this._onSkipLastButtonClick.bindAsEventListener(this);
     this._toggleCommentsClickListener = this._onToggleCommentsClickListener.bindAsEventListener(this);
-
+    this._sortCommentsAscendingTimeClickListener = this._onSortCommentsAscendingTimeClickListener.bindAsEventListener(this);
+    this._sortCommentsDescendingTimeClickListener = this._onSortCommentsDescendingTimeClickListener.bindAsEventListener(this);
     
     this._currentPage = 0;
     this._nextPageNumber = null;
@@ -57,6 +58,14 @@ QueryBlockController = Class.create(BlockController, {
 
     if (this._commentsHeaderToggle)
       Event.observe(this._commentsHeaderToggle, "click", this._toggleCommentsClickListener);
+    
+    this._sortTimeAscending = $('commentSortTimeAsc');
+    if (this._sortTimeAscending)
+      Event.observe(this._sortTimeAscending, "click", this._sortCommentsAscendingTimeClickListener);
+
+    this._sortTimeDescending = $('commentSortTimeDesc');
+    if (this._sortTimeDescending)
+      Event.observe(this._sortTimeDescending, "click", this._sortCommentsDescendingTimeClickListener);
 
     switch (this._pageType) {
       case 'TEXT':
@@ -106,6 +115,13 @@ QueryBlockController = Class.create(BlockController, {
       Event.stopObserving(this._skipButton, "click", this._skipButtonClickListener);
     if (this._skipLastButton)
       Event.stopObserving(this._skipLastButton, "click", this._skipLastButtonClickListener);
+    if (this._commentsHeaderToggle)
+      Event.stopObserving(this._commentsHeaderToggle, "click", this._toggleCommentsClickListener);
+    if (this._sortTimeAscending)
+      Event.stopObserving(this._sortTimeAscending, "click", this._sortCommentsAscendingTimeClickListener);
+    if (this._sortTimeDescending)
+      Event.stopObserving(this._sortTimeDescending, "click", this._sortCommentsDescendingTimeClickListener);
+   
   },
   _onNextButtonClick: function (event) {
     Event.stop(event);
@@ -208,6 +224,31 @@ QueryBlockController = Class.create(BlockController, {
       commentsShowHideToggle.removeClassName("showIcon");
       commentsShowHideToggle.addClassName("hideIcon");
     }
+  },
+  _onSortCommentsAscendingTimeClickListener: function (event) {
+    Event.stop(event);
+    this._sortComments(true);
+  },
+  _onSortCommentsDescendingTimeClickListener: function (event) {
+    Event.stop(event);
+    this._sortComments(false);
+  },
+  _sortComments: function(ascending) {
+    this.getBlockElement().select('.queryCommentsContainer>.queryComment').sort(function(a, b) {
+      var aId = 0;
+      a.select("input[name='commentId']").each(function (element) {
+        if (element.value > aId) {
+          aId = element.value;
+        }
+      });
+      var bId = 0;
+      b.select("input[name='commentId']").each(function (element) {
+        if (element.value > bId) {
+          bId = element.value;
+        }
+      });
+      return ascending ? bId - aId : aId - bId;
+    }).each(Element.prototype.appendChild, this.getBlockElement().down('.queryCommentsContainer'));    
   }
 });
 
