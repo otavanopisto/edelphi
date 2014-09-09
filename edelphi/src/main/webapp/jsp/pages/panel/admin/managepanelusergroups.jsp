@@ -39,9 +39,8 @@
       <div class="GUI_pageContainer">
       
         <jsp:include page="/jsp/fragments/page_title.jsp">
-			    <jsp:param value="panel.admin.managePanelUserGroups.pageTitle" name="titleLocale"/>
-          <jsp:param value="${panel.name}" name="titleLocaleParam"/>
-			  </jsp:include>
+          <jsp:param value="panel.admin.managePanelUserGroups.pageTitle" name="titleLocale"/>
+        </jsp:include>
 
         <div id="GUI_manageUsergroupsListColumn">
           <jsp:include page="/jsp/blocks/panel_admin/managepanelusergroups_listing.jsp"></jsp:include>

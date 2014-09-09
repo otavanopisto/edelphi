@@ -28,16 +28,21 @@
         <div class="panelAdminGenericTitle"><a href="queryresults.page?panelId=${panel.id}"><fmt:message key="panel.admin.dashboard.panelProcessQueryResultsAction" /></a></div>
         <div class="panelAdminGenericDescription"><fmt:message key="panel.admin.dashboard.panelProcessQueryResultsDescription" /></div>
       </div>
-      
+
       <div class="panelAdminProcessRow">
-        <div class="panelAdminGenericTitle"><a href="managepanelstamps.page?panelId=${panel.id}"><fmt:message key="panel.admin.dashboard.panelProcessPanelStampsAction" /></a></div>
-        <div class="panelAdminGenericDescription"><fmt:message key="panel.admin.dashboard.panelProcessPanelStampsDescription" /></div>
-      </div>      
+        <div class="panelAdminGenericTitle"><a href="comparereports.page?panelId=${panel.id}"><fmt:message key="panel.admin.dashboard.panelProcessCompareReportsAction" /></a></div>
+        <div class="panelAdminGenericDescription"><fmt:message key="panel.admin.dashboard.panelProcessCompareReportsDescription" /></div>
+      </div>
       
     </div>
     
     <div id="panelAdminDashboardProcessRightBlock">
     
+      <div class="panelAdminProcessRow">
+        <div class="panelAdminGenericTitle"><a href="managepanelstamps.page?panelId=${panel.id}"><fmt:message key="panel.admin.dashboard.panelProcessPanelStampsAction" /></a></div>
+        <div class="panelAdminGenericDescription"><fmt:message key="panel.admin.dashboard.panelProcessPanelStampsDescription" /></div>
+      </div>      
+
       <div class="panelAdminProcessRow">
         <div class="panelAdminGenericTitle"><a href="panelexperts.page?panelId=${panel.id}"><fmt:message key="panel.admin.dashboard.panelProcessQueryExpertsAction" /></a></div>
         <div class="panelAdminGenericDescription"><fmt:message key="panel.admin.dashboard.panelProcessQueryExpertsDescription" /></div>
