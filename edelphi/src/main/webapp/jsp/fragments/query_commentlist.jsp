@@ -31,12 +31,9 @@
         <span class="sortCommentsTextContainer"><fmt:message key="panel.block.query.commentSortLabel"></fmt:message></span>
         <div class="queryCommentsSortActionsContainer">
           <div class="commentsSortArrowTop"></div>
-          <div class="commentsSortSubTitle">Ajan mukaan</div>
-          <div class="commentsSortActionTitle">Uusin ylimpänä</div>
-          <div class="commentsSortActionTitle">Vanhin ylimpänä</div>
-          <div class="commentsSortSubTitle">Asteikon arvojen mukaan</div>
-          <div class="commentsSortActionTitle">+++ ylimpänä</div>
-          <div class="commentsSortActionTitle">--- ylimpänä</div>
+          <div class="commentsSortSubTitle"><fmt:message key="panel.block.query.commentSortTimeHeader"/></div>
+          <div id="commentSortTimeAsc" class="commentsSortActionTitle"><fmt:message key="panel.block.query.commentSortTimeAsc"/></div>
+          <div id="commentSortTimeDesc" class="commentsSortActionTitle"><fmt:message key="panel.block.query.commentSortTimeDesc"/></div>
         </div>
       </div>
       

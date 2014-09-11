@@ -54,8 +54,10 @@ CompareReportsBlockController = Class.create(BlockController, {
     Event.stop(event);
     var queryDropdown = event.target;
     var settingsForm = queryDropdown.up('form');
-    queryDropdown.blur();
-    this._loadQueryOptions(settingsForm, true);
+    if (settingsForm.queryId.value > 0) {
+      queryDropdown.blur();
+      this._loadQueryOptions(settingsForm, true);
+    }
   },
   _onStampChanged: function (event) {
     Event.stop(event);
@@ -113,6 +115,9 @@ CompareReportsBlockController = Class.create(BlockController, {
   },
   _onApplySettingsClicked: function (event) {
     Event.stop(event);
+    
+    document.body.style.cursor = 'wait';
+    
     var applyButton = event.target;
     var settingsForm = applyButton.up('form');
     
@@ -229,6 +234,8 @@ CompareReportsBlockController = Class.create(BlockController, {
         settingsForm.down('.selectedQueryReportActions-filters').show();
         settingsForm.down('.selectedQueryReportActions-exports').show();
         settingsForm.down('.selectedQueryReportActions-settings').show();
+
+        document.body.style.cursor = 'default';
       }
     });
   },
