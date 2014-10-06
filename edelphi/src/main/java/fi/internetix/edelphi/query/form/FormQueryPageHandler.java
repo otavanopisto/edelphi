@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +39,7 @@ import fi.internetix.edelphi.query.RequiredQueryFragment;
 import fi.internetix.edelphi.utils.QueryPageUtils;
 import fi.internetix.smvc.controllers.PageRequestContext;
 import fi.internetix.smvc.controllers.RequestContext;
+import fi.internetix.smvc.logging.Logging;
 
 public class FormQueryPageHandler extends AbstractQueryPageHandler {
 
@@ -124,27 +126,34 @@ public class FormQueryPageHandler extends AbstractQueryPageHandler {
         removedFields.add(queryField.getName());
       }
       
-      if (StringUtils.isNotBlank(fieldsSetting)) {
-        JSONArray fieldsJson = JSONArray.fromObject(fieldsSetting);
-        JSONObject fieldJson = null;
-        for (int i = 0, l = fieldsJson.size(); i < l; i++) {
-          fieldJson = fieldsJson.getJSONObject(i);
-          FormFieldType fieldType = FormFieldType.valueOf(fieldJson.getString("type"));
-          // TODO: mandatory
-          Boolean mandatory = Boolean.FALSE;
-          
-          switch (fieldType) {
-            case TEXT:
-              updateTextField(queryPage, removedFields, fieldJson, mandatory);
-            break;
-            case MEMO:
-              updateMemoField(queryPage, removedFields, fieldJson, mandatory);
-            break;
-            case LIST:
-              updateListField(queryPage, removedFields, fieldJson, mandatory);
-            break;
+      try {
+        if (StringUtils.isNotBlank(fieldsSetting)) {
+          JSONArray fieldsJson = JSONArray.fromObject(fieldsSetting);
+          JSONObject fieldJson = null;
+          for (int i = 0, l = fieldsJson.size(); i < l; i++) {
+            fieldJson = fieldsJson.getJSONObject(i);
+            FormFieldType fieldType = FormFieldType.valueOf(fieldJson.getString("type"));
+            // TODO: mandatory
+            Boolean mandatory = Boolean.FALSE;
+
+            switch (fieldType) {
+              case TEXT:
+                updateTextField(queryPage, removedFields, fieldJson, mandatory);
+                break;
+              case MEMO:
+                updateMemoField(queryPage, removedFields, fieldJson, mandatory);
+                break;
+              case LIST:
+                updateListField(queryPage, removedFields, fieldJson, mandatory);
+                break;
+            }
           }
         }
+      }
+      catch (JSONException e) {
+        Logging.logException(e);
+        Logging.logError("updatePageOptions: " + fieldsSetting);
+        throw e;
       }
       
       for (String removedField : removedFields) {
@@ -208,50 +217,57 @@ public class FormQueryPageHandler extends AbstractQueryPageHandler {
   }
 
   private void updateListField(QueryPage queryPage, List<String> removedFields, JSONObject fieldJson, Boolean mandatory) {
-    QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
-    QueryOptionFieldDAO queryOptionFieldDAO = new QueryOptionFieldDAO();
-    QueryOptionFieldOptionDAO queryOptionFieldOptionDAO = new QueryOptionFieldOptionDAO();
-    QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
+    try {
+      QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
+      QueryOptionFieldDAO queryOptionFieldDAO = new QueryOptionFieldDAO();
+      QueryOptionFieldOptionDAO queryOptionFieldOptionDAO = new QueryOptionFieldOptionDAO();
+      QueryQuestionOptionAnswerDAO queryQuestionOptionAnswerDAO = new QueryQuestionOptionAnswerDAO();
 
-    FormListField listField = new FormListField(fieldJson);
-    String fieldName = getFieldName(listField.getName());
-    
-    QueryOptionField queryListField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldName);
-    if (queryListField == null) {
-      queryListField = queryOptionFieldDAO.create(queryPage, fieldName, mandatory, listField.getCaption());
-    } else {
-      queryFieldDAO.updateCaption(queryListField, listField.getCaption());
-      queryFieldDAO.updateMandatory(queryListField, mandatory);
-      removedFields.remove(fieldName);
-    }
-    
-    List<String> removedOptions = new ArrayList<String>();
-    List<QueryOptionFieldOption> existingOptions = queryOptionFieldOptionDAO.listByQueryField(queryListField);
-    for (QueryOptionFieldOption fieldOption : existingOptions) {
-      removedOptions.add(fieldOption.getValue());
-    }
-    
-    for (FormListFieldOption option : listField.getOptions()) {
-      QueryOptionFieldOption fieldOption = queryOptionFieldOptionDAO.findByQueryFieldAndValue(queryListField, option.getValue());
-      if (fieldOption == null) {
-        queryOptionFieldOptionDAO.create(queryListField, option.getLabel(), option.getValue());
+      FormListField listField = new FormListField(fieldJson);
+      String fieldName = getFieldName(listField.getName());
+
+      QueryOptionField queryListField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldName);
+      if (queryListField == null) {
+        queryListField = queryOptionFieldDAO.create(queryPage, fieldName, mandatory, listField.getCaption());
       } else {
-        queryOptionFieldOptionDAO.updateText(fieldOption, option.getLabel());
-        removedOptions.remove(fieldOption.getValue());
+        queryFieldDAO.updateCaption(queryListField, listField.getCaption());
+        queryFieldDAO.updateMandatory(queryListField, mandatory);
+        removedFields.remove(fieldName);
+      }
+
+      List<String> removedOptions = new ArrayList<String>();
+      List<QueryOptionFieldOption> existingOptions = queryOptionFieldOptionDAO.listByQueryField(queryListField);
+      for (QueryOptionFieldOption fieldOption : existingOptions) {
+        removedOptions.add(fieldOption.getValue());
+      }
+
+      for (FormListFieldOption option : listField.getOptions()) {
+        QueryOptionFieldOption fieldOption = queryOptionFieldOptionDAO.findByQueryFieldAndValue(queryListField, option.getValue());
+        if (fieldOption == null) {
+          queryOptionFieldOptionDAO.create(queryListField, option.getLabel(), option.getValue());
+        } else {
+          queryOptionFieldOptionDAO.updateText(fieldOption, option.getLabel());
+          removedOptions.remove(fieldOption.getValue());
+        }
+      }
+
+      for (String removedOption : removedOptions) {
+        QueryOptionFieldOption fieldOption = queryOptionFieldOptionDAO.findByQueryFieldAndValue(queryListField, removedOption);
+        if (fieldOption != null) {
+          long answerCount = queryQuestionOptionAnswerDAO.countByQueryOptionFieldOption(fieldOption);
+          if (answerCount == 0) {
+            queryOptionFieldOptionDAO.delete(fieldOption);
+          }
+          else {
+            queryOptionFieldOptionDAO.archive(fieldOption);
+          }
+        }
       }
     }
-    
-    for (String removedOption : removedOptions) {
-      QueryOptionFieldOption fieldOption = queryOptionFieldOptionDAO.findByQueryFieldAndValue(queryListField, removedOption);
-      if (fieldOption != null) {
-        long answerCount = queryQuestionOptionAnswerDAO.countByQueryOptionFieldOption(fieldOption);
-        if (answerCount == 0) {
-          queryOptionFieldOptionDAO.delete(fieldOption);
-        }
-        else {
-          queryOptionFieldOptionDAO.archive(fieldOption);
-        }
-      }
+    catch (JSONException e) {
+      Logging.logException(e);
+      Logging.logError("updateListField: " + (fieldJson == null ? "null" : fieldJson.toString()));
+      throw e;
     }
   }
 
