@@ -3202,7 +3202,7 @@ h2.querySubTitle.queryCommentListSubTitle {
 .queryBlock h2.querySubTitle .queryCommentsSortToggle .queryCommentsSortActionsContainer {
   position:absolute;
   right:0;
-  /*margin-top:7px;*/
+  top:32px;
   width:200px;
   border-radius:2px;
   background:#ffffff;
