@@ -150,12 +150,12 @@ public class ResourceDAO extends GenericDAO<Resource> {
   }
   
   // TODO: Rename
-  public Resource setArchived(Resource resource, Boolean archived, User modifier) {
-    return setUrlNameAndArchived(resource, resource.getUrlName(), archived, modifier);
+  public Resource updateArchived(Resource resource, Boolean archived, User modifier) {
+    return updateUrlNameAndArchived(resource, resource.getUrlName(), archived, modifier);
   }
 
   // TODO: Rename
-  public Resource setUrlNameAndArchived(Resource resource, String urlName, Boolean archived, User modifier) {
+  public Resource updateUrlNameAndArchived(Resource resource, String urlName, Boolean archived, User modifier) {
     EntityManager entityManager = getEntityManager();
     
     resource.setUrlName(urlName);

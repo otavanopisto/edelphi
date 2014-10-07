@@ -82,6 +82,7 @@ public class QueryDataUtils {
   }
 
   public static QueryReply findQueryReply(RequestContext requestContext, User loggedUser, Query query) {
+    PanelStamp panelStamp = RequestUtils.getActiveStamp(requestContext);
     QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
     QueryReply queryReply = null;
     Long queryReplyId = requestContext.getLong("queryReplyId");
@@ -91,7 +92,7 @@ public class QueryDataUtils {
     if (queryReplyId != null) {
       queryReply = queryReplyDAO.findById(queryReplyId);
       if (queryReply != null) {
-        if (queryReply.getArchived() == true) {
+        if (queryReply.getArchived() == true || queryReply.getStamp().getId() != panelStamp.getId()) {
           queryReply = null;
           clearQueryReplyId(requestContext.getRequest().getSession(), query);
         }
@@ -100,7 +101,7 @@ public class QueryDataUtils {
         }
       }
     }
-    return queryReplyDAO.findByUserAndQueryAndStamp(loggedUser, query, RequestUtils.getActiveStamp(requestContext));
+    return queryReplyDAO.findByUserAndQueryAndStamp(loggedUser, query, panelStamp);
   }
 
   public static byte[] exportQueryDataAsCSV(Locale locale, ReplierExportStrategy replierExportStrategy, List<QueryReply> replies, Query query, PanelStamp panelStamp) throws IOException {

@@ -44,6 +44,6 @@ public class ArchiveResourceJSONRequestController extends JSONController {
     User loggedUser = userDAO.findById(jsonRequestContext.getLoggedUserId());
 
     String urlName = resource.getId() + "." + resource.getUrlName();
-    resourceDAO.setUrlNameAndArchived(resource, urlName, Boolean.TRUE, loggedUser);
+    resourceDAO.updateUrlNameAndArchived(resource, urlName, Boolean.TRUE, loggedUser);
   }
 }

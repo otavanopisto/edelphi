@@ -147,13 +147,15 @@ public class ViewQueryPageController extends PanelPageController {
 
       QueryReply queryReply = null;
 
-      if (query.getState() == QueryState.ACTIVE) {
-        queryReply = QueryDataUtils.findQueryReply(pageRequestContext, loggedUser, query);
-        if (queryReply == null) {
-          QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
-          queryReply = queryReplyDAO.create(loggedUser, query, panel.getCurrentStamp(), loggedUser);
+      synchronized (this) {
+        if (query.getState() == QueryState.ACTIVE) {
+          queryReply = QueryDataUtils.findQueryReply(pageRequestContext, loggedUser, query);
+          if (queryReply == null) {
+            QueryReplyDAO queryReplyDAO = new QueryReplyDAO();
+            queryReply = queryReplyDAO.create(loggedUser, query, panel.getCurrentStamp(), loggedUser);
+          }
+          QueryDataUtils.storeQueryReplyId(pageRequestContext.getRequest().getSession(), queryReply);
         }
-        QueryDataUtils.storeQueryReplyId(pageRequestContext.getRequest().getSession(), queryReply);
       }
 
       Integer previousPageNumber = pageNumber - 1;
