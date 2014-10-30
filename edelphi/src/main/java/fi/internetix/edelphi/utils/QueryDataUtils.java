@@ -194,7 +194,7 @@ public class QueryDataUtils {
             // Convert cell value line breaks to spaces, as poor little Excel has trouble interpreting them correctly    
             // TODO This conversion could probably be avoided some way; OpenOffice/LibreOffice handle line breaks just fine  
             
-            csvWriter.write(String.valueOf(value).replace('\n', ' '));
+            csvWriter.write(String.valueOf(value).replace('\n', ' ').replace('\r', ' '));
           }
         }
       }
