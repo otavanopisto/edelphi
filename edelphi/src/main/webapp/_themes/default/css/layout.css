@@ -364,7 +364,7 @@ body.panel .GUI_breadcrumb {
   margin: 0px;
   position: relative;
   margin-bottom:20px;
-  min-height:400px;
+  min-height:500px;
 }
 
 .GUI_footer {
@@ -382,6 +382,18 @@ body.panel .GUI_breadcrumb {
   min-width: 960px;
   padding: 10px;
   min-height: 200px;
+}
+
+.GUI_footer_links_container a {
+  text-transform:uppercase;
+  color:#c9c9c9;
+  text-decoration:none;  
+  display:inline-block;
+  padding:5px 4px;
+}
+
+.GUI_footer_links_container a:hover {
+  color:#ffffff;
 }
 
 /*

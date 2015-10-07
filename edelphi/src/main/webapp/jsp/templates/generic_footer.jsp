@@ -6,4 +6,6 @@
 
   <div class="GUI_footer_links_container">
   
+    <a href="${pageContext.request.contextPath}/registerinfo.page"><fmt:message key="generic.footer.links.registerInformationLink"/></a>
+  
   </div>
