@@ -14,7 +14,7 @@
   <body class="environment index">
   
     <jsp:include page="/jsp/templates/index_header.jsp">
-      <jsp:param value="index" name="activeTrail"/>
+      <jsp:param value="registerinfo" name="activeTrail"/>
     </jsp:include>
   
     <div class="GUI_pageWrapper">
