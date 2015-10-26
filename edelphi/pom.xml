@@ -279,10 +279,10 @@ Delphi technique is used for bringing values, new viewpoints and ideas as a foun
     	<groupId>com.google.http-client</groupId>
     	<artifactId>google-http-client-jackson</artifactId>
     </dependency>
-    <dependency>
-  	  <groupId>org.codehaus.groovy.modules.http-builder</groupId>
-	  <artifactId>http-builder</artifactId>
-    </dependency>
+<!--     <dependency> -->
+<!--   	  <groupId>org.codehaus.groovy.modules.http-builder</groupId> -->
+<!-- 	  <artifactId>http-builder</artifactId> -->
+<!--     </dependency> -->
     <dependency>
     	<groupId>hanjava.net</groupId>
     	<artifactId>svg2emf</artifactId>
