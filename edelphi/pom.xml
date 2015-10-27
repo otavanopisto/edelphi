@@ -10,7 +10,7 @@ Delphi technique is used for bringing values, new viewpoints and ideas as a foun
   <parent>
     <groupId>fi.internetix.edelphi</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.13-SNAPSHOT</version>    
+    <version>1.0.13</version>    
     <relativePath>../pom.xml</relativePath>
   </parent>
   

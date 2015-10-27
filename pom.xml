@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>fi.internetix.edelphi</groupId>
   <artifactId>parent</artifactId>
-  <version>1.0.13-SNAPSHOT</version>
+  <version>1.0.13</version>
   <packaging>pom</packaging>
   <url>https://github.com/otavanopisto/edelphi</url>  
   
@@ -77,7 +77,7 @@
       <dependency>
         <groupId>fi.internetix.smvcj</groupId>
         <artifactId>smvcj</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.3</version>
       </dependency>
 
       <dependency>
