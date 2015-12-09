@@ -15,11 +15,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
 import fi.internetix.edelphi.dao.querydata.QueryQuestionAnswerDAO;
+import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionNumericAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryNumericFieldDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
+import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionComment;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionNumericAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
@@ -334,6 +336,7 @@ public class TimeSerieThesisQueryPageHandler extends AbstractThesisQueryPageHand
   public void exportData(QueryExportContext exportContext) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryQuestionNumericAnswerDAO queryQuestionNumericAnswerDAO = new QueryQuestionNumericAnswerDAO();
+    QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
 
     List<QueryReply> queryReplies = exportContext.getQueryReplies();
     
@@ -356,14 +359,25 @@ public class TimeSerieThesisQueryPageHandler extends AbstractThesisQueryPageHand
         String fieldName = getFieldName(x);
 
         QueryNumericField queryNumericField = (QueryNumericField) queryFieldDAO.findByQueryPageAndName(queryPage, fieldName);
+
         
         int columnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + queryNumericField.getCaption());
+        
         for (QueryReply queryReply : queryReplies) {
           QueryQuestionNumericAnswer answer = queryQuestionNumericAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryNumericField);
           if (answer != null && answer.getData() != null)
             exportContext.addCellValue(queryReply, columnIndex, answer.getData());
         }
       }
+
+      Messages messages = Messages.getInstance();
+      Locale locale = exportContext.getLocale();
+      int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")); 
+      for (QueryReply queryReply : queryReplies) {
+        QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+        exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      }
+
     }
   }
   
