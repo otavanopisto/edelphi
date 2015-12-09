@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 
+import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionNumericAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryNumericFieldDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
+import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionComment;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionNumericAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
@@ -21,6 +24,7 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryNumericField;
 import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.domainmodel.users.User;
+import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.query.QueryExportContext;
 import fi.internetix.edelphi.query.QueryOption;
 import fi.internetix.edelphi.query.QueryOptionEditor;
@@ -199,12 +203,17 @@ public class OrderingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
   @Override
   public void exportData(QueryExportContext exportContext) {
     QueryQuestionNumericAnswerDAO queryQuestionNumericAnswerDAO = new QueryQuestionNumericAnswerDAO();
+    QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
     
     List<QueryReply> queryReplies = exportContext.getQueryReplies();
     
     QueryPage queryPage = exportContext.getQueryPage();
+
+    Messages messages = Messages.getInstance();
+    Locale locale = exportContext.getLocale();
     
     int columnIndex = exportContext.addColumn(queryPage.getTitle());
+    int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")); 
     
     for (QueryReply queryReply : queryReplies) {
       List<QueryQuestionNumericAnswer> answers = queryQuestionNumericAnswerDAO.listByQueryReplyAndQueryPageOrderByData(queryReply, queryPage);
@@ -218,6 +227,9 @@ public class OrderingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
       }
 
       exportContext.addCellValue(queryReply, columnIndex, cellValueBuilder.toString());
+
+      QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+      exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
     }
   }
   

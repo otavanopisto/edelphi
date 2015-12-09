@@ -2,16 +2,19 @@ package fi.internetix.edelphi.query.thesis;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
 import fi.internetix.edelphi.dao.querydata.QueryQuestionAnswerDAO;
+import fi.internetix.edelphi.dao.querydata.QueryQuestionCommentDAO;
 import fi.internetix.edelphi.dao.querydata.QueryQuestionNumericAnswerDAO;
 import fi.internetix.edelphi.dao.querydata.QueryReplyDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryFieldDAO;
 import fi.internetix.edelphi.dao.querymeta.QueryNumericFieldDAO;
 import fi.internetix.edelphi.dao.users.UserDAO;
+import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionComment;
 import fi.internetix.edelphi.domainmodel.querydata.QueryQuestionNumericAnswer;
 import fi.internetix.edelphi.domainmodel.querydata.QueryReply;
 import fi.internetix.edelphi.domainmodel.querylayout.QueryPage;
@@ -19,6 +22,7 @@ import fi.internetix.edelphi.domainmodel.querymeta.QueryField;
 import fi.internetix.edelphi.domainmodel.querymeta.QueryNumericField;
 import fi.internetix.edelphi.domainmodel.resources.Query;
 import fi.internetix.edelphi.domainmodel.users.User;
+import fi.internetix.edelphi.i18n.Messages;
 import fi.internetix.edelphi.query.QueryExportContext;
 import fi.internetix.edelphi.query.QueryOption;
 import fi.internetix.edelphi.query.QueryOptionEditor;
@@ -198,6 +202,7 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
   public void exportData(QueryExportContext exportContext) {
     QueryFieldDAO queryFieldDAO = new QueryFieldDAO();
     QueryQuestionNumericAnswerDAO queryQuestionNumericAnswerDAO = new QueryQuestionNumericAnswerDAO();
+    QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
     
     QueryPage queryPage = exportContext.getQueryPage();
     
@@ -209,6 +214,11 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
     
     if (queryField2 != null)
       columnIndex2 = exportContext.addColumn(queryPage.getTitle() + "/" + queryField2.getCaption());
+
+    Messages messages = Messages.getInstance();
+    Locale locale = exportContext.getLocale();
+    
+    int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")); 
     
     List<QueryReply> queryReplies = exportContext.getQueryReplies();
     for (QueryReply queryReply : queryReplies) {
@@ -221,6 +231,9 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
       if ((answer2 != null) && (answer2.getData() != null)) {
         exportContext.addCellValue(queryReply, columnIndex2, Math.round(answer2.getData()));
       }
+
+      QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+      exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
     }
   }
   
