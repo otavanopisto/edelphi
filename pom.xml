@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>fi.internetix.edelphi</groupId>
   <artifactId>parent</artifactId>
-  <version>1.0.13</version>
+  <version>1.0.14-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://github.com/otavanopisto/edelphi</url>  
   
@@ -24,6 +24,7 @@
     <developerConnection>scm:git:git@github.com:otavanopisto/edelphi.git</developerConnection>
     <url>git@github.com:otavanopisto/edelphi.git</url>
     <connection>scm:git:git@github.com:otavanopisto/edelphi.git</connection>
+    <tag>HEAD</tag>
   </scm>
   
   <organization>
