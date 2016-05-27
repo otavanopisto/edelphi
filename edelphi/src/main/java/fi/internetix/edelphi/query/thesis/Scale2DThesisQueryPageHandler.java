@@ -177,6 +177,8 @@ public class Scale2DThesisQueryPageHandler extends AbstractScaleThesisQueryPageH
     
     QueryPage queryPage = exportContext.getQueryPage();
     
+    boolean commentable = Boolean.TRUE.equals(this.getBooleanOptionValue(queryPage,  getDefinedOption("thesis.commentable")));    
+    
     String fieldNameX = getFieldName("x");
     String fieldNameY = getFieldName("y");
     
@@ -188,7 +190,7 @@ public class Scale2DThesisQueryPageHandler extends AbstractScaleThesisQueryPageH
 
     int columnIndexX = exportContext.addColumn(queryPage.getTitle() + "/" + queryFieldX.getCaption());
     int columnIndexY = exportContext.addColumn(queryPage.getTitle() + "/" + queryFieldY.getCaption());
-    int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")); 
+    int commentColumnIndex = commentable ? exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")) : -1; 
     
     for (QueryReply queryReply : queryReplies) {
       QueryQuestionOptionAnswer answerX = queryQuestionOptionAnswerDAO.findByQueryReplyAndQueryField(queryReply, queryFieldX);
@@ -197,8 +199,10 @@ public class Scale2DThesisQueryPageHandler extends AbstractScaleThesisQueryPageH
       exportContext.addCellValue(queryReply, columnIndexX, answerX != null ? answerX.getOption().getText() : null);
       exportContext.addCellValue(queryReply, columnIndexY, answerY != null ? answerY.getOption().getText() : null);
 
-      QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
-      exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      if (commentable) {
+        QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+        exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      }
     }
   }
   
