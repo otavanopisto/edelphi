@@ -208,12 +208,14 @@ public class OrderingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
     List<QueryReply> queryReplies = exportContext.getQueryReplies();
     
     QueryPage queryPage = exportContext.getQueryPage();
-
+    
+    boolean commentable = Boolean.TRUE.equals(this.getBooleanOptionValue(queryPage,  getDefinedOption("thesis.commentable")));
+    
     Messages messages = Messages.getInstance();
     Locale locale = exportContext.getLocale();
     
     int columnIndex = exportContext.addColumn(queryPage.getTitle());
-    int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")); 
+    int commentColumnIndex = commentable ? exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")) : -1; 
     
     for (QueryReply queryReply : queryReplies) {
       List<QueryQuestionNumericAnswer> answers = queryQuestionNumericAnswerDAO.listByQueryReplyAndQueryPageOrderByData(queryReply, queryPage);
@@ -228,8 +230,10 @@ public class OrderingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
 
       exportContext.addCellValue(queryReply, columnIndex, cellValueBuilder.toString());
 
-      QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
-      exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      if (commentable) {
+        QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+        exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      }
     }
   }
   

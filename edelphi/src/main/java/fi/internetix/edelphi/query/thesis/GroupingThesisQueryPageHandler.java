@@ -229,7 +229,9 @@ public class GroupingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
     QueryPage queryPage = exportContext.getQueryPage();
     QueryOptionField queryField = (QueryOptionField) queryFieldDAO.findByQueryPageAndName(queryPage, getFieldName());
     List<QueryOptionFieldOptionGroup> fieldGroups = queryOptionFieldOptionGroupDAO.listByQueryField(queryField);
-
+    
+    boolean commentable = Boolean.TRUE.equals(this.getBooleanOptionValue(queryPage,  getDefinedOption("thesis.commentable")));
+    
     Messages messages = Messages.getInstance();
     Locale locale = exportContext.getLocale();
     
@@ -257,10 +259,12 @@ public class GroupingThesisQueryPageHandler extends AbstractScaleThesisQueryPage
       }
     }    
 
-    int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment"));
-    for (QueryReply queryReply : queryReplies) {
-      QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
-      exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+    if (commentable) {
+      int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment"));
+      for (QueryReply queryReply : queryReplies) {
+        QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+        exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      }
     }
   }
   
