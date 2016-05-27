@@ -206,6 +206,8 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
     
     QueryPage queryPage = exportContext.getQueryPage();
     
+    boolean commentable = Boolean.TRUE.equals(this.getBooleanOptionValue(queryPage,  getDefinedOption("thesis.commentable")));    
+    
     QueryNumericField queryField1 = (QueryNumericField) queryFieldDAO.findByQueryPageAndName(queryPage, TIMELINE_VALUE1);
     QueryNumericField queryField2 = (QueryNumericField) queryFieldDAO.findByQueryPageAndName(queryPage, TIMELINE_VALUE2);
     
@@ -218,7 +220,7 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
     Messages messages = Messages.getInstance();
     Locale locale = exportContext.getLocale();
     
-    int commentColumnIndex = exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")); 
+    int commentColumnIndex = commentable ? exportContext.addColumn(queryPage.getTitle() + "/" + messages.getText(locale, "panelAdmin.query.export.comment")) : -1; 
     
     List<QueryReply> queryReplies = exportContext.getQueryReplies();
     for (QueryReply queryReply : queryReplies) {
@@ -232,8 +234,10 @@ public class TimelineThesisQueryPageHandler extends AbstractThesisQueryPageHandl
         exportContext.addCellValue(queryReply, columnIndex2, Math.round(answer2.getData()));
       }
 
-      QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
-      exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      if (commentable) {
+        QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+        exportContext.addCellValue(queryReply, commentColumnIndex, comment != null ? comment.getComment() : null);
+      }
     }
   }
   

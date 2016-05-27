@@ -110,6 +110,17 @@ public class TextQueryPageHandler extends AbstractQueryPageHandler {
   
   @Override
   public void exportData(QueryExportContext exportContext) {
+    QueryQuestionCommentDAO queryQuestionCommentDAO = new QueryQuestionCommentDAO();
+    List<QueryReply> queryReplies = exportContext.getQueryReplies();
+    QueryPage queryPage = exportContext.getQueryPage();
+    boolean commentable = Boolean.TRUE.equals(this.getBooleanOptionValue(queryPage,  getDefinedOption("text.commentable")));
+    if (commentable) {
+      int columnIndex = exportContext.addColumn(queryPage.getTitle());
+      for (QueryReply queryReply : queryReplies) {
+        QueryQuestionComment comment = queryQuestionCommentDAO.findRootCommentByQueryReplyAndQueryPage(queryReply, queryPage);
+        exportContext.addCellValue(queryReply, columnIndex, comment != null ? comment.getComment() : null);
+      }
+    }
   }
 
   protected void renderCommentEditor(PageRequestContext requestContext, QueryPage queryPage, QueryReply queryReply) {
